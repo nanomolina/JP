@@ -3,10 +3,18 @@
     text-align: center;
 }
 
+body {
+    background-color: #e3e3e3;
+}
+
 footer {
   position: absolute;
   margin-top: 90px;
   bottom: 0;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.no-padding {
+    padding: 0;
 }
