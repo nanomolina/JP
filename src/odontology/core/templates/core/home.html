@@ -6,47 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-
-    <!--Fixed inverse navbar-->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ODONTOLOGIA</a>
-        </div>
-
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active" id="home">
-              <a href="#"><i class="fa fa-home"></i>&nbsp;Inicio</a>
-            </li>
-            <li id="about"><a href="#patient">Pacientes</a></li>
-            <li id="contact"><a  href="#register">Registros</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user"></i> {{ request.user.username}}
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'core:logout' %}">Cerrar cesi&oacute;n</a></li>
-              </ul>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-    </nav>
-    <!--End Fixed inverse navbar-->
-
+{{ block.super }}
     <!-- Page Content -->
     <div id="home-content">
       <!-- Marketing Icons Section -->
@@ -63,7 +23,7 @@
                   </div>
                   <div class="panel-body">
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                      <a href="#" class="btn btn-default">Learn More</a>
+                      <a href="{% url 'patient:list' %}" class="btn btn-default">Learn More</a>
                   </div>
               </div>
           </div>
@@ -92,7 +52,4 @@
       </div>
       <!-- /.row -->
     </div>
-
-</div>
-
 {% endblock %}

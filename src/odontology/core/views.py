@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render_to_response, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -37,6 +37,7 @@ def login_user(request):
 def home(request):
     return render_to_response(
         'core/home.html',
+        {'template': 'home'},
         RequestContext(request)
     )
 
