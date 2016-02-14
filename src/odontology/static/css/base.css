@@ -4,15 +4,15 @@
 }
 
 body {
-    /*background-color: #e3e3e3;*/
+    background-color: #e3e3e3;
 }
 
 footer {
-  position: absolute;
+  /*position: absolute;
   margin-top: 90px;
   bottom: 0;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 10px;*/
 }
 
 .no-padding {

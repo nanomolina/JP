@@ -2,5 +2,27 @@
     padding-top: 100px;
 }
 
-#list-patients {
+#list-patients .panel-body{
+    display: none;
+}
+
+#list-patients .panel-body > table {
+    margin-bottom: 0;
+}
+
+#paginator .pagination {
+    width: 20%;
+}
+
+#block-info {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.buttons {
+    margin-bottom: 20px;
+}
+
+#block-info {
+    margin-bottom: 0;
 }

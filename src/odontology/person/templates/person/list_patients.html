@@ -9,18 +9,19 @@
 {{ block.super }}
 {% include "person/_add_patient.html" %}
 
-<div class="row padding-top">
-  <p>
+<div class="row padding-top buttons">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar nuevo</button>
     <button type="button" class="btn btn-default">Eliminar</button>
-  </p>
+    {% if rec_added %}
+    <div id="block-info" class="alert alert-success pull-right" role="alert"><i class="fa fa-check-circle"></i> El paciente se a añadido correctamente</div>
+    {% endif %}
 </div>
 
 <div class="row" id="list-patients">
   <div class="panel panel-primary">
     <div class="panel-heading">Lista de pacientes</div>
-    <div class="panel-body no-padding" style="display: none;">
-      <table class="table table-bordered" style="margin-bottom: 0;">
+    <div class="panel-body no-padding">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>Apellido</th>
@@ -47,7 +48,7 @@
 </div>
 
 <div class="row"  id="paginator">
-    <select class="form-control pull-left pagination" style="width: 20%;">
+    <select class="form-control pull-left pagination">
       <option>10</option>
       <option>20</option>
       <option>50</option>
@@ -93,7 +94,7 @@
               data: data_form,
               success: function(data) {
                   if (data.status === 'OK') {
-                    location.href = "{% url 'person:patient_list'%}";
+                    location.href = "{% url 'person:patient_list'%}" + "?add=1";
                   } else {
                     $('#btn-save-patient').button('reset');
                     if (data.errors.first_name !== undefined) {

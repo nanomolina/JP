@@ -7,6 +7,7 @@ from person.forms import PatientForm
 
 def list_patients(request):
     if request.method == 'GET':
+        rec_added = request.GET.get('add', None)
         form = PatientForm()
         patients = Patient.objects.all()
         return render_to_response(
@@ -14,7 +15,8 @@ def list_patients(request):
             {
                 'template': 'patient',
                 'patient_form': form,
-                'patients': patients
+                'patients': patients,
+                'rec_added': rec_added
             },
             RequestContext(request)
         )
