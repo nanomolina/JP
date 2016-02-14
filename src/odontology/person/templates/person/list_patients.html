@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block links %}
+  {% load staticfiles %}
+  <link href="{% static 'css/list_patients.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+{% include "person/_add_patient.html" %}
+
+<div class="row padding-top">
+  <p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar nuevo</button>
+    <button type="button" class="btn btn-default">Eliminar</button>
+  </p>
+</div>
+
+<div class="row" id="list-patients">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Lista de pacientes</div>
+    <div class="panel-body no-padding" style="display: none;">
+      <table class="table table-bordered" style="margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>N&deg; Afiliado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr>
+            <td>{{patient.last_name}}</td>
+            <td>{{patient.first_name}}</td>
+            <td>{{patient.subsidiary_number}}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3" class="text-center">No hay ning&uacute;n paciente todav&iacute;a</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#list-patients').find('.panel-body').slideToggle();
+
+        $('#btn-save-patient').on('click', function(event) {
+            $('#btn-save-patient').button('loading')
+            var data_form = $('#patient-form').serialize();
+            $('#patient-form .form-group').removeClass('has-error');
+            $('#patient-form .form-group').find('.help-block').addClass('hidden');
+            $.ajax({
+              type: "POST",
+              url: "{% url 'person:patient_list' %}",
+              data: data_form,
+              success: function(data) {
+                  if (data.status === 'OK') {
+                    location.href = "{% url 'person:patient_list'%}";
+                  } else {
+                    $('#btn-save-patient').button('reset');
+                    if (data.errors.first_name !== undefined) {
+                        $('#patient-form .form-group').first().addClass('has-error');
+                        $('#patient-form .form-group').first().find('#helpBlock1').removeClass('hidden');
+                        $('#patient-form .form-group').first().find('#helpBlock1').text(data.errors.first_name[0]);
+                    }
+                    if (data.errors.last_name !== undefined) {
+                        $('#patient-form .form-group').first().next().addClass('has-error');
+                        $('#patient-form .form-group').first().next().find('#helpBlock2').removeClass('hidden');
+                        $('#patient-form .form-group').first().next().find('#helpBlock2').text(data.errors.last_name[0]);
+                    }
+                    if (data.errors.subsidiary_number !== undefined) {
+                        $('#patient-form .form-group').last().addClass('has-error');
+                        $('#patient-form .form-group').last().find('#helpBlock3').removeClass('hidden');
+                        $('#patient-form .form-group').last().find('#helpBlock3').text(data.errors.subsidiary_number[0]);
+                    }
+                  }
+              }
+            });
+        });
+    });
+
+</script>
+{%endblock%}

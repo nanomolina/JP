@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Agregar nuevo paciente</h4>
+      </div>
+      <form id="patient-form" method="POST" action=".">
+        {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group">
+              <label class="control-label" for="id_first_name">Nombre:</label>
+              {{patient_form.first_name}}
+              <span id="helpBlock1" class="help-block hidden"></span>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="id_last_name">Apellido:</label>
+              {{patient_form.last_name}}
+              <span id="helpBlock2" class="help-block hidden"></span>
+            </div>
+            <div class="form-group {% if patient_form.subsidiary_number.errors %}has-error{% endif %}">
+              <label class="control-label" for="id_subsidiary_number">N&uacute;mero de afiliado:</label>
+              {{patient_form.subsidiary_number}}
+              <span id="helpBlock3" class="help-block hidden"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" id="btn-save-patient" data-loading-text="Loading...">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
