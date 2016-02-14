@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'patient',
+    'person',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -58,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'templates', 'core/templates', 'patient/templates',
+            'templates', 'core/templates', 'person/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

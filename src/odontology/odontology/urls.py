@@ -22,5 +22,5 @@ handler404 = views.error404
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('core.urls', namespace='core')),
-    url(r'^patients/', include('patient.urls', namespace='patient'))
+    url(r'^persons/', include('person.urls', namespace='person'))
 ]

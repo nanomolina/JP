@@ -44,7 +44,7 @@
                 <a href="{% url 'core:home' %}"><i class="fa fa-home"></i>&nbsp;Inicio</a>
               </li>
               <li id="patient" {% if template == 'patient'%}class="active"{% endif %}>
-                <a href="{% url 'patient:list'%}">Pacientes</a>
+                <a href="{% url 'person:patient_list'%}">Pacientes</a>
               </li>
               <li id="register" {% if template == 'register'%}class="active"{% endif %}>
                 <a  href="#register">Registros</a>

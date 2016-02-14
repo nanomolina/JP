@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from patient.models import Patient
+from person.models import Patient
 
 
 class Fopc(models.Model):
@@ -9,4 +9,4 @@ class Fopc(models.Model):
 
 
 class Apross(models.Model):
-    pass
+    patient = models.ForeignKey(Patient)
