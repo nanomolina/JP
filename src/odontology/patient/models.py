@@ -13,5 +13,7 @@ class Clinic_history(models.Model):
 class Patient(models.Model):
     dentist = models.ForeignKey(User)
     clinic_history = models.OneToOneField(Clinic_history)
-    name = models.CharField(max_length=250)
+    first_name = models.CharField(max_length=250)
+    second_name = models.CharField(max_length=250, null=True, blank=True)
+    last_name = models.CharField(max_length=250, null=True, blank=True)
     subsidiary_num = models.PositiveIntegerField(unique=True)

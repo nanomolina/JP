@@ -1,7 +1,8 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import  render, render_to_response, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext
+from django.template import RequestContext, Context, loader
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 
 def login_user(request):
@@ -46,3 +47,9 @@ def home(request):
 def logout_user(request):
     logout(request)
     return redirect('core:login')
+
+
+def error404(request):
+     template = loader.get_template('404.html')
+     context = Context({'message': 'All: %s' % request,})
+     return HttpResponse(content=template.render(context), content_type='text/html; charset=utf-8', status=404)
