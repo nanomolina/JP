@@ -25,6 +25,9 @@ class Dentist(models.Model):
 GENDER = (
     (1, 'M'),(2, 'F')
 )
+BENEFIT_TYPE = (
+    (1, 'Apross'), (2, 'Fopc')
+)
 class Patient(models.Model):
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
@@ -32,6 +35,7 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=250)
     subsidiary_number = models.PositiveIntegerField("numero de afiliado", unique=True)
     date_created = models.DateField(auto_now_add=True)
+    benefit_type = models.IntegerField(choices=BENEFIT_TYPE)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
@@ -53,7 +57,7 @@ class Patient(models.Model):
         verbose_name_plural = "Pacientes"
 
     def __unicode__(self):
-        return "%s %s" % (self.last_name, self.first_name)
+        return "%s %s" % (self.first_name, self.last_name)
 
     @property
     def domicile(self):
@@ -62,3 +66,6 @@ class Patient(models.Model):
     @property
     def code(self):
         return "P%04d" % (self.id)
+
+    def get_full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)

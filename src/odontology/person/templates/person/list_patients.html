@@ -28,7 +28,7 @@
             <th>Apellido</th>
             <th>Nombre</th>
             <th>N&deg; Afiliado</th>
-            <th width="100">Perfil</th>
+            <th>Perfil</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
             <td>{{patient.first_name}}</td>
             <td>{{patient.subsidiary_number}}</td>
             <td>
-              <a href="{% url 'person:patient_profile' id=patient.id %}"type="button" class="btn btn-primary btn-xs" style="width: 100px">Info</a>
+              <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs" style="width: 100%">Info</a>
             </td>
           </tr>
           {% empty %}

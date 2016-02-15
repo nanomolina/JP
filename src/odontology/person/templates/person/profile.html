@@ -3,24 +3,25 @@
 {% block links %}
   {% load staticfiles %}
   <link href="{% static '' %}" rel="stylesheet">
+  <style media="screen">
+    .table {
+      margin-bottom: 0;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
 {{ block.super }}
 <div class="row padding-top">
   <div class="col-md-6">
-    <div class="panel panel-primary">
-      <div class="panel-heading">Informaci&oacute;n b&aacute;sica del paciente</div>
+    <div class="panel panel-primary" id="basic-info">
+      <div class="panel-heading"><strong>Paciente</strong> - Informaci&oacute;n b&aacute;sica</div>
       <div class="panel-body no-padding">
         <table class="table">
           <tbody>
             <tr>
               <th>Nombre<th/>
-              <td>{{ patient.first_name }}</td>
-            </tr>
-            <tr>
-              <th>Apellido<th/>
-              <td>{{ patient.last_name }}</td>
+              <td>{{ patient.get_full_name }}</td>
             </tr>
             <tr>
               <th>N&deg; Afiliado<th/>
@@ -33,9 +34,24 @@
   </div>
   <div class="col-md-6">
     <div class="panel panel-primary">
-      <div class="panel-heading">Informaci&oacute;n b&aacute;sica</div>
-      <div class="panel-body">
-        Panel content
+      <div class="panel-heading"><strong>Odont&oacute;logo</strong> - Informaci&oacute;n b&aacute;sica</div>
+      <div class="panel-body no-padding">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Nombre<th/>
+              <td>{{ dentist.user.get_full_name }}</td>
+            </tr>
+            <tr>
+              <th>C&iacute;rculo<th/>
+              <td>{{ dentist.circle }}</td>
+            </tr>
+            <tr>
+              <th>N&deg; de Matr&iacute;cula<th/>
+              <td>{{ dentist.register_number }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

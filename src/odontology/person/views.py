@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template import RequestContext
 from person.models import Patient, Dentist
@@ -32,14 +32,13 @@ def list_patients(request):
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
 def patient_profile(request, id):
-    try:
-        patient = Patient.objects.get(id=id)
-    except:
-        pass
+    dentist = Dentist.objects.get(user=request.user)
+    patient = get_object_or_404(Patient, id=id)
     return render_to_response(
         'person/profile.html',
         {
             'template': 'patient',
+            'dentist': dentist,
             'patient': patient
         },
         RequestContext(request)
