@@ -11,11 +11,16 @@ class Clinic_history(models.Model):
 
 
 class Dentist(models.Model):
-    first_name = models.CharField(max_length=250)
-    last_name = models.CharField(max_length=250, null=True, blank=True)
+    user = models.ForeignKey(User)
     circle = models.IntegerField()
     register_number = models.IntegerField()
 
+    class Meta:
+        verbose_name = "Odontologo"
+        verbose_name_plural = "Odontologos"
+
+    def __unicode__(self):
+        return "%s" % (self.user.get_full_name())
 
 GENDER = (
     (1, 'M'),(2, 'F')
@@ -46,6 +51,9 @@ class Patient(models.Model):
     class Meta:
         verbose_name = "Paciente"
         verbose_name_plural = "Pacientes"
+
+    def __unicode__(self):
+        return "%s %s" % (self.last_name, self.first_name)
 
     @property
     def domicile(self):

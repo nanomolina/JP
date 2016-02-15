@@ -1,15 +1,16 @@
 from django.shortcuts import render_to_response, redirect
 from django.http import JsonResponse
 from django.template import RequestContext
-from person.models import Patient
+from person.models import Patient, Dentist
 from person.forms import PatientForm
 
 
 def list_patients(request):
+    dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
         rec_added = request.GET.get('add', None)
         form = PatientForm()
-        patients = Patient.objects.all()
+        patients = Patient.objects.filter(dentist=dentist)
         return render_to_response(
             'person/list_patients.html',
             {
@@ -23,7 +24,9 @@ def list_patients(request):
     else:
         form = PatientForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_patient = form.save(commit=False)
+            new_patient.dentist = dentist
+            new_patient.save()
             return JsonResponse({'status': 'OK'})
         else:
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
