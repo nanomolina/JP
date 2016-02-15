@@ -27,3 +27,17 @@ def list_patients(request):
             return JsonResponse({'status': 'OK'})
         else:
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
+
+def patient_profile(request, id):
+    try:
+        patient = Patient.objects.get(id=id)
+    except:
+        pass
+    return render_to_response(
+        'person/profile.html',
+        {
+            'template': 'patient',
+            'patient': patient
+        },
+        RequestContext(request)
+    )

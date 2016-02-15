@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block links %}
+  {% load staticfiles %}
+  <link href="{% static '' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Informaci&oacute;n b&aacute;sica</div>
+      <div class="panel-body no-padding">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Nombre<th/>
+              <td>{{ patient.first_name }}</td>
+            </tr>
+            <tr>
+              <th>Apellido<th/>
+              <td>{{ patient.last_name }}</td>
+            </tr>
+            <tr>
+              <th>N&deg; Afiliado<th/>
+              <td>{{ patient.subsidiary_number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Informaci&oacute;n b&aacute;sica</div>
+      <div class="panel-body">
+        Panel content
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

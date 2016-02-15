@@ -18,16 +18,15 @@ class Dentist(models.Model):
 
 
 GENDER = (
-    (1, 'M'),
-    (2, 'F')
+    (1, 'M'),(2, 'F')
 )
-
 class Patient(models.Model):
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     subsidiary_number = models.PositiveIntegerField("numero de afiliado", unique=True)
+    date_created = models.DateField(auto_now_add=True)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
@@ -44,11 +43,14 @@ class Patient(models.Model):
     email = models.EmailField(null=True, blank=True)
     gender = models.IntegerField(choices=GENDER, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Paciente"
+        verbose_name_plural = "Pacientes"
 
     @property
     def domicile(self):
         return self.street + ', ' + str(self.number) + ', ' + self.suburb + ', ' + self.locality
 
-    class Meta:
-        verbose_name = "Paciente"
-        verbose_name_plural = "Pacientes"
+    @property
+    def code(self):
+        return "P%04d" % (self.id)

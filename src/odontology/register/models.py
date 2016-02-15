@@ -10,6 +10,7 @@ class Fopc(models.Model):
 
 class Apross(models.Model):
     patient = models.ForeignKey(Patient)
+    
     #--First page
     date = models.DateField(null=True, blank=True)
     managment_code1 = models.IntegerField(null=True, blank=True)

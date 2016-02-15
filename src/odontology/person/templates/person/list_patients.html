@@ -21,20 +21,26 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Lista de pacientes</div>
     <div class="panel-body no-padding">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Apellido</th>
             <th>Nombre</th>
             <th>N&deg; Afiliado</th>
+            <th width="100">Perfil</th>
           </tr>
         </thead>
         <tbody>
           {% for patient in patients %}
           <tr>
+            <td>{{patient.code}}
             <td>{{patient.last_name}}</td>
             <td>{{patient.first_name}}</td>
             <td>{{patient.subsidiary_number}}</td>
+            <td>
+              <a href="{% url 'person:patient_profile' id=patient.id %}"type="button" class="btn btn-primary btn-xs" style="width: 100px">Info</a>
+            </td>
           </tr>
           {% empty %}
           <tr>
@@ -101,16 +107,22 @@
                         $('#patient-form .form-group').first().addClass('has-error');
                         $('#patient-form .form-group').first().find('#helpBlock1').removeClass('hidden');
                         $('#patient-form .form-group').first().find('#helpBlock1').text(data.errors.first_name[0]);
+                    } else {
+                        $('#patient-form .form-group').first().addClass('has-success');
                     }
                     if (data.errors.last_name !== undefined) {
                         $('#patient-form .form-group').first().next().addClass('has-error');
                         $('#patient-form .form-group').first().next().find('#helpBlock2').removeClass('hidden');
                         $('#patient-form .form-group').first().next().find('#helpBlock2').text(data.errors.last_name[0]);
+                    } else {
+                        $('#patient-form .form-group').first().next().addClass('has-success');
                     }
                     if (data.errors.subsidiary_number !== undefined) {
                         $('#patient-form .form-group').last().addClass('has-error');
                         $('#patient-form .form-group').last().find('#helpBlock3').removeClass('hidden');
                         $('#patient-form .form-group').last().find('#helpBlock3').text(data.errors.subsidiary_number[0]);
+                    } else {
+                        $('#patient-form .form-group').last().addClass('has-success');
                     }
                   }
               }
