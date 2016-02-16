@@ -6,40 +6,63 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="modal-Label">Agregar registro de prestaci&oacute;n</h4>
       </div>
-      <form id="benefit-form" method="POST" action=".">
+      <form id="benefit-form" class="form-horizontal" role="form" method="POST" action=".">
         {% csrf_token %}
         <div class="modal-body">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
-            <div class="form-group">
-              <label class="control-label" for="id_date">Fecha:</label>
-              <div class='input-group date' id='datetimepicker1'>
-                  {{benefit_form.date}}
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
+
+            <div class="row">
+              <div class="col-xs-6">
+                  <label class="control-label" for="id_date">Fecha:</label>
               </div>
-              <span id="helpBlock1" class="help-block hidden"></span>
+              <div class="col-xs-6">
+                  <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
-              {{benefit_form.managment_code1}}
-              <span id="helpBlock2" class="help-block hidden"></span>
+
+            <div class="row" style="margin-bottom: 30px;">
+              <div class="col-xs-6">
+                  <div class='input-group date' id='datetimepicker1'>
+                      {{benefit_form.date}}
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+                  <span id="helpBlock1" class="help-block hidden"></span>
+              </div>
+              <div class="col-xs-6">
+                  {{benefit_form.rx_amount}}
+                  <span id="helpBlock5" class="help-block hidden"></span>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
-              {{benefit_form.managment_code2}}
-              <span id="helpBlock3" class="help-block hidden"></span>
+
+            <div class="row">
+              <div class="col-xs-4">
+                  <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
+              </div>
+              <div class="col-xs-4">
+                  <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
+              </div>
+              <div class="col-xs-4">
+                  <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
-              {{benefit_form.managment_code3}}
-              <span id="helpBlock4" class="help-block hidden"></span>
+
+            <div class="row">
+              <div class="col-xs-4">
+                  {{benefit_form.managment_code1}}
+                  <span id="helpBlock2" class="help-block hidden"></span>
+              </div>
+              <div class="col-xs-4">
+                  {{benefit_form.managment_code2}}
+                  <span id="helpBlock3" class="help-block hidden"></span>
+              </div>
+              <div class="col-xs-4">
+                  {{benefit_form.managment_code3}}
+                  <span id="helpBlock4" class="help-block hidden"></span>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
-              {{benefit_form.rx_amount}}
-              <span id="helpBlock5" class="help-block hidden"></span>
-            </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
