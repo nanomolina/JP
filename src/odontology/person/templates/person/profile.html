@@ -112,6 +112,15 @@
                 </button>
               </td>
             </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center">No hay detalles de prestaciones</td>
+              <td width="5%">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
+                  <i class="fa fa-pencil-square"></i> Editar
+                </button>
+              </td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>
