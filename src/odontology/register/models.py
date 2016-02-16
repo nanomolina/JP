@@ -10,14 +10,14 @@ class Fopc(models.Model):
 
 class Apross(models.Model):
     patient = models.ForeignKey(Patient)
-    
+
     #--First page
     date = models.DateField(null=True, blank=True)
     managment_code1 = models.IntegerField(null=True, blank=True)
     managment_code2 = models.IntegerField(null=True, blank=True)
     managment_code3 = models.IntegerField(null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
-    carrying home = models.CharField(null=True, blank=True)
+    carrying_home = models.CharField(null=True, blank=True)
 
     #--Second page
 
@@ -30,6 +30,7 @@ class detailApross(models.Model):
     detail_id = models.PositiveIntegerField()
     benefit = models.ForeignKey(Apross)
     date = models.DateField(null=True, blank=True)
+    work_done = models.CharField(max_length=250)
     practic_code = models.IntegerField(null=True, blank=True)
     element = models.IntegerField(null=True, blank=True)
     faces = models.IntegerField(choices=FACES, null=True, blank=True)
