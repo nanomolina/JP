@@ -1,0 +1,5 @@
+#install bower
+$ sudo npm install -g bower
+
+# download bower_components inside static
+bower install eonasdan-bootstrap-datetimepicker#latest --save
