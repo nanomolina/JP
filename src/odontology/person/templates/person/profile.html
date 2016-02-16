@@ -12,6 +12,9 @@
 
 {% block content %}
 {{ block.super }}
+
+{% include "person/_add_benefit_detail.html" %}
+
 <div class="row padding-top">
   <div class="col-md-6">
     <div class="panel panel-primary" id="basic-info">
@@ -24,8 +27,12 @@
               <td>{{ patient.get_full_name }}</td>
             </tr>
             <tr>
-              <th>N&deg; Afiliado<th/>
-              <td>{{ patient.subsidiary_number }}</td>
+              <th>Obra social<th/>
+              <td>{{ patient.get_benefit_type_display }}</td>
+            </tr>
+            <tr>
+              <th>&nbsp;<th/>
+              <td>&nbsp;</td>
             </tr>
           </tbody>
         </table>
@@ -55,5 +62,97 @@
       </div>
     </div>
   </div>
+
+  <div class="col-md-12">
+    <hr>
+  </div>
+
+  <div class="col-md-12" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Nueva prestacion</button>
+      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
+      <select class="form-control pull-right" style="width: 15%">
+        <option>Diciembre</option>
+        <option>Noviembre</option>
+        <option>Octubre</option>
+        <option>Septiembre</option>
+        <option>Agosto</option>
+      </select>
+  </div>
+
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Detalle de prestaciones <strong class="pull-right">ENERO - 2016</strong></div>
+      <div class="panel-body no-padding">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Dia</th>
+              <th>Trabajo realizado</th>
+              <th>C&oacute;digo de practica</th>
+              <th>Elemento</th>
+              <th>Caras/Tratadas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for benefitf in benefits %}
+            <tr>
+              <td>1</td>
+              <td>12</td>
+              <td>T. undesra</td>
+              <td>030100</td>
+              <td>13</td>
+              <td>V</td>
+              <td width="5%">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
+                  <i class="fa fa-pencil-square"></i> Editar
+                </button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center">No hay detalles</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Otros Detalles</div>
+      <div class="panel-body no-padding">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th>C&oacute;digos de gest&iacute;on</th>
+              <th style="width: 2%">1</th>
+              <td>{{benefit.managment_code1|default_if_none:"-"}}</td>
+              <th style="width: 2%">2</th>
+              <td>{{benefit.managment_code2|default_if_none:"-"}}</td>
+              <th style="width: 2%">3</th>
+              <td>{{benefit.managment_code3|default_if_none:"-"}}</td>
+            </tr>
+            <tr>
+              <th>Domicilio de realizaci&oacute;n</th>
+              <td colspan="6" class="text-center">{{dentist.carrying_home|default_if_none:"-"}}</td>
+            </tr>
+            <tr>
+              <th>Cantidad de Rx.adjuntas</th>
+              <td colspan="6" class="text-center">{{benefit.rx_amount|default_if_none:"-"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <hr>
+  </div>
+
 </div>
 {% endblock %}

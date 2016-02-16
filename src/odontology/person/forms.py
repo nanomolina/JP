@@ -7,7 +7,7 @@ class PatientForm(forms.ModelForm):
         model = Patient
         fields = (
             'first_name', 'last_name',
-            'subsidiary_number',
+            'benefit_type',
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -20,10 +20,9 @@ class PatientForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-            'subsidiary_number': forms.NumberInput(
+            'benefit_type': forms.Select(
                 attrs = {
                     'class': 'form-control',
-                    'aria-describedby': "helpBlock"
                 }
             ),
         }

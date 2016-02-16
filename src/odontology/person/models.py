@@ -14,6 +14,7 @@ class Dentist(models.Model):
     user = models.ForeignKey(User)
     circle = models.IntegerField()
     register_number = models.IntegerField()
+    carrying_home = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
         verbose_name = "Odontologo"
@@ -33,7 +34,9 @@ class Patient(models.Model):
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
-    subsidiary_number = models.PositiveIntegerField("numero de afiliado", unique=True)
+    subsidiary_number = models.PositiveIntegerField(
+        "numero de afiliado", unique=True, null=True, blank=True
+    )
     date_created = models.DateField(auto_now_add=True)
     benefit_type = models.IntegerField(choices=BENEFIT_TYPE)
 

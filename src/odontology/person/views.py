@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
+from register.models import Apross
 
 
 def list_patients(request):
@@ -34,12 +35,14 @@ def list_patients(request):
 def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
+    benefit = Apross.objects.filter(patient=patient).last()
     return render_to_response(
         'person/profile.html',
         {
             'template': 'patient',
             'dentist': dentist,
-            'patient': patient
+            'patient': patient,
+            'benefit': benefit
         },
         RequestContext(request)
     )

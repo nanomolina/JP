@@ -10,7 +10,7 @@
 {% include "person/_add_patient.html" %}
 
 <div class="row padding-top buttons">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar nuevo</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Agregar nuevo</button>
     <button type="button" class="btn btn-default">Eliminar</button>
     {% if rec_added %}
     <div id="block-info" class="alert alert-success pull-right" role="alert"><i class="fa fa-check-circle"></i> El paciente se a añadido correctamente</div>
@@ -27,7 +27,7 @@
             <th>ID</th>
             <th>Apellido</th>
             <th>Nombre</th>
-            <th>N&deg; Afiliado</th>
+            <th>Obra social</th>
             <th>Perfil</th>
           </tr>
         </thead>
@@ -37,7 +37,7 @@
             <td>{{patient.code}}
             <td>{{patient.last_name}}</td>
             <td>{{patient.first_name}}</td>
-            <td>{{patient.subsidiary_number}}</td>
+            <td>{{patient.get_benefit_type_display}}</td>
             <td>
               <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs" style="width: 100%">Info</a>
             </td>
@@ -120,7 +120,7 @@
                     if (data.errors.subsidiary_number !== undefined) {
                         $('#patient-form .form-group').last().addClass('has-error');
                         $('#patient-form .form-group').last().find('#helpBlock3').removeClass('hidden');
-                        $('#patient-form .form-group').last().find('#helpBlock3').text(data.errors.subsidiary_number[0]);
+                        $('#patient-form .form-group').last().find('#helpBlock3').text(data.errors.benefit_type[0]);
                     } else {
                         $('#patient-form .form-group').last().addClass('has-success');
                     }
