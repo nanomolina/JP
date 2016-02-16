@@ -4,6 +4,7 @@ from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
 from register.models import Apross
+from register.forms import AprossForm
 
 
 def list_patients(request):
@@ -40,6 +41,10 @@ def patient_profile(request, id):
         last_benefit = benefits.last()
     else:
         last_benefit = None
+    if patient.social_work == 2:
+        benefit_form = AprossForm()
+    else: #cambiar
+        benefit_form = None
     return render_to_response(
         'person/profile.html',
         {
@@ -47,7 +52,8 @@ def patient_profile(request, id):
             'dentist': dentist,
             'patient': patient,
             'benefits': benefits,
-            'last_benefit': last_benefit
+            'last_benefit': last_benefit,
+            'benefit_form': benefit_form
         },
         RequestContext(request)
     )
