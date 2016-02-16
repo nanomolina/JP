@@ -14,22 +14,22 @@ class AprossForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'managment_code1': forms.TextInput(
+            'managment_code1': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }
             ),
-            'managment_code2': forms.TextInput(
+            'managment_code2': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }
             ),
-            'managment_code3': forms.TextInput(
+            'managment_code3': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }
             ),
-            'rx_amount': forms.TextInput(
+            'rx_amount': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }

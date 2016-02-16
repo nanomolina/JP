@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block links %}
-  {% load staticfiles %}
   <link href="{% static '' %}" rel="stylesheet">
   <style media="screen">
     .table {
@@ -13,7 +13,7 @@
 {% block content %}
 {{ block.super }}
 
-{% include "person/_add_benefit_detail.html" %}
+{% include "person/_add_benefit.html" %}
 
 <div class="row padding-top">
   <div class="col-md-6">
@@ -68,7 +68,7 @@
   </div>
 
   <div class="col-md-12" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Nueva prestacion</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
       {% if last_benefit %}
       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
       <select class="form-control pull-right" style="width: 15%">
@@ -160,4 +160,8 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'js/_add_benefit.js'%}"></script>
 {% endblock %}
