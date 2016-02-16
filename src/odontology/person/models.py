@@ -26,8 +26,8 @@ class Dentist(models.Model):
 GENDER = (
     (1, 'M'),(2, 'F')
 )
-BENEFIT_TYPE = (
-    (1, 'Apross'), (2, 'Fopc')
+SOCIAL_WORK = (
+    (1, 'Ninguna'), (2, 'Apross'), (3, 'Fopc')
 )
 class Patient(models.Model):
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
@@ -38,7 +38,7 @@ class Patient(models.Model):
         "numero de afiliado", unique=True, null=True, blank=True
     )
     date_created = models.DateField(auto_now_add=True)
-    benefit_type = models.IntegerField(choices=BENEFIT_TYPE)
+    social_work = models.IntegerField(choices=SOCIAL_WORK, default=1)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)

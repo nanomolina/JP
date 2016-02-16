@@ -17,16 +17,25 @@ class Apross(models.Model):
     managment_code3 = models.IntegerField(null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
 
+    def __unicode__(self):
+        return "%s - %s" % (self.patient, self.date.month)
 
-FACES = (
-    (1, 'O/I'), (2, 'L'), (3, 'V'),
-    (4, 'P'), (5, 'M'), (6, 'D'),
-)
-class detailApross(models.Model):
-    detail_id = models.PositiveIntegerField()
+    def get_details(self):
+        return DetailApross.objects.filter(benefit=self)
+
+
+class DetailApross(models.Model):
+    FACES = (
+        (1, 'O/I'), (2, 'L'), (3, 'V'),
+        (4, 'P'), (5, 'M'), (6, 'D'),
+    )
+    detail_id = models.PositiveIntegerField(null=True, blank=True)
     benefit = models.ForeignKey(Apross)
     date = models.DateField(null=True, blank=True)
-    work_done = models.CharField(max_length=250)
+    work_done = models.CharField(max_length=250, null=True, blank=True)
     practic_code = models.IntegerField(null=True, blank=True)
     element = models.IntegerField(null=True, blank=True)
     faces = models.IntegerField(choices=FACES, null=True, blank=True)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.benefit, self.detail_id)

@@ -35,14 +35,19 @@ def list_patients(request):
 def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
-    benefit = Apross.objects.filter(patient=patient).last()
+    benefits = Apross.objects.filter(patient=patient)
+    if benefits:
+        last_benefit = benefits.last()
+    else:
+        last_benefit = None
     return render_to_response(
         'person/profile.html',
         {
             'template': 'patient',
             'dentist': dentist,
             'patient': patient,
-            'benefit': benefit
+            'benefits': benefits,
+            'last_benefit': last_benefit
         },
         RequestContext(request)
     )
