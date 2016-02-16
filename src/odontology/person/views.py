@@ -66,4 +66,4 @@ def patient_profile(request, id):
             new_benefit.save()
             return JsonResponse({'status': 'OK'})
         else:
-            return JsonResponse({'status': 'ERROR', 'errors': form.errors})
+            return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
