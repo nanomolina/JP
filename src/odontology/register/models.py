@@ -9,16 +9,24 @@ class Fopc(models.Model):
 
 
 class Apross(models.Model):
+    MONTHS = (
+        ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
+        ('junio', 6), ('julio', 7), ('agosto', 8), ('septiembre', 9),
+        ('octubre', 10), ('noviembre', 11), ('diciembre', 12)
+    )
     patient = models.ForeignKey(Patient)
     #--First page
-    date = models.DateField(null=True, blank=True)
+    month = models.CharField(choices=MONTHS, max_length=15)
+    year = models.PositiveIntegerField()
     managment_code1 = models.IntegerField(null=True, blank=True)
     managment_code2 = models.IntegerField(null=True, blank=True)
     managment_code3 = models.IntegerField(null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
 
+    date_created = models.DateField(auto_now_add=True)
+    real_date = models.DateField()
     def __unicode__(self):
-        return "%s - %s" % (self.patient, self.date.month)
+        return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
         return DetailApross.objects.filter(benefit=self)
