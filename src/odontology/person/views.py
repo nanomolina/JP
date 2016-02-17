@@ -5,6 +5,7 @@ from person.models import Patient, Dentist
 from person.forms import PatientForm
 from register.models import Apross
 from register.forms import AprossForm
+from datetime import date as Date
 
 
 def list_patients(request):
@@ -37,7 +38,7 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        benefits = Apross.objects.filter(patient=patient)
+        benefits = Apross.objects.filter(patient=patient).order_by('real_date')
         if benefits:
             last_benefit = benefits.last()
         else:
@@ -72,6 +73,7 @@ def patient_profile(request, id):
                     new_benefit.patient = patient
                     new_benefit.month = month
                     new_benefit.year = int(year)
+                    new_benefit.real_date = Date(int(year), int(new_benefit.get_month_display()), 1)
                     new_benefit.save()
                     return JsonResponse({'status': 'OK'})
                 else:

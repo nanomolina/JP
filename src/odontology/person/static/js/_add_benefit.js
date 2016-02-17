@@ -64,3 +64,11 @@ $(function () {
         defaultDate: dateNow,
     });
 });
+
+$(function () {
+  $('#select-benefit').change(function () {
+      $('.benefits').hide();
+      var id = $( "#select-benefit option:selected" ).val();
+      $('#benefit-'+id).show();
+  }).change();
+});
