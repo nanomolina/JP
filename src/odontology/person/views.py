@@ -59,11 +59,27 @@ def patient_profile(request, id):
             RequestContext(request)
         )
     else:
-        benefit_form = AprossForm(request.POST)
-        if benefit_form.is_valid():
-            new_benefit = benefit_form.save(commit=False)
-            new_benefit.patient = patient
-            new_benefit.save()
-            return JsonResponse({'status': 'OK'})
-        else:
-            return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+        date = request.POST.get('date', None)
+        if date:
+            month, year = date.split(' - ')
+            date_exists = Apross.objects.filter(
+                patient=patient, month=month, year=int(year)
+            ).exists()
+            benefit_form = AprossForm(request.POST)
+            if not date_exists:
+                if benefit_form.is_valid():
+                    new_benefit = benefit_form.save(commit=False)
+                    new_benefit.patient = patient
+                    new_benefit.month = month
+                    new_benefit.year = int(year)
+                    new_benefit.save()
+                    return JsonResponse({'status': 'OK'})
+                else:
+                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+            else:
+                date_error = {'date': [u'Ingrese una fecha valida.']}
+                if benefit_form.is_valid():
+                    return JsonResponse({'status': 'ERROR', 'errors': date_error})
+                else:
+                    benefit_form.errors['date'] = [u'Ingrese una fecha valida.']
+                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})

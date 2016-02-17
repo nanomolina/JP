@@ -72,8 +72,8 @@
       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
       <select class="form-control pull-right" style="width: 15%">
         {% for bf in benefits %}
-        <option value={{bf.id}} {% if bf == last_benefit %}selected="selected"{% endif %}>
-          {{bf.date|date:'F'}} - {{bf.date|date:'Y'}}
+        <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
+          {{bf.get_month_display}} - {{bf.year}}
         </option>
         {% endfor %}
       </select>
@@ -83,7 +83,7 @@
   {% if last_benefit %}
   <div class="col-md-12">
     <div class="panel panel-primary">
-      <div class="panel-heading">Detalle de prestaciones <strong class="pull-right">{{last_benefit.date|date:'F'}} - {{last_benefit.date|date:'Y'}}</strong></div>
+      <div class="panel-heading">Detalle de prestaciones <strong class="pull-right">{{last_benefit.get_month_display}} - {{last_benefit.year}}</strong></div>
       <div class="panel-body no-padding">
         <table class="table table-hover">
           <thead>

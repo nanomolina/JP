@@ -5,15 +5,10 @@ class AprossForm(forms.ModelForm):
     class Meta:
         model = Apross
         fields = (
-            'date', 'managment_code1', 'managment_code2',
+            'managment_code1', 'managment_code2',
             'managment_code3', 'rx_amount',
         )
         widgets = {
-            'date': forms.DateInput(
-                attrs = {
-                    'class': 'form-control',
-                }
-            ),
             'managment_code1': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
