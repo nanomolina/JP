@@ -12,7 +12,7 @@ admin.site.register(Apross, AprossAdmin)
 
 class DetailAprossAdmin(admin.ModelAdmin):
     fields = (
-        'benefit', 'date', 'work_done', 'practic_code',
+        'day', 'benefit', 'work_done', 'practic_code',
         'element', 'faces'
     )
 admin.site.register(DetailApross, DetailAprossAdmin)
