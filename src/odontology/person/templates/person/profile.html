@@ -67,16 +67,22 @@
   </div>
 
   <div class="col-md-12" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
+      <div class="col-md-3 no-padding">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
       {% if last_benefit %}
-      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
-      <select id="select-benefit" class="form-control pull-right" style="width: 15%">
-        {% for bf in benefits %}
-        <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
-          {{bf.month}} - {{bf.year}}
-        </option>
-        {% endfor %}
-      </select>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
+      </div>
+      <div class="col-md-3 col-md-offset-6 no-padding">
+          <select id="select-benefit" class="selectpicker show-tick form-control">
+            {% for bf in benefits %}
+            <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
+              {{bf.month}} - {{bf.year}}
+            </option>
+            {% endfor %}
+          </select>
+      </div>
+      {% else %}
+      </div>
       {% endif %}
   </div>
 

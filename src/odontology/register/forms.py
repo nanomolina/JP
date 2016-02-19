@@ -66,7 +66,7 @@ class detailAprossForm(forms.ModelForm):
             ),
             'faces': forms.SelectMultiple(
                 attrs = {
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
                 }
             ),
         }
