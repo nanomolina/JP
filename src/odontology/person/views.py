@@ -47,6 +47,7 @@ def patient_profile(request, id):
             benefit_form = AprossForm()
         else: #cambiar
             benefit_form = None
+        patient_info = PatientForm(instance=patient)
         return render_to_response(
             'person/profile.html',
             {
@@ -55,7 +56,8 @@ def patient_profile(request, id):
                 'patient': patient,
                 'benefits': benefits,
                 'last_benefit': last_benefit,
-                'benefit_form': benefit_form
+                'benefit_form': benefit_form,
+                'patient_info_form': patient_info
             },
             RequestContext(request)
         )

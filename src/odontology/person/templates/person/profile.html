@@ -13,6 +13,7 @@
 {{ block.super }}
 
 {% include "register/_add_benefit.html" %}
+{% include "person/_add_patient_info.html" %}
 
 <div class="row padding-top">
   <div class="col-md-6">
@@ -70,6 +71,7 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
       {% if last_benefit %}
       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient-info">Agregar Info del Paciente</button>
       <select id="select-benefit" class="form-control pull-right" style="width: 15%">
         {% for bf in benefits %}
         <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
