@@ -115,8 +115,8 @@
                         {{details.day|default_if_none:''}}
                       </span>
                       <span class="edit hide">
-                        <div class='input-group date day-picker'>
-                            <input name="day" class="form-control" id="id_day" type="text" value="{{details.day|default_if_none:''}}">
+                        <div class='input-group date day-picker-{{bf.id}}'>
+                            <input name="day" class="form-control" type="text" value="{{details.day|default_if_none:''}}">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -128,7 +128,7 @@
                         {{details.work_done|default_if_none:''}}
                       </span>
                       <span class="edit hide">
-                        <input name="work_done" class="form-control" type="text" id="id_work_done" value="{{details.work_done|default_if_none:''}}">
+                        <input name="work_done" class="form-control" type="text" value="{{details.work_done|default_if_none:''}}">
                       </span>
                     </td>
                     <td>
@@ -136,7 +136,7 @@
                         {{details.practic_code|default_if_none:''}}
                       </span>
                       <span class="edit hide">
-                        <input name="practic_code" class="form-control" type="text" id="id_practic_code" value="{{details.practic_code|default_if_none:''}}">
+                        <input name="practic_code" class="form-control" type="text" value="{{details.practic_code|default_if_none:''}}">
                       </span>
                     </td>
                     <td>
@@ -144,7 +144,7 @@
                         {{details.element|default_if_none:''}}
                       </span>
                       <span class="edit hide">
-                        <input name="element" class="form-control" type="text" id="id_element" value="{{details.element|default_if_none:''}}">
+                        <input name="element" class="form-control" type="text" value="{{details.element|default_if_none:''}}">
                       </span>
                     </td>
                     <td>
@@ -211,6 +211,18 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      $(function () {
+          var range = getMonthDateRange({{bf.year}}, {{bf.get_month_display}})
+          $('.day-picker-{{bf.id}}').datetimepicker({
+              viewMode: 'days',
+              format: 'D',
+              locale: 'es',
+              minDate: range.start.toDate(),
+              maxDate: range.end.toDate()
+          });
+      });
+    </script>
     {% endfor %}
 
   {% else %}
