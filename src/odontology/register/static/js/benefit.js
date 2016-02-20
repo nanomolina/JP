@@ -89,8 +89,21 @@ function edit_benefit_detail(id) {
 
 function save_benefit_detail(id) {
     $('#bf-detail-save-'+id).button('loading');
-    var data_form = $('#bf-detail-form-'+id).serialize();
-    $('#benefit-form .form-group').removeClass('has-error');
-    $('#benefit-form .form-group').find('.help-block').addClass('hidden');
-    var url = $('#benefit-form').attr('action');
+    $detail = $('#bf-detail-'+id);
+    var data_form = $detail.find('input, select').serialize();
+    var url = $detail.attr('action');
+    var posting = $.post( url, data_form );
+    posting.done(function(data) {
+        $detail.html($(data).children());
+        var range = getMonthDateRange($(data).data('year'), $(data).data('month'));
+        $('#day-'+$(data).data('id')).datetimepicker({
+            viewMode: 'days',
+            format: 'D',
+            locale: 'es',
+            minDate: range.start.toDate(),
+            maxDate: range.end.toDate()
+        });
+        $('.selectpicker').selectpicker();
+
+    });
 }

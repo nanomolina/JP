@@ -8,6 +8,18 @@ class Fopc(models.Model):
     pass
 
 
+class Faces(models.Model):
+    name = models.CharField(max_length=250, null=True, blank=True)
+    initial = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = 'Cara'
+        verbose_name_plural = 'Caras'
+
+    def __unicode__(self):
+        return "%s" % (self.initial)
+
+
 class Apross(models.Model):
     MONTHS = (
         ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
@@ -32,22 +44,18 @@ class Apross(models.Model):
         return DetailApross.objects.filter(benefit=self)
 
 
-
 class DetailApross(models.Model):
-    FACES = (
-        (1, 'O/I'), (2, 'L'), (3, 'V'),
-        (4, 'P'), (5, 'M'), (6, 'D'),
-    )
     benefit = models.ForeignKey(Apross)
     day = models.IntegerField(null=True, blank=True)
     work_done = models.CharField(max_length=250, null=True, blank=True)
     practic_code = models.IntegerField(null=True, blank=True)
     element = models.IntegerField(null=True, blank=True)
-    faces = models.IntegerField(choices=FACES, null=True, blank=True)
     date_created = models.DateField(null=True, blank=True)
+    faces = models.ManyToManyField(Faces, blank=True)
 
     def __unicode__(self):
         return "%s - %s" % (self.day, self.benefit)
+
 
 
 # DATABASE SIGNALS

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from register.models import Apross, DetailApross
+from register.models import Apross, DetailApross, Faces
 
 
 class AprossAdmin(admin.ModelAdmin):
@@ -16,3 +16,10 @@ class DetailAprossAdmin(admin.ModelAdmin):
         'element', 'faces'
     )
 admin.site.register(DetailApross, DetailAprossAdmin)
+
+
+class FacesAdmin(admin.ModelAdmin):
+    fields = (
+        'name', 'initial'
+    )
+admin.site.register(Faces, FacesAdmin)

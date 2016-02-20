@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
-from register.models import Apross
+from register.models import Apross, DetailApross
 from register.forms import AprossForm, detailAprossForm
 from datetime import date as Date
 
@@ -39,3 +39,24 @@ def new_benefit(request, patient_id):
                 else:
                     benefit_form.errors['date'] = [u'Ingrese una fecha valida.']
                     return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+
+
+def edit_benefit_detail(request, detail_id):
+    if request.method == 'POST':
+        detail = DetailApross.objects.get(id=detail_id)
+        detail_form = detailAprossForm(request.POST, instance=detail)
+        if detail_form.is_valid():
+            detail = detail_form.save()
+            detail_form = detailAprossForm(instance=detail)
+            return render_to_response(
+                'register/detail.html',
+                {
+                    'counter': request.POST.get('counter'),
+                    'detail': detail,
+                    'bf': detail.benefit,
+                },
+                RequestContext(request)
+            )
+        else:
+            print detail_form.errors
+            return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
