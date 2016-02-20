@@ -10,14 +10,13 @@
 body {
     /*background-color: #e3e3e3;*/
     background-color: rgba(227, 227, 227, 0.34);
+    height: 100%;
 }
 
 footer {
-  /*position: absolute;
-  margin-top: 90px;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: 10px;*/
+	width: 100%;
+	position: relative;
+	bottom: 0;
 }
 
 .no-padding {
