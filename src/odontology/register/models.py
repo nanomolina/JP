@@ -32,18 +32,31 @@ class Apross(models.Model):
         return DetailApross.objects.filter(benefit=self)
 
 
+
 class DetailApross(models.Model):
     FACES = (
         (1, 'O/I'), (2, 'L'), (3, 'V'),
         (4, 'P'), (5, 'M'), (6, 'D'),
     )
-    detail_id = models.PositiveIntegerField(null=True, blank=True)
     benefit = models.ForeignKey(Apross)
-    date = models.DateField(null=True, blank=True)
+    day = models.IntegerField(null=True, blank=True)
     work_done = models.CharField(max_length=250, null=True, blank=True)
     practic_code = models.IntegerField(null=True, blank=True)
     element = models.IntegerField(null=True, blank=True)
     faces = models.IntegerField(choices=FACES, null=True, blank=True)
+    date_created = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
-        return "%s - %s" % (self.benefit, self.detail_id)
+        return "%s - %s" % (self.day, self.benefit)
+
+
+# DATABASE SIGNALS
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from register.models import Apross, DetailApross
+
+@receiver(post_save, sender=Apross)
+def handler_new_benefit(sender, instance, **kwargs):
+    if not instance.get_details().exists():
+        for _ in range(4):
+            DetailApross(benefit=instance).save()

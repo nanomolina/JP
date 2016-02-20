@@ -67,16 +67,22 @@
   </div>
 
   <div class="col-md-12" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
+      <div class="col-md-3 no-padding">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
       {% if last_benefit %}
-      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
-      <select id="select-benefit" class="form-control pull-right" style="width: 15%">
-        {% for bf in benefits %}
-        <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
-          {{bf.month}} - {{bf.year}}
-        </option>
-        {% endfor %}
-      </select>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
+      </div>
+      <div class="col-md-3 col-md-offset-6 no-padding">
+          <select id="select-benefit" class="selectpicker show-tick form-control">
+            {% for bf in benefits %}
+            <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
+              {{bf.month}} - {{bf.year}}
+            </option>
+            {% endfor %}
+          </select>
+      </div>
+      {% else %}
+      </div>
       {% endif %}
   </div>
 
@@ -91,7 +97,7 @@
               <thead>
                 <tr>
                   <th></th>
-                  <th>Dia</th>
+                  <th width="9%">Dia</th>
                   <th>Trabajo realizado</th>
                   <th>C&oacute;digo de practica</th>
                   <th>Elemento</th>
@@ -101,19 +107,65 @@
               </thead>
               <tbody>
                 {% for details in bf.get_details %}
-                <tr id="bf-detail-{{forloop.counter}}">
-                  <td>{{forloop.counter}}</td>
-                  <td>{{details.date|date:'j'}}</td>
-                  <td>{{details.work_done}}</td>
-                  <td>{{details.practic_code}}</td>
-                  <td>{{details.element}}</td>
-                  <td>{{details.get_faces_display}}</td>
-                  <td width="5%">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
-                      <i class="fa fa-pencil-square"></i> Editar
-                    </button>
-                  </td>
-                </tr>
+                <form id="bf-detail-form-{{details.id}}">
+                  <tr id="bf-detail-{{details.id}}">
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      <span class="detail-info">
+                        {{details.day|default_if_none:''}}
+                      </span>
+                      <span class="edit hide">
+                        <div class='input-group date day-picker-{{bf.id}}'>
+                            <input name="day" class="form-control" type="text" value="{{details.day|default_if_none:''}}">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="detail-info">
+                        {{details.work_done|default_if_none:''}}
+                      </span>
+                      <span class="edit hide">
+                        <input name="work_done" class="form-control" type="text" value="{{details.work_done|default_if_none:''}}">
+                      </span>
+                    </td>
+                    <td>
+                      <span class="detail-info">
+                        {{details.practic_code|default_if_none:''}}
+                      </span>
+                      <span class="edit hide">
+                        <input name="practic_code" class="form-control" type="text" value="{{details.practic_code|default_if_none:''}}">
+                      </span>
+                    </td>
+                    <td>
+                      <span class="detail-info">
+                        {{details.element|default_if_none:''}}
+                      </span>
+                      <span class="edit hide">
+                        <input name="element" class="form-control" type="text" value="{{details.element|default_if_none:''}}">
+                      </span>
+                    </td>
+                    <td>
+                      <span class="detail-info">
+                        {{details.get_faces_display|default_if_none:''}}
+                      </span>
+                      <span class="edit hide">
+                        {{detail_form.faces}}
+                        <!--<input name="faces" class="form-control" type="text" id="id_faces" value="{{details.get_faces_display|default_if_none:''}}">-->
+                      </span>
+                    </td>
+                    <td width="5%">
+                      <button id="bf-detail-edit-{{details.id}}" type="button" class="btn btn-primary btn-xs" onclick="javascript: edit_benefit_detail({{details.id}});">
+                        <i class="fa fa-pencil"></i> Editar
+                      </button>
+                      <button id="bf-detail-save-{{details.id}}" type="button" class="btn btn-success btn-sm hide" onclick="">
+                        <i class="fa fa-floppy-o"></i> Guardar
+                      </button>
+                    </td>
+                  </tr>
+                </form>
                 {% empty %}
                 <tr>
                   <td colspan="6" class="text-center">No hay detalles de prestaciones</td>
@@ -159,6 +211,18 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      $(function () {
+          var range = getMonthDateRange({{bf.year}}, {{bf.get_month_display}})
+          $('.day-picker-{{bf.id}}').datetimepicker({
+              viewMode: 'days',
+              format: 'D',
+              locale: 'es',
+              minDate: range.start.toDate(),
+              maxDate: range.end.toDate()
+          });
+      });
+    </script>
     {% endfor %}
 
   {% else %}
@@ -175,5 +239,6 @@
 {% endblock %}
 
 {% block scripts %}
+  <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/_add_benefit.js'%}"></script>
 {% endblock %}

@@ -40,11 +40,11 @@ class detailAprossForm(forms.ModelForm):
     class Meta:
         model = DetailApross
         fields = (
-            'date', 'work_done', 'practic_code',
+            'day', 'work_done', 'practic_code',
             'element', 'faces'
         )
         widgets = {
-            'date': forms.DateInput(
+            'day': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }
@@ -66,7 +66,7 @@ class detailAprossForm(forms.ModelForm):
             ),
             'faces': forms.SelectMultiple(
                 attrs = {
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
                 }
             ),
         }
