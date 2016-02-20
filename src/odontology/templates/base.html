@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}">
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'bower_components/fakeLoader/fakeLoader.css' %}" />
   <link href="{% static 'css/base.css' %}" rel="stylesheet">
   {% block links %}{% endblock %}
   <!--[if IE]>
@@ -27,6 +28,7 @@
   <div class="container">
     {% block content %}
     {% if user.is_authenticated %}
+      <div id="fakeLoader"></div>
       <!--Fixed inverse navbar-->
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -42,13 +44,13 @@
 
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li id="home" {% if template == 'home'%}class="active"{% endif %}>
+              <li id="home" class="loader {% if template == 'home'%}active{% endif %}">
                 <a href="{% url 'core:home' %}"><i class="fa fa-home"></i>&nbsp;Inicio</a>
               </li>
-              <li id="patient" {% if template == 'patient'%}class="active"{% endif %}>
+              <li id="patient" class="loader {% if template == 'patient'%}active{% endif %}">
                 <a href="{% url 'person:patient_list'%}">Pacientes</a>
               </li>
-              <li id="register" {% if template == 'register'%}class="active"{% endif %}>
+              <li id="register" class="loader {% if template == 'register'%}active{% endif %}">
                 <a  href="#register">Registros</a>
               </li>
             </ul>
@@ -60,7 +62,7 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="{% url 'core:logout' %}">Cerrar cesi&oacute;n</a></li>
+                  <li class="loader"><a href="{% url 'core:logout' %}">Cerrar cesi&oacute;n</a></li>
                 </ul>
               </li>
             </ul>
@@ -86,5 +88,17 @@
   <script type="text/javascript" src="{% static 'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'node_modules/bootstrap-select/dist/js/i18n/defaults-es_CL.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'bower_components/fakeLoader/fakeLoader.min.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.loader').on('click', function(){
+        $("#fakeLoader").fakeLoader({
+            timeToHide: 10000000,
+            bgColor:"#3498db",
+            spinner:"spinner4"
+        });
+      });
+    });
+  </script>
   {% block scripts %}{% endblock %}
 </body>
