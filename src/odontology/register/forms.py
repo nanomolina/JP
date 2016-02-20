@@ -1,5 +1,5 @@
 from django import forms
-from register.models import Apross, DetailApross
+from register.models import Apross, DetailApross, Faces
 
 class AprossForm(forms.ModelForm):
     class Meta:
@@ -37,6 +37,10 @@ class AprossForm(forms.ModelForm):
 
 
 class detailAprossForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(detailAprossForm, self).__init__(*args, **kwargs)
+        self.fields['faces'].queryset = Faces.objects.all()
+
     class Meta:
         model = DetailApross
         fields = (

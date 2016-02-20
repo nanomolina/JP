@@ -1,3 +1,4 @@
+// --- BENEFIT ---
 $(document).ready(function() {
     $('#btn-save-benefit').on('click', function(event) {
         $('#btn-save-benefit').button('loading')
@@ -10,8 +11,8 @@ $(document).ready(function() {
           url: url,
           data: data_form,
           success: function(data) {
-              if (data.status === 'OK') {
-                location.href = url;
+              if (data.status !== 'ERROR') {
+                location.href = url_profile;
               } else {
                 $('#btn-save-benefit').button('reset');
                 if (data.errors.date !== undefined) {
@@ -55,6 +56,7 @@ $(document).ready(function() {
     });
 });
 
+
 $(function () {
     var dateNow = new Date();
     $('#datetimepicker1').datetimepicker({
@@ -72,3 +74,36 @@ $(function () {
       $('#benefit-'+id).show();
   }).change();
 });
+
+// --- BENEFIT DETAIL ---
+
+function edit_benefit_detail(id) {
+    var $row_detail = $('#bf-detail-'+id);
+    $row_detail.find('.edit').removeClass('hide');
+    $row_detail.find('.detail-info').addClass('hide');
+    var $edit_button = $('#bf-detail-edit-'+id);
+    $edit_button.addClass('hide');
+    var $save_button = $('#bf-detail-save-'+id);
+    $save_button.removeClass('hide');
+}
+
+function save_benefit_detail(id) {
+    $('#bf-detail-save-'+id).button('loading');
+    $detail = $('#bf-detail-'+id);
+    var data_form = $detail.find('input, select').serialize();
+    var url = $detail.attr('action');
+    var posting = $.post( url, data_form );
+    posting.done(function(data) {
+        $detail.html($(data).children());
+        var range = getMonthDateRange($(data).data('year'), $(data).data('month'));
+        $('#day-'+$(data).data('id')).datetimepicker({
+            viewMode: 'days',
+            format: 'D',
+            locale: 'es',
+            minDate: range.start.toDate(),
+            maxDate: range.end.toDate()
+        });
+        $('.selectpicker').selectpicker();
+
+    });
+}

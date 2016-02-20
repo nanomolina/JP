@@ -1,0 +1,67 @@
+{% load register_extras %}
+<tr id="bf-detail-{{detail.id}}" action="{% url 'register:edit_benefit_detail' detail_id=detail.id %}"
+  data-id="{{detail.id}}" data-year="{{bf.year}}" data-month="{{bf.get_month_display}}">
+    {% with detail.id|detail_form_instance as detail_form %}
+    {% csrf_token %}
+    <input type="hidden" name="counter" value="{{counter}}">
+    <td>{{counter}}</td>
+    <td>
+      <span class="detail-info">
+        {{detail.day|default_if_none:''}}
+      </span>
+      <span class="edit hide">
+        <div id="day-{{detail.id}}" class='input-group date day-picker-{{bf.id}}'>
+            <input name="day" class="form-control" type="text" value="{{detail.day|default_if_none:''}}">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+      </span>
+    </td>
+    <td>
+      <span class="detail-info">
+        {{detail.work_done|default_if_none:''}}
+      </span>
+      <span class="edit hide">
+        {{detail_form.work_done}}
+        <!--<input name="work_done" class="form-control" type="text" value="{{detail.work_done|default_if_none:''}}">-->
+      </span>
+    </td>
+    <td>
+      <span class="detail-info">
+        {{detail.practic_code|default_if_none:''}}
+      </span>
+      <span class="edit hide">
+        {{detail_form.practic_code}}
+        <!--<input name="practic_code" class="form-control" type="number" value="{{detail.practic_code|default_if_none:''}}">-->
+      </span>
+    </td>
+    <td>
+      <span class="detail-info">
+        {{detail.element|default_if_none:''}}
+      </span>
+      <span class="edit hide">
+        {{detail_form.element}}
+        <!--<input name="element" class="form-control" type="number" value="{{detail.element|default_if_none:''}}">-->
+      </span>
+    </td>
+    <td>
+      <span class="detail-info">
+        {% for face in detail.faces.all %}
+          {{face.initial}}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </span>
+      <span class="edit hide">
+        {{detail_form.faces}}
+      </span>
+    </td>
+    <td width="5%">
+      <button id="bf-detail-edit-{{detail.id}}" type="button" class="btn btn-primary btn-xs" onclick="javascript: edit_benefit_detail({{detail.id}});">
+        <i class="fa fa-pencil"></i> Editar
+      </button>
+      <button id="bf-detail-save-{{detail.id}}" type="button" class="btn btn-success btn-sm hide" onclick="javascript: save_benefit_detail({{detail.id}})" data-loading-text="Guardando...">
+        <i class="fa fa-floppy-o"></i> Guardar
+      </button>
+    </td>
+    {% endwith %}
+</tr>
