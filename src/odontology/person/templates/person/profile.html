@@ -160,7 +160,7 @@
                       <button id="bf-detail-edit-{{details.id}}" type="button" class="btn btn-primary btn-xs" onclick="javascript: edit_benefit_detail({{details.id}});">
                         <i class="fa fa-pencil"></i> Editar
                       </button>
-                      <button id="bf-detail-save-{{details.id}}" type="button" class="btn btn-success btn-sm hide" onclick="">
+                      <button id="bf-detail-save-{{details.id}}" type="button" class="btn btn-success btn-sm hide" onclick="javascript: save_benefit_detail({{details.id}})">
                         <i class="fa fa-floppy-o"></i> Guardar
                       </button>
                     </td>
@@ -240,5 +240,6 @@
 
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
-  <script type="text/javascript" src="{% static 'js/_add_benefit.js'%}"></script>
+  <script type="text/javascript">url_profile = "{% url 'person:patient_profile' id=patient.id %}"</script>
+  <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
 {% endblock %}

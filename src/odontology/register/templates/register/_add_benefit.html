@@ -6,7 +6,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="modal-Label">Agregar registro de prestaci&oacute;n</h4>
       </div>
-      <form id="benefit-form" class="form-horizontal" role="form" method="POST" action=".">
+      <form id="benefit-form" class="form-horizontal" role="form" method="POST" action="{% url 'register:new_benefit' patient_id=patient.id %}">
         {% csrf_token %}
         <div class="modal-body">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
