@@ -131,4 +131,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "core/static"),
     '/var/www/static/',
+    '/var/www/JP/src/odontology/core/static/',
 ]
