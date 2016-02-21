@@ -13,6 +13,8 @@
 {{ block.super }}
 
 {% include "register/_add_benefit.html" %}
+<div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
+</div>
 
 <div class="row padding-top">
   <div class="col-md-6">
@@ -70,7 +72,7 @@
       <div class="col-md-3 no-padding">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
       {% if last_benefit %}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-patient">Editar prestacion</button>
+          <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">Editar prestacion</button>
       </div>
       <div class="col-md-3 col-md-offset-6 no-padding">
           <select id="select-benefit" class="selectpicker show-tick form-control">
@@ -184,6 +186,9 @@
 
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
-  <script type="text/javascript">url_profile = "{% url 'person:patient_profile' id=patient.id %}"</script>
+  <script type="text/javascript">
+    url_profile = "{% url 'person:patient_profile' id=patient.id %}"
+    URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
+  </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
 {% endblock %}

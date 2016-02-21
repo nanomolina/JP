@@ -72,9 +72,17 @@ $(function () {
       $('.benefits').hide();
       var id = $( "#select-benefit option:selected" ).val();
       $('#benefit-'+id).show();
+      $('#edit_bf').data('bf-id', id);
   }).change();
 });
 
+function edit_benefit() {
+    var bf_id = $('#edit_bf').data('bf-id');
+    var csrf = $('#edit_bf').data('csrf');
+    $('#modal-edit-benefit').load(
+      URL_EDIT_BF,
+      {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1});
+}
 // --- BENEFIT DETAIL ---
 
 function edit_benefit_detail(id) {
