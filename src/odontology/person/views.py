@@ -4,7 +4,8 @@ from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
 from register.models import Apross
-from register.forms import AprossForm
+from register.forms import AprossForm, detailAprossForm
+from datetime import date as Date
 
 
 def list_patients(request):
@@ -37,7 +38,7 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        benefits = Apross.objects.filter(patient=patient)
+        benefits = Apross.objects.filter(patient=patient).order_by('real_date')
         if benefits:
             last_benefit = benefits.last()
         else:
@@ -46,6 +47,7 @@ def patient_profile(request, id):
             benefit_form = AprossForm()
         else: #cambiar
             benefit_form = None
+        detail_form = detailAprossForm()
         return render_to_response(
             'person/profile.html',
             {
@@ -54,16 +56,8 @@ def patient_profile(request, id):
                 'patient': patient,
                 'benefits': benefits,
                 'last_benefit': last_benefit,
-                'benefit_form': benefit_form
+                'benefit_form': benefit_form,
+                'detail_form': detail_form,
             },
             RequestContext(request)
         )
-    else:
-        benefit_form = AprossForm(request.POST)
-        if benefit_form.is_valid():
-            new_benefit = benefit_form.save(commit=False)
-            new_benefit.patient = patient
-            new_benefit.save()
-            return JsonResponse({'status': 'OK'})
-        else:
-            return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})

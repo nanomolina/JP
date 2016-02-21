@@ -1,51 +1,54 @@
 from django import forms
-from register.models import Apross, DetailApross
+from register.models import Apross, DetailApross, Faces
 
 class AprossForm(forms.ModelForm):
     class Meta:
         model = Apross
         fields = (
-            'date', 'managment_code1', 'managment_code2',
+            'managment_code1', 'managment_code2',
             'managment_code3', 'rx_amount',
         )
         widgets = {
-            'date': forms.DateInput(
-                attrs = {
-                    'class': 'form-control',
-                }
-            ),
             'managment_code1': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
+                    'placeholder': '0',
                 }
             ),
             'managment_code2': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
+                    'placeholder': '0',
                 }
             ),
             'managment_code3': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
+                    'placeholder': '0',
                 }
             ),
             'rx_amount': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
+                    'placeholder': '0',
                 }
             )
         }
 
 
 class detailAprossForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(detailAprossForm, self).__init__(*args, **kwargs)
+        self.fields['faces'].queryset = Faces.objects.all()
+
     class Meta:
         model = DetailApross
         fields = (
-            'date', 'work_done', 'practic_code',
+            'day', 'work_done', 'practic_code',
             'element', 'faces'
         )
         widgets = {
-            'date': forms.DateInput(
+            'day': forms.NumberInput(
                 attrs = {
                     'class': 'form-control',
                 }
@@ -67,7 +70,7 @@ class detailAprossForm(forms.ModelForm):
             ),
             'faces': forms.SelectMultiple(
                 attrs = {
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
                 }
             ),
         }

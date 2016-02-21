@@ -1,3 +1,111 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
+from person.models import Patient, Dentist
+from person.forms import PatientForm
+from register.models import Apross, DetailApross
+from register.forms import AprossForm, detailAprossForm
+from datetime import date as Date
 
-# Create your views here.
+
+def new_benefit(request, patient_id):
+    dentist = Dentist.objects.get(user=request.user)
+    patient = get_object_or_404(Patient, id=patient_id)
+    if request.method == 'POST':
+        date = request.POST.get('date', None)
+        if date:
+            month, year = date.split(' - ')
+            date_exists = Apross.objects.filter(
+                patient=patient, month=month, year=int(year)
+            ).exists()
+            benefit_form = AprossForm(request.POST)
+            if not date_exists:
+                if benefit_form.is_valid():
+                    new_benefit = benefit_form.save(commit=False)
+                    new_benefit.patient = patient
+                    new_benefit.month = month
+                    new_benefit.year = int(year)
+                    new_benefit.real_date = Date(int(year), int(new_benefit.get_month_display()), 1)
+                    new_benefit.save()
+                    #return HttpResponseRedirect(reverse('person:patient_profile', kwargs={'id': patient_id}))
+                    return JsonResponse({'status': 'OK'})
+                else:
+                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+            else:
+                date_error = {'date': [u'Ingrese una fecha valida.']}
+                if benefit_form.is_valid():
+                    return JsonResponse({'status': 'ERROR', 'errors': date_error})
+                else:
+                    benefit_form.errors['date'] = [u'Ingrese una fecha valida.']
+                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+
+
+def edit_benefit(request, patient_id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=patient_id)
+        bf_id = request.POST.get('bf_id', None)
+        benefit = Apross.objects.get(id=bf_id)
+        get = request.POST.get('get')
+        if get == '1':
+            if patient.social_work == 2:
+                bf_edid_form = AprossForm(instance=benefit)
+            else: #cambiar
+                bf_edid_form = None
+            return render_to_response(
+                'register/_edit_benefit.html',
+                {
+                    'bf': benefit,
+                    'bf_edid_form': bf_edid_form,
+                    'patient': patient
+                },
+                RequestContext(request)
+            )
+        else:
+            date = request.POST.get('date', None)
+            if date:
+                month, year = date.split(' - ')
+                benefit_form = AprossForm(request.POST, instance=benefit)
+                date_exists = Apross.objects.filter(
+                    patient=patient, month=month, year=int(year)
+                ).exclude(id=benefit.id).exists()
+                if not date_exists:
+                    if benefit_form.is_valid():
+                        benefit = benefit_form.save(commit=False)
+                        benefit.patient = patient
+                        benefit.month = month
+                        benefit.year = int(year)
+                        benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
+                        benefit.save()
+                        #return HttpResponseRedirect(reverse('person:patient_profile', kwargs={'id': patient_id}))
+                        return JsonResponse({'status': 'OK'})
+                    else:
+                        return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+                else:
+                    date_error = {'date': [u'Ingrese una fecha valida.']}
+                    if benefit_form.is_valid():
+                        return JsonResponse({'status': 'ERROR', 'errors': date_error})
+                    else:
+                        benefit_form.errors['date'] = [u'Ingrese una fecha valida.']
+                        return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+
+
+def edit_benefit_detail(request, detail_id):
+    if request.method == 'POST':
+        detail = DetailApross.objects.get(id=detail_id)
+        detail_form = detailAprossForm(request.POST, instance=detail)
+        if detail_form.is_valid():
+            detail = detail_form.save()
+            detail_form = detailAprossForm(instance=detail)
+            return render_to_response(
+                'register/detail.html',
+                {
+                    'counter': request.POST.get('counter'),
+                    'detail': detail,
+                    'bf': detail.benefit,
+                },
+                RequestContext(request)
+            )
+        else:
+            print detail_form.errors
+            return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
