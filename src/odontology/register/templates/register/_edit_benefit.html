@@ -21,7 +21,7 @@
 
             <div class="row" style="margin-bottom: 30px;">
               <div class="col-xs-6 date-group">
-                  <div class='input-group date' id='datetimepicker1'>
+                  <div class='input-group date' id='datetimepicker2'>
                       <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
@@ -126,6 +126,16 @@
                   }
               }
             });
+        });
+    });
+
+    $(function () {
+        var dateNow = new Date();
+        $('#datetimepicker2').datetimepicker({
+            viewMode: 'months',
+            format: 'MMMM - YYYY',
+            locale: 'es',
+            defaultDate: dateNow,
         });
     });
   </script>
