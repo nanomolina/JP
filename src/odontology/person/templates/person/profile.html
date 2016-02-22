@@ -32,7 +32,7 @@
             </tr>
             <tr>
               <th>Obra social<th/>
-              <td>{{ patient.social_work }}</td>
+              <td>{{ patient.social_work|default_if_none:'Ninguna' }}</td>
             </tr>
             <tr>
               {% if patient.subsidiary_number %}
