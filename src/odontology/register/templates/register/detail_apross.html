@@ -1,5 +1,5 @@
 {% load register_extras %}
-<tr id="bf-detail-{{detail.id}}" action="{% url 'register:edit_benefit_detail' detail_id=detail.id %}"
+<tr id="bf-detail-{{detail.id}}" action="{% url 'register:edit_benefit_detail' detail_id=detail.id patient_id=patient.id %}"
   data-id="{{detail.id}}" data-year="{{bf.year}}" data-month="{{bf.get_month_display}}">
     {% with detail.id|detail_form_instance as detail_form %}
     {% csrf_token %}

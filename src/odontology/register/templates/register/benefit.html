@@ -1,0 +1,104 @@
+<div class="col-md-12" style="margin-bottom: 20px;">
+    <div class="col-md-3 no-padding">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
+    {% if last_benefit %}
+        <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">Editar prestacion</button>
+    </div>
+    <div class="col-md-3 col-md-offset-6 no-padding">
+        <select id="select-benefit" class="selectpicker show-tick form-control">
+          {% for bf in benefits %}
+          <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
+            {{bf.month}} - {{bf.year}}
+          </option>
+          {% endfor %}
+        </select>
+    </div>
+    {% else %}
+    </div>
+    {% endif %}
+</div>
+
+{% if last_benefit %}
+  {% for bf in benefits %}
+  <div id="benefit-{{bf.id}}" class="benefits" style="{% if not bf == last_benefit %}display: none;{% endif %}">
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Detalle de prestaciones <strong class="pull-right">{{bf.month}} - {{bf.year}}</strong></div>
+        <div class="panel-body no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th width="9%">Dia</th>
+                <th>Diente Num</th>
+                <th>Cara</th>
+                <th>Codigo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for detail in bf.get_details %}
+                  {% include "register/detail_benefit.html" with counter=forloop.counter %}
+              {% empty %}
+              <tr>
+                <td colspan="5" class="text-center">No hay detalles de prestaciones</td>
+                <td width="5%">
+                  <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
+                    <i class="fa fa-pencil-square"></i> Editar
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Otros Detalles</div>
+        <div class="panel-body no-padding">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>C&oacute;digos de gest&iacute;on</th>
+                <td>{{bf.managment_code|default_if_none:"-"}}</td>
+              </tr>
+              <tr>
+                <th>Domicilio de realizaci&oacute;n</th>
+                <td>{{dentist.carrying_home|default_if_none:"-"}}</td>
+              </tr>
+              <tr>
+                <th>Cantidad de Rx.adjuntas</th>
+                <td>{{bf.rx_amount|default_if_none:"-"}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(function () {
+        var range = getMonthDateRange({{bf.year}}, {{bf.get_month_display}})
+        $('.day-picker-{{bf.id}}').datetimepicker({
+            viewMode: 'days',
+            format: 'D',
+            locale: 'es',
+            minDate: range.start.toDate(),
+            maxDate: range.end.toDate()
+        });
+    });
+  </script>
+  {% endfor %}
+
+{% else %}
+<div class="col-md-12">
+  <h3>No existen regitros de prestaciones.</h3>
+</div>
+{% endif %}
+
+<div class="col-md-12">
+  <hr>
+</div>
