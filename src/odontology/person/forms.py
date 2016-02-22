@@ -7,21 +7,26 @@ class PatientForm(forms.ModelForm):
         model = Patient
         fields = (
             'first_name', 'last_name',
-            'social_work',
+            'subsidiary_number', 'social_work',
         )
         widgets = {
             'first_name': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'last_name': forms.TextInput(
-                attrs = {
-                    'class': 'form-control'
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'subsidiary_number': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
             'social_work': forms.Select(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),

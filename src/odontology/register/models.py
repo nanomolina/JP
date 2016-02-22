@@ -20,12 +20,12 @@ class Faces(models.Model):
         return "%s" % (self.initial)
 
 
+MONTHS = (
+    ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
+    ('junio', 6), ('julio', 7), ('agosto', 8), ('septiembre', 9),
+    ('octubre', 10), ('noviembre', 11), ('diciembre', 12)
+)
 class Apross(models.Model):
-    MONTHS = (
-        ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
-        ('junio', 6), ('julio', 7), ('agosto', 8), ('septiembre', 9),
-        ('octubre', 10), ('noviembre', 11), ('diciembre', 12)
-    )
     patient = models.ForeignKey(Patient)
     #--First page
     month = models.CharField(choices=MONTHS, max_length=15)
@@ -57,14 +57,52 @@ class DetailApross(models.Model):
         return "%s - %s" % (self.day, self.benefit)
 
 
+class Benefit(models.Model):
+    patient = models.ForeignKey(Patient)
+    #--First page
+    month = models.CharField(choices=MONTHS, max_length=15)
+    year = models.PositiveIntegerField()
+    primary_entity = models.CharField(max_length=250, null=True, blank=True)
+    principal_code = models.IntegerField(null=True, blank=True)
+    social_work = models.CharField(max_length=250, null=True, blank=True)
+    managment_code = models.IntegerField(null=True, blank=True)
+    rx_amount = models.IntegerField(null=True, blank=True)
+
+    date_created = models.DateField(auto_now_add=True)
+    real_date = models.DateField()
+    def __unicode__(self):
+        return "%s - (%s, %s)" % (self.patient, self.month, self.year)
+
+    def get_details(self):
+        return DetailBenefit.objects.filter(benefit=self)
+
+
+class DetailBenefit(models.Model):
+    benefit = models.ForeignKey(Benefit)
+    day = models.IntegerField(null=True, blank=True)
+    tooth = models.IntegerField(null=True, blank=True)
+    code = models.IntegerField(null=True, blank=True)
+    faces = models.ManyToManyField(Faces, blank=True)
+    date_created = models.DateField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.day, self.benefit)
+
 
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from register.models import Apross, DetailApross
+from register.models import Apross, DetailApross, Benefit, DetailBenefit
 
 @receiver(post_save, sender=Apross)
-def handler_new_benefit(sender, instance, **kwargs):
+def handler_new_apross(sender, instance, **kwargs):
     if not instance.get_details().exists():
         for _ in range(4):
             DetailApross(benefit=instance).save()
+
+
+@receiver(post_save, sender=Benefit)
+def handler_new_benefit(sender, instance, **kwargs):
+    if not instance.get_details().exists():
+        for _ in range(6):
+            DetailBenefit(benefit=instance).save()

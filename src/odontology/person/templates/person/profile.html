@@ -12,9 +12,12 @@
 {% block content %}
 {{ block.super }}
 
-{% include "register/_add_benefit.html" %}
-<div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
-</div>
+{% if patient.social_work == 2 %}
+  {% include "register/_add_apross.html" %}
+{% else %}
+  {% include "register/_add_benefit.html" %}
+{% endif %}
+<div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label"></div>
 
 <div class="row padding-top">
   <div class="col-md-6">
@@ -32,8 +35,13 @@
               <td>{{ patient.get_social_work_display }}</td>
             </tr>
             <tr>
+              {% if patient.subsidiary_number %}
+              <th>Nro de afiliado<th/>
+              <td>{{ patient.subsidiary_number }}</td>
+              {% else %}
               <th>&nbsp;<th/>
               <td>&nbsp;</td>
+              {% endif %}
             </tr>
           </tbody>
         </table>
@@ -68,118 +76,11 @@
     <hr>
   </div>
 
-  <div class="col-md-12" style="margin-bottom: 20px;">
-      <div class="col-md-3 no-padding">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
-      {% if last_benefit %}
-          <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">Editar prestacion</button>
-      </div>
-      <div class="col-md-3 col-md-offset-6 no-padding">
-          <select id="select-benefit" class="selectpicker show-tick form-control">
-            {% for bf in benefits %}
-            <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
-              {{bf.month}} - {{bf.year}}
-            </option>
-            {% endfor %}
-          </select>
-      </div>
-      {% else %}
-      </div>
-      {% endif %}
-  </div>
-
-  {% if last_benefit %}
-    {% for bf in benefits %}
-    <div id="benefit-{{bf.id}}" class="benefits" style="{% if not bf == last_benefit %}display: none;{% endif %}">
-      <div class="col-md-12">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Detalle de prestaciones <strong class="pull-right">{{bf.month}} - {{bf.year}}</strong></div>
-          <div class="panel-body no-padding">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th width="9%">Dia</th>
-                  <th>Trabajo realizado</th>
-                  <th>C&oacute;digo de practica</th>
-                  <th>Elemento</th>
-                  <th>Caras/Tratadas</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for detail in bf.get_details %}
-
-                    {% include "register/detail.html" with counter=forloop.counter %}
-
-                {% empty %}
-                <tr>
-                  <td colspan="6" class="text-center">No hay detalles de prestaciones</td>
-                  <td width="5%">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
-                      <i class="fa fa-pencil-square"></i> Editar
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Otros Detalles</div>
-          <div class="panel-body no-padding">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <th>C&oacute;digos de gest&iacute;on</th>
-                  <th style="width: 2%">1</th>
-                  <td>{{bf.managment_code1|default_if_none:"-"}}</td>
-                  <th style="width: 2%">2</th>
-                  <td>{{bf.managment_code2|default_if_none:"-"}}</td>
-                  <th style="width: 2%">3</th>
-                  <td>{{bf.managment_code3|default_if_none:"-"}}</td>
-                </tr>
-                <tr>
-                  <th>Domicilio de realizaci&oacute;n</th>
-                  <td colspan="6" class="text-center">{{dentist.carrying_home|default_if_none:"-"}}</td>
-                </tr>
-                <tr>
-                  <th>Cantidad de Rx.adjuntas</th>
-                  <td colspan="6" class="text-center">{{bf.rx_amount|default_if_none:"-"}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-      $(function () {
-          var range = getMonthDateRange({{bf.year}}, {{bf.get_month_display}})
-          $('.day-picker-{{bf.id}}').datetimepicker({
-              viewMode: 'days',
-              format: 'D',
-              locale: 'es',
-              minDate: range.start.toDate(),
-              maxDate: range.end.toDate()
-          });
-      });
-    </script>
-    {% endfor %}
-
+  {% if patient.social_work == 2 %}
+    {% include "register/apross.html" %}
   {% else %}
-  <div class="col-md-12">
-    <h3>No existen regitros de prestaciones.</h3>
-  </div>
+    {% include "register/benefit.html" %}
   {% endif %}
-
-  <div class="col-md-12">
-    <hr>
-  </div>
 
 </div>
 {% endblock %}

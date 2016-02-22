@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
-from register.models import Apross
-from register.forms import AprossForm, detailAprossForm
+from register.models import Apross, Benefit
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
 
 
@@ -38,16 +38,22 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        benefits = Apross.objects.filter(patient=patient).order_by('real_date')
-        if benefits:
-            last_benefit = benefits.last()
-        else:
-            last_benefit = None
         if patient.social_work == 2:
+            benefits = Apross.objects.filter(patient=patient).order_by('real_date')
+            if benefits.exists():
+                last_benefit = benefits.last()
+            else:
+                last_benefit = None
             benefit_form = AprossForm()
-        else: #cambiar
-            benefit_form = None
-        detail_form = detailAprossForm()
+            detail_form = detailAprossForm()
+        else:
+            benefits = Benefit.objects.filter(patient=patient).order_by('real_date')
+            if benefits.exists():
+                last_benefit = benefits.last()
+            else:
+                last_benefit = None
+            benefit_form = BenefitForm()
+            detail_form = detailBenefitForm()
         return render_to_response(
             'person/profile.html',
             {
