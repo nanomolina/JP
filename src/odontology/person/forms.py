@@ -27,7 +27,8 @@ class PatientForm(forms.ModelForm):
             ),
             'social_work': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
                 }
             ),
         }
