@@ -34,8 +34,8 @@ class Patient(models.Model):
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
-    subsidiary_number = models.PositiveIntegerField(
-        "numero de afiliado", unique=True, null=True, blank=True
+    subsidiary_number = models.CharField(
+        "numero de afiliado", unique=True, max_length=25, null=True, blank=True
     )
     date_created = models.DateField(auto_now_add=True)
     social_work = models.IntegerField(choices=SOCIAL_WORK, default=1)

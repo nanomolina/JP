@@ -22,43 +22,29 @@
             <div class="row" style="margin-bottom: 30px;">
               <div class="col-xs-6 date-group">
                   <div class='input-group date' id='datetimepicker2'>
-                      <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
+                      <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
                   </div>
-                  <span id="helpBlock6" class="help-block hidden"></span>
+                  <span id="helpBlock1" class="help-block hidden"></span>
               </div>
               <div class="col-xs-6 rx_amount_group">
-                  {{bf_edid_form.rx_amount}}
-                  <span id="helpBlock7" class="help-block hidden"></span>
+                  {{bf_edit_form.rx_amount}}
+                  <span id="helpBlock2" class="help-block hidden"></span>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-4 code1-group">
-                  <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
-              </div>
-              <div class="col-xs-4 code2-group">
-                  <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
-              </div>
-              <div class="col-xs-4 code3-group">
-                  <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
+              <div class="col-xs-12 code1-group">
+                  <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-4 code1-group">
-                  {{bf_edid_form.managment_code1}}
-                  <span id="helpBlock8" class="help-block hidden"></span>
-              </div>
-              <div class="col-xs-4 code2-group">
-                  {{bf_edid_form.managment_code2}}
-                  <span id="helpBlock9" class="help-block hidden"></span>
-              </div>
-              <div class="col-xs-4 code3-group">
-                  {{bf_edid_form.managment_code3}}
-                  <span id="helpBlock10" class="help-block hidden"></span>
+              <div class="col-xs-12 code1-group">
+                  {{bf_edit_form.managment_code}}
+                  <span id="helpBlock3" class="help-block hidden"></span>
               </div>
             </div>
 
