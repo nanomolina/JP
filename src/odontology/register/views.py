@@ -16,7 +16,7 @@ def new_benefit(request, patient_id):
         date = request.POST.get('date', None)
         if date:
             month, year = date.split(' - ')
-            if patient.social_work == 2:
+            if patient.social_work == 'APROSS':
                 date_exists = Apross.objects.filter(
                     patient=patient, month=month, year=int(year)
                 ).exists()
@@ -53,7 +53,7 @@ def edit_benefit(request, patient_id):
         bf_id = request.POST.get('bf_id', None)
         get = request.POST.get('get')
         if get == '1':
-            if patient.social_work == 2:
+            if patient.social_work == 'APROSS':
                 benefit = Apross.objects.get(id=bf_id)
                 bf_edit_form = AprossForm(instance=benefit)
                 template = 'register/_edit_apross.html'
@@ -74,7 +74,7 @@ def edit_benefit(request, patient_id):
             date = request.POST.get('date', None)
             if date:
                 month, year = date.split(' - ')
-                if patient.social_work == 2:
+                if patient.social_work == 'APROSS':
                     benefit = Apross.objects.get(id=bf_id)
                     benefit_form = AprossForm(request.POST, instance=benefit)
                     date_exists = Apross.objects.filter(
@@ -110,7 +110,7 @@ def edit_benefit(request, patient_id):
 def edit_benefit_detail(request, patient_id, detail_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
-        if patient.social_work == 2:
+        if patient.social_work == 'APROSS':
             detail = DetailApross.objects.get(id=detail_id)
             detail_form = detailAprossForm(request.POST, instance=detail)
             template = 'register/detail_apross.html'
@@ -121,7 +121,7 @@ def edit_benefit_detail(request, patient_id, detail_id):
 
         if detail_form.is_valid():
             detail = detail_form.save()
-            if patient.social_work == 2:
+            if patient.social_work == 'APROSS':
                 detail_form = detailAprossForm(instance=detail)
             else:
                 detail_form = detailBenefitForm(instance=detail)

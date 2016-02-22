@@ -38,7 +38,7 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        if patient.social_work == 2:
+        if patient.social_work == 'APROSS':
             benefits = Apross.objects.filter(patient=patient).order_by('real_date')
             if benefits.exists():
                 last_benefit = benefits.last()
