@@ -138,3 +138,14 @@ def edit_benefit_detail(request, patient_id, detail_id):
         else:
             print detail_form.errors
             return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
+
+
+def to_pdf(request):
+    from register.functions import render_to_pdf
+    return render_to_pdf(
+            'register/pdf_example.html',
+            {
+                'pagesize':'A4',
+                'mylist': ['1', 'asdfasd'],
+            }
+        )

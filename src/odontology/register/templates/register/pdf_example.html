@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>My Title</title>
+        <style type="text/css">
+            @page {
+                size: {{ pagesize }};
+                margin: 1cm;
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0cm;
+                    margin-left: 9cm;
+                    margin-right: 9cm;
+                    height: 1cm;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            {% for item in mylist %}
+                RENDER MY CONTENT
+            {% endfor %}
+        </div>
+        <div id="footerContent">
+            {%block page_foot%}
+                Page <pdf:pagenumber>
+            {%endblock%}
+        </div>
+
+
+
+
+
+        <table >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Obra social</th>
+                    <th>Perfil</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td>P0011
+                    </td><td>asd</td>
+                    <td>asdf</td>
+                    <td>AMUR</td>
+                    <td>
+                      <a href="/persons/patient/11/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>P0013
+                    </td><td>sada</td>
+                    <td>asd</td>
+                    <td>Ninguna</td>
+                    <td>
+                      <a href="/persons/patient/13/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>P0014
+                    </td><td>Nano</td>
+                    <td>moas</td>
+                    <td>APROSS</td>
+                    <td>
+                      <a href="/persons/patient/14/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>P0015
+                    </td><td>as</td>
+                    <td>asda</td>
+                    <td>AMICOS</td>
+                    <td>
+                      <a href="/persons/patient/15/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>P0016
+                    </td><td>sad</td>
+                    <td>asdf</td>
+                    <td>APROSS</td>
+                    <td>
+                      <a href="/persons/patient/16/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+
+
+
+
+
+    </body>
+</html>
