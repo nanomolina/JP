@@ -12,7 +12,7 @@
 {% block content %}
 {{ block.super }}
 
-{% if patient.social_work == 'APROSS' %}
+{% if patient.social_work and patient.social_work.initial == 'APROSS' %}
   {% include "register/_add_apross.html" %}
 {% else %}
   {% include "register/_add_benefit.html" %}
@@ -76,7 +76,7 @@
     <hr>
   </div>
 
-  {% if patient.social_work == 'APROSS' %}
+  {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
     {% include "register/apross.html" %}
   {% else %}
     {% include "register/benefit.html" %}
