@@ -28,21 +28,21 @@
         <tbody>
           <tr>
             <td width="60%" style="border-top: 0px solid"></td>
-            <td style="border-top: 0px solid">Fecha: &nbsp;<u>Julio / 2016</u></td>
+            <td style="border-top: 0px solid">Fecha: &nbsp;<u>{{benefit.month}} / {{benefit.year}}</u></td>
           </tr>
         </tbody>
       </table>
 
       <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 4px;">
         <tbody>
-          <td width="60%">PACIENTE: &nbsp;&nbsp; esduardo galeano</td>
-          <td>Nro de afiliado: &nbsp;&nbsp; 1256432457</td>
+          <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
+          <td>Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
         </tbody>
       </table>
 
       <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
         <tbody>
-          <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; Nano Molina</td>
+          <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist}}</td>
           <td style="padding: 0;">
             <table class="table table-condensed" style="margin-bottom: 0;">
               <thead>
@@ -50,7 +50,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="2" class="text-center" style="padding: 0;">02</td>
+                  <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
                 </tr>
               </tbody>
             </table>
@@ -62,7 +62,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="3" class="text-center" style="padding: 0;">228862</td>
+                  <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
                 </tr>
               </tbody>
             </table>
@@ -84,42 +84,20 @@
           </tr>
         </thead>
         <tbody>
+          {% for detail in benefit.get_details %}
           <tr>
-            <td>1</td>
-            <td>12</td>
-            <td>se le sacó el diente</td>
-            <td>1243</td>
-            <td>12</td>
-            <td>V,L</td>
+            <td>{{forloop.counter}}</td>
+            <td>{{detail.day|default_if_none:''}}</td>
+            <td>{{detail.work_done|default_if_none:''}}</td>
+            <td>{{detail.practic_code|default_if_none:''}}</td>
+            <td>{{detail.element|default_if_none:''}}</td>
+            <td>
+              {% for face in detail.faces.all %}
+              {{face.initial}}{% if not forloop.last %}, {% endif %}
+              {% endfor %}</td>
             <td></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
 
@@ -128,15 +106,15 @@
           <tr>
             <td>C&oacute;digos de gest&iacute;on</td>
             <td style="width: 2%">1</td>
-            <td>12412</td>
+            <td>{{benefit.managment_code1|default_if_none:"-"}}</td>
             <td style="width: 2%">2</td>
-            <td>235123</td>
+            <td>{{benefit.managment_code2|default_if_none:"-"}}</td>
             <td style="width: 2%">3</td>
-            <td>123551</td>
+            <td>{{benefit.managment_code3|default_if_none:"-"}}</td>
           </tr>
           <tr>
             <td>Cantidad de Rx. adjuntas</td>
-            <td colspan="6" class="text-center">02</td>
+            <td colspan="6" class="text-center">{{benefit.rx_amount|default_if_none:"-"}}</td>
           </tr>
         </tbody>
       </table>
@@ -145,7 +123,7 @@
         <tbody>
           <tr>
             <td colspan="2" style="border-top: 0;">
-              Domicilio de realizacion de la prestacion: &nbsp;<u>27 de Abril 370, dpto 17 A, Cordoba, Cordoba</u>
+              Domicilio de realizacion de la prestacion: &nbsp;<u>{{patient.dentist.carrying_home|default_if_none:"-"}}</u>
             </td>
             <td style="border-top: 0;"></td>
           </tr>

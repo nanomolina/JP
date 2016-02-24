@@ -76,4 +76,4 @@ class Patient(models.Model):
         return "P%04d" % (self.id)
 
     def get_full_name(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return "%s %s" % (self.last_name, self.first_name)

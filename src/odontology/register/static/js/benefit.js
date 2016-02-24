@@ -73,8 +73,15 @@ $(function () {
       var id = $( "#select-benefit option:selected" ).val();
       $('#benefit-'+id).show();
       $('#edit_bf').data('bf-id', id);
+      edit_url_pdf(id);
   }).change();
 });
+
+function edit_url_pdf(id) {
+    var url_split = $('#to_pdf a').attr('href').split('/');
+    url_split[5] = id;
+    $('#to_pdf a').attr('href', url_split.join('/'));
+}
 
 function edit_benefit() {
     var bf_id = $('#edit_bf').data('bf-id');

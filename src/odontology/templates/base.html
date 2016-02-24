@@ -52,12 +52,13 @@
               <li id="patient" class="loader {% if template == 'patient'%}active{% endif %}">
                 <a href="{% url 'person:patient_list'%}">Pacientes</a>
               </li>
-              <li id="register" class="loader {% if template == 'register'%}active{% endif %}">
+              <li id="register" class="disabled {% if template == 'register'%}active{% endif %}">
                 <a  href="#register">Registros</a>
               </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+              {% block extra_navs %}{% endblock %}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-user"></i> {{ request.user.get_full_name }}

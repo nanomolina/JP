@@ -9,6 +9,14 @@
   </style>
 {% endblock %}
 
+{% block extra_navs %}
+  <li id="to_pdf" class="{% if last_benefit %}loader{% else %}disabled{% endif %}">
+    <a  href="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
+      <i class="fa fa-file-pdf-o"></i> Exportar a pdf
+    </a>
+  </li>
+{% endblock %}
+
 {% block content %}
 {{ block.super }}
 
@@ -90,6 +98,7 @@
   <script type="text/javascript">
     url_profile = "{% url 'person:patient_profile' id=patient.id %}"
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
+    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
 {% endblock %}

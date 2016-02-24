@@ -140,8 +140,19 @@ def edit_benefit_detail(request, patient_id, detail_id):
             return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
 
 
-def pdf_example(request):
+def benefit_to_pdf(request, patient_id, bf_id):
+    patient = get_object_or_404(Patient, id=patient_id)
+    if patient.social_work and patient.social_work.initial == 'APROSS':
+        benefit = get_object_or_404(Apross, id=bf_id)
+        template = 'register/pdf_apross.html'
+    else:
+        benefit = get_object_or_404(Benefit, id=bf_id)
+        template = 'register/pdf_benefit.html'
     return render_to_response(
-        'register/pdf_example.html',
+        template,
+        {
+            'patient': patient,
+            'benefit': benefit,
+        },
         RequestContext(request)
     )
