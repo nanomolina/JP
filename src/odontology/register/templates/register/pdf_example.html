@@ -1,106 +1,164 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <title>My Title</title>
-        <style type="text/css">
-            @page {
-                size: {{ pagesize }};
-                margin: 1cm;
-                @frame footer {
-                    -pdf-frame-content: footerContent;
-                    bottom: 0cm;
-                    margin-left: 9cm;
-                    margin-right: 9cm;
-                    height: 1cm;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div>
-            {% for item in mylist %}
-                RENDER MY CONTENT
-            {% endfor %}
-        </div>
-        <div id="footerContent">
-            {%block page_foot%}
-                Page <pdf:pagenumber>
-            {%endblock%}
-        </div>
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MusicWeb">
+  <meta name="author" content="Nano Molina">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body style=" font-size: 10px;">
+  <div class="container">
+
+      <div class="row">
+          <img src="{% static 'images/apross.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="50" style="position: relative;left: 115px;top: 33px;">
+          <div class="text-center" style="font-size:13px;">
+            <p><strong>Registro de</strong></p>
+            <p><strong>Prestaciones Odontológicas</strong></p>
+          </div>
+          <img src="{% static 'images/fopc.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="200" style="position: absolute;top: 0;right: 86px;">
+      </div>
+
+      <table class="col-sm-12 table table-condensed" style="margin-top: 10px; margin-bottom: 10px;">
+        <tbody>
+          <tr>
+            <td width="60%" style="border-top: 0px solid"></td>
+            <td style="border-top: 0px solid">Fecha: &nbsp;<u>Julio / 2016</u></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 4px;">
+        <tbody>
+          <td width="60%">PACIENTE: &nbsp;&nbsp; esduardo galeano</td>
+          <td>Nro de afiliado: &nbsp;&nbsp; 1256432457</td>
+        </tbody>
+      </table>
+
+      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
+        <tbody>
+          <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; Nano Molina</td>
+          <td style="padding: 0;">
+            <table class="table table-condensed" style="margin-bottom: 0;">
+              <thead>
+                <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center" style="padding: 0;">02</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td style="padding: 0;">
+            <table class="table table-condensed" style="margin-bottom: 0;">
+              <thead>
+                <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" class="text-center" style="padding: 0;">228862</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tbody>
+      </table>
+
+      <p style="margin-bottom: 0;">DETALLE DE PRESTACIONES:</p>
+      <table class="table table-bordered table-condensed" style="margin-bottom:10px;">
+        <thead>
+          <tr>
+            <td></td>
+            <td>DIA</td>
+            <td>TRABAJO REALIZADO</td>
+            <td>CODIGO DE PRACTICA</td>
+            <td>ELEMENTO</td>
+            <td>CARAS</td>
+            <td>CONFORME AFILIADO</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>12</td>
+            <td>se le sacó el diente</td>
+            <td>1243</td>
+            <td>12</td>
+            <td>V,L</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
+        <tbody>
+          <tr>
+            <td>C&oacute;digos de gest&iacute;on</td>
+            <td style="width: 2%">1</td>
+            <td>12412</td>
+            <td style="width: 2%">2</td>
+            <td>235123</td>
+            <td style="width: 2%">3</td>
+            <td>123551</td>
+          </tr>
+          <tr>
+            <td>Cantidad de Rx. adjuntas</td>
+            <td colspan="6" class="text-center">02</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table table-condensed" style="margin-bottom: 10px;">
+        <tbody>
+          <tr>
+            <td colspan="2" style="border-top: 0;">
+              Domicilio de realizacion de la prestacion: &nbsp;<u>27 de Abril 370, dpto 17 A, Cordoba, Cordoba</u>
+            </td>
+            <td style="border-top: 0;"></td>
+          </tr>
+          <tr>
+            <td colspan="3" style="border-top: 0;" class="text-right"><small>Firma y sello del profesional</small></td>
+          </tr>
+        </tbody>
+      </table>
 
 
 
+  </div>
 
 
-        <table >
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Apellido</th>
-                    <th>Nombre</th>
-                    <th>Obra social</th>
-                    <th>Perfil</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    <td>P0011
-                    </td><td>asd</td>
-                    <td>asdf</td>
-                    <td>AMUR</td>
-                    <td>
-                      <a href="/persons/patient/11/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>P0013
-                    </td><td>sada</td>
-                    <td>asd</td>
-                    <td>Ninguna</td>
-                    <td>
-                      <a href="/persons/patient/13/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>P0014
-                    </td><td>Nano</td>
-                    <td>moas</td>
-                    <td>APROSS</td>
-                    <td>
-                      <a href="/persons/patient/14/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>P0015
-                    </td><td>as</td>
-                    <td>asda</td>
-                    <td>AMICOS</td>
-                    <td>
-                      <a href="/persons/patient/15/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>P0016
-                    </td><td>sad</td>
-                    <td>asdf</td>
-                    <td>APROSS</td>
-                    <td>
-                      <a href="/persons/patient/16/" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-
-
-
-
-
-
-    </body>
+</body>
 </html>
