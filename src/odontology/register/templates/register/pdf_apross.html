@@ -71,7 +71,7 @@
       </table>
 
       <p style="margin-bottom: 0;">DETALLE DE PRESTACIONES:</p>
-      <table class="table table-bordered table-condensed" style="margin-bottom:10px;">
+      <table class="table table-bordered table-condensed" style="margin-bottom:4px;">
         <thead>
           <tr>
             <td></td>
@@ -101,7 +101,7 @@
         </tbody>
       </table>
 
-      <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
+      <table class="table table-bordered table-condensed" style="margin-bottom: 4px;">
         <tbody>
           <tr>
             <td>C&oacute;digos de gest&iacute;on</td>
@@ -119,13 +119,13 @@
         </tbody>
       </table>
 
-      <table class="table table-condensed" style="margin-bottom: 10px;">
+      <table class="table table-condensed" style="margin-bottom: 0">
         <tbody>
           <tr>
             <td colspan="2" style="border-top: 0;">
               Domicilio de realizacion de la prestacion: &nbsp;<u>{{patient.dentist.carrying_home|default_if_none:"-"}}</u>
             </td>
-            <td style="border-top: 0;"></td>
+            <td style="border-top: 0;border-bottom: 1px dotted black;width: 115px;"></td>
           </tr>
           <tr>
             <td colspan="3" style="border-top: 0;" class="text-right"><small>Firma y sello del profesional</small></td>
@@ -133,36 +133,58 @@
         </tbody>
       </table>
 
-      <table class="table table-condensed" style="margin-bottom: 10px;">
+      <table class="table table-condensed" style="margin-bottom: 10px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
         <tbody>
           <tr>
-            <td style="border-top: 0;">Titular:</td>
-            <td style="border-top: 0;">Grupo familiar:</td>
-            <td style="border-top: 0;">Parentesco:</td>
-            <td style="border-top: 0;">Fechas de nacimiento:</td>
+            <td style="border-top: 0; padding-top: 2px; padding-bottom: 2px;">Titular:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Grupo familiar:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Parentesco:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Fechas de nacimiento:</td>
           </tr>
           <tr>
-            <td style="border-top: 0;" colspan="3">Domicilio:</td>
-            <td style="border-top: 0;">Localidad:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="3">Domicilio:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Localidad:</td>
           </tr>
           <tr>
-            <td style="border-top: 0;">Tel/Cel:</td>
-            <td style="border-top: 0;" colspan="2">Lugar de trabajo del titular:</td>
-            <td style="border-top: 0;">Jerarquia:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Tel/Cel:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="2">Lugar de trabajo del titular:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Jerarquia:</td>
           </tr>
           <tr>
-            <td style="border-top: 0;" colspan="3"></td>
-            <td style="border-top: 0;">Sexo:</td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="3"></td>
+            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Sexo:</td>
           </tr>
         </tbody>
       </table>
 
-      <hr>
-
       {% include 'register/odontogram.html' %}
 
-  </div>
 
+      <table class="table table-condensed" style="margin-bottom: 0px;">
+        <tbody>
+          <tr>
+            <td>
+              <p style="margin-bottom: 0;">REFERENCIAS</p>
+              <p style="margin-bottom: 0;">COLOR ROJO: Prestaciones existentes</p>
+              <p style="margin-bottom: 0;">COLOR AZUL: Prestaciones requeridas</p>
+              <p style="margin-bottom: 0;">X: Diente ausente o a extraer</p>
+            </td>
+            <td>
+              <p style="margin-bottom: 0;">&nbsp;</p>
+              <p style="margin-bottom: 0;"><i class="fa fa-square-o"></i> PROTESIS FIJA</p>
+              <p style="margin-bottom: 0;"><i class="fa fa-square-o"></i> PROTESIS REMOVIBLE</p>
+              <p style="margin-bottom: 0;"><i class="fa fa-circle-thin"></i> CORONAS</p>
+              <p style="margin-bottom: 0;">CANTIDAD DE DIENTES EXISTENTES: </p>
+              <p style="margin-bottom: 0;">-------------------------------</p>
+              <p style="margin-bottom: 0;">Reservado obra social</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-bottom: 0;">Observaciones:</p>
+
+  </div>
 
 </body>
 </html>
