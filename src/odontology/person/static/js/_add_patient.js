@@ -43,3 +43,15 @@ $(document).ready(function() {
         });
     });
 });
+
+$(function(){
+  $('#id_social_work').change(function(){
+    $('#id_social_work option:selected').each(function() {
+        if ($(this).val() == '') {
+          $('#id_subsidiary_number').parent().hide('fast');
+        } else {
+          $('#id_subsidiary_number').parent().show('fast');
+        }
+    });
+  });
+});
