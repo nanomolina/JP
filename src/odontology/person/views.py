@@ -38,6 +38,7 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
+        patient_info = PatientForm(instance=patient)
         if patient.social_work and patient.social_work.initial == 'APROSS':
             benefits = Apross.objects.filter(patient=patient).order_by('real_date')
             if benefits.exists():
@@ -64,6 +65,18 @@ def patient_profile(request, id):
                 'last_benefit': last_benefit,
                 'benefit_form': benefit_form,
                 'detail_form': detail_form,
+                'patient_info_form': patient_info,
             },
             RequestContext(request)
         )
+
+
+def edit_patient(request, id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=id)
+        patient_form = PatientForm(request.POST, instance=patient)
+        if patient_form.is_valid():
+            patient_form.save()
+            return JsonResponse({'status': 'OK'})
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})

@@ -82,13 +82,25 @@
 
   <div class="col-md-12">
     <hr>
+    <ul class="nav nav-tabs">
+      <li role="presentation" id="tab-detail" class="active"><a href="#detail">Detalles</a></li>
+      <li role="presentation" id="tab-info"><a href="#info">Informacion</a></li>
+    </ul>
   </div>
+  <div id="myTabContent" class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
+      {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
+        {% include "register/apross.html" %}
+      {% else %}
+        {% include "register/benefit.html" %}
+      {% endif %}
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
+      {% include "person/patient_info.html" %}
+    </div>
+  </div>
+  <hr>
 
-  {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-    {% include "register/apross.html" %}
-  {% else %}
-    {% include "register/benefit.html" %}
-  {% endif %}
 
 </div>
 {% endblock %}
@@ -101,4 +113,5 @@
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
 {% endblock %}

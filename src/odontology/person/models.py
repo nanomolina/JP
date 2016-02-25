@@ -69,7 +69,25 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
-        return self.street + ', ' + str(self.number) + ', ' + self.suburb + ', ' + self.locality
+        if self.street is not None:
+            if self.number is not None:
+                result = self.street + ', ' + str(self.number)
+            else:
+                result = self.street
+        else:
+            result = None
+        return result
+
+    @property
+    def full_locality(self):
+        if self.suburb is not None:
+            if self.locality is not None:
+                result = self.suburb + ', ' + self.locality
+            else:
+                result = self.suburb
+        else:
+            result = None
+        return result
 
     @property
     def code(self):
