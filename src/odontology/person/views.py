@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.template import RequestContext
 from person.models import Patient, Dentist
 from person.forms import PatientForm
-from register.models import Apross
-from register.forms import AprossForm
+from register.models import Apross, Benefit
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
 
 
@@ -38,16 +38,23 @@ def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        benefits = Apross.objects.filter(patient=patient).order_by('real_date')
-        if benefits:
-            last_benefit = benefits.last()
-        else:
-            last_benefit = None
-        if patient.social_work == 2:
-            benefit_form = AprossForm()
-        else: #cambiar
-            benefit_form = None
         patient_info = PatientForm(instance=patient)
+        if patient.social_work and patient.social_work.initial == 'APROSS':
+            benefits = Apross.objects.filter(patient=patient).order_by('real_date')
+            if benefits.exists():
+                last_benefit = benefits.last()
+            else:
+                last_benefit = None
+            benefit_form = AprossForm()
+            detail_form = detailAprossForm()
+        else:
+            benefits = Benefit.objects.filter(patient=patient).order_by('real_date')
+            if benefits.exists():
+                last_benefit = benefits.last()
+            else:
+                last_benefit = None
+            benefit_form = BenefitForm()
+            detail_form = detailBenefitForm()
         return render_to_response(
             'person/profile.html',
             {
@@ -57,33 +64,19 @@ def patient_profile(request, id):
                 'benefits': benefits,
                 'last_benefit': last_benefit,
                 'benefit_form': benefit_form,
-                'patient_info_form': patient_info
+                'detail_form': detail_form,
+                'patient_info_form': patient_info,
             },
             RequestContext(request)
         )
-    else:
-        date = request.POST.get('date', None)
-        if date:
-            month, year = date.split(' - ')
-            date_exists = Apross.objects.filter(
-                patient=patient, month=month, year=int(year)
-            ).exists()
-            benefit_form = AprossForm(request.POST)
-            if not date_exists:
-                if benefit_form.is_valid():
-                    new_benefit = benefit_form.save(commit=False)
-                    new_benefit.patient = patient
-                    new_benefit.month = month
-                    new_benefit.year = int(year)
-                    new_benefit.real_date = Date(int(year), int(new_benefit.get_month_display()), 1)
-                    new_benefit.save()
-                    return JsonResponse({'status': 'OK'})
-                else:
-                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
-            else:
-                date_error = {'date': [u'Ingrese una fecha valida.']}
-                if benefit_form.is_valid():
-                    return JsonResponse({'status': 'ERROR', 'errors': date_error})
-                else:
-                    benefit_form.errors['date'] = [u'Ingrese una fecha valida.']
-                    return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
+
+
+def edit_patient(request, id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=id)
+        patient_form = PatientForm(request.POST, instance=patient)
+        if patient_form.is_valid():
+            patient_form.save()
+            return JsonResponse({'status': 'OK'})
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})

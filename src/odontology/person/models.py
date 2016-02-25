@@ -10,6 +10,14 @@ class Clinic_history(models.Model):
     notes = models.CharField(max_length=250)
 
 
+class SocialWork(models.Model):
+    name = models.CharField(max_length=250, null=True, blank=True)
+    initial = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return "%s" % (self.initial)
+
+
 class Dentist(models.Model):
     user = models.ForeignKey(User)
     circle = models.IntegerField()
@@ -26,19 +34,16 @@ class Dentist(models.Model):
 GENDER = (
     (1, 'M'),(2, 'F')
 )
-SOCIAL_WORK = (
-    (1, 'Ninguna'), (2, 'Apross'), (3, 'Fopc')
-)
 class Patient(models.Model):
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
-    subsidiary_number = models.PositiveIntegerField(
-        "numero de afiliado", unique=True, null=True, blank=True
+    subsidiary_number = models.CharField(
+        "numero de afiliado", unique=True, max_length=25, null=True, blank=True
     )
     date_created = models.DateField(auto_now_add=True)
-    social_work = models.IntegerField(choices=SOCIAL_WORK, default=1)
+    social_work = models.ForeignKey(SocialWork, null=True, blank=True)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
@@ -64,7 +69,25 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
-        return self.street + ', ' + str(self.number) + ', ' + self.suburb + ', ' + self.locality
+        if self.street is not None:
+            if self.number is not None:
+                result = self.street + ', ' + str(self.number)
+            else:
+                result = self.street
+        else:
+            result = None
+        return result
+
+    @property
+    def full_locality(self):
+        if self.suburb is not None:
+            if self.locality is not None:
+                result = self.suburb + ', ' + self.locality
+            else:
+                result = self.suburb
+        else:
+            result = None
+        return result
 
     @property
     def code(self):

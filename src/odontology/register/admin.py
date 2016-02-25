@@ -1,5 +1,5 @@
 from django.contrib import admin
-from register.models import Apross, DetailApross
+from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit
 
 
 class AprossAdmin(admin.ModelAdmin):
@@ -12,7 +12,29 @@ admin.site.register(Apross, AprossAdmin)
 
 class DetailAprossAdmin(admin.ModelAdmin):
     fields = (
-        'benefit', 'date', 'work_done', 'practic_code',
+        'day', 'benefit', 'work_done', 'practic_code',
         'element', 'faces'
     )
 admin.site.register(DetailApross, DetailAprossAdmin)
+
+
+class BenefitAdmin(admin.ModelAdmin):
+    fields = (
+        'patient', 'month', 'year', 'primary_entity',
+        'principal_code', 'managment_code', 'rx_amount',
+    )
+admin.site.register(Benefit, BenefitAdmin)
+
+
+class DetailBenefitAdmin(admin.ModelAdmin):
+    fields = (
+        'day', 'benefit', 'tooth', 'code', 'faces'
+    )
+admin.site.register(DetailBenefit, DetailBenefitAdmin)
+
+
+class FacesAdmin(admin.ModelAdmin):
+    fields = (
+        'name', 'initial'
+    )
+admin.site.register(Faces, FacesAdmin)

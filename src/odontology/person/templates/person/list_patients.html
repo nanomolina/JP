@@ -37,9 +37,9 @@
             <td>{{patient.code}}
             <td>{{patient.last_name}}</td>
             <td>{{patient.first_name}}</td>
-            <td>{{patient.get_social_work_display}}</td>
+            <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
             <td>
-              <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs" style="width: 100%">Info</a>
+              <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
             </td>
           </tr>
           {% empty %}

@@ -13,88 +13,90 @@ class PatientForm(forms.ModelForm):
         )
         widgets = {
             'first_name': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'last_name': forms.TextInput(
-                attrs = {
-                    'class': 'form-control'
+                attrs={
+                    'class': 'form-control',
                 }
             ),
             'subsidiary_number': forms.NumberInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
-                    'aria-describedby': "helpBlock"
                 }
             ),
             'social_work': forms.Select(
-                attrs = {
-                    'class': 'form-control',
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
                 }
             ),
             'incumbent': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'family_group': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'relationship': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'birth_date': forms.DateInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'street': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
+                    'style': 'width: 80%',
                 }
             ),
             'number': forms.NumberInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
+                    'style': 'width: 20%',
                 }
             ),
             'suburb': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'locality': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'tel': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'Workplace_holder': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'hierarchy': forms.TextInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'email': forms.EmailInput(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),
             'gender': forms.Select(
-                attrs = {
+                attrs={
                     'class': 'form-control',
                 }
             ),

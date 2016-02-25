@@ -24,6 +24,10 @@
               {{patient_form.social_work}}
               <span id="helpBlock3" class="help-block hidden"></span>
             </div>
+            <div class="form-group {% if patient_form.social_work.errors %}has-error{% endif %}" id="afiliado" style="display: none">
+              <label class="control-label" for="id_social_work">Nro de afiliado:</label>
+              {{patient_form.subsidiary_number}}
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

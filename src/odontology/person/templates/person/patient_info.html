@@ -1,0 +1,102 @@
+<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
+    <div class="col-md-3 no-padding">
+      <button type="button" class="btn btn-default" id="edit-patient-info">Editar info</button>
+      <button type="button" class="btn btn-success hide" id="save-patient-info" data-loading-text="Guardando...">Guardar cambios</button>
+      <button type="button" class="btn btn-default hide" id="cancel-patient-info">Cancelar</button>
+    </div>
+</div>
+
+<div class="col-md-12" style="margin-bottom: 20px;">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Informacion del paciente</div>
+      <div class="panel-body no-padding">
+        <form id="patient-info-form" method="POST" action="{% url 'person:edit_patient' id=patient.id %}" class="form-inline">
+            {% csrf_token %}
+            <table class="table">
+              <tbody>
+                <tr class="basic-info hide">
+                  <th>Apellido:</th>
+                  <td style="border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.last_name|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.last_name}}</span>
+                  </td>
+                  <th>Nombre:</th>
+                  <td style="border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.first_name|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.first_name}}</span>
+                  </td>
+                </tr>
+                <tr class="basic-info hide">
+                  <th style="border-top: 0;">Nro de afiliado:</th>
+                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.subsidiary_number|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
+                  </td>
+                  <th style="border-top: 0;">Sexo:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.gender|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Titular:</th>
+                  <td style="border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.incumbent|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
+                  </td>
+                  <th>Grupo familiar:</th>
+                  <td>
+                    <span class="field-info">{{patient.family_group|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.family_group}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Parentesco:</th>
+                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.relationship|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.relationship}}</span>
+                  </td>
+                  <th style="border-top: 0;">Fecha de nacimiento:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.birth_date|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.birth_date}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Domicilio(calle, num, barrio):</th>
+                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.domicile|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.street}}{{patient_info_form.number}}</span>
+                  </td>
+                  <th style="border-top: 0;">Localidad:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.full_locality|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Lugar de trabajo del Titular:</th>
+                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                    <span class="field-info">{{patient.Workplace_holder|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
+                  </td>
+                  <th style="border-top: 0;">Tel/Cel:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.tel|default_if_none:'-'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </form>
+      </div>
+    </div>
+</div>
+
+<div class="col-md-12" style="margin-bottom: 20px;">
+    <div class="panel panel-primary">
+      <div class="panel-heading">odontograma</div>
+      <div class="panel-body">
+      </div>
+    </div>
+</div>
