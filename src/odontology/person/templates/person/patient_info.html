@@ -15,27 +15,24 @@
             <table class="table">
               <tbody>
                 <tr class="basic-info hide">
-                  <th>Apellido:</th>
+                  <th>Apellido y Nombre:</th>
                   <td style="border-right: 1px solid #ddd;">
-                    <span class="field-info">{{patient.last_name|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.last_name}}</span>
-                  </td>
-                  <th>Nombre:</th>
-                  <td style="border-right: 1px solid #ddd;">
-                    <span class="field-info">{{patient.first_name|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.first_name}}</span>
+                  </td>
+                  <th>Sexo:</th>
+                  <td style="border-right: 1px solid #ddd;">
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
                 <tr class="basic-info hide">
                   <th style="border-top: 0;">Nro de afiliado:</th>
                   <td style="border-top: 0; border-right: 1px solid #ddd;">
-                    <span class="field-info">{{patient.subsidiary_number|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
                   </td>
-                  <th style="border-top: 0;">Sexo:</th>
+                  <th style="border-top: 0;">Obra social:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.gender|default_if_none:'-'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
+                    <span class="edit-info hide">{{patient_info_form.social_work}}</span>
                   </td>
                 </tr>
                 <tr>

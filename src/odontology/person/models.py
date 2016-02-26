@@ -21,7 +21,7 @@ class SocialWork(models.Model):
 class Dentist(models.Model):
     user = models.ForeignKey(User)
     circle = models.IntegerField()
-    register_number = models.IntegerField()
+    register_number = models.PositiveIntegerField()
     carrying_home = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
@@ -54,7 +54,7 @@ class Patient(models.Model):
     number = models.PositiveIntegerField(null=True, blank=True)
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
-    tel = models.IntegerField(null=True, blank=True)
+    tel = models.CharField(max_length=250, null=True, blank=True)
     Workplace_holder = models.CharField(max_length=250, null=True, blank=True)
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)

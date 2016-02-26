@@ -35,19 +35,19 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>Nombre<th/>
+              <th>Nombre</th>
               <td>{{ patient.get_full_name }}</td>
             </tr>
             <tr>
-              <th>Obra social<th/>
+              <th>Obra social</th>
               <td>{{ patient.social_work|default_if_none:'Ninguna' }}</td>
             </tr>
             <tr>
               {% if patient.subsidiary_number %}
-              <th>Nro de afiliado<th/>
+              <th>Nro de afiliado</th>
               <td>{{ patient.subsidiary_number }}</td>
               {% else %}
-              <th>&nbsp;<th/>
+              <th>&nbsp;</th>
               <td>&nbsp;</td>
               {% endif %}
             </tr>
@@ -63,15 +63,15 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>Nombre<th/>
+              <th>Nombre</th>
               <td>{{ dentist.user.get_full_name }}</td>
             </tr>
             <tr>
-              <th>C&iacute;rculo<th/>
+              <th>C&iacute;rculo</th>
               <td>{{ dentist.circle }}</td>
             </tr>
             <tr>
-              <th>N&deg; de Matr&iacute;cula<th/>
+              <th>N&deg; de Matr&iacute;cula</th>
               <td>{{ dentist.register_number }}</td>
             </tr>
           </tbody>

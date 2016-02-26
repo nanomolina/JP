@@ -97,7 +97,7 @@ class PatientForm(forms.ModelForm):
             ),
             'gender': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
                 }
             ),
         }
