@@ -40,6 +40,7 @@ def list_patients(request):
             form.errors['subsidiary_number'] = [u'Ya existe un/a Paciente con este/a Numero de afiliado.']
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
+
 def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
