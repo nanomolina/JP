@@ -31,6 +31,7 @@ class PatientForm(forms.ModelForm):
                 attrs={
                     'class': 'selectpicker form-control',
                     'data-live-search': 'true',
+                    'data-size': '8',
                 }
             ),
             'incumbent': forms.TextInput(
