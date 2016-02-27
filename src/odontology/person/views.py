@@ -26,12 +26,18 @@ def list_patients(request):
         )
     else:
         form = PatientForm(request.POST)
-        if form.is_valid():
-            new_patient = form.save(commit=False)
-            new_patient.dentist = dentist
-            new_patient.save()
-            return JsonResponse({'status': 'OK'})
+        sub_num = request.POST.get('subsidiary_number', None)
+        sub_num_exist = Patient.objects.filter(subsidiary_number=sub_num).exists()
+        if sub_num == '' or not sub_num_exist:
+            if form.is_valid():
+                new_patient = form.save(commit=False)
+                new_patient.dentist = dentist
+                new_patient.save()
+                return JsonResponse({'status': 'OK'})
+            else:
+                return JsonResponse({'status': 'ERROR', 'errors': form.errors})
         else:
+            form.errors['subsidiary_number'] = [u'Ya existe un/a Paciente con este/a Numero de afiliado.']
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
 def patient_profile(request, id):

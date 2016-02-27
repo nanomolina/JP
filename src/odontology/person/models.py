@@ -40,7 +40,7 @@ class Patient(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     subsidiary_number = models.CharField(
-        "numero de afiliado", unique=True, max_length=25, null=True, blank=True
+        "numero de afiliado", max_length=25, null=True, blank=True
     )
     date_created = models.DateField(auto_now_add=True)
     social_work = models.ForeignKey(SocialWork, null=True, blank=True)
