@@ -68,11 +68,13 @@ class PatientForm(forms.ModelForm):
             'suburb': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'style': 'width: 50%',
                 }
             ),
             'locality': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'style': 'width: 50%',
                 }
             ),
             'tel': forms.TextInput(
