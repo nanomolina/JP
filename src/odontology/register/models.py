@@ -41,7 +41,7 @@ class Apross(models.Model):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
-        return DetailApross.objects.filter(benefit=self)
+        return DetailApross.objects.filter(benefit=self).order_by('id')
 
 
 list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + \
@@ -77,7 +77,7 @@ class Benefit(models.Model):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
-        return DetailBenefit.objects.filter(benefit=self)
+        return DetailBenefit.objects.filter(benefit=self).order_by('id')
 
 
 class DetailBenefit(models.Model):
