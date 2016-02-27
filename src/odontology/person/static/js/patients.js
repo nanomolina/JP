@@ -3,7 +3,7 @@ function search() {
     var data = $('#filter').serialize();
     var $body = $('#body-list-patients');
     $body.find('tr').hide();
-    $body.find('#loading').show().removeClass('hide')
+    $body.find('#loading').show().removeClass('hide');
     $body.load(url, data);
 }
 

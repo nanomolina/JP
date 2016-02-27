@@ -44,7 +44,6 @@ def patients(request):
 def search_patient(request):
     import operator
     from django.db.models import Q
-    import ipdb; ipdb.set_trace()
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
         form = PatientForm()
