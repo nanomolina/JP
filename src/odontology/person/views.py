@@ -8,14 +8,14 @@ from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBene
 from datetime import date as Date
 
 
-def list_patients(request):
+def patients(request):
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
         rec_added = request.GET.get('add', None)
         form = PatientForm()
-        patients = Patient.objects.filter(dentist=dentist)
+        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
         return render_to_response(
-            'person/list_patients.html',
+            'person/patients.html',
             {
                 'template': 'patient',
                 'patient_form': form,
@@ -39,6 +39,36 @@ def list_patients(request):
         else:
             form.errors['subsidiary_number'] = [u'Ya existe un/a Paciente con este/a Numero de afiliado.']
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
+
+
+def search_patient(request):
+    import operator
+    from django.db.models import Q
+    import ipdb; ipdb.set_trace()
+    dentist = Dentist.objects.get(user=request.user)
+    if request.method == 'GET':
+        form = PatientForm()
+        text_search = request.GET.get('text_search', None)
+
+        if text_search is not None:
+            terms = text_search.split(' ')
+            qs1 = reduce(operator.or_, (Q(last_name__icontains=n) for n in terms))
+            qs2 = reduce(operator.or_, (Q(first_name__icontains=n) for n in terms))
+            qs3 = reduce(operator.or_, (Q(social_work__initial__icontains=n) for n in terms))
+            qs4 = reduce(operator.or_, (Q(social_work__name__icontains=n) for n in terms))
+            qs5 = reduce(operator.or_, (Q(subsidiary_number__icontains=n) for n in terms))
+
+            patients = Patient.objects.filter(dentist=dentist)
+            patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
+
+        return render_to_response(
+            'person/list_patients.html',
+            {
+                'patients': patients,
+                'text_search': text_search
+            },
+            RequestContext(request)
+        )
 
 
 def patient_profile(request, id):
