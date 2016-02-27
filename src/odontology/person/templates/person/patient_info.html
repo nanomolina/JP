@@ -56,7 +56,14 @@
                   <th style="border-top: 0;">Fecha de nacimiento:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.birth_date|default_if_none:'-'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.birth_date}}</span>
+                    <span class="edit-info hide">
+                      <div class='input-group date' id='birth_date_picker'>
+                          <input class="form-control" id="id_birth_date" name="birth_date" type="text" value="{{patient.birth_date|date:'d/m/Y'}}">
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                    </span>
                   </td>
                 </tr>
                 <tr>

@@ -12,42 +12,43 @@
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
 
             <div class="row">
-              <div class="col-xs-6 date-group">
+              <div class="col-xs-6 date-group input-fields">
                   <label class="control-label" for="id_date">Fecha:</label>
               </div>
-              <div class="col-xs-6 rx_amount_group">
+              <div class="col-xs-6 rx_amount-group input-fields">
                   <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 date-group">
-                  <div class='input-group date' id='datetimepicker1'>
+              <div class="col-xs-6 date-group input-fields">
+                  <div class='input-group date' id='date_add_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
                   </div>
-                  <span id="helpBlock1" class="help-block hidden"></span>
               </div>
-              <div class="col-xs-6 rx_amount_group">
+              <div class="col-xs-6 rx_amount-group input-fields">
                   {{benefit_form.rx_amount}}
                   <span id="helpBlock2" class="help-block hidden"></span>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-12 code1-group">
+              <div class="col-xs-12 managment_code-group input-fields">
                   <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-xs-12 code1-group">
+            <div class="row" style="margin-bottom: 30px;">
+              <div class="col-xs-12 managment_code-group input-fields">
                   {{benefit_form.managment_code}}
                   <span id="helpBlock3" class="help-block hidden"></span>
               </div>
             </div>
+
+            <div id="alert-add-apross" class="alert alert-danger hide"></div>
 
         </div>
         <div class="modal-footer">

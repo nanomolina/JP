@@ -3,9 +3,10 @@ $(document).ready(function() {
     $('#btn-save-benefit').on('click', function(event) {
         $('#btn-save-benefit').button('loading')
         var data_form = $('#benefit-form').serialize();
-        $('#benefit-form .form-group').removeClass('has-error');
-        $('#benefit-form .form-group').find('.help-block').addClass('hidden');
         var url = $('#benefit-form').attr('action');
+        $('#benefit-form .has-error').removeClass('has-error');
+        $('#benefit-form .has-success').removeClass('has-success');
+        $('#alert-add-apross').addClass('hide')
         $.ajax({
           type: "POST",
           url: url,
@@ -15,66 +16,42 @@ $(document).ready(function() {
                 location.href = url_profile;
               } else {
                 $('#btn-save-benefit').button('reset');
-                if (data.errors.date !== undefined) {
-                    $('.date-group').addClass('has-error');
-                    $('#helpBlock1').removeClass('hidden');
-                    $('#helpBlock1').text(data.errors.date[0]);
-                } else {
-                    $('.first-inputs').first().addClass('has-success');
-                }
-                if (data.errors.rx_amount !== undefined) {
-                    $('.rx_amount_group').addClass('has-error');
-                    $('#helpBlock2').removeClass('hidden');
-                    $('#helpBlock2').text(data.errors.rx_amount[0]);
-                } else {
-                    $('.rx_amount_group').addClass('has-success');
-                }
-                if (data.errors.managment_code1 !== undefined) {
-                    $('.code1-group').addClass('has-error');
-                    $('#helpBlock3').removeClass('hidden');
-                    $('#helpBlock3').text(data.errors.managment_code1[0]);
-                } else {
-                    $('.code1-group').addClass('has-success');
-                }
-                if (data.errors.managment_code2 !== undefined) {
-                    $('.code2-group').addClass('has-error');
-                    $('#helpBlock4').removeClass('hidden');
-                    $('#helpBlock4').text(data.errors.managment_code2[0]);
-                } else {
-                    $('.code2-group').addClass('has-success');
-                }
-                if (data.errors.managment_code3 !== undefined) {
-                    $('.code3-group').addClass('has-error');
-                    $('#helpBlock5').removeClass('hidden');
-                    $('#helpBlock5').text(data.errors.managment_code3[0]);
-                } else {
-                    $('.code3-group').addClass('has-success');
-                }
+                $('#benefit-form .input-fields').addClass('has-success');
+                $('#alert-add-apross').removeClass('hide')
+                validate_errors('benefit-form', data.errors, 'alert-add-apross');
               }
           }
         });
     });
+
 });
 
+function validate_errors(name_form, json_errors, alert) {
+  var alert_content = '';
+  for (var key in json_errors) {
+      $('#'+name_form).find('.'+key+'-group').addClass('has-error');
+      alert_content += '<p>' + json_errors[key] + '</p>';
+  }
+  $('#'+alert).html(alert_content);
+}
 
 $(function () {
     var dateNow = new Date();
-    $('#datetimepicker1').datetimepicker({
+    $('#date_add_bf_picker').datetimepicker({
         viewMode: 'months',
         format: 'MMMM - YYYY',
         locale: 'es',
         defaultDate: dateNow,
     });
-});
 
-$(function () {
-  $('#select-benefit').change(function () {
-      $('.benefits').hide();
-      var id = $( "#select-benefit option:selected" ).val();
-      $('#benefit-'+id).show();
-      $('#edit_bf').data('bf-id', id);
-      edit_url_pdf(id);
-  }).change();
+    $('#select-benefit').change(function () {
+        $('.benefits').hide();
+        var id = $( "#select-benefit option:selected" ).val();
+        $('#benefit-'+id).show();
+        $('#edit_bf').data('bf-id', id);
+        edit_url_pdf(id);
+    }).change();
+
 });
 
 function edit_url_pdf(id) {
@@ -88,10 +65,14 @@ function edit_benefit() {
     var csrf = $('#edit_bf').data('csrf');
     $('#modal-edit-benefit').load(
       URL_EDIT_BF,
-      {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1});
+      {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1}
+    );
 }
-// --- BENEFIT DETAIL ---
 
+// --- END BENEFIT ---
+
+
+// --- BENEFIT DETAIL ---
 function edit_benefit_detail(id) {
     var $row_detail = $('#bf-detail-'+id);
     $row_detail.find('.edit').removeClass('hide');
@@ -122,3 +103,5 @@ function save_benefit_detail(id) {
 
     });
 }
+
+// --- END BENEFIT DETAIL ---

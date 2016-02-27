@@ -59,4 +59,9 @@ $(function() {
     $(this).addClass('hide');
     $('#patient-info-form .basic-info').addClass('hide');
   });
+
+  $('#birth_date_picker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      locale: 'es',
+  });
 });
