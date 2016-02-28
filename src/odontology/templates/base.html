@@ -52,7 +52,7 @@
               <li id="patient" class="loader {% if template == 'patient'%}active{% endif %}">
                 <a href="{% url 'person:patient_list'%}">Pacientes</a>
               </li>
-              <li id="register" class="disabled {% if template == 'register'%}active{% endif %}">
+              <li id="register" class="hide {% if template == 'register'%}active{% endif %}">
                 <a  href="#register">Registros</a>
               </li>
             </ul>
