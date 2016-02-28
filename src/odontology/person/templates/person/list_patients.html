@@ -18,3 +18,14 @@
 <tr id="loading" class="hide">
   <td colspan="6" class="text-center"><img src="{% static 'images/ring-alt.gif' %}"></img></td>
 </tr>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.loader').on('click', function(){
+      $("#fakeLoader").fakeLoader({
+          timeToHide: 10000000,
+          bgColor:"#3498db",
+          spinner:"spinner4"
+      });
+    });
+  });
+</script>

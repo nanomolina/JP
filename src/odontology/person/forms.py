@@ -8,8 +8,8 @@ class PatientForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'subsidiary_number', 'social_work',
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
-            'number', 'suburb', 'locality', 'tel', 'Workplace_holder',
-            'hierarchy', 'email', 'gender'
+            'number', 'floor', 'apartment', 'suburb', 'locality', 'tel',
+            'Workplace_holder', 'hierarchy', 'email', 'gender'
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -57,25 +57,43 @@ class PatientForm(forms.ModelForm):
             'street': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 80%',
+                    'style': 'width: 30%',
+                    'placeholder': 'Belgrano',
                 }
             ),
             'number': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 20%',
+                    'style': 'width: 25%',
+                    'placeholder': '134',
+                }
+            ),
+            'floor': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'style': 'width: 15%',
+                    'placeholder': 'dpto 11',
+                }
+            ),
+            'apartment': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'style': 'width: 15%',
+                    'placeholder': 'A',
                 }
             ),
             'suburb': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'style': 'width: 50%',
+                    'placeholder': 'Cordoba',
                 }
             ),
             'locality': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'style': 'width: 50%',
+                    'placeholder': 'Cordoba',
                 }
             ),
             'tel': forms.TextInput(

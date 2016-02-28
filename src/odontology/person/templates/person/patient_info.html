@@ -16,7 +16,7 @@
               <tbody>
                 <tr class="basic-info hide">
                   <th>Apellido y Nombre:</th>
-                  <td style="border-right: 1px solid #ddd;">
+                  <td>
                     <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.last_name}}</span>
                     <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.first_name}}</span>
                   </td>
@@ -27,7 +27,7 @@
                 </tr>
                 <tr class="basic-info hide">
                   <th style="border-top: 0;">Nro de afiliado:</th>
-                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                  <td style="border-top: 0;">
                     <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
                   </td>
                   <th style="border-top: 0;">Obra social:</th>
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                   <th>Titular:</th>
-                  <td style="border-right: 1px solid #ddd;">
+                  <td>
                     <span class="field-info">{{patient.incumbent|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                   <th style="border-top: 0;">Parentesco:</th>
-                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                  <td style="border-top: 0;">
                     <span class="field-info">{{patient.relationship|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
@@ -67,10 +67,15 @@
                   </td>
                 </tr>
                 <tr>
-                  <th style="border-top: 0;">Domicilio(calle, num, barrio):</th>
-                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                  <th style="border-top: 0;">Domicilio(calle, num, dpto):</th>
+                  <td style="border-top: 0; width: 34%">
                     <span class="field-info">{{patient.domicile|default_if_none:'-'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.street}}{{patient_info_form.number}}</span>
+                    <span class="edit-info hide">
+                      {{patient_info_form.street}}{{patient_info_form.number}}
+                    </span>
+                    <span class="edit-info hide">
+                      {{patient_info_form.floor}}{{patient_info_form.apartment}}
+                    </span>
                   </td>
                   <th style="border-top: 0;">Localidad:</th>
                   <td style="border-top: 0;">
@@ -80,7 +85,7 @@
                 </tr>
                 <tr>
                   <th style="border-top: 0;">Lugar de trabajo del Titular:</th>
-                  <td style="border-top: 0; border-right: 1px solid #ddd;">
+                  <td style="border-top: 0;">
                     <span class="field-info">{{patient.Workplace_holder|default_if_none:'-'}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>

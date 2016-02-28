@@ -52,6 +52,8 @@ class Patient(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     street = models.CharField(max_length=250, null=True, blank=True)
     number = models.PositiveIntegerField(null=True, blank=True)
+    floor = models.CharField(max_length=5, null=True, blank=True)
+    apartment = models.CharField(max_length=5, null=True, blank=True)
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
     tel = models.CharField(max_length=250, null=True, blank=True)
@@ -69,11 +71,14 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
-        if self.street is not None:
-            if self.number is not None:
-                result = self.street + ', ' + str(self.number)
-            else:
-                result = self.street
+        if self.street is not None or self.stree != '':
+            result = self.street
+            if self.number is not None or self.number != '':
+                result += ' ' + str(self.number)
+                if self.floor is not None or self.floor != '':
+                    result += ', ' + self.floor
+                    if self.apartment is not None or self.apartment != '':
+                        result += ' ' + self.apartment
         else:
             result = None
         return result
