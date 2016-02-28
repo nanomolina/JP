@@ -5,3 +5,9 @@ function getMonthDateRange(year, month) {
     // console.log(endDate.toDate());
     return { start: startDate, end: endDate };
 }
+
+$(function() {
+  $('#tab-info a, #tab-detail a').click(function (e) {
+    $(this).tab('show');
+  });
+});

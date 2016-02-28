@@ -9,6 +9,14 @@
   </style>
 {% endblock %}
 
+{% block extra_navs %}
+  <li id="to_pdf" class="{% if last_benefit %}loader{% else %}disabled{% endif %}">
+    <a  href="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
+      <i class="fa fa-file-pdf-o"></i> Exportar a pdf
+    </a>
+  </li>
+{% endblock %}
+
 {% block content %}
 {{ block.super }}
 
@@ -27,19 +35,19 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>Nombre<th/>
+              <th>Nombre</th>
               <td>{{ patient.get_full_name }}</td>
             </tr>
             <tr>
-              <th>Obra social<th/>
+              <th>Obra social</th>
               <td>{{ patient.social_work|default_if_none:'Ninguna' }}</td>
             </tr>
             <tr>
               {% if patient.subsidiary_number %}
-              <th>Nro de afiliado<th/>
-              <td>{{ patient.subsidiary_number }}</td>
+              <th>Nro de afiliado</th>
+              <td><span class="label label-primary" style="font-size: 14px">{{ patient.subsidiary_number }}</span></td>
               {% else %}
-              <th>&nbsp;<th/>
+              <th>&nbsp;</th>
               <td>&nbsp;</td>
               {% endif %}
             </tr>
@@ -55,16 +63,16 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>Nombre<th/>
+              <th>Nombre</th>
               <td>{{ dentist.user.get_full_name }}</td>
             </tr>
             <tr>
-              <th>C&iacute;rculo<th/>
+              <th>C&iacute;rculo</th>
               <td>{{ dentist.circle }}</td>
             </tr>
             <tr>
-              <th>N&deg; de Matr&iacute;cula<th/>
-              <td>{{ dentist.register_number }}</td>
+              <th>N&deg; de Matr&iacute;cula</th>
+              <td><span class="label label-primary" style="font-size: 14px">{{ dentist.register_number }}</span></td>
             </tr>
           </tbody>
         </table>
@@ -72,15 +80,30 @@
     </div>
   </div>
 
-  <div class="col-md-12">
-    <hr>
+
+  <div class="col-md-12" style="margin-bottom: 20px;">
+      <div class="panel panel-primary">
+        <div class="panel-body no-padding">
+          <ul class="nav nav-tabs">
+            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Detalles</a></li>
+            <li role="presentation" id="tab-info"><a href="#info">Informacion</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
+              {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
+                {% include "register/apross.html" %}
+              {% else %}
+                {% include "register/benefit.html" %}
+              {% endif %}
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
+              {% include "person/patient_info.html" %}
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 
-  {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-    {% include "register/apross.html" %}
-  {% else %}
-    {% include "register/benefit.html" %}
-  {% endif %}
 
 </div>
 {% endblock %}
@@ -90,6 +113,8 @@
   <script type="text/javascript">
     url_profile = "{% url 'person:patient_profile' id=patient.id %}"
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
+    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
 {% endblock %}
