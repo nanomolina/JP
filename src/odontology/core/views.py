@@ -47,7 +47,7 @@ def home(request):
 
     from django.db.models import Count
     social_works = Patient.objects.filter(
-        patient__dentist=dentist
+        dentist=dentist
     ).values('social_work__initial').annotate(value=Count('social_work'))
 
     return render_to_response(
