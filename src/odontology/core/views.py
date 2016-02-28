@@ -37,7 +37,7 @@ def login_user(request):
 @login_required
 def home(request):
     from register.models import Benefit, Apross, MONTHS
-    from person.models import Patient
+    from person.models import Patient, Dentist
     dentist = Dentist.objects.get(user=request.user)
     data_months = []
     for month in MONTHS:
