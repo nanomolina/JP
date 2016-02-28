@@ -76,7 +76,7 @@ class Patient(models.Model):
             if self.number is not None or self.number != '':
                 result += ' ' + str(self.number)
                 if self.floor is not None or self.floor != '':
-                    result += ', ' + self.floor
+                    result += ', dpto ' + self.floor
                     if self.apartment is not None or self.apartment != '':
                         result += ' ' + self.apartment
         else:
