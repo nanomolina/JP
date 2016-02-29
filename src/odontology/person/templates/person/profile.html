@@ -87,6 +87,7 @@
           <ul class="nav nav-tabs">
             <li role="presentation" id="tab-detail" class="active"><a href="#detail">Detalles</a></li>
             <li role="presentation" id="tab-info"><a href="#info">Informacion</a></li>
+            <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
@@ -98,6 +99,11 @@
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
               {% include "person/patient_info.html" %}
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
+              <div class="" style="margin: 50px auto;">
+                {% include "register/odontogram.html" %}
+              </div>
             </div>
           </div>
         </div>
