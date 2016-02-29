@@ -443,19 +443,38 @@
 </div>
 
 <script type="text/javascript">
-  $('polygon').mouseover(function (evt) {
-      var sector = $(evt.target);
-      sector.css('cursor', 'pointer');
-      sector.attr('fill', 'yellow');
-  });
-  $('polygon').mouseout(function (evt) {
-    var sector = $(evt.target);
-    sector.attr('fill', 'white');
-  });
+  function set_color(color) {
+      $('polygon').off('mouseover');
+      $('polygon').off('mouseout');
 
-  $('polygon').click(function (evt) {
-    var sector = $(evt.target);
-    sector.off('mouseout');
-    sector.attr('fill', 'yellow');
-  });
+      old_color = 'white';
+      $('polygon').mouseover(function (evt) {
+          var sector = $(evt.target);
+          old_color = sector.css('fill')
+          sector.css('cursor', 'pointer');
+          sector.attr('fill', color);
+      });
+      $('polygon').not('.sector-selected').mouseout(function (evt) {
+        var sector = $(evt.target);
+        sector.attr('fill', 'white');
+      });
+      $('polygon.sector-selected').mouseout(function (evt) {
+        var sector = $(evt.target);
+        sector.attr('fill', old_color);
+      });
+
+      $('polygon').click(function (evt) {
+        var sector = $(evt.target);
+        sector.addClass('sector-selected');
+        sector.off('mouseout');
+        sector.attr('fill', color);
+      });
+  }
+
+  $('#button-red, #button-blue').on('click', function(){
+      var color_selected = $(this).find('span').css('background-color');
+      set_color(color_selected);
+      $('#button-red, #button-blue').removeClass('active');
+      $(this).addClass('active');
+  })
 </script>
