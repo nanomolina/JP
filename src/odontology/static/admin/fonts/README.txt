@@ -1,2 +1,1 @@
-Roboto webfont source: https://www.google.com/fonts/specimen/Roboto
-Weights used in this project: Light (300), Regular (400), Bold (700)
+/home/nmolina/Dev/JP/venv/local/lib/python2.7/site-packages/django/contrib/admin/static/admin/fonts/README.txt

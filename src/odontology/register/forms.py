@@ -61,11 +61,14 @@ class detailAprossForm(forms.ModelForm):
             'practic_code': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
+                    'max_length': '20'
                 }
             ),
-            'element': forms.NumberInput(
+            'element': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
                 }
             ),
             'faces': forms.SelectMultiple(
@@ -123,9 +126,11 @@ class detailBenefitForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'tooth': forms.NumberInput(
+            'tooth': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
                 }
             ),
             'code': forms.NumberInput(

@@ -5,6 +5,26 @@
   <link href="{% static 'css/home.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block scripts %}
+<script type="text/javascript" src="{% static 'bower_components/Chart.js/Chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/color_names.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/Please-compressed.js'%}"></script>
+<script type="text/javascript">
+  DATA_MONTHS = {{data_months}};
+  DATA_DOUGHNUT = [
+      {% for sw in social_works %}
+      {
+          value: {{sw.value}},
+          color: Please.make_color(),
+          highlight: '#3498DB',
+          label: "{{sw.social_work__initial}}"
+      }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+  ]
+</script>
+<script type="text/javascript" src="{% static 'js/draw_my_chart.js'%}"></script>
+{% endblock %}
+
 {% block content %}
 {{ block.super }}
     <!-- Page Content -->
@@ -13,39 +33,26 @@
       <div class="row">
           <div class="col-lg-12">
               <h1 class="page-header">
-                  Bienvenido al gestor de odontologia
+                  Bienvenido {{ request.user.get_full_name }}...
               </h1>
           </div>
-          <div class="col-md-4">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <h4><i class="fa fa-users"></i> Listado de pacientes</h4>
-                  </div>
-                  <div class="panel-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                      <a href="{% url 'person:patient_list' %}" class="btn btn-default loader">Learn More</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
               <div class="panel panel-default">
                   <div class="panel-heading">
                       <h4><i class="fa fa-file-text"></i> Registro de prestaciones de servicios</h4>
                   </div>
                   <div class="panel-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                      <a href="#" class="btn btn-default loader">Learn More</a>
+                      <canvas id="myChart" class="col-md-12"></canvas>
                   </div>
               </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                      <h4><i class="fa fa-stethoscope"></i> Historia clinica general</h4>
+                      <h4><i class="fa fa-medkit"></i> Registro de obras sociales</h4>
                   </div>
                   <div class="panel-body">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                      <a href="#" class="btn btn-default">Learn More</a>
+                      <canvas id="myChart2" class="col-md-12"></canvas>
                   </div>
               </div>
           </div>

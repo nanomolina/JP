@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!-- Modal -->
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,56 +12,53 @@
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
             <input type='hidden' name="bf_id" value="{{bf.id}}">
             <div class="row">
-              <div class="col-xs-6 date-group">
+              <div class="col-xs-6 date-group input-fields">
                   <label class="control-label" for="id_date">Fecha:</label>
               </div>
-              <div class="col-xs-6 rx_amount_group">
+              <div class="col-xs-6 rx_amount-group input-fields">
                   <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 date-group">
-                  <div class='input-group date' id='datetimepicker2'>
+              <div class="col-xs-6 date-group input-fields">
+                  <div class='input-group date' id='date_edit_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
                   </div>
-                  <span id="helpBlock6" class="help-block hidden"></span>
               </div>
-              <div class="col-xs-6 rx_amount_group">
+              <div class="col-xs-6 rx_amount-group input-fields">
                   {{bf_edit_form.rx_amount}}
-                  <span id="helpBlock7" class="help-block hidden"></span>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-4 code1-group">
+              <div class="col-xs-4 managment_code1-group input-fields">
                   <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
               </div>
-              <div class="col-xs-4 code2-group">
+              <div class="col-xs-4 managment_code2-group input-fields">
                   <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
               </div>
-              <div class="col-xs-4 code3-group">
+              <div class="col-xs-4 managment_code3-group input-fields">
                   <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-xs-4 code1-group">
+            <div class="row" style="margin-bottom: 30px;">
+              <div class="col-xs-4 managment_code1-group input-fields">
                   {{bf_edit_form.managment_code1}}
-                  <span id="helpBlock8" class="help-block hidden"></span>
               </div>
-              <div class="col-xs-4 code2-group">
+              <div class="col-xs-4 managment_code2-group input-fields">
                   {{bf_edit_form.managment_code2}}
-                  <span id="helpBlock9" class="help-block hidden"></span>
               </div>
-              <div class="col-xs-4 code3-group">
+              <div class="col-xs-4 managment_code3-group input-fields">
                   {{bf_edit_form.managment_code3}}
-                  <span id="helpBlock10" class="help-block hidden"></span>
               </div>
             </div>
+
+            <div id="alert-edit-apross" class="alert alert-danger hide"></div>
 
         </div>
         <div class="modal-footer">
@@ -71,71 +69,4 @@
     </div>
   </div>
 
-  <script>
-    $(document).ready(function() {
-        $('#btn-edit-benefit').on('click', function(event) {
-            $('#btn-edit-benefit').button('loading')
-            var data_form = $('#benefit-edit-form').serialize();
-            $('#benefit-edit-form .form-group').removeClass('has-error');
-            $('#benefit-edit-form .form-group').find('.help-block').addClass('hidden');
-            var url = $('#benefit-edit-form').attr('action');
-            $.ajax({
-              type: "POST",
-              url: url,
-              data: data_form,
-              success: function(data) {
-                  if (data.status !== 'ERROR') {
-                    location.href = url_profile;
-                  } else {
-                    $('#btn-edit-benefit').button('reset');
-                    if (data.errors.date !== undefined) {
-                        $('.date-group').addClass('has-error');
-                        $('#helpBlock6').removeClass('hidden');
-                        $('#helpBlock6').text(data.errors.date[0]);
-                    } else {
-                        $('.first-inputs').first().addClass('has-success');
-                    }
-                    if (data.errors.rx_amount !== undefined) {
-                        $('.rx_amount_group').addClass('has-error');
-                        $('#helpBlock7').removeClass('hidden');
-                        $('#helpBlock7').text(data.errors.rx_amount[0]);
-                    } else {
-                        $('.rx_amount_group').addClass('has-success');
-                    }
-                    if (data.errors.managment_code1 !== undefined) {
-                        $('.code1-group').addClass('has-error');
-                        $('#helpBlock8').removeClass('hidden');
-                        $('#helpBlock8').text(data.errors.managment_code1[0]);
-                    } else {
-                        $('.code1-group').addClass('has-success');
-                    }
-                    if (data.errors.managment_code2 !== undefined) {
-                        $('.code2-group').addClass('has-error');
-                        $('#helpBlock9').removeClass('hidden');
-                        $('#helpBlock9').text(data.errors.managment_code2[0]);
-                    } else {
-                        $('.code2-group').addClass('has-success');
-                    }
-                    if (data.errors.managment_code3 !== undefined) {
-                        $('.code3-group').addClass('has-error');
-                        $('#helpBlock10').removeClass('hidden');
-                        $('#helpBlock10').text(data.errors.managment_code3[0]);
-                    } else {
-                        $('.code3-group').addClass('has-success');
-                    }
-                  }
-              }
-            });
-        });
-    });
-
-    $(function () {
-        var dateNow = new Date();
-        $('#datetimepicker2').datetimepicker({
-            viewMode: 'months',
-            format: 'MMMM - YYYY',
-            locale: 'es',
-            defaultDate: dateNow,
-        });
-    });
-  </script>
+  <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>

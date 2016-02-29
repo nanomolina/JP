@@ -1,88 +1,31 @@
-{% extends 'base.html' %}
-
-{% block links %}
-  {% load staticfiles %}
-  <link href="{% static 'css/list_patients.css' %}" rel="stylesheet">
-{% endblock %}
-
-{% block content %}
-{{ block.super }}
-{% include "person/_add_patient.html" %}
-
-<div class="row padding-top buttons">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Agregar nuevo</button>
-    <button type="button" class="btn btn-default">Eliminar</button>
-    {% if rec_added %}
-    <div id="block-info" class="alert alert-success pull-right" role="alert"><i class="fa fa-check-circle"></i> El paciente se a añadido correctamente</div>
-    {% endif %}
-</div>
-
-<div class="row" id="list-patients">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Lista de pacientes</div>
-    <div class="panel-body no-padding">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Apellido</th>
-            <th>Nombre</th>
-            <th>Obra social</th>
-            <th>Perfil</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for patient in patients %}
-          <tr>
-            <td>{{patient.code}}
-            <td>{{patient.last_name}}</td>
-            <td>{{patient.first_name}}</td>
-            <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
-            <td>
-              <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="5" class="text-center">No hay ning&uacute;n paciente todav&iacute;a</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="row"  id="paginator">
-    <select class="form-control pull-left pagination">
-      <option>10</option>
-      <option>20</option>
-      <option>50</option>
-      <option>100</option>
-      <option>Todos</option>
-    </select>
-    <nav>
-      <ul class="pagination pull-right">
-        <li>
-          <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-          <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-</div>
-{% endblock %}
-
-{% block scripts %}
-<script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
-{%endblock%}
+{% load staticfiles %}
+{% for patient in patients %}
+<tr>
+  <td>{{patient.code}}
+  <td>{{patient.last_name}}</td>
+  <td>{{patient.first_name}}</td>
+  <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
+  <td>{{patient.subsidiary_number|default_if_none:''}}</td>
+  <td>
+    <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="6" class="text-center">No hay ning&uacute;n paciente</td>
+</tr>
+{% endfor %}
+<tr id="loading" class="hide">
+  <td colspan="6" class="text-center"><img src="{% static 'images/ring-alt.gif' %}"></img></td>
+</tr>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.loader').on('click', function(){
+      $("#fakeLoader").fakeLoader({
+          timeToHide: 10000000,
+          bgColor:"#3498db",
+          spinner:"spinner4"
+      });
+    });
+  });
+</script>

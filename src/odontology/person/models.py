@@ -21,7 +21,7 @@ class SocialWork(models.Model):
 class Dentist(models.Model):
     user = models.ForeignKey(User)
     circle = models.IntegerField()
-    register_number = models.IntegerField()
+    register_number = models.PositiveIntegerField()
     carrying_home = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
@@ -40,7 +40,7 @@ class Patient(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     subsidiary_number = models.CharField(
-        "numero de afiliado", unique=True, max_length=25, null=True, blank=True
+        "numero de afiliado", max_length=25, null=True, blank=True
     )
     date_created = models.DateField(auto_now_add=True)
     social_work = models.ForeignKey(SocialWork, null=True, blank=True)
@@ -52,9 +52,11 @@ class Patient(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     street = models.CharField(max_length=250, null=True, blank=True)
     number = models.PositiveIntegerField(null=True, blank=True)
+    floor = models.CharField(max_length=5, null=True, blank=True)
+    apartment = models.CharField(max_length=5, null=True, blank=True)
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
-    tel = models.IntegerField(null=True, blank=True)
+    tel = models.CharField(max_length=250, null=True, blank=True)
     Workplace_holder = models.CharField(max_length=250, null=True, blank=True)
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -69,11 +71,32 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
-        return self.street + ', ' + str(self.number) + ', ' + self.suburb + ', ' + self.locality
+        if self.street is not None or self.stree != '':
+            result = self.street
+            if self.number is not None or self.number != '':
+                result += ' ' + str(self.number)
+                if self.floor is not None or self.floor != '':
+                    result += ', dpto ' + self.floor
+                    if self.apartment is not None or self.apartment != '':
+                        result += ' ' + self.apartment
+        else:
+            result = None
+        return result
+
+    @property
+    def full_locality(self):
+        if self.suburb is not None:
+            if self.locality is not None:
+                result = self.suburb + ', ' + self.locality
+            else:
+                result = self.suburb
+        else:
+            result = None
+        return result
 
     @property
     def code(self):
         return "P%04d" % (self.id)
 
     def get_full_name(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return "%s %s" % (self.last_name, self.first_name)

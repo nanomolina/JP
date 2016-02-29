@@ -41,15 +41,18 @@ class Apross(models.Model):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
-        return DetailApross.objects.filter(benefit=self)
+        return DetailApross.objects.filter(benefit=self).order_by('id')
 
 
+list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + \
+    range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
+ELEMENTS = tuple([(x, x) for x in list_elements])
 class DetailApross(models.Model):
     benefit = models.ForeignKey(Apross)
     day = models.IntegerField(null=True, blank=True)
     work_done = models.CharField(max_length=250, null=True, blank=True)
     practic_code = models.IntegerField(null=True, blank=True)
-    element = models.IntegerField(null=True, blank=True)
+    element = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     date_created = models.DateField(null=True, blank=True)
     faces = models.ManyToManyField(Faces, blank=True)
 
@@ -74,13 +77,13 @@ class Benefit(models.Model):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
-        return DetailBenefit.objects.filter(benefit=self)
+        return DetailBenefit.objects.filter(benefit=self).order_by('id')
 
 
 class DetailBenefit(models.Model):
     benefit = models.ForeignKey(Benefit)
     day = models.IntegerField(null=True, blank=True)
-    tooth = models.IntegerField(null=True, blank=True)
+    tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     code = models.IntegerField(null=True, blank=True)
     faces = models.ManyToManyField(Faces, blank=True)
     date_created = models.DateField(null=True, blank=True)
