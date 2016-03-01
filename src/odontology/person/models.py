@@ -132,13 +132,13 @@ class Tooth(models.Model):
     number = models.SmallIntegerField(choices=ELEMENTS)
     color = models.SmallIntegerField(choices=COLORS, null=True, blank=True)
     work_type = models.SmallIntegerField(choices=WORK_TYPES, null=True, blank=True)
-    position_x = models.SmallIntegerField(choices=POS_X, null=True, blank=True)
-    position_y = models.SmallIntegerField(choices=POS_Y, null=True, blank=True)
+    position_x = models.SmallIntegerField(null=True, blank=True)
+    position_y = models.SmallIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return "%s" % str(self.number)
 
-    def get_sectors():
+    def get_sectors(self):
         return Sector.objects.filter(tooth=self)
 
 
