@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from person.models import Patient, Dentist
+from person.models import Patient, Dentist, Sector
 from person.forms import PatientForm
 from register.models import Apross, DetailApross, Benefit, DetailBenefit
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
@@ -169,3 +169,19 @@ def benefit_to_pdf(request, patient_id, bf_id):
         },
         RequestContext(request)
     )
+
+
+def edit_odontogram(request, patient_id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=patient_id)
+        sector_changes = request.POST.get('sector_changes', None)
+        for sector in sector_changes:
+            sector = Sector.objects.get(id=sector.id)
+            if sector.color == 'red':
+                sector.color = 1
+            elif sector.color == 'blue':
+                sector.color = 2
+            else:
+                sector.color = None
+            sector.save()
+        return JsonResponse({'status': 'OK'})

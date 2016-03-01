@@ -100,16 +100,22 @@
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
               {% include "person/patient_info.html" %}
             </div>
-            <div role="tabpanel" class="tab-pane fade text-center" id="odontogram" aria-labelledby="ondontogram-tab">
-              <div class="btn-group" role="group" aria-label="..." style="margin: 20px auto;">
-                <button type="button" class="btn btn-default" id="button-red">
-                  <span class="badge" style="background-color:rgba(255, 0, 0, 0.63);">&nbsp;&nbsp;</span>
-                </button>
-                <button type="button" class="btn btn-default" id="button-blue">
-                  <span class="badge" style="background-color: rgba(0, 0, 255, 0.63);">&nbsp;&nbsp;</span>
-                </button>
+            <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
+              <div class="col-md-12" style="margin: 20px auto;">
+                  <button type="button" class="btn btn-default" id="edit-odontogram">Editar odontograma</button>
+                  <button type="button" class="btn btn-success hide" id="save-odontogram" data-loading-text="Guardando...">Guardar cambios</button>
+                  <button type="button" class="btn btn-default hide" id="cancel-odontogram">Cancelar</button>
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default hide" id="button-red">
+                      <span class="badge" style="background-color:rgba(255, 0, 0, 0.63);" data-color="red">&nbsp;&nbsp;</span>
+                    </button>
+                    <button type="button" class="btn btn-default hide" id="button-blue">
+                      <span class="badge" style="background-color: rgba(0, 0, 255, 0.63);" data-color="blue">&nbsp;&nbsp;</span>
+                    </button>
+                  </div>
+                  <hr>
               </div>
-              <div style="margin-bottom: 40px;">
+              <div style="margin-bottom: 20%">
                 {% include "register/odontogram.html" %}
               </div>
             </div>
@@ -128,7 +134,9 @@
     url_profile = "{% url 'person:patient_profile' id=patient.id %}"
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
+    URL_EDIT_ODONT = "{% url 'person:edit_odontogram' patient_id=patient.id %}"
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
 {% endblock %}

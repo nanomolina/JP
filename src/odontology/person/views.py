@@ -40,7 +40,6 @@ def patients(request):
                         x, y = get_position(e2)
                         tooth = Tooth(odontogram=odontogram, number=e1, position_x=x, position_y=y)
                         tooth.save()
-                        print "%s - %s" % (str(tooth.position_x), str(tooth.position_y))
                         for l1, l2 in LOCATIONS:
                             Sector(tooth=tooth, location=l1, points=l1).save()
                 new_patient.odontogram = odontogram

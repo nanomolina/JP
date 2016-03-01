@@ -2,9 +2,12 @@
     <svg version="1.1" height="100%" width="100%">
         <g transform="scale(1.5)" id="gmain">
             {% for tooth in patient.odontogram.get_teeth %}
-            <g id="P{{tooth.get_number_display}}" transform="translate({{tooth.position_x}}, {{tooth.position_y}})">
+            <g id="P{{tooth.get_number_display}}" transform="translate({{tooth.position_x}}, {{tooth.position_y}})" data-tooth-id={{tooth.id}}>
                 {% for sector in tooth.get_sectors %}
-                <polygon points="{{sector.get_points_display}}" fill="white" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}" opacity="1"></polygon>
+                <polygon points="{{sector.get_points_display}}" fill="white" stroke-width="0.5" id="{{sector.get_location_display}}"
+                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_display_color}}"
+                  stroke="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif color.sector == 2%}rgba(0, 0, 255, 0.63){% else %}#555555{% endif%}">
+                </polygon>
                 {% endfor %}
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
             </g>
@@ -14,7 +17,7 @@
 </div>
 
 <script type="text/javascript">
-  function set_color(color) {
+  function set_color(color, color_name) {
       $('polygon').off('mouseover');
       $('polygon').off('mouseout');
 
@@ -39,12 +42,14 @@
         sector.addClass('sector-selected');
         sector.off('mouseout');
         sector.attr('fill', color);
+        sector.data('sector-color', color_name);
       });
   }
 
   $('#button-red, #button-blue').on('click', function(){
       var color_selected = $(this).find('span').css('background-color');
-      set_color(color_selected);
+      var color_name = $(this).find('span').data('color');
+      set_color(color_selected, color_name);
       $('#button-red, #button-blue').removeClass('active');
       $(this).addClass('active');
   })
