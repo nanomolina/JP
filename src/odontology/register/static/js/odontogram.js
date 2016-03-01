@@ -1,22 +1,22 @@
 $(function() {
     $('#edit-odontogram').on('click', function() {
-      $('#save-odontogram, #cancel-odontogram, #button-red, #button-blue').removeClass('hide');
+      $('#save-odontogram, #cancel-odontogram, #button-red, #button-blue, #select-work-type').removeClass('hide');
       $(this).addClass('hide');
     });
 
     $('#cancel-odontogram').on('click', function() {
-      $('#save-odontogram, #button-red, #button-blue').addClass('hide');
+      $('#save-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
       $(this).addClass('hide');
       $('#edit-odontogram').removeClass('hide');
-      $('polygon').off('mouseover');
-      $('polygon').off('mouseout');
-      $('polygon').off('click');
-      $('polygon').css('cursor', 'auto');
+      $('#select-work-type select').selectpicker('val', '');
+      clean_color_caries();
     });
 
     $('#save-odontogram').on('click', function(event) {
         $('#save-odontogram').button('loading');
-        $('#cancel-odontogram, #button-red, #button-blue').addClass('hide');
+        $('#cancel-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
+        $('#select-work-type select').selectpicker('val', '');
+        clean_color_caries();        
         var data = {'csrfmiddlewaretoken': CSRF};
         var changes = []
         $('polygon.sector-selected').each(function(key){

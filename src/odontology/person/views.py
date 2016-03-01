@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template import RequestContext
-from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS
+from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm
 from register.models import Apross, Benefit, ELEMENTS
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
@@ -113,6 +113,7 @@ def patient_profile(request, id):
                 'benefit_form': benefit_form,
                 'detail_form': detail_form,
                 'patient_info_form': patient_info,
+                'work_types': WORK_TYPES
             },
             RequestContext(request)
         )

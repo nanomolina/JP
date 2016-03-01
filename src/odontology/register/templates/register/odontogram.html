@@ -5,8 +5,8 @@
             <g id="P{{tooth.get_number_display}}" transform="translate({{tooth.position_x}}, {{tooth.position_y}})" data-tooth-id={{tooth.id}}>
                 {% for sector in tooth.get_sectors %}
                 <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}"
-                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_display_color}}"
-                  fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}">>
+                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_display_color}}" class="{% if sector.color %}sector-colored{% endif %}"
+                  fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}">
                 </polygon>
                 {% endfor %}
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
@@ -17,7 +17,7 @@
 </div>
 
 <script type="text/javascript">
-  function set_color(color, color_name) {
+  function set_color_caries(color, color_name) {
       $('polygon').off('mouseover');
       $('polygon').off('mouseout');
 
@@ -28,11 +28,11 @@
           sector.css('cursor', 'pointer');
           sector.attr('fill', color);
       });
-      $('polygon').not('.sector-selected').mouseout(function (evt) {
+      $('polygon').not('.sector-selected, .sector-colored').mouseout(function (evt) {
         var sector = $(evt.target);
         sector.attr('fill', 'white');
       });
-      $('polygon.sector-selected').mouseout(function (evt) {
+      $('polygon.sector-selected, polygon.sector-colored').mouseout(function (evt) {
         var sector = $(evt.target);
         sector.attr('fill', old_color);
       });
@@ -46,11 +46,42 @@
       });
   }
 
-  $('#button-red, #button-blue').on('click', function(){
-      var color_selected = $(this).find('span').css('background-color');
-      var color_name = $(this).find('span').data('color');
-      set_color(color_selected, color_name);
-      $('#button-red, #button-blue').removeClass('active');
-      $(this).addClass('active');
-  })
+  function clean_color_caries() {
+      $('#button-red').removeClass('active');
+      $('#button-blue').removeClass('active');
+      $('#button-red').addClass('disabled');
+      $('#button-blue').addClass('disabled');
+      $('#button-red').off('click');
+      $('#button-blue').off('click');
+      $('polygon').off('mouseover');
+      $('polygon').off('mouseout');
+      $('polygon').off('click');
+      $('polygon').css('cursor', 'default');
+  }
+
+  function option_caries() {
+      $('#button-red').off('click');
+      $('#button-blue').off('click');
+      $('#button-red').removeClass('disabled');
+      $('#button-blue').removeClass('disabled');
+      $('#button-red, #button-blue').on('click', function(){
+          var color_selected = $(this).find('span').css('background-color');
+          var color_name = $(this).find('span').data('color');
+          set_color_caries(color_selected, color_name);
+          $('#button-red, #button-blue').removeClass('active');
+          $(this).addClass('active');
+      })
+  }
+
+
+  $('#select-work-type select').on('change', function(){
+      var option = $('#select-work-type select option:selected').val();
+      console.log(option);
+      console.log(option == '5');
+      if (option == '5') {
+          option_caries();
+      } else {
+          clean_color_caries();
+      }
+  });
 </script>

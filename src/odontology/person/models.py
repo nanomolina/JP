@@ -117,16 +117,16 @@ class Patient(models.Model):
         return "%s %s" % (self.last_name, self.first_name)
 
 COLORS = ((1, 'red'), (2, 'blue'))
+WORK_TYPES = (
+    (1, 'Extraccion'), (2, 'Endodoncia'), (3, 'Restauracion'),
+    (4, 'Restauracion filtrada'), (5, 'Caries'), (6, 'Corona')
+)
 POS_X1 = tuple([(x , x*25) for x in range(8)])
 POS_X_2 = tuple([(x+8 , 210+x*25) for x in range(8)])
 POS_X = POS_X1 + POS_X_2
 POS_Y = tuple([(y, y*40) for y in range(4)])
 class Tooth(models.Model):
     from register.models import ELEMENTS
-    WORK_TYPES = (
-        (1, 'Extraccion'), (2, 'Endodoncia'), (3, 'Restauracion'),
-        (4, 'Restauracion filtrada'), (5, 'Caries'), (6, 'Corona')
-    )
 
     odontogram = models.ForeignKey(Odontogram)
     number = models.SmallIntegerField(choices=ELEMENTS)
