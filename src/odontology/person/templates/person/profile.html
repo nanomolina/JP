@@ -131,10 +131,11 @@
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
   <script type="text/javascript">
-    url_profile = "{% url 'person:patient_profile' id=patient.id %}"
-    URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
-    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
-    URL_EDIT_ODONT = "{% url 'person:edit_odontogram' patient_id=patient.id %}"
+    url_profile = "{% url 'person:patient_profile' id=patient.id %}";
+    URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}";
+    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
+    URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+    CSRF = "{{ csrf_token }}";
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>

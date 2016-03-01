@@ -172,14 +172,17 @@ def benefit_to_pdf(request, patient_id, bf_id):
 
 
 def edit_odontogram(request, patient_id):
+    import json
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
         sector_changes = request.POST.get('sector_changes', None)
-        for sector in sector_changes:
-            sector = Sector.objects.get(id=sector.id)
-            if sector.color == 'red':
+        if sector_changes is not None:
+            sector_changes = json.loads(sector_changes)
+        for s in sector_changes:
+            sector = Sector.objects.get(id=s['id'])
+            if s['color'] == 'red':
                 sector.color = 1
-            elif sector.color == 'blue':
+            elif s['color'] == 'blue':
                 sector.color = 2
             else:
                 sector.color = None
