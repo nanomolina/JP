@@ -88,16 +88,19 @@
           $('#tooth-extraction').removeClass('hide');
           var tooth = $(evt.target).parent();
           tooth.css('cursor', 'pointer');
-          pos = get_translation(tooth.attr('transform'));
+          var pos = get_translation(tooth.attr('transform'));
           $('#tooth-extraction').attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
       });
 
-      $('g.tooth').click(function (evt) {
-        var sector = $(evt.target);
-        sector.addClass('sector-selected');
-        sector.off('mouseout');
-        sector.attr('fill', color);
-        sector.data('sector-color', color_name);
+      $('g.tooth').on('click', function (evt) {
+        var tooth = $(evt.target).parent();
+        var pos = get_translation(tooth.attr('transform'));
+        var $gmain = $('g#gmain');
+        var g = '<g class="tooth-extraction" transform="translate('+pos[0]+', '+pos[1]+')">' +
+                  '<line x1="0" x2="20" y1="0" y2="20" stroke="#555555" stroke-width="1.5" opacity="1" style="stroke: '+color+'"></line>' +
+                  '<line x1="0" x2="20" y1="20" y2="0" stroke="#555555" stroke-width="1.5" opacity="1" style="stroke: '+color+'"></line>' +
+                '</g>';
+        $gmain.append(g);
       });
   }
 
@@ -126,8 +129,7 @@
 
   $('#select-work-type select').on('change', function(){
       var option = $('#select-work-type select option:selected').val();
-      console.log(option);
-      console.log(option == '5');
+      console.log('option '+option);
       if (option == '5') {
           option_caries();
       } else if (option == '1'){
