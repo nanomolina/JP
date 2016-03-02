@@ -2,7 +2,7 @@
     <svg version="1.1" height="100%" width="100%">
         <g transform="scale(1.5)" id="gmain">
             {% for tooth in patient.odontogram.get_teeth %}
-            <g id="P{{tooth.get_number_display}}" transform="translate({{tooth.position_x}}, {{tooth.position_y}})" data-tooth-id={{tooth.id}}>
+            <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})" data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}}>
                 {% for sector in tooth.get_sectors %}
                 <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}"
                   opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_display_color}}" class="{% if sector.color %}sector-colored{% endif %}"
@@ -12,6 +12,10 @@
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
             </g>
             {% endfor %}
+            <g id="tooth-extraction" transform="" class="hide">
+              <line x1="0" x2="20" y1="0" y2="20" stroke="#555555" stroke-width="1.5" opacity="1"/>
+              <line x1="0" x2="20" y1="20" y2="0" stroke="#555555" stroke-width="1.5" opacity="1"/>
+            </g>
         </g>
     </svg>
 </div>
@@ -70,7 +74,53 @@
           set_color_caries(color_selected, color_name);
           $('#button-red, #button-blue').removeClass('active');
           $(this).addClass('active');
-      })
+      });
+  }
+
+
+  function add_extraction(color, color_name){
+      $('g.tooth').off('mouseover');
+      $('g.tooth').off('mouseout');
+      $('#tooth-extraction line').css('stroke', color);
+      $('#tooth-extraction line').css('cursor', 'pointer');
+
+      $('g.tooth').mouseover(function (evt) {
+          $('#tooth-extraction').removeClass('hide');
+          var tooth = $(evt.target).parent();
+          tooth.css('cursor', 'pointer');
+          pos = get_translation(tooth.attr('transform'));
+          $('#tooth-extraction').attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
+      });
+
+      $('g.tooth').click(function (evt) {
+        var sector = $(evt.target);
+        sector.addClass('sector-selected');
+        sector.off('mouseout');
+        sector.attr('fill', color);
+        sector.data('sector-color', color_name);
+      });
+  }
+
+  function get_translation(obj){
+    obj = obj.split(', ');
+    pos_x = obj[0].split('translate(')[1];
+    pos_y = obj[1].split(')')[0];
+    return [pos_x, pos_y];
+  }
+
+
+  function option_extraction() {
+    $('#button-red').off('click');
+    $('#button-blue').off('click');
+    $('#button-red').removeClass('disabled');
+    $('#button-blue').removeClass('disabled');
+    $('#button-red, #button-blue').on('click', function(){
+        var color_selected = $(this).find('span').css('background-color');
+        var color_name = $(this).find('span').data('color');
+        add_extraction(color_selected, color_name);
+        $('#button-red, #button-blue').removeClass('active');
+        $(this).addClass('active');
+    });
   }
 
 
@@ -80,6 +130,8 @@
       console.log(option == '5');
       if (option == '5') {
           option_caries();
+      } else if (option == '1'){
+          option_extraction();
       } else {
           clean_color_caries();
       }

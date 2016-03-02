@@ -16,7 +16,7 @@ $(function() {
         $('#save-odontogram').button('loading');
         $('#cancel-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
         $('#select-work-type select').selectpicker('val', '');
-        clean_color_caries();        
+        clean_color_caries();
         var data = {'csrfmiddlewaretoken': CSRF};
         var changes = []
         $('polygon.sector-selected').each(function(key){
