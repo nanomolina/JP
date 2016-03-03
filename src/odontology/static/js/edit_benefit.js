@@ -1,1 +1,0 @@
-/home/nmolina/Dev/JP/src/odontology/register/static/js/edit_benefit.js
