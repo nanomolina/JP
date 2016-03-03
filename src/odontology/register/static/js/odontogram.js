@@ -9,21 +9,33 @@ $(function() {
       $(this).addClass('hide');
       $('#edit-odontogram').removeClass('hide');
       $('#select-work-type select').selectpicker('val', '');
-      clean_color_caries();
+      clean_options();
     });
 
     $('#save-odontogram').on('click', function(event) {
         $('#save-odontogram').button('loading');
         $('#cancel-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
         $('#select-work-type select').selectpicker('val', '');
-        clean_color_caries();
+        clean_options();
+        //--------datas----------
         var data = {'csrfmiddlewaretoken': CSRF};
-        var changes = []
+
+        //--------CARIES---------
+        var caries = []
         $('polygon.sector-selected').each(function(key){
-            var sector_edition = {'id': $(this).data('sector-id'), 'color': $(this).data('sector-color')}
-            changes.push(sector_edition);
+            var sector = {'id': $(this).data('sector-id'), 'color': $(this).data('sector-color')};
+            caries.push(sector);
         });
-        data['sector_changes'] = JSON.stringify(changes)
+        data['caries'] = JSON.stringify(caries);
+
+        //-------EXTRACTION------
+        var extractions = []
+        $('g.tooth.extraction').each(function(key){
+            var tooth = {'id': $(this).data('tooth-id'), 'color': $(this).data('color')};
+            extractions.push(tooth);
+        });
+        data['extractions'] = JSON.stringify(extractions);
+
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
@@ -33,6 +45,8 @@ $(function() {
                 $('#save-odontogram').button('reset');
                 $('#save-odontogram').addClass('hide');
                 $('#edit-odontogram').removeClass('hide');
+                $('polygon.sector-selected').removeClass('sector-selected');
+                $('g.tooth.extraction').removeClass('extraction');
                 console.log('OK---->');
               } else {
                 console.log('error---->');

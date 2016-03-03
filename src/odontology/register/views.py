@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from person.models import Patient, Dentist, Sector
+from person.models import Patient, Dentist, Sector, Tooth
 from person.forms import PatientForm
 from register.models import Apross, DetailApross, Benefit, DetailBenefit
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
@@ -175,10 +175,13 @@ def edit_odontogram(request, patient_id):
     import json
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
-        sector_changes = request.POST.get('sector_changes', None)
-        if sector_changes is not None:
-            sector_changes = json.loads(sector_changes)
-        for s in sector_changes:
+        caries = request.POST.get('caries', None)
+        extractions = request.POST.get('extractions', None)
+        if caries is not None:
+            caries = json.loads(caries)
+        if extractions is not None:
+            extractions = json.loads(extractions)
+        for s in caries:
             sector = Sector.objects.get(id=s['id'])
             if s['color'] == 'red':
                 sector.color = 1
@@ -187,4 +190,16 @@ def edit_odontogram(request, patient_id):
             else:
                 sector.color = None
             sector.save()
+            sector.tooth.work_type = 5
+            sector.tooth.save()
+        for x in extractions:
+            tooth = Tooth.objects.get(id=x['id'])
+            if x['color'] == 'red':
+                tooth.color = 1
+            elif x['color'] == 'blue':
+                tooth.color = 2
+            else:
+                sector.color = None
+            tooth.work_type = 1
+            tooth.save()
         return JsonResponse({'status': 'OK'})

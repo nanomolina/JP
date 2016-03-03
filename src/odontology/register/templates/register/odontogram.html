@@ -2,14 +2,22 @@
     <svg version="1.1" height="100%" width="100%">
         <g transform="scale(1.5)" id="gmain">
             {% for tooth in patient.odontogram.get_teeth %}
-            <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})" data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}}>
+            <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
+            data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
                 {% for sector in tooth.get_sectors %}
                 <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}"
-                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_display_color}}" class="{% if sector.color %}sector-colored{% endif %}"
-                  fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}">
+                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_color_display|default_if_none:'white'}}"
+                  fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"
+                  class="{% if sector.color %}sector-colored{% endif %}">
                 </polygon>
                 {% endfor %}
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
+                {% if tooth.work_type == 1 %}
+                  <line x1="0" x2="20" y1="0" y2="20" stroke-width="1.5" opacity="1"
+                  stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
+                  <line x1="0" x2="20" y1="20" y2="0" stroke-width="1.5" opacity="1"
+                  stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
+                {% endif %}
             </g>
             {% endfor %}
             <g id="tooth-extraction" transform="" class="hide">
@@ -21,86 +29,66 @@
 </div>
 
 <script type="text/javascript">
-  function set_color_caries(color, color_name) {
-      $('polygon').off('mouseover');
-      $('polygon').off('mouseout');
-
-      old_color = 'white';
+  //------------------------------------------------CARIES----------------------------------------
+  function option_caries() {
       $('polygon').mouseover(function (evt) {
           var sector = $(evt.target);
-          old_color = sector.css('fill')
           sector.css('cursor', 'pointer');
-          sector.attr('fill', color);
+          sector.attr('fill', COLOR_SELECTED);
       });
-      $('polygon').not('.sector-selected, .sector-colored').mouseout(function (evt) {
-        var sector = $(evt.target);
-        sector.attr('fill', 'white');
-      });
-      $('polygon.sector-selected, polygon.sector-colored').mouseout(function (evt) {
-        var sector = $(evt.target);
-        sector.attr('fill', old_color);
+
+      $('polygon').mouseout(function (evt) {
+          var sector = $(evt.target);
+          if (sector.data('sector-color') == 'red') {
+            sector.attr('fill', RED);
+          } else if (sector.data('sector-color') == 'blue') {
+            sector.attr('fill', BLUE);
+          } else {
+            sector.attr('fill', WHITE);
+          }
+          sector.css('cursor', 'default');
       });
 
       $('polygon').click(function (evt) {
         var sector = $(evt.target);
         sector.addClass('sector-selected');
-        sector.off('mouseout');
-        sector.attr('fill', color);
-        sector.data('sector-color', color_name);
+        sector.attr('fill', COLOR_SELECTED);
+        sector.data('sector-color', COLOR_NAME);
+        sector.parent().data('work-type', 5);
       });
   }
+  // //--------------------------END-CARIES--------------------------------------------------------
 
-  function clean_color_caries() {
-      $('#button-red').removeClass('active');
-      $('#button-blue').removeClass('active');
-      $('#button-red').addClass('disabled');
-      $('#button-blue').addClass('disabled');
-      $('#button-red').off('click');
-      $('#button-blue').off('click');
-      $('polygon').off('mouseover');
-      $('polygon').off('mouseout');
-      $('polygon').off('click');
-      $('polygon').css('cursor', 'default');
-  }
-
-  function option_caries() {
-      $('#button-red').off('click');
-      $('#button-blue').off('click');
-      $('#button-red').removeClass('disabled');
-      $('#button-blue').removeClass('disabled');
-      $('#button-red, #button-blue').on('click', function(){
-          var color_selected = $(this).find('span').css('background-color');
-          var color_name = $(this).find('span').data('color');
-          set_color_caries(color_selected, color_name);
-          $('#button-red, #button-blue').removeClass('active');
-          $(this).addClass('active');
-      });
-  }
-
-
-  function add_extraction(color, color_name){
-      $('g.tooth').off('mouseover');
-      $('g.tooth').off('mouseout');
-      $('#tooth-extraction line').css('stroke', color);
-      $('#tooth-extraction line').css('cursor', 'pointer');
-
+  // //---------------------------EXTRACTION ------------------------------------------------------
+  function option_extraction(){
       $('g.tooth').mouseover(function (evt) {
-          $('#tooth-extraction').removeClass('hide');
+          $('#tooth-extraction line').css('stroke', COLOR_SELECTED);
+          $('#tooth-extraction line').css('cursor', 'pointer');
           var tooth = $(evt.target).parent();
           tooth.css('cursor', 'pointer');
           var pos = get_translation(tooth.attr('transform'));
           $('#tooth-extraction').attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
+          $('#tooth-extraction').removeClass('hide');
+      });
+      $('#tooth-extraction').mouseover(function(){
+          $(this).removeClass('hide');
+      })
+
+      $('g.tooth').mouseout(function (evt) {
+          $('#tooth-extraction').addClass('hide');
       });
 
       $('g.tooth').on('click', function (evt) {
-        var tooth = $(evt.target).parent();
-        var pos = get_translation(tooth.attr('transform'));
-        var $gmain = $('g#gmain');
-        var g = '<g class="tooth-extraction" transform="translate('+pos[0]+', '+pos[1]+')">' +
-                  '<line x1="0" x2="20" y1="0" y2="20" stroke="#555555" stroke-width="1.5" opacity="1" style="stroke: '+color+'"></line>' +
-                  '<line x1="0" x2="20" y1="20" y2="0" stroke="#555555" stroke-width="1.5" opacity="1" style="stroke: '+color+'"></line>' +
-                '</g>';
-        $gmain.append(g);
+          var tooth = $(evt.target).parent();
+          if (tooth.data('work-type') != 1) {
+            $('#gmain').append($('#tooth-extraction').clone().attr('id', ''));
+            tooth.data('work-type', 1);
+            tooth.data('color', COLOR_NAME);
+            tooth.addClass('extraction');
+          }
+      });
+      $('#tooth-extraction line').on('click', function(){
+          $('g.tooth').click();
       });
   }
 
@@ -110,32 +98,52 @@
     pos_y = obj[1].split(')')[0];
     return [pos_x, pos_y];
   }
+  //----------------------------END-EXTRACTION------------------------------------------------------
 
 
-  function option_extraction() {
-    $('#button-red').off('click');
-    $('#button-blue').off('click');
-    $('#button-red').removeClass('disabled');
-    $('#button-blue').removeClass('disabled');
-    $('#button-red, #button-blue').on('click', function(){
-        var color_selected = $(this).find('span').css('background-color');
-        var color_name = $(this).find('span').data('color');
-        add_extraction(color_selected, color_name);
-        $('#button-red, #button-blue').removeClass('active');
-        $(this).addClass('active');
-    });
+  //--------------------------BASE-----------------------------------------------------------------
+  COLOR_SELECTED = 'rgba(0, 0, 255, 0.63)';
+  COLOR_NAME = 'blue';
+  RED = 'rgba(255, 0, 0, 0.63)';
+  BLUE = 'rgba(0, 0, 255, 0.63)';
+  WHITE = 'white';
+
+  $('#button-red').on('click', function(){
+      $('#button-blue').removeClass('active');
+      COLOR_SELECTED = $(this).find('span').css('background-color');
+      COLOR_NAME = $(this).find('span').data('color');
+      $(this).addClass('active');
+  });
+  $('#button-blue').on('click', function(){
+      $('#button-red').removeClass('active');
+      COLOR_SELECTED = $(this).find('span').css('background-color');
+      COLOR_NAME = $(this).find('span').data('color');
+      $(this).addClass('active');
+  });
+
+
+  function clean_options() {
+    //--------CARIES------------------------
+    $('polygon').off('mouseover');
+    $('polygon').off('mouseout');
+    $('polygon').off('click');
+
+    //--------EXTRACTION--------------------
+    $('g.tooth').off('mouseover');
+    $('#tooth-extraction').off('mouseover');
+    $('g.tooth').off('mouseout');
+    $('g.tooth').off('click');
+    $('#tooth-extraction line').off('click');
   }
-
 
   $('#select-work-type select').on('change', function(){
       var option = $('#select-work-type select option:selected').val();
       console.log('option '+option);
+      clean_options();
       if (option == '5') {
           option_caries();
       } else if (option == '1'){
           option_extraction();
-      } else {
-          clean_color_caries();
-      }
+      } else {}
   });
 </script>
