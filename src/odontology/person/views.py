@@ -1,14 +1,15 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template import RequestContext
-from person.models import Patient, Dentist
+from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm
-from register.models import Apross, Benefit
+from register.models import Apross, Benefit, ELEMENTS
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
 
 
 def patients(request):
+    from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
         rec_added = request.GET.get('add', None)
@@ -32,6 +33,16 @@ def patients(request):
             if form.is_valid():
                 new_patient = form.save(commit=False)
                 new_patient.dentist = dentist
+                odontogram = Odontogram()
+                odontogram.save()
+                if not odontogram.get_teeth().exists():
+                    for e1, e2 in ELEMENTS:
+                        x, y = get_position(e2)
+                        tooth = Tooth(odontogram=odontogram, number=e1, position_x=x, position_y=y)
+                        tooth.save()
+                        for l1, l2 in LOCATIONS:
+                            Sector(tooth=tooth, location=l1, points=l1).save()
+                new_patient.odontogram = odontogram
                 new_patient.save()
                 return JsonResponse({'status': 'OK'})
             else:
@@ -102,6 +113,7 @@ def patient_profile(request, id):
                 'benefit_form': benefit_form,
                 'detail_form': detail_form,
                 'patient_info_form': patient_info,
+                'work_types': WORK_TYPES
             },
             RequestContext(request)
         )

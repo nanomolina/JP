@@ -87,6 +87,7 @@
           <ul class="nav nav-tabs">
             <li role="presentation" id="tab-detail" class="active"><a href="#detail">Detalles</a></li>
             <li role="presentation" id="tab-info"><a href="#info">Informacion</a></li>
+            <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
@@ -98,6 +99,36 @@
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
               {% include "person/patient_info.html" %}
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
+              <div class="col-md-12" style="margin: 20px auto;">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-default" id="edit-odontogram">Editar odontograma</button>
+                  <button type="button" class="btn btn-success hide" id="save-odontogram" data-loading-text="Guardando...">Guardar cambios</button>
+                  <button type="button" class="btn btn-default hide" id="cancel-odontogram">Cancelar</button>
+                </div>
+                <div id="select-work-type" class="hide col-md-3">
+                  <select class="selectpicker show-tick">
+                    {% for val, text in work_types %}
+                    <option value="{{val}}">{{text}}</option>
+                    {% endfor %}
+                    <option value="" selected="selected">---------</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default hide" id="button-red">
+                      <span class="badge" style="background-color:rgba(255, 0, 0, 0.63);" data-color="red">&nbsp;&nbsp;</span>
+                    </button>
+                    <button type="button" class="btn btn-default hide active" id="button-blue">
+                      <span class="badge" style="background-color: rgba(0, 0, 255, 0.63);" data-color="blue">&nbsp;&nbsp;</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-bottom: 20%">
+                {% include "register/odontogram.html" %}
+              </div>
             </div>
           </div>
         </div>
@@ -111,10 +142,13 @@
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
   <script type="text/javascript">
-    url_profile = "{% url 'person:patient_profile' id=patient.id %}"
-    URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}"
-    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}"
+    url_profile = "{% url 'person:patient_profile' id=patient.id %}";
+    URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}";
+    URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
+    URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+    CSRF = "{{ csrf_token }}";
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
 {% endblock %}

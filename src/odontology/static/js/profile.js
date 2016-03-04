@@ -1,1 +1,0 @@
-/home/nmolina/Dev/JP/src/odontology/person/static/js/profile.js
