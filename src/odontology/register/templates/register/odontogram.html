@@ -5,8 +5,8 @@
             <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
             data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
                 {% for sector in tooth.get_sectors %}
-                <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}"
-                  opacity="1" data-sector-id="{{sector.id}}" data-sector-color="{{sector.get_color_display|default_if_none:'white'}}"
+                <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}" opacity="1" data-sector-id="{{sector.id}}"
+                  data-sector-color="{{sector.get_color_display|default_if_none:'white'}}" data-stroke-color"{{sector.get_stroke_display|default_if_none:'grey'}}"
                   fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"
                   class="{% if sector.color %}sector-colored{% endif %}">
                 </polygon>
@@ -73,7 +73,7 @@
   //----------------------------END----------------------------------------------------------------
 
   //------------------------------------RESTAURACION-----------------------------------------------
-  function option_restauration() {
+  function option_restoration() {
     $('g.tooth').mouseover(function (evt) {
         var tooth = $(evt.target).parent();
         tooth.css('cursor', 'pointer');
@@ -102,11 +102,50 @@
           $(this).addClass('sector-selected');
           $(this).attr('fill', COLOR_SELECTED);
           $(this).data('sector-color', COLOR_NAME);
-          $(this).parent().data('work-type', 5);
+          $(this).parent().data('work-type', 3);
         });
     });
   }
 
+  //----------------------------------------END----------------------------------------------------
+
+  //--------------------------RESTAURACION--FILTRADA  ---------------------------------------------
+  function option_filtered_restoration() {
+      $('polygon').mouseover(function (evt) {
+          var sector = $(evt.target);
+          sector.css('cursor', 'pointer');
+          sector.attr('fill', RED);
+          sector.attr('stroke', BLUE);
+          sector.attr('stroke-width', '1.5');
+      });
+
+      $('polygon').mouseout(function (evt) {
+          var sector = $(evt.target);
+          if (sector.data('sector-color') == 'red') {
+            sector.attr('fill', RED);
+          } else if (sector.data('sector-color') == 'blue') {
+            sector.attr('fill', BLUE);
+          } else {
+            sector.attr('fill', WHITE);
+          }
+          if (sector.data('stroke-color') != 'blue') {
+            sector.attr('stroke', GREY);
+            sector.attr('stroke-width', '0.5');
+          }
+          sector.css('cursor', 'default');
+      });
+
+      $('polygon').click(function (evt) {
+          var sector = $(evt.target);
+          sector.addClass('filtered-restoration');
+          sector.attr('fill', RED);
+          sector.attr('stroke', BLUE);
+          sector.attr('stroke-width', '1.5');
+          sector.data('sector-color', 'red');
+          sector.data('stroke-color', 'blue');
+          sector.parent().data('work-type', 4);
+      });
+  }
   //----------------------------------------END----------------------------------------------------
 
   //---------------------------CARIES--------------------------------------------------------------
@@ -130,11 +169,11 @@
       });
 
       $('polygon').click(function (evt) {
-        var sector = $(evt.target);
-        sector.addClass('sector-selected');
-        sector.attr('fill', COLOR_SELECTED);
-        sector.data('sector-color', COLOR_NAME);
-        sector.parent().data('work-type', 5);
+          var sector = $(evt.target);
+          sector.addClass('sector-selected');
+          sector.attr('fill', COLOR_SELECTED);
+          sector.data('sector-color', COLOR_NAME);
+          sector.parent().data('work-type', 5);
       });
   }
   //-----------------------------END-CARIES-------------------------------------------------------
@@ -145,6 +184,7 @@
   RED = 'rgba(255, 0, 0, 0.63)';
   BLUE = 'rgba(0, 0, 255, 0.63)';
   WHITE = 'white';
+  GREY = '#555555';
 
 
   $('#button-red').on('click', function(){
@@ -162,25 +202,25 @@
 
 
   function get_translation(obj){
-    obj = obj.split(', ');
-    pos_x = obj[0].split('translate(')[1];
-    pos_y = obj[1].split(')')[0];
-    return [pos_x, pos_y];
+      obj = obj.split(', ');
+      pos_x = obj[0].split('translate(')[1];
+      pos_y = obj[1].split(')')[0];
+      return [pos_x, pos_y];
   }
 
 
   function clean_options() {
-    //--------CARIES------------------------
-    $('polygon').off('mouseover');
-    $('polygon').off('mouseout');
-    $('polygon').off('click');
+      //--------CARIES------------------------
+      $('polygon').off('mouseover');
+      $('polygon').off('mouseout');
+      $('polygon').off('click');
 
-    //--------EXTRACTION--------------------
-    $('g.tooth').off('mouseover');
-    $('#tooth-extraction').off('mouseover');
-    $('g.tooth').off('mouseout');
-    $('g.tooth').off('click');
-    $('#tooth-extraction line').off('click');
+      //--------EXTRACTION--------------------
+      $('g.tooth').off('mouseover');
+      $('#tooth-extraction').off('mouseover');
+      $('g.tooth').off('mouseout');
+      $('g.tooth').off('click');
+      $('#tooth-extraction line').off('click');
   }
 
   $('#select-work-type select').on('change', function(){
@@ -197,13 +237,16 @@
           generate_option('tooth-endodoncia', 2, 'line');
           break;
         case '3':
-          option_restauration();
+          option_restoration();
           break;
-        case '6':
-          generate_option('tooth-corona', 6, 'circle');
+        case '4':
+          option_filtered_restoration();
           break;
         case '5':
           option_caries();
+          break;
+        case '6':
+          generate_option('tooth-corona', 6, 'circle');
           break;
       }
   });
