@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+src/odontology/odontology/settings.py
 
 # C extensions
 *.so
