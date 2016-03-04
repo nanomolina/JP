@@ -37,82 +37,8 @@
 
 <script type="text/javascript">
 
-  //------------------------------EXTRACTION ------------------------------------------------------
-  function option_extraction(){
-      $('g.tooth').mouseover(function (evt) {
-          $('#tooth-extraction line').css('stroke', COLOR_SELECTED);
-          $('#tooth-extraction line').css('cursor', 'pointer');
-          var tooth = $(evt.target).parent();
-          tooth.css('cursor', 'pointer');
-          var pos = get_translation(tooth.attr('transform'));
-          $('#tooth-extraction').attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
-          $('#tooth-extraction').removeClass('hide');
-      });
-      $('#tooth-extraction').mouseover(function(){
-          $(this).removeClass('hide');
-      })
 
-      $('g.tooth').mouseout(function (evt) {
-          $('#tooth-extraction').addClass('hide');
-      });
-
-      $('g.tooth').on('click', function (evt) {
-          var tooth = $(evt.target).parent();
-          if (tooth.data('work-type') != 1) {
-            $('#gmain').append($('#tooth-extraction').clone().attr('id', ''));
-            tooth.data('work-type', 1);
-            tooth.data('color', COLOR_NAME);
-            tooth.addClass('extraction');
-          }
-      });
-      $('#tooth-extraction line').on('click', function(){
-          $('g.tooth').click();
-      });
-  }
-  //----------------------------END-EXTRACTION-----------------------------------------------------
-
-  //------------------------------EXTRACTION ------------------------------------------------------
-
-
-  //----------------------------END-EXTRACTION ----------------------------------------------------
-
-  //---------------------------CARIES--------------------------------------------------------------
-  function option_caries() {
-      $('polygon').mouseover(function (evt) {
-          var sector = $(evt.target);
-          sector.css('cursor', 'pointer');
-          sector.attr('fill', COLOR_SELECTED);
-      });
-
-      $('polygon').mouseout(function (evt) {
-          var sector = $(evt.target);
-          if (sector.data('sector-color') == 'red') {
-            sector.attr('fill', RED);
-          } else if (sector.data('sector-color') == 'blue') {
-            sector.attr('fill', BLUE);
-          } else {
-            sector.attr('fill', WHITE);
-          }
-          sector.css('cursor', 'default');
-      });
-
-      $('polygon').click(function (evt) {
-        var sector = $(evt.target);
-        sector.addClass('sector-selected');
-        sector.attr('fill', COLOR_SELECTED);
-        sector.data('sector-color', COLOR_NAME);
-        sector.parent().data('work-type', 5);
-      });
-  }
-  // //--------------------------END-CARIES-------------------------------------------------------
-
-  //--------------------------BASE----------------------------------------------------------------
-  COLOR_SELECTED = 'rgba(0, 0, 255, 0.63)';
-  COLOR_NAME = 'blue';
-  RED = 'rgba(255, 0, 0, 0.63)';
-  BLUE = 'rgba(0, 0, 255, 0.63)';
-  WHITE = 'white';
-
+  //-----------------------EXTRACTION --ENDODONCIA--CORONA-----------------------------------------
   function generate_option(id, wt, type){
     $('g.tooth').mouseover(function (evt) {
         $('#'+id+' '+type).css('stroke', COLOR_SELECTED);
@@ -144,6 +70,81 @@
         $('g.tooth').click();
     });
   }
+  //----------------------------END----------------------------------------------------------------
+
+  //------------------------------------RESTAURACION-----------------------------------------------
+  function option_restauration() {
+    $('g.tooth').mouseover(function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.css('cursor', 'pointer');
+        tooth.find('polygon').each(function(key){
+            $(this).attr('fill', COLOR_SELECTED);
+        });
+    });
+
+    $('g.tooth').mouseout(function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.find('polygon').each(function(){
+            if ($(this).data('sector-color') == 'red') {
+              $(this).attr('fill', RED);
+            } else if ($(this).data('sector-color') == 'blue') {
+              $(this).attr('fill', BLUE);
+            } else {
+              $(this).attr('fill', WHITE);
+            }
+        });
+        tooth.css('cursor', 'default');
+    });
+
+    $('g.tooth').on('click', function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.find('polygon').each(function(){
+          $(this).addClass('sector-selected');
+          $(this).attr('fill', COLOR_SELECTED);
+          $(this).data('sector-color', COLOR_NAME);
+          $(this).parent().data('work-type', 5);
+        });
+    });
+  }
+
+  //----------------------------------------END----------------------------------------------------
+
+  //---------------------------CARIES--------------------------------------------------------------
+  function option_caries() {
+      $('polygon').mouseover(function (evt) {
+          var sector = $(evt.target);
+          sector.css('cursor', 'pointer');
+          sector.attr('fill', COLOR_SELECTED);
+      });
+
+      $('polygon').mouseout(function (evt) {
+          var sector = $(evt.target);
+          if (sector.data('sector-color') == 'red') {
+            sector.attr('fill', RED);
+          } else if (sector.data('sector-color') == 'blue') {
+            sector.attr('fill', BLUE);
+          } else {
+            sector.attr('fill', WHITE);
+          }
+          sector.css('cursor', 'default');
+      });
+
+      $('polygon').click(function (evt) {
+        var sector = $(evt.target);
+        sector.addClass('sector-selected');
+        sector.attr('fill', COLOR_SELECTED);
+        sector.data('sector-color', COLOR_NAME);
+        sector.parent().data('work-type', 5);
+      });
+  }
+  //-----------------------------END-CARIES-------------------------------------------------------
+
+  //--------------------------BASE----------------------------------------------------------------
+  COLOR_SELECTED = 'rgba(0, 0, 255, 0.63)';
+  COLOR_NAME = 'blue';
+  RED = 'rgba(255, 0, 0, 0.63)';
+  BLUE = 'rgba(0, 0, 255, 0.63)';
+  WHITE = 'white';
 
 
   $('#button-red').on('click', function(){
@@ -194,6 +195,9 @@
           break;
         case '2':
           generate_option('tooth-endodoncia', 2, 'line');
+          break;
+        case '3':
+          option_restauration();
           break;
         case '6':
           generate_option('tooth-corona', 6, 'circle');
