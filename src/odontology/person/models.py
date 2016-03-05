@@ -157,6 +157,7 @@ class Sector(models.Model):
     location = models.SmallIntegerField(choices=LOCATIONS)
     color = models.SmallIntegerField(choices=COLORS, null=True, blank=True)
     points = models.SmallIntegerField(choices=POINTS, null=True, blank=True)
+    stroke_blue = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s" % str(self.location)
