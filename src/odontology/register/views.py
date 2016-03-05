@@ -177,10 +177,66 @@ def edit_odontogram(request, patient_id):
         patient = get_object_or_404(Patient, id=patient_id)
         caries = request.POST.get('caries', None)
         extractions = request.POST.get('extractions', None)
+        endodoncias = request.POST.get('endodoncias', None)
+        corona = request.POST.get('corona', None)
+        restoration = request.POST.get('restoration', None)
+        filtered_restoration= request.POST.get('filtered_restoration', None)
         if caries is not None:
             caries = json.loads(caries)
         if extractions is not None:
             extractions = json.loads(extractions)
+        if endodoncias is not None:
+            endodoncias = json.loads(endodoncias)
+        if corona is not None:
+            corona = json.loads(corona)
+        if restoration is not None:
+            restoration = json.loads(restoration)
+        if filtered_restoration is not None:
+            filtered_restoration = json.loads(filtered_restoration)
+
+        for x in extractions:
+            tooth = Tooth.objects.get(id=x['id'])
+            if x['color'] == 'red':
+                tooth.color = 1
+            elif x['color'] == 'blue':
+                tooth.color = 2
+            else:
+                sector.color = None
+            tooth.work_type = 1
+            tooth.save()
+        for e in endodoncias:
+            tooth = Tooth.objects.get(id=e['id'])
+            if e['color'] == 'red':
+                tooth.color = 1
+            elif e['color'] == 'blue':
+                tooth.color = 2
+            else:
+                sector.color = None
+            tooth.work_type = 2
+            tooth.save()
+        for r in restoration:
+            sector = Sector.objects.get(id=r['id'])
+            if r['color'] == 'red':
+                sector.color = 1
+            elif r['color'] == 'blue':
+                sector.color = 2
+            else:
+                sector.color = None
+            sector.save()
+            sector.tooth.work_type = 3
+            sector.tooth.save()
+        for fr in filtered_restoration:
+            sector = Sector.objects.get(id=fr['id'])
+            if fr['color'] == 'red':
+                sector.color = 1
+            elif fr['color'] == 'blue':
+                sector.color = 2
+            else:
+                sector.color = None
+            sector.stroke_blue = True
+            sector.save()
+            sector.tooth.work_type = 4
+            sector.tooth.save()
         for s in caries:
             sector = Sector.objects.get(id=s['id'])
             if s['color'] == 'red':
@@ -192,14 +248,14 @@ def edit_odontogram(request, patient_id):
             sector.save()
             sector.tooth.work_type = 5
             sector.tooth.save()
-        for x in extractions:
-            tooth = Tooth.objects.get(id=x['id'])
-            if x['color'] == 'red':
+        for c in corona:
+            tooth = Tooth.objects.get(id=c['id'])
+            if c['color'] == 'red':
                 tooth.color = 1
-            elif x['color'] == 'blue':
+            elif c['color'] == 'blue':
                 tooth.color = 2
             else:
                 sector.color = None
-            tooth.work_type = 1
+            tooth.work_type = 6
             tooth.save()
         return JsonResponse({'status': 'OK'})

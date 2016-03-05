@@ -1,13 +1,14 @@
 <div id="svgselect" class="center-block" style="width: 610px; height: 230px;">
-    <svg version="1.1" height="100%" width="100%">
+    <svg version="1.1" height="100%" width="100%" style="margin-top: 35px;">
         <g transform="scale(1.5)" id="gmain">
             {% for tooth in patient.odontogram.get_teeth %}
             <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
             data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
                 {% for sector in tooth.get_sectors %}
-                <polygon points="{{sector.get_points_display}}" stroke="#555555" stroke-width="0.5" id="{{sector.get_location_display}}" opacity="1" data-sector-id="{{sector.id}}"
+                <polygon points="{{sector.get_points_display}}" id="{{sector.get_location_display}}" opacity="1" data-sector-id="{{sector.id}}"
                   data-sector-color="{{sector.get_color_display|default_if_none:'white'}}" data-stroke-color"{{sector.get_stroke_display|default_if_none:'grey'}}"
                   fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"
+                  stroke="{% if sector.stroke_blue %}rgba(0, 0, 255, 0.63){%else%}#555555{%endif%}" stroke-width="{% if sector.stroke_blue %}1.5{%else%}0.5{%endif%}"
                   class="{% if sector.color %}sector-colored{% endif %}">
                 </polygon>
                 {% endfor %}
@@ -16,6 +17,16 @@
                   <line x1="0" x2="20" y1="0" y2="20" stroke-width="1.5" opacity="1"
                   stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
                   <line x1="0" x2="20" y1="20" y2="0" stroke-width="1.5" opacity="1"
+                  stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
+                {% endif %}
+                {% if tooth.work_type == 2 %}
+                  <line x1="7" x2="7" y1="0" y2="20" stroke-width="1.5" opacity="1"
+                  stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
+                  <line x1="13" x2="13" y1="0" y2="20" stroke-width="1.5" opacity="1"
+                  stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
+                {% endif %}
+                {% if tooth.work_type == 6 %}
+                  <circle cx="10" cy="10" r="10" stroke-width="1.5" fill="none"
                   stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
                 {% endif %}
             </g>
@@ -39,7 +50,7 @@
 
 
   //-----------------------EXTRACTION --ENDODONCIA--CORONA-----------------------------------------
-  function generate_option(id, wt, type){
+  function generate_option(id, wt, type, my_class){
     $('g.tooth').mouseover(function (evt) {
         $('#'+id+' '+type).css('stroke', COLOR_SELECTED);
         $('#'+id+' '+type).css('cursor', 'pointer');
@@ -63,7 +74,7 @@
           $('#gmain').append($('#'+id).clone().attr('id', ''));
           tooth.data('work-type', wt);
           tooth.data('color', COLOR_NAME);
-          tooth.addClass('extraction');
+          tooth.addClass(my_class);
         }
     });
     $('#'+id+' '+type).on('click', function(){
@@ -99,7 +110,7 @@
     $('g.tooth').on('click', function (evt) {
         var tooth = $(evt.target).parent();
         tooth.find('polygon').each(function(){
-          $(this).addClass('sector-selected');
+          $(this).addClass('restoration');
           $(this).attr('fill', COLOR_SELECTED);
           $(this).data('sector-color', COLOR_NAME);
           $(this).parent().data('work-type', 3);
@@ -230,11 +241,10 @@
       clean_options();
       switch (option) {
         case '1':
-          //option_extraction();
-          generate_option('tooth-extraction', 1, 'line');
+          generate_option('tooth-extraction', 1, 'line', 'extraction');
           break;
         case '2':
-          generate_option('tooth-endodoncia', 2, 'line');
+          generate_option('tooth-endodoncia', 2, 'line', 'endodoncia');
           break;
         case '3':
           option_restoration();
@@ -246,7 +256,7 @@
           option_caries();
           break;
         case '6':
-          generate_option('tooth-corona', 6, 'circle');
+          generate_option('tooth-corona', 6, 'circle', 'corona');
           break;
       }
   });
