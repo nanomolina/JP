@@ -1,5 +1,5 @@
 <div id="svgselect" class="center-block" style="width: 610px; height: 230px;">
-    <svg version="1.1" height="100%" width="100%" style="margin-top: 35px;">
+    <svg version="1.1" height="100%" width="100%">
         <g transform="scale(1.5)" id="gmain">
             {% for tooth in patient.odontogram.get_teeth %}
             <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
