@@ -180,7 +180,8 @@ def edit_odontogram(request, patient_id):
         endodoncias = request.POST.get('endodoncias', None)
         corona = request.POST.get('corona', None)
         restoration = request.POST.get('restoration', None)
-        filtered_restoration= request.POST.get('filtered_restoration', None)
+        filtered_restoration = request.POST.get('filtered_restoration', None)
+        eraser = request.POST.get('eraser', None)
         if caries is not None:
             caries = json.loads(caries)
         if extractions is not None:
@@ -193,6 +194,8 @@ def edit_odontogram(request, patient_id):
             restoration = json.loads(restoration)
         if filtered_restoration is not None:
             filtered_restoration = json.loads(filtered_restoration)
+        if eraser is not None:
+            eraser = json.loads(eraser)
 
         for x in extractions:
             tooth = Tooth.objects.get(id=x['id'])
@@ -201,7 +204,7 @@ def edit_odontogram(request, patient_id):
             elif x['color'] == 'blue':
                 tooth.color = 2
             else:
-                sector.color = None
+                tooth.color = None
             tooth.work_type = 1
             tooth.save()
         for e in endodoncias:
@@ -255,7 +258,16 @@ def edit_odontogram(request, patient_id):
             elif c['color'] == 'blue':
                 tooth.color = 2
             else:
-                sector.color = None
+                tooth.color = None
             tooth.work_type = 6
+            tooth.save()
+        for er in eraser:
+            tooth = Tooth.objects.get(id=er['id'])
+            for sector in tooth.get_sectors():
+                sector.color = None
+                sector.stroke_blue = False
+                sector.save()
+            tooth.color = None
+            tooth.work_type = None
             tooth.save()
         return JsonResponse({'status': 'OK'})
