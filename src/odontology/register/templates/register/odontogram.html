@@ -6,7 +6,8 @@
             data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
                 {% for sector in tooth.get_sectors %}
                 <polygon points="{{sector.get_points_display}}" id="{{sector.get_location_display}}" opacity="1" data-sector-id="{{sector.id}}"
-                  data-sector-color="{{sector.get_color_display|default_if_none:'white'}}" data-stroke-color"{{sector.get_stroke_display|default_if_none:'grey'}}"
+                  data-sector-color="{{sector.get_color_display|default_if_none:'white'}}"
+                  data-stroke-blue={{sector.stroke_blue}} data-stroke-color"{{sector.get_stroke_display|default_if_none:'grey'}}"
                   fill="{% if sector.color == 1 %}rgba(255, 0, 0, 0.63){% elif sector.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"
                   stroke="{% if sector.stroke_blue %}rgba(0, 0, 255, 0.63){%else%}#555555{%endif%}" stroke-width="{% if sector.stroke_blue %}1.5{%else%}0.5{%endif%}"
                   class="{% if sector.color %}sector-colored{% endif %}">
@@ -189,6 +190,60 @@
   }
   //-----------------------------END-CARIES-------------------------------------------------------
 
+  //----------------------------------------LIMPIAR-----------------------------------------------
+  function option_eraser() {
+    $('g.tooth').mouseover(function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.css('cursor', 'pointer');
+        tooth.find('polygon').each(function(key){
+            $(this).attr('fill', WHITE);
+            $(this).attr('stroke', GREY);
+            $(this).attr('stroke-width', '0.5');
+        });
+        tooth.find('line, circle').addClass('hide');
+    });
+
+    $('g.tooth').mouseout(function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.find('polygon').each(function(){
+            if ($(this).data('sector-color') == 'red') {
+              $(this).attr('fill', RED);
+            } else if ($(this).data('sector-color') == 'blue') {
+              $(this).attr('fill', BLUE);
+            } else {
+              $(this).attr('fill', WHITE);
+            }
+            if ($(this).data('stroke-blue') != 'True') {
+              $(this).attr('stroke', GREY);
+              $(this).attr('stroke-width', '0.5');
+            } else {
+              $(this).attr('stroke', BLUE);
+              $(this).attr('stroke-width', '1.5');
+            }
+        });
+        tooth.css('cursor', 'default');
+        tooth.find('line, circle').removeClass('hide');
+    });
+
+    $('g.tooth').on('click', function (evt) {
+        var tooth = $(evt.target).parent();
+        tooth.find('polygon').each(function(key){
+            $(this).attr('fill', WHITE);
+            $(this).attr('stroke', GREY);
+            $(this).attr('stroke-width', '0.5');
+            $(this).data('sector-color', WHITE);
+        });
+        tooth.addClass('eraser');
+        tooth.data('work-type', 7);
+        tooth.find('line, circle').addClass('hide');
+        tooth.off('mouseover');
+        tooth.off('mouseout');
+        tooth.off('click');
+    });
+  }
+
+  //----------------------------------------END----------------------------------------------------
+
   //--------------------------BASE----------------------------------------------------------------
   COLOR_SELECTED = 'rgba(0, 0, 255, 0.63)';
   COLOR_NAME = 'blue';
@@ -257,6 +312,9 @@
           break;
         case '6':
           generate_option('tooth-corona', 6, 'circle', 'corona');
+          break;
+        case '7':
+          option_eraser();
           break;
       }
   });

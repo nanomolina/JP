@@ -67,6 +67,14 @@ $(function() {
         });
         data['corona'] = JSON.stringify(corona);
 
+        //---------LIMPIAR--------
+        var eraser = []
+        $('g.tooth.eraser').each(function(key){
+            var tooth = {'id': $(this).data('tooth-id')};
+            eraser.push(tooth);
+        });
+        data['eraser'] = JSON.stringify(eraser);
+
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
