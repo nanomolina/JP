@@ -76,6 +76,21 @@
           tooth.data('work-type', wt);
           tooth.data('color', COLOR_NAME);
           tooth.addClass(my_class);
+          var data = {
+              'id': tooth.data('tooth-id'),
+              'color': tooth.data('color')
+          };
+          switch (wt) {
+            case 1:
+              extractions.push(data);
+              break;
+            case 2:
+              endodoncias.push(data);
+              break;
+            case 6:
+              corona.push(data);
+              break;
+          }
         }
     });
     $('#'+id+' '+type).on('click', function(){
@@ -115,6 +130,11 @@
           $(this).attr('fill', COLOR_SELECTED);
           $(this).data('sector-color', COLOR_NAME);
           $(this).parent().data('work-type', 3);
+          var data = {
+              'id': $(this).data('sector-id'),
+              'color': $(this).data('sector-color')
+          };
+          restoration.push(data);
         });
     });
   }
@@ -156,6 +176,11 @@
           sector.data('sector-color', 'red');
           sector.data('stroke-color', 'blue');
           sector.parent().data('work-type', 4);
+          var data = {
+              'id': sector.data('sector-id'),
+              'color': sector.data('sector-color')
+          };
+          filtered_restoration.push(data);
       });
   }
   //----------------------------------------END----------------------------------------------------
@@ -186,6 +211,11 @@
           sector.attr('fill', COLOR_SELECTED);
           sector.data('sector-color', COLOR_NAME);
           sector.parent().data('work-type', 5);
+          var data = {
+            'id': sector.data('sector-id'),
+            'color': sector.data('sector-color')
+          };
+          caries.push(data);
       });
   }
   //-----------------------------END-CARIES-------------------------------------------------------
@@ -235,6 +265,8 @@
         });
         tooth.addClass('eraser');
         tooth.data('work-type', 7);
+        var data = {'id': tooth.data('tooth-id')};
+        eraser.push(data);
         tooth.find('line, circle').addClass('hide');
         tooth.off('mouseover');
         tooth.off('mouseout');
@@ -251,7 +283,9 @@
   BLUE = 'rgba(0, 0, 255, 0.63)';
   WHITE = 'white';
   GREY = '#555555';
-
+  DATA_ODONT = {'csrfmiddlewaretoken': '{{csrf_token}}' }
+  caries = []; extractions = []; endodoncias = []; restoration = [];
+  filtered_restoration = []; corona = []; eraser = [];
 
   $('#button-red').on('click', function(){
       $('#button-blue').removeClass('active');
