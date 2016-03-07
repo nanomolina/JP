@@ -60,6 +60,7 @@
         var pos = get_translation(tooth.attr('transform'));
         $('#'+id).attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
         $('#'+id).removeClass('hide');
+        $('#'+id).data('tooth-id', $(this).data('tooth-id'));
     });
     $('#'+id).mouseover(function(){
         $(this).removeClass('hide');
@@ -70,7 +71,7 @@
     });
 
     $('g.tooth').on('click', function (evt) {
-        var tooth = $(evt.target).parent();
+        var tooth = $(evt.currentTarget);
         if (tooth.data('work-type') != wt) {
           $('#gmain').append($('#'+id).clone().attr('id', ''));
           tooth.data('work-type', wt);
@@ -93,8 +94,12 @@
           }
         }
     });
-    $('#'+id+' '+type).on('click', function(){
-        $('g.tooth').click();
+    $('#'+id+' '+type).on('click', function(evt){
+        // console.log($(this).parent().data('tooth-id'));
+        var t_id = $(this).parent().data('tooth-id');
+        var tooth = $("g").find("[data-tooth-id='" + t_id + "']");
+        // console.log(tooth);
+        tooth.click();
     });
   }
   //----------------------------END----------------------------------------------------------------
