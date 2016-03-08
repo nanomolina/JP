@@ -38,24 +38,24 @@
                 <tr>
                   <th>Titular:</th>
                   <td>
-                    <span class="field-info">{{patient.incumbent|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.incumbent|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
                   <th>Grupo familiar:</th>
                   <td>
-                    <span class="field-info">{{patient.family_group|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.family_group|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.family_group}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th style="border-top: 0;">Parentesco:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.relationship|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.relationship|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
                   <th style="border-top: 0;">Fecha de nacimiento:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.birth_date|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.birth_date|default_if_none:'---'}}</span>
                     <span class="edit-info hide">
                       <div class='input-group date' id='birth_date_picker'>
                           <input class="form-control" id="id_birth_date" name="birth_date" type="text" value="{{patient.birth_date|date:'d/m/Y'}}">
@@ -69,7 +69,7 @@
                 <tr>
                   <th style="border-top: 0;">Domicilio(calle, num, dpto):</th>
                   <td style="border-top: 0; width: 34%">
-                    <span class="field-info">{{patient.domicile|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.domicile|default_if_none:'---'}}</span>
                     <span class="edit-info hide">
                       {{patient_info_form.street}}{{patient_info_form.number}}
                     </span>
@@ -79,19 +79,19 @@
                   </td>
                   <th style="border-top: 0;">Localidad:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.full_locality|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th style="border-top: 0;">Lugar de trabajo del Titular:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.Workplace_holder|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.Workplace_holder|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>
                   <th style="border-top: 0;">Tel/Cel:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.tel|default_if_none:'-'}}</span>
+                    <span class="field-info">{{patient.tel|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.tel}}</span>
                   </td>
                 </tr>
