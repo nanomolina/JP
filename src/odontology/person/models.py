@@ -86,13 +86,13 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
-        if self.street is not None or self.stree != '':
+        if self.street not in [None, '']:
             result = self.street
-            if self.number is not None or self.number != '':
+            if self.number not in [None, '']:
                 result += ' ' + str(self.number)
-                if self.floor is not None or self.floor != '':
+                if self.floor not in [None, '']:
                     result += ', dpto ' + self.floor
-                    if self.apartment is not None or self.apartment != '':
+                    if self.apartment not in [None, '']:
                         result += ' ' + self.apartment
         else:
             result = None
@@ -100,8 +100,8 @@ class Patient(models.Model):
 
     @property
     def full_locality(self):
-        if self.suburb is not None:
-            if self.locality is not None:
+        if self.suburb not in [None, '']:
+            if self.locality not in [None, '']:
                 result = self.suburb + ', ' + self.locality
             else:
                 result = self.suburb
