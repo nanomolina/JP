@@ -130,17 +130,25 @@
 
     $('g.tooth').on('click', function (evt) {
         var tooth = $(evt.target).parent();
-        tooth.find('polygon').each(function(){
-          $(this).addClass('restoration');
-          $(this).attr('fill', COLOR_SELECTED);
-          $(this).data('sector-color', COLOR_NAME);
-          $(this).parent().data('work-type', 3);
-          var data = {
-              'id': $(this).data('sector-id'),
-              'color': $(this).data('sector-color')
-          };
-          restoration.push(data);
-        });
+        if (tooth.data('work-type') != 3 || tooth.data('color') != COLOR_NAME) {
+            tooth.find('polygon').each(function(){
+                for (var i=0; i<restoration.length; i++) {
+                    if (restoration[i]['id'] == $(this).data('sector-id')) {
+                        restoration.splice(i, 1);
+                    }
+                }
+                $(this).addClass('restoration');
+                $(this).attr('fill', COLOR_SELECTED);
+                $(this).data('sector-color', COLOR_NAME);
+                $(this).parent().data('work-type', 3);
+                var data = {
+                    'id': $(this).data('sector-id'),
+                    'color': $(this).data('sector-color')
+                };
+                restoration.push(data);
+            });
+            tooth.data('color', COLOR_NAME)
+        }
     });
   }
 
@@ -174,18 +182,20 @@
 
       $('polygon').click(function (evt) {
           var sector = $(evt.target);
-          sector.addClass('filtered-restoration');
-          sector.attr('fill', RED);
-          sector.attr('stroke', BLUE);
-          sector.attr('stroke-width', '1.5');
-          sector.data('sector-color', 'red');
-          sector.data('stroke-color', 'blue');
-          sector.parent().data('work-type', 4);
-          var data = {
-              'id': sector.data('sector-id'),
-              'color': sector.data('sector-color')
-          };
-          filtered_restoration.push(data);
+          if (sector.data('stroke-color') != 'blue') {
+              sector.addClass('filtered-restoration');
+              sector.attr('fill', RED);
+              sector.attr('stroke', BLUE);
+              sector.attr('stroke-width', '1.5');
+              sector.data('sector-color', 'red');
+              sector.data('stroke-color', 'blue');
+              sector.parent().data('work-type', 4);
+              var data = {
+                  'id': sector.data('sector-id'),
+                  'color': sector.data('sector-color')
+              };
+              filtered_restoration.push(data);
+          }
       });
   }
   //----------------------------------------END----------------------------------------------------
@@ -212,15 +222,22 @@
 
       $('polygon').click(function (evt) {
           var sector = $(evt.target);
-          sector.addClass('sector-selected');
-          sector.attr('fill', COLOR_SELECTED);
-          sector.data('sector-color', COLOR_NAME);
-          sector.parent().data('work-type', 5);
-          var data = {
-            'id': sector.data('sector-id'),
-            'color': sector.data('sector-color')
-          };
-          caries.push(data);
+          if (sector.data('sector-color') != COLOR_NAME) {
+              for (var i=0; i<caries.length; i++) {
+                  if (caries[i]['id'] == $(this).data('sector-id')) {
+                      caries.splice(i, 1);
+                  }
+              }
+              sector.addClass('sector-selected');
+              sector.attr('fill', COLOR_SELECTED);
+              sector.data('sector-color', COLOR_NAME);
+              sector.parent().data('work-type', 5);
+              var data = {
+                'id': sector.data('sector-id'),
+                'color': sector.data('sector-color')
+              };
+              caries.push(data);
+          }
       });
   }
   //-----------------------------END-CARIES-------------------------------------------------------
@@ -229,13 +246,15 @@
   function option_eraser() {
     $('g.tooth').mouseover(function (evt) {
         var tooth = $(evt.target).parent();
-        tooth.css('cursor', 'pointer');
-        tooth.find('polygon').each(function(key){
-            $(this).attr('fill', WHITE);
-            $(this).attr('stroke', GREY);
-            $(this).attr('stroke-width', '0.5');
-        });
-        tooth.find('line, circle').addClass('hide');
+        if (tooth.data('work-type') != 7) {
+            tooth.css('cursor', 'pointer');
+            tooth.find('polygon').each(function(key){
+                $(this).attr('fill', WHITE);
+                $(this).attr('stroke', GREY);
+                $(this).attr('stroke-width', '0.5');
+            });
+            tooth.find('line, circle').addClass('hide');
+        }
     });
 
     $('g.tooth').mouseout(function (evt) {
@@ -261,21 +280,32 @@
     });
 
     $('g.tooth').on('click', function (evt) {
+        var work_types = [1, 2, 3, 4, 5, 6];
+        var click_enabled = false;
         var tooth = $(evt.target).parent();
-        tooth.find('polygon').each(function(key){
-            $(this).attr('fill', WHITE);
-            $(this).attr('stroke', GREY);
-            $(this).attr('stroke-width', '0.5');
-            $(this).data('sector-color', WHITE);
-        });
-        tooth.addClass('eraser');
-        tooth.data('work-type', 7);
-        var data = {'id': tooth.data('tooth-id')};
-        eraser.push(data);
-        tooth.find('line, circle').addClass('hide');
-        tooth.off('mouseover');
-        tooth.off('mouseout');
-        tooth.off('click');
+        for (var i=0; i<work_types.length; i++) {
+            if (tooth.data('work-type') == work_types[i]) {
+                var click_enabled = true;
+                break;
+            }
+        }
+        if (click_enabled) {
+            debugger;
+            tooth.find('polygon').each(function(key){
+                $(this).attr('fill', WHITE);
+                $(this).attr('stroke', GREY);
+                $(this).attr('stroke-width', '0.5');
+                $(this).data('sector-color', WHITE);
+            });
+            tooth.addClass('eraser');
+            tooth.data('work-type', 7);
+            tooth.find('line, circle').addClass('hide');
+            var data = {'id': tooth.data('tooth-id')};
+            eraser.push(data);
+            tooth.off('mouseover');
+            tooth.off('mouseout');
+            tooth.off('click');
+        }
     });
   }
 

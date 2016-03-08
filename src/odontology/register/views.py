@@ -196,7 +196,16 @@ def edit_odontogram(request, patient_id):
             filtered_restoration = json.loads(filtered_restoration)
         if eraser is not None:
             eraser = json.loads(eraser)
-
+            
+        for er in eraser:
+            tooth = Tooth.objects.get(id=er['id'])
+            for sector in tooth.get_sectors():
+                sector.color = None
+                sector.stroke_blue = False
+                sector.save()
+            tooth.color = None
+            tooth.work_type = None
+            tooth.save()
         for x in extractions:
             tooth = Tooth.objects.get(id=x['id'])
             if x['color'] == 'red':
@@ -260,14 +269,5 @@ def edit_odontogram(request, patient_id):
             else:
                 tooth.color = None
             tooth.work_type = 6
-            tooth.save()
-        for er in eraser:
-            tooth = Tooth.objects.get(id=er['id'])
-            for sector in tooth.get_sectors():
-                sector.color = None
-                sector.stroke_blue = False
-                sector.save()
-            tooth.color = None
-            tooth.work_type = None
             tooth.save()
         return JsonResponse({'status': 'OK'})
