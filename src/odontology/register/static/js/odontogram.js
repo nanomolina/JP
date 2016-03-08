@@ -17,68 +17,17 @@ $(function() {
         $('#cancel-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
         $('#select-work-type select').selectpicker('val', '');
 
-        clean_options();
-        var data = {'csrfmiddlewaretoken': CSRF};
-
-        //--------CARIES---------
-        var caries = []
-        $('polygon.sector-selected').each(function(key){
-            var sector = {'id': $(this).data('sector-id'), 'color': $(this).data('sector-color')};
-            caries.push(sector);
-        });
-        data['caries'] = JSON.stringify(caries);
-
-        //-------EXTRACTION------
-        var extractions = []
-        $('g.tooth.extraction').each(function(key){
-            var tooth = {'id': $(this).data('tooth-id'), 'color': $(this).data('color')};
-            extractions.push(tooth);
-        });
-        data['extractions'] = JSON.stringify(extractions);
-        //-------ENDODONCIA------
-        var endodoncias = []
-        $('g.tooth.endodoncia').each(function(key){
-            var tooth = {'id': $(this).data('tooth-id'), 'color': $(this).data('color')};
-            endodoncias.push(tooth);
-        });
-        data['endodoncias'] = JSON.stringify(endodoncias);
-
-        //--------RESTORATION---------
-        var restoration = []
-        $('polygon.restoration').each(function(key){
-            var sector = {'id': $(this).data('sector-id'), 'color': $(this).data('sector-color')};
-            restoration.push(sector);
-        });
-        data['restoration'] = JSON.stringify(restoration);
-
-        //--------RESTORATION---------
-        var filtered_restoration = []
-        $('polygon.filtered-restoration').each(function(key){
-            var sector = {'id': $(this).data('sector-id'), 'color': $(this).data('sector-color')};
-            filtered_restoration.push(sector);
-        });
-        data['filtered_restoration'] = JSON.stringify(filtered_restoration);
-
-        //---------CORONA--------
-        var corona = []
-        $('g.tooth.corona').each(function(key){
-            var tooth = {'id': $(this).data('tooth-id'), 'color': $(this).data('color')};
-            corona.push(tooth);
-        });
-        data['corona'] = JSON.stringify(corona);
-
-        //---------LIMPIAR--------
-        var eraser = []
-        $('g.tooth.eraser').each(function(key){
-            var tooth = {'id': $(this).data('tooth-id')};
-            eraser.push(tooth);
-        });
-        data['eraser'] = JSON.stringify(eraser);
-
+        DATA_ODONT['extractions'] = JSON.stringify(extractions);
+        DATA_ODONT['endodoncias'] = JSON.stringify(endodoncias);
+        DATA_ODONT['restoration'] = JSON.stringify(restoration);
+        DATA_ODONT['filtered_restoration'] = JSON.stringify(filtered_restoration);
+        DATA_ODONT['caries'] = JSON.stringify(caries);
+        DATA_ODONT['corona'] = JSON.stringify(corona);
+        DATA_ODONT['eraser'] = JSON.stringify(eraser);
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
-          data: data,
+          data: DATA_ODONT,
           success: function(data) {
               if (data.status === 'OK') {
                 $('#save-odontogram').button('reset');

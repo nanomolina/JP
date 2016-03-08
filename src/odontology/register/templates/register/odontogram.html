@@ -60,6 +60,7 @@
         var pos = get_translation(tooth.attr('transform'));
         $('#'+id).attr('transform', 'translate('+pos[0]+', '+pos[1]+')');
         $('#'+id).removeClass('hide');
+        $('#'+id).data('tooth-id', $(this).data('tooth-id'));
     });
     $('#'+id).mouseover(function(){
         $(this).removeClass('hide');
@@ -70,16 +71,35 @@
     });
 
     $('g.tooth').on('click', function (evt) {
-        var tooth = $(evt.target).parent();
+        var tooth = $(evt.currentTarget);
         if (tooth.data('work-type') != wt) {
           $('#gmain').append($('#'+id).clone().attr('id', ''));
           tooth.data('work-type', wt);
           tooth.data('color', COLOR_NAME);
           tooth.addClass(my_class);
+          var data = {
+              'id': tooth.data('tooth-id'),
+              'color': tooth.data('color')
+          };
+          switch (wt) {
+            case 1:
+              extractions.push(data);
+              break;
+            case 2:
+              endodoncias.push(data);
+              break;
+            case 6:
+              corona.push(data);
+              break;
+          }
         }
     });
-    $('#'+id+' '+type).on('click', function(){
-        $('g.tooth').click();
+    $('#'+id+' '+type).on('click', function(evt){
+        // console.log($(this).parent().data('tooth-id'));
+        var t_id = $(this).parent().data('tooth-id');
+        var tooth = $("g").find("[data-tooth-id='" + t_id + "']");
+        // console.log(tooth);
+        tooth.click();
     });
   }
   //----------------------------END----------------------------------------------------------------
@@ -110,12 +130,25 @@
 
     $('g.tooth').on('click', function (evt) {
         var tooth = $(evt.target).parent();
-        tooth.find('polygon').each(function(){
-          $(this).addClass('restoration');
-          $(this).attr('fill', COLOR_SELECTED);
-          $(this).data('sector-color', COLOR_NAME);
-          $(this).parent().data('work-type', 3);
-        });
+        if (tooth.data('work-type') != 3 || tooth.data('color') != COLOR_NAME) {
+            tooth.find('polygon').each(function(){
+                for (var i=0; i<restoration.length; i++) {
+                    if (restoration[i]['id'] == $(this).data('sector-id')) {
+                        restoration.splice(i, 1);
+                    }
+                }
+                $(this).addClass('restoration');
+                $(this).attr('fill', COLOR_SELECTED);
+                $(this).data('sector-color', COLOR_NAME);
+                $(this).parent().data('work-type', 3);
+                var data = {
+                    'id': $(this).data('sector-id'),
+                    'color': $(this).data('sector-color')
+                };
+                restoration.push(data);
+            });
+            tooth.data('color', COLOR_NAME)
+        }
     });
   }
 
@@ -149,13 +182,20 @@
 
       $('polygon').click(function (evt) {
           var sector = $(evt.target);
-          sector.addClass('filtered-restoration');
-          sector.attr('fill', RED);
-          sector.attr('stroke', BLUE);
-          sector.attr('stroke-width', '1.5');
-          sector.data('sector-color', 'red');
-          sector.data('stroke-color', 'blue');
-          sector.parent().data('work-type', 4);
+          if (sector.data('stroke-color') != 'blue') {
+              sector.addClass('filtered-restoration');
+              sector.attr('fill', RED);
+              sector.attr('stroke', BLUE);
+              sector.attr('stroke-width', '1.5');
+              sector.data('sector-color', 'red');
+              sector.data('stroke-color', 'blue');
+              sector.parent().data('work-type', 4);
+              var data = {
+                  'id': sector.data('sector-id'),
+                  'color': sector.data('sector-color')
+              };
+              filtered_restoration.push(data);
+          }
       });
   }
   //----------------------------------------END----------------------------------------------------
@@ -182,10 +222,22 @@
 
       $('polygon').click(function (evt) {
           var sector = $(evt.target);
-          sector.addClass('sector-selected');
-          sector.attr('fill', COLOR_SELECTED);
-          sector.data('sector-color', COLOR_NAME);
-          sector.parent().data('work-type', 5);
+          if (sector.data('sector-color') != COLOR_NAME) {
+              for (var i=0; i<caries.length; i++) {
+                  if (caries[i]['id'] == $(this).data('sector-id')) {
+                      caries.splice(i, 1);
+                  }
+              }
+              sector.addClass('sector-selected');
+              sector.attr('fill', COLOR_SELECTED);
+              sector.data('sector-color', COLOR_NAME);
+              sector.parent().data('work-type', 5);
+              var data = {
+                'id': sector.data('sector-id'),
+                'color': sector.data('sector-color')
+              };
+              caries.push(data);
+          }
       });
   }
   //-----------------------------END-CARIES-------------------------------------------------------
@@ -235,6 +287,8 @@
         });
         tooth.addClass('eraser');
         tooth.data('work-type', 7);
+        var data = {'id': tooth.data('tooth-id')};
+        eraser.push(data);
         tooth.find('line, circle').addClass('hide');
         tooth.off('mouseover');
         tooth.off('mouseout');
@@ -251,7 +305,9 @@
   BLUE = 'rgba(0, 0, 255, 0.63)';
   WHITE = 'white';
   GREY = '#555555';
-
+  DATA_ODONT = {'csrfmiddlewaretoken': '{{csrf_token}}' }
+  caries = []; extractions = []; endodoncias = []; restoration = [];
+  filtered_restoration = []; corona = []; eraser = [];
 
   $('#button-red').on('click', function(){
       $('#button-blue').removeClass('active');
