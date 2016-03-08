@@ -38,19 +38,19 @@
                 <tr>
                   <th>Titular:</th>
                   <td>
-                    <span class="field-info">{{patient.incumbent|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.incumbent|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
                   <th>Grupo familiar:</th>
                   <td>
-                    <span class="field-info">{{patient.family_group|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.family_group|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.family_group}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th style="border-top: 0;">Parentesco:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.relationship|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.relationship|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
                   <th style="border-top: 0;">Fecha de nacimiento:</th>
@@ -86,12 +86,12 @@
                 <tr>
                   <th style="border-top: 0;">Lugar de trabajo del Titular:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.Workplace_holder|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>
                   <th style="border-top: 0;">Tel/Cel:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.tel|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.tel|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.tel}}</span>
                   </td>
                 </tr>
