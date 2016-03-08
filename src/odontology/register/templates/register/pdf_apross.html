@@ -135,24 +135,40 @@
 
       <table class="table table-condensed" style="margin-bottom: 10px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
         <tbody>
+          <style>
+            .row-info {
+                border-top: 0;
+                padding-top: 0;
+                padding-bottom: 2px;
+            }
+            .row-top {
+                border-top: 0;
+                padding-bottom: 2px;
+                padding-top: 2px;
+            }
+            .data-pat {
+              padding-left: 10px;
+            }
+          </style>
           <tr>
-            <td style="border-top: 0; padding-top: 2px; padding-bottom: 2px;">Titular: {{patient.incumbent}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Grupo familiar: {{patient.family_group}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Parentesco: {{patient.relationship}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Fechas de nacimiento: {{patient.birth_date}}</td>
+            <td class="row-top">Titular: <span class="data-pat">{{patient.incumbent|default:'---'}}</span></td>
+            <td class="row-top">Grupo familiar: <span class="data-pat">{{patient.family_group|default:'---'}}</span></td>
+            <td class="row-top">Parentesco: <span class="data-pat">{{patient.relationship|default:'---'}}</span></td>
           </tr>
           <tr>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="3">Domicilio:{{patient.domicile}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Localidad:{{patient.full_locality}}</td>
+            <td class="row-info">Domicilio: <span class="data-pat">{{patient.domicile|default:'---'}}</span></td>
+            <td class="row-info">Localidad: <span class="data-pat">{{patient.full_locality|default:'---'}}</span></td>
+            <td class="row-top">Fechas de nacimiento: <span class="data-pat">{{patient.birth_date|default:'---'}}</span></td>
           </tr>
           <tr>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Tel/Cel: {{patient.tel}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="2">Lugar de trabajo del titular: {{patient.Workplace_holder}}</td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Jerarquia: {{patient.hierarchy}}</td>
+            <td class="row-info">Lugar de trabajo del titular: <span class="data-pat">{{patient.Workplace_holder|default:'---'}}</span></td>
+            <td class="row-info">Sexo: <span class="data-pat">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span></td>
+            <td class="row-info" colspan="1"></td>
           </tr>
           <tr>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;" colspan="3"></td>
-            <td style="border-top: 0; padding-top: 0; padding-bottom: 2px;">Sexo:</td>
+            <td class="row-info">Tel/Cel: <span class="data-pat">{{patient.tel|default:'---'}}</span></td>
+            <td class="row-info">Jerarquia: <span class="data-pat">{{patient.hierarchy|default:'---'}}</span></td>
+            <td class="row-info" colspan="1"></td>
           </tr>
         </tbody>
       </table>
