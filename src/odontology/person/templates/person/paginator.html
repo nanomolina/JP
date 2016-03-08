@@ -1,0 +1,15 @@
+<nav>
+  <div>
+      <ul class="pager">
+        {% if patients.has_previous %}
+        <li><a href="javascript: paginator({{ patients.previous_page_number }})">Anterior</a></li>
+        {% endif %}
+
+        <li>Pag. {{ patients.number }} de {{ patients.paginator.num_pages }}.</li>
+
+        {% if patients.has_next %}
+        <li><a href="javascript: paginator({{ patients.next_page_number }})">Siguiente</a></li>
+        {% endif %}
+      </ul>
+  </div>
+</nav>

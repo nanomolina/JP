@@ -15,3 +15,18 @@ $(function() {
         }
     })
 });
+
+function paginator(page) {
+    var $body = $('#body-list-patients');
+    $body.find('tr').hide();
+    $body.find('#loading').show().removeClass('hide');
+    var $pagination = $('#pagination')
+    $pagination.load(
+        URL_PAGINATOR,
+        {'page': page, 'csrfmiddlewaretoken': CSRF, 'type': 2}
+    );
+    $body.load(
+        URL_PAGINATOR,
+        {'page': page, 'csrfmiddlewaretoken': CSRF, 'type': 1}
+    );
+}

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm
 from register.models import Apross, Benefit, ELEMENTS
@@ -15,6 +16,8 @@ def patients(request):
         rec_added = request.GET.get('add', None)
         form = PatientForm()
         patients = Patient.objects.filter(dentist=dentist).order_by('-id')
+        paginator = Paginator(patients, 10)
+        patients = paginator.page(1)
         return render_to_response(
             'person/patients.html',
             {
@@ -79,6 +82,35 @@ def search_patient(request):
             },
             RequestContext(request)
         )
+
+
+def paginator_patient(request):
+    if request.method == 'POST':
+        dentist = Dentist.objects.get(user=request.user)
+        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
+
+        paginator = Paginator(patients, 10)
+        page = request.POST.get('page', 1)
+        try:
+            patients = paginator.page(page)
+        except PageNotAnInteger:
+            patients = paginator.page(1)
+        except EmptyPage:
+            patients = paginator.page(paginator.num_pages)
+        data = {'patients': patients}
+        pag_type = int(request.POST.get('type'))
+        if pag_type == 1:
+            return render_to_response(
+                'person/list_patients.html',
+                data,
+                RequestContext(request)
+            )
+        elif pag_type == 2:
+            return render_to_response(
+                'person/paginator.html',
+                data,
+                RequestContext(request)
+            )
 
 
 def patient_profile(request, id):

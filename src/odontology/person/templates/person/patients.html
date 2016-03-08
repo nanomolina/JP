@@ -46,9 +46,16 @@
   </div>
 </div>
 
+<div id="pagination" class="row">
+    {% include "person/paginator.html" %}
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript">
+  URL_PAGINATOR = "{% url 'person:paginator_patient' %}";
+  CSRF = "{{ csrf_token }}";
+</script>
 <script type="text/javascript" src="{% static 'js/patients.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
 {%endblock%}
