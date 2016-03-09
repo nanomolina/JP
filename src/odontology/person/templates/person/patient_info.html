@@ -101,8 +101,8 @@
                   </td>
                   <th style="border-top: 0;">Sexo:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.gender|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.get_gender_display}}</span>
+                    <span class="field-info">{{patient.get_gender_display|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
               </tbody>
