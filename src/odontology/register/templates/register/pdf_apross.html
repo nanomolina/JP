@@ -24,53 +24,37 @@
           <img src="{% static 'images/fopc.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="200" style="position: absolute;top: 0;right: 86px;">
       </div>
 
-      <table class="table">
+
+      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
         <tbody>
           <tr>
-            <td style="border-top: 0px solid; padding: 0;">
-              <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
+            <td width="40%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
+            <td colspan="2">Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
+            <td class="text-center" rowspan="2"><strong style="font-size: 14px;">{{benefit.month}} de {{benefit.year}}</strong></td>
+          </tr>
+          <tr>
+            <td width="40%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist}}</td>
+            <td style="padding: 0;">
+              <table class="table table-condensed" style="margin-bottom: 0;">
+                <thead>
+                  <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
+                </thead>
                 <tbody>
                   <tr>
-                    <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
-                    <td colspan="2">Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
-                  </tr>
-                  <tr>
-                    <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist}}</td>
-                    <td style="padding: 0;">
-                      <table class="table table-condensed" style="margin-bottom: 0;">
-                        <thead>
-                          <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                    <td style="padding: 0;">
-                      <table class="table table-condensed" style="margin-bottom: 0;">
-                        <thead>
-                          <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
+                    <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
                   </tr>
                 </tbody>
               </table>
             </td>
-            <td style="border-top: 0px solid; padding: 0;">
-              <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
+            <td style="padding: 0;">
+              <table class="table table-condensed" style="margin-bottom: 0;">
+                <thead>
+                  <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
+                </thead>
                 <tbody>
                   <tr>
-                    <td class="text-center" style="font-size: 13px; border-bottom: 0px;">{{benefit.month}} de {{benefit.year}}</td>
+                    <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
                   </tr>
-                  <tr><td style="padding-top: 11px; border-top: 0px;">&nbsp;</td></tr>
                 </tbody>
               </table>
             </td>
