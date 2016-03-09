@@ -106,52 +106,39 @@
 
   //------------------------------------RESTAURACION-----------------------------------------------
   function option_restoration() {
-    $('g.tooth').mouseover(function (evt) {
-        var tooth = $(evt.target).parent();
-        tooth.css('cursor', 'pointer');
-        tooth.find('polygon').each(function(key){
-            $(this).attr('fill', COLOR_SELECTED);
-        });
-    });
+      $('polygon').mouseover(function (evt) {
+          var sector = $(evt.target);
+          sector.css('cursor', 'pointer');
+          sector.attr('fill', RED);
+      });
 
-    $('g.tooth').mouseout(function (evt) {
-        var tooth = $(evt.target).parent();
-        tooth.find('polygon').each(function(){
-            if ($(this).data('sector-color') == 'red') {
-              $(this).attr('fill', RED);
-            } else if ($(this).data('sector-color') == 'blue') {
-              $(this).attr('fill', BLUE);
-            } else {
-              $(this).attr('fill', WHITE);
-            }
-        });
-        tooth.css('cursor', 'default');
-    });
+      $('polygon').mouseout(function (evt) {
+          var sector = $(evt.target);
+          if (sector.data('sector-color') == 'red') {
+            sector.attr('fill', RED);
+          } else if (sector.data('sector-color') == 'blue') {
+            sector.attr('fill', BLUE);
+          } else {
+            sector.attr('fill', WHITE);
+          }
+          sector.css('cursor', 'default');
+      });
 
-    $('g.tooth').on('click', function (evt) {
-        var tooth = $(evt.target).parent();
-        if (tooth.data('work-type') != 3 || tooth.data('color') != COLOR_NAME) {
-            tooth.find('polygon').each(function(){
-                for (var i=0; i<restoration.length; i++) {
-                    if (restoration[i]['id'] == $(this).data('sector-id')) {
-                        restoration.splice(i, 1);
-                    }
-                }
-                $(this).addClass('restoration');
-                $(this).attr('fill', COLOR_SELECTED);
-                $(this).data('sector-color', COLOR_NAME);
-                $(this).parent().data('work-type', 3);
-                var data = {
-                    'id': $(this).data('sector-id'),
-                    'color': $(this).data('sector-color')
-                };
-                restoration.push(data);
-            });
-            tooth.data('color', COLOR_NAME)
-        }
-    });
+      $('polygon').click(function (evt) {
+          var sector = $(evt.target);
+          if (sector.data('sector-color') != 'red') {
+              sector.addClass('sector-selected');
+              sector.attr('fill', RED);
+              sector.data('sector-color', 'red');
+              sector.parent().data('work-type', 3);
+              var data = {
+                'id': sector.data('sector-id'),
+                'color': sector.data('sector-color')
+              };
+              restoration.push(data);
+          }
+      });
   }
-
   //----------------------------------------END----------------------------------------------------
 
   //--------------------------RESTAURACION--FILTRADA  ---------------------------------------------
@@ -205,7 +192,7 @@
       $('polygon').mouseover(function (evt) {
           var sector = $(evt.target);
           sector.css('cursor', 'pointer');
-          sector.attr('fill', COLOR_SELECTED);
+          sector.attr('fill', BLUE);
       });
 
       $('polygon').mouseout(function (evt) {
@@ -222,15 +209,10 @@
 
       $('polygon').click(function (evt) {
           var sector = $(evt.target);
-          if (sector.data('sector-color') != COLOR_NAME) {
-              for (var i=0; i<caries.length; i++) {
-                  if (caries[i]['id'] == $(this).data('sector-id')) {
-                      caries.splice(i, 1);
-                  }
-              }
+          if (sector.data('sector-color') != 'blue') {
               sector.addClass('sector-selected');
-              sector.attr('fill', COLOR_SELECTED);
-              sector.data('sector-color', COLOR_NAME);
+              sector.attr('fill', BLUE);
+              sector.data('sector-color', 'blue');
               sector.parent().data('work-type', 5);
               var data = {
                 'id': sector.data('sector-id'),
