@@ -57,43 +57,37 @@ class PatientForm(forms.ModelForm):
             'street': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 30%',
-                    'placeholder': 'Belgrano',
+                    'style': 'width: 34%',
                 }
             ),
             'number': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'style': 'width: 25%',
-                    'placeholder': '134',
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 15%',
-                    'placeholder': 'dpto 11',
+                    'style': 'width: 20%',
                 }
             ),
             'apartment': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 15%',
-                    'placeholder': 'A',
+                    'style': 'width: 20%',
                 }
             ),
             'suburb': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'style': 'width: 50%',
-                    'placeholder': 'Cordoba',
                 }
             ),
             'locality': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'style': 'width: 50%',
-                    'placeholder': 'Cordoba',
                 }
             ),
             'tel': forms.TextInput(

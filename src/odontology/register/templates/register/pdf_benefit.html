@@ -114,7 +114,7 @@
         </tbody>
       </table>
 
-      <table class="table table-bordered table-condensed" style="margin-bottom: 4px;">
+      <table class="table table-bordered table-condensed" style="margin-bottom: 4px; width: 0%;">
         <tbody>
           <tr>
             <td>C&oacute;digo de gest&iacute;on</td>
@@ -173,12 +173,7 @@
           <tr>
             <td class="row-info">Lugar de trabajo del titular: <span class="data-pat">{{patient.Workplace_holder|default:'---'}}</span></td>
             <td class="row-info">Sexo: <span class="data-pat">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span></td>
-            <td class="row-info" colspan="1"></td>
-          </tr>
-          <tr>
-            <td class="row-info">Tel/Cel: <span class="data-pat">{{patient.tel|default:'---'}}</span></td>
             <td class="row-info">Jerarquia: <span class="data-pat">{{patient.hierarchy|default:'---'}}</span></td>
-            <td class="row-info" colspan="1"></td>
           </tr>
         </tbody>
       </table>
@@ -186,29 +181,34 @@
       {% include 'register/odontogram.html' %}
 
 
-      <table class="table table-condensed" style="margin-bottom: 0px;">
+      <p style="margin-bottom: 0;">Observaciones:
+          Cras ultricies ligula sed magna dictum porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada.
+
+      </p>
+
+      <table class="table table-bordered">
         <tbody>
           <tr>
-            <td>
-              <p style="margin-bottom: 0;">REFERENCIAS</p>
-              <p style="margin-bottom: 0;">COLOR ROJO: Prestaciones existentes</p>
-              <p style="margin-bottom: 0;">COLOR AZUL: Prestaciones requeridas</p>
-              <p style="margin-bottom: 0;">X: Diente ausente o a extraer</p>
-            </td>
-            <td>
-              <p style="margin-bottom: 0;">&nbsp;</p>
-              <p style="margin-bottom: 0;"><i class="fa fa-square-o"></i> PROTESIS FIJA</p>
-              <p style="margin-bottom: 0;"><i class="fa fa-square-o"></i> PROTESIS REMOVIBLE</p>
-              <p style="margin-bottom: 0;"><i class="fa fa-circle-thin"></i> CORONAS</p>
-              <p style="margin-bottom: 0;">CANTIDAD DE DIENTES EXISTENTES: </p>
-              <p style="margin-bottom: 0;">-------------------------------</p>
-              <p style="margin-bottom: 0;">Reservado obra social</p>
-            </td>
+              <td width="33%" height="50px"></td>
+              <td width="33%" height="50px"></td>
+              <td width="33%" height="50px" ></td>
           </tr>
-        </tbody>
+          <tr>
+              <td width="33%" style="padding:0;">
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+              </td>
+              <td width="33%" style="padding:0;">
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+              </td>
+              <td width="33%" style="padding:0;">
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+              </td>
+          </tr>
+        </body>
       </table>
-
-      <p style="margin-bottom: 0;">Observaciones:</p>
   </div>
 </body>
 </html>

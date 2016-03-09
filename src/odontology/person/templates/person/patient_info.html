@@ -20,10 +20,8 @@
                     <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.last_name}}</span>
                     <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.first_name}}</span>
                   </td>
-                  <th>Sexo:</th>
-                  <td style="border-right: 1px solid #ddd;">
-                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
-                  </td>
+                  <th></th>
+                  <td style="border-right: 1px solid #ddd;"></td>
                 </tr>
                 <tr class="basic-info hide">
                   <th style="border-top: 0;">Nro de afiliado:</th>
@@ -67,7 +65,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <th style="border-top: 0;">Domicilio(calle, num, dpto):</th>
+                  <th style="border-top: 0;">Domicilio(calle, num, piso, dpto):</th>
                   <td style="border-top: 0; width: 34%">
                     <span class="field-info">{{patient.domicile|default_if_none:'---'}}</span>
                     <span class="edit-info hide">
@@ -93,6 +91,18 @@
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.tel|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Jerarquia:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
+                  </td>
+                  <th style="border-top: 0;">Sexo:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.gender|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
               </tbody>
