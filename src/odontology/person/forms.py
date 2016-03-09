@@ -1,5 +1,5 @@
 from django import forms
-from person.models import Patient
+from person.models import Patient, Odontogram
 
 
 class PatientForm(forms.ModelForm):
@@ -113,6 +113,29 @@ class PatientForm(forms.ModelForm):
             'gender': forms.Select(
                 attrs={
                     'class': 'selectpicker form-control',
+                }
+            ),
+        }
+
+
+class OdontogramForm(forms.ModelForm):
+    class Meta:
+        model = Odontogram
+        fields = (
+            'teeth_number', 'observations'
+        )
+        widgets = {
+            'teeth_number': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': '5',
                 }
             ),
         }

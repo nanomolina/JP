@@ -1,6 +1,8 @@
 $(function() {
     $('#edit-odontogram').on('click', function() {
       $('#save-odontogram, #cancel-odontogram, #button-red, #button-blue, #select-work-type').removeClass('hide');
+      $('.edit-odont').removeClass('hide');
+      $('.field-odont').addClass('hide');
       $(this).addClass('hide');
     });
 
@@ -9,6 +11,8 @@ $(function() {
       $(this).addClass('hide');
       $('#edit-odontogram').removeClass('hide');
       $('#select-work-type select').selectpicker('val', '');
+      $('.edit-odont').addClass('hide');
+      $('.field-odont').removeClass('hide');
       clean_options();
     });
 
@@ -24,6 +28,8 @@ $(function() {
         DATA_ODONT['caries'] = JSON.stringify(caries);
         DATA_ODONT['corona'] = JSON.stringify(corona);
         DATA_ODONT['eraser'] = JSON.stringify(eraser);
+        DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
+        DATA_ODONT['observations'] = $('#id_observations').val();
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
@@ -35,6 +41,11 @@ $(function() {
                 $('#edit-odontogram').removeClass('hide');
                 $('polygon.sector-selected').removeClass('sector-selected');
                 $('g.tooth.extraction').removeClass('extraction');
+                $('#text-teeth').html($('#id_teeth_number').val());
+                $('#text-observation').html($('#id_observations').val());
+                $('.edit-odont').addClass('hide');
+                $('.field-odont').removeClass('hide');
+
                 console.log('OK---->');
               } else {
                 console.log('error---->');
