@@ -24,50 +24,59 @@
           <img src="{% static 'images/fopc.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="200" style="position: absolute;top: 0;right: 86px;">
       </div>
 
-      <table class="col-sm-12 table table-condensed" style="margin-top: 10px; margin-bottom: 10px;">
+      <table class="table">
         <tbody>
           <tr>
-            <td class="text-right" style="border-top: 0px solid; font-size: 15px;">{{benefit.month}} de {{benefit.year}}</td>
+            <td style="border-top: 0px solid; padding: 0;">
+              <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
+                <tbody>
+                  <tr>
+                    <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
+                    <td colspan="2">Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
+                  </tr>
+                  <tr>
+                    <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist}}</td>
+                    <td style="padding: 0;">
+                      <table class="table table-condensed" style="margin-bottom: 0;">
+                        <thead>
+                          <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td style="padding: 0;">
+                      <table class="table table-condensed" style="margin-bottom: 0;">
+                        <thead>
+                          <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td style="border-top: 0px solid; padding: 0;">
+              <table class="col-sm-12 table table-condensed" style="margin-top: 10px; margin-bottom: 10px;">
+                <tbody>
+                  <tr>
+                    <td class="text-center" style="border-top: 0px solid; font-size: 15px;">{{benefit.month}} de {{benefit.year}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 4px;">
-        <tbody>
-          <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
-          <td>Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
-        </tbody>
-      </table>
-
-      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
-        <tbody>
-          <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist}}</td>
-          <td style="padding: 0;">
-            <table class="table table-condensed" style="margin-bottom: 0;">
-              <thead>
-                <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td style="padding: 0;">
-            <table class="table table-condensed" style="margin-bottom: 0;">
-              <thead>
-                <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tbody>
-      </table>
 
       <p style="margin-bottom: 0;">DETALLE DE PRESTACIONES:</p>
       <table class="table table-bordered table-condensed" style="margin-bottom:4px;">
