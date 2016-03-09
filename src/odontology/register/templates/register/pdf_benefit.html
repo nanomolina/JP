@@ -164,7 +164,7 @@
           <tr>
             <td class="row-info">Domicilio: <span class="data-pat">{{patient.domicile|default:'---'}}</span></td>
             <td class="row-info">Localidad: <span class="data-pat">{{patient.full_locality|default:'---'}}</span></td>
-            <td class="row-info">Fechas de nacimiento: <span class="data-pat">{{patient.birth_date|default:'---'}}</span></td>
+            <td class="row-info">Fechas de nacimiento: <span class="data-pat">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span></td>
           </tr>
           <tr>
             <td class="row-info">Lugar de trabajo del titular: <span class="data-pat">{{patient.Workplace_holder|default:'---'}}</span></td>
