@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm
+from person.forms import PatientForm, OdontogramForm
 from register.models import Apross, Benefit, ELEMENTS
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
@@ -134,6 +134,7 @@ def patient_profile(request, id):
                 last_benefit = None
             benefit_form = BenefitForm()
             detail_form = detailBenefitForm()
+        odontogram_form = OdontogramForm(instance=patient.odontogram)
         return render_to_response(
             'person/profile.html',
             {
@@ -145,7 +146,8 @@ def patient_profile(request, id):
                 'benefit_form': benefit_form,
                 'detail_form': detail_form,
                 'patient_info_form': patient_info,
-                'work_types': WORK_TYPES
+                'work_types': WORK_TYPES,
+                'odontogram_form': odontogram_form
             },
             RequestContext(request)
         )
