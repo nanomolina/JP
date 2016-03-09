@@ -168,32 +168,31 @@
         </tbody>
       </table>
 
-      {% include 'register/odontogram.html' %}
-      <!-- <table class="table table-bordered table-condensed" style="width: 100px; position: relative; top: -84px; left: 0px">
+      <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
         <tbody>
           <tr>
-            <td>Cantidad de Rx. adjuntas</td>
+            <td style="padding: 0;">
+              <table class="table">
+                <tbody>
+                  <tr><td>Cantidad de Dientes:</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_number|default:'---'}}</td></tr>
+                </tbody>
+              </table>
+              <table class="table">
+                <tbody>
+                  <tr><td>Cantidad de Rx. adjuntas:</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{benefit.rx_amount|default_if_none:"---"}}</td></tr>
+                </tbody>
+              </table>
+            </td>
+            <td>{% include 'register/odontogram.html' %}</td>
           </tr>
           <tr>
-            <td colspan="6" class="text-center">{{benefit.rx_amount|default_if_none:"-"}}</td>
+            <td>Observaciones:</td>
+            <td>{{patient.odontogram.observations|default:'---'}}</td>
           </tr>
         </tbody>
       </table>
-      <table id="rx" class="table table-bordered table-condensed" style="width: 100px; position: relative; top: -84px; right: 0px">
-        <tbody>
-          <tr>
-            <td>Cantidad de Dients</td>
-          </tr>
-          <tr>
-            <td colspan="6" class="text-center">28</td>
-          </tr>
-        </tbody>
-      </table> -->
-
-      <p style="margin-bottom: 0;">Observaciones:
-          Cras ultricies ligula sed magna dictum porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada.
-
-      </p>
 
       <table class="table table-bordered">
         <tbody>
@@ -204,16 +203,16 @@
           </tr>
           <tr>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza:---</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad:---</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
               </td>
           </tr>
         </body>
