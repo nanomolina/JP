@@ -58,10 +58,9 @@ class detailAprossForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'practic_code': forms.NumberInput(
+            'practic_code': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'max_length': '20'
                 }
             ),
             'element': forms.Select(
@@ -133,7 +132,7 @@ class detailBenefitForm(forms.ModelForm):
                     'data-size': '8',
                 }
             ),
-            'code': forms.NumberInput(
+            'code': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
