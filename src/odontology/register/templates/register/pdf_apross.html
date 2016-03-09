@@ -27,8 +27,7 @@
       <table class="col-sm-12 table table-condensed" style="margin-top: 10px; margin-bottom: 10px;">
         <tbody>
           <tr>
-            <td width="60%" style="border-top: 0px solid"></td>
-            <td style="border-top: 0px solid">Fecha: &nbsp;<u>{{benefit.month}} / {{benefit.year}}</u></td>
+            <td class="text-right" style="border-top: 0px solid; font-size: 15px;">{{benefit.month}} de {{benefit.year}}</td>
           </tr>
         </tbody>
       </table>
@@ -104,17 +103,13 @@
       <table class="table table-bordered table-condensed" style="margin-bottom: 4px; width: 60%">
         <tbody>
           <tr>
-            <td>C&oacute;digos de gest&iacute;on</td>
+            <td style="min-width: 100px;">C&oacute;digos de gest&iacute;on</td>
             <td style="width: 2%">1</td>
-            <td>{{benefit.managment_code1|default_if_none:"-"}}</td>
+            <td style="min-width: 100px;">{{benefit.managment_code1|default_if_none:"-"}}</td>
             <td style="width: 2%">2</td>
-            <td>{{benefit.managment_code2|default_if_none:"-"}}</td>
+            <td style="min-width: 100px;">{{benefit.managment_code2|default_if_none:"-"}}</td>
             <td style="width: 2%">3</td>
-            <td>{{benefit.managment_code3|default_if_none:"-"}}</td>
-          </tr>
-          <tr>
-            <td>Cantidad de Rx. adjuntas</td>
-            <td colspan="6" class="text-center">{{benefit.rx_amount|default_if_none:"-"}}</td>
+            <td style="min-width: 100px;">{{benefit.managment_code3|default_if_none:"-"}}</td>
           </tr>
         </tbody>
       </table>
