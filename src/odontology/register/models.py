@@ -107,5 +107,5 @@ def handler_new_apross(sender, instance, **kwargs):
 @receiver(post_save, sender=Benefit)
 def handler_new_benefit(sender, instance, **kwargs):
     if not instance.get_details().exists():
-        for _ in range(6):
+        for _ in range(4):
             DetailBenefit(benefit=instance).save()
