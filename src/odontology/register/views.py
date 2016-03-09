@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from person.models import Patient, Dentist, Sector, Tooth
-from person.forms import PatientForm
+from person.forms import PatientForm, OdontogramForm
 from register.models import Apross, DetailApross, Benefit, DetailBenefit
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
@@ -271,9 +271,7 @@ def edit_odontogram(request, patient_id):
             tooth.work_type = 6
             tooth.save()
 
-        teeth_number = request.POST.get('teeth_number')
-        observations = request.POST.get('observations')
-        patient.odontogram.teeth_number = teeth_number
-        patient.odontogram.observations = observations
-        patient.odontogram.save()
+        odontogram_form = OdontogramForm(request.POST, instance=patient.odontogram)
+        if odontogram_form.is_valid():
+            odontogram_form.save()
         return JsonResponse({'status': 'OK'})

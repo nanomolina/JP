@@ -142,14 +142,14 @@
                     <tr>
                       <td>Cantidad de Dientes:</td>
                       <td>
-                        <span class="field-odont" id="text-teeth">{{odontogram_form.instance.teeth_number}}</span>
+                        <span class="field-odont" id="text-teeth">{{odontogram_form.instance.teeth_number|default:'-'}}</span>
                         <span class="edit-odont hide">{{odontogram_form.teeth_number}}</span>
                       </td>
                     </tr>
                     <tr>
                       <td>Observaciones:</td>
                       <td>
-                        <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations}}</span>
+                        <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations|default:'-'}}</span>
                         <span class="edit-odont hide">{{odontogram_form.observations}}</span>
                       </td>
                     </tr>
