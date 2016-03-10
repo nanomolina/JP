@@ -74,7 +74,7 @@ function edit_benefit() {
             $('#benefit-edit-form .content').removeClass('hide');
             $('#benefit-edit-form .modal-footer button').removeClass('hide');
             $('.loading').addClass('hide');
-        }, 100);
+        }, 250);
       }
 
     );
