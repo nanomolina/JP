@@ -70,9 +70,9 @@ function edit_benefit() {
       URL_EDIT_BF,
       {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1},
       function() {
-          $('#benefit-edit-form .loading').addClass('hide');
           $('#benefit-edit-form .content').show();
           $('#benefit-edit-form .modal-footer button').show();
+          $('.loading').addClass('hide');
       }
 
     );
