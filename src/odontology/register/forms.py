@@ -9,17 +9,17 @@ class AprossForm(forms.ModelForm):
             'managment_code3', 'rx_amount',
         )
         widgets = {
-            'managment_code1': forms.NumberInput(
+            'managment_code1': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
             ),
-            'managment_code2': forms.NumberInput(
+            'managment_code2': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
             ),
-            'managment_code3': forms.NumberInput(
+            'managment_code3': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
@@ -92,7 +92,7 @@ class BenefitForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'managment_code': forms.NumberInput(
+            'managment_code': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
