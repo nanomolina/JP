@@ -10,9 +10,9 @@
         {% csrf_token %}
         <div class="modal-body">
             <div class="loading text-center">
-                <img class="" src="{% static 'images/ring-alt.svg' %}" style="padding-top: 30px;"></img>
+                <img src="{% static 'images/ring-alt.svg' %}" style="padding-top: 30px;"></img>
             </div>
-            <div class="content">
+            <div class="content hide">
                 <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
                 <input type='hidden' name="bf_id" value="{{bf.id}}">
                 <div class="row">
@@ -54,8 +54,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" id="btn-edit-benefit" data-loading-text="Guardando...">Guardar cambios</button>
+          <button type="button" class="btn btn-default hide" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success hide" id="btn-edit-benefit" data-loading-text="Guardando...">Guardar cambios</button>
         </div>
       </form>
     </div>
