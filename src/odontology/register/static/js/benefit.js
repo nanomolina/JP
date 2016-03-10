@@ -63,9 +63,18 @@ function edit_url_pdf(id) {
 function edit_benefit() {
     var bf_id = $('#edit_bf').data('bf-id');
     var csrf = $('#edit_bf').data('csrf');
+    $('#benefit-edit-form .content').hide();
+    $('#benefit-edit-form .loading').removeClass('hide');
+    $('#benefit-edit-form .modal-footer button').hide();
     $('#modal-edit-benefit').load(
       URL_EDIT_BF,
-      {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1}
+      {'bf_id': bf_id, 'csrfmiddlewaretoken': csrf, 'get': 1},
+      function() {
+          $('#benefit-edit-form .loading').addClass('hide');
+          $('#benefit-edit-form .content').show();
+          $('#benefit-edit-form .modal-footer button').show();
+      }
+
     );
 }
 
