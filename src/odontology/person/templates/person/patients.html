@@ -12,7 +12,7 @@
 <div class="row padding-top buttons">
     <form id="filter" action="{% url 'person:search_patient' %}" method="GET" class="form-inline" role="form">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Agregar nuevo</button>
-      <button type="button" class="btn btn-default">Eliminar</button>
+      <button type="button" class="btn btn-default hide">Eliminar</button>
       <div class="form-group" style="padding-left:25px;">
         <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
         <button type="button" class="btn btn-primary" onclick="javascript: search();"><i class="fa fa-search"></i></button>
