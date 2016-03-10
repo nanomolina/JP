@@ -114,7 +114,16 @@
               {% endif %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
-              {% include "person/patient_info.html" %}
+                <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
+                    <div class="col-md-3 no-padding">
+                      <button type="button" class="btn btn-default" id="edit-patient-info">Editar info</button>
+                      <button type="button" class="btn btn-success hide" id="save-patient-info" data-loading-text="Guardando...">Guardar cambios</button>
+                      <button type="button" class="btn btn-default hide" id="cancel-patient-info">Cancelar</button>
+                    </div>
+                </div>
+                <div class="col-md-12 content" style="margin-bottom: 20px;">
+                {% include "person/patient_info.html" %}
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
 
@@ -182,7 +191,7 @@
 {% endblock %}
 
 {% block scripts %}
-  <script type="text/javascript" src="{% static 'js/profile.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
   <script type="text/javascript">
     url_profile = "{% url 'person:patient_profile' id=patient.id %}";
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}";

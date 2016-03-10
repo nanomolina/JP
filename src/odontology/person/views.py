@@ -156,11 +156,16 @@ def patient_profile(request, id):
 
 
 def edit_patient(request, id):
+    from django.template.response import TemplateResponse
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=id)
         patient_form = PatientForm(request.POST, instance=patient)
         if patient_form.is_valid():
             patient_form.save()
-            return JsonResponse({'status': 'OK'})
+            patient_info = PatientForm(instance=patient)
+            return TemplateResponse(
+                request, 'person/patient_info.html',
+                {'patient_info_form': patient_info, 'patient': patient}
+            )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})

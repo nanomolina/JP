@@ -1,12 +1,3 @@
-<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-    <div class="col-md-3 no-padding">
-      <button type="button" class="btn btn-default" id="edit-patient-info">Editar info</button>
-      <button type="button" class="btn btn-success hide" id="save-patient-info" data-loading-text="Guardando...">Guardar cambios</button>
-      <button type="button" class="btn btn-default hide" id="cancel-patient-info">Cancelar</button>
-    </div>
-</div>
-
-<div class="col-md-12" style="margin-bottom: 20px;">
     <div class="panel panel-primary">
       <div class="panel-heading">Informacion del paciente</div>
       <div class="panel-body no-padding">
@@ -110,4 +101,12 @@
         </form>
       </div>
     </div>
-</div>
+    <script type="text/javascript">
+        $(function(){
+            $('.selectpicker').selectpicker();
+            $('#birth_date_picker').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'es',
+            });
+        });
+    </script>
