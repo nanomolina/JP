@@ -1,5 +1,4 @@
-{% load staticfiles %}
-<!-- Modal -->
+        {% load staticfiles %}
         {% csrf_token %}
         <div class="modal-body hide">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
@@ -46,5 +45,5 @@
           <button type="button" class="btn btn-success hide" id="btn-edit-benefit" data-loading-text="Guardando...">Guardar cambios</button>
         </div>
 
-          <script type="text/javascript">DATE = "{{bf.month}} - {{bf.year}}";</script>
-          <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>
+        <script type="text/javascript">DATE = "{{bf.month}} - {{bf.year}}";</script>
+        <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>
