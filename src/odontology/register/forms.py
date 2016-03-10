@@ -12,25 +12,21 @@ class AprossForm(forms.ModelForm):
             'managment_code1': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '0',
                 }
             ),
             'managment_code2': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '0',
                 }
             ),
             'managment_code3': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '0',
                 }
             ),
             'rx_amount': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '0',
                 }
             )
         }
