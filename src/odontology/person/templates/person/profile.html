@@ -193,4 +193,17 @@
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
+  {% if rec_added == '1' %}
+  <script type="text/javascript">
+    $(function(){
+      toastr.success('El registro se ah creado correctamente.', 'NUEVO REGISTRO.');
+    });
+  </script>
+  {% elif rec_added == '2' %}
+  <script type="text/javascript">
+    $(function(){
+      toastr.success('El registro ah sido editado correctamente.', 'REGISTRO EDITADO.');
+    });
+  </script>
+  {% endif %}
 {% endblock %}

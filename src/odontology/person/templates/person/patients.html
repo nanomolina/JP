@@ -50,14 +50,6 @@
 
 {% block scripts %}
 <script type="text/javascript">
-  $(function(){
-    toastr.options = {
-      "closeButton": true,
-      "positionClass": "toast-bottom-full-width",
-      "preventDuplicates": true,
-      "progressBar": true,
-    }
-  });
   URL_PAGINATOR = "{% url 'person:paginator_patient' %}";
   CSRF = "{{ csrf_token }}";
 </script>
@@ -66,7 +58,7 @@
 {% if rec_added %}
 <script type="text/javascript">
   $(function(){
-    toastr.success('El paciente se ha añadido correctamente!');
+    toastr.success("El paciente se ha añadido correctamente.", "NUEVO PACIENTE.");
   });
 </script>
 {% endif %}
