@@ -13,7 +13,7 @@ $(document).ready(function() {
           data: data_form,
           success: function(data) {
               if (data.status !== 'ERROR') {
-                location.href = url_profile;
+                location.href = url_profile + '?add=1';
               } else {
                 $('#btn-save-benefit').button('reset');
                 $('#benefit-form .input-fields').addClass('has-success');

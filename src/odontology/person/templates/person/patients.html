@@ -17,9 +17,6 @@
         <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
         <button type="button" class="btn btn-primary" onclick="javascript: search();"><i class="fa fa-search"></i></button>
       </div>
-      {% if rec_added %}
-      <div id="block-info" class="alert alert-success pull-right" role="alert"><i class="fa fa-check-circle"></i> El paciente se a añadido correctamente</div>
-      {% endif %}
     </form>
 </div>
 
@@ -58,4 +55,11 @@
 </script>
 <script type="text/javascript" src="{% static 'js/patients.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
+{% if rec_added %}
+<script type="text/javascript">
+  $(function(){
+    toastr.success("El paciente se ha añadido correctamente.", "NUEVO PACIENTE.");
+  });
+</script>
+{% endif %}
 {%endblock%}
