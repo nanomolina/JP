@@ -23,7 +23,7 @@
             <div class="row" style="margin-bottom: 30px;">
               <div class="col-xs-6 date-group input-fields">
                   <div class='input-group date' id='date_edit_bf_picker'>
-                      <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
+                      <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -57,4 +57,5 @@
     </div>
   </div>
 
+  <script type="text/javascript">DATE = "{{bf.month}} - {{bf.year}}";</script>
   <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>

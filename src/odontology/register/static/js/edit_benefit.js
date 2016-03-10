@@ -30,6 +30,6 @@ $(function () {
         viewMode: 'months',
         format: 'MMMM - YYYY',
         locale: 'es',
-        defaultDate: dateNow,
     });
+    $('#benefit-edit-form #id_date').val(DATE);
 });
