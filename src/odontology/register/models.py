@@ -30,9 +30,9 @@ class Apross(models.Model):
     #--First page
     month = models.CharField(choices=MONTHS, max_length=15)
     year = models.PositiveIntegerField()
-    managment_code1 = models.IntegerField(null=True, blank=True)
-    managment_code2 = models.IntegerField(null=True, blank=True)
-    managment_code3 = models.IntegerField(null=True, blank=True)
+    managment_code1 = models.CharField(max_length=15, null=True, blank=True)
+    managment_code2 = models.CharField(max_length=15, null=True, blank=True)
+    managment_code3 = models.CharField(max_length=15, null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
@@ -68,7 +68,7 @@ class Benefit(models.Model):
     primary_entity = models.CharField(max_length=250, null=True, blank=True)
     principal_code = models.IntegerField(null=True, blank=True)
     social_work = models.CharField(max_length=250, null=True, blank=True)
-    managment_code = models.IntegerField(null=True, blank=True)
+    managment_code = models.CharField(max_length=15, null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)

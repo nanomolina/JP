@@ -33,8 +33,8 @@ class SocialWork(models.Model):
 
 class Dentist(models.Model):
     user = models.ForeignKey(User)
-    circle = models.IntegerField()
-    register_number = models.PositiveIntegerField()
+    circle = models.CharField(max_length=15, null=True, blank=True)
+    register_number = models.CharField(max_length=25, null=True, blank=True)
     carrying_home = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
