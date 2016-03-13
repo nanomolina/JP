@@ -21,15 +21,7 @@ $(function() {
         $('#cancel-odontogram, #button-red, #button-blue, #select-work-type').addClass('hide');
         $('#select-work-type select').selectpicker('val', '');
 
-        DATA_ODONT['extractions'] = JSON.stringify(extractions);
-        DATA_ODONT['endodoncias'] = JSON.stringify(endodoncias);
-        DATA_ODONT['restoration'] = JSON.stringify(restoration);
-        DATA_ODONT['filtered_restoration'] = JSON.stringify(filtered_restoration);
-        DATA_ODONT['caries'] = JSON.stringify(caries);
-        DATA_ODONT['corona'] = JSON.stringify(corona);
-        DATA_ODONT['eraser'] = JSON.stringify(eraser);
-        DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
-        DATA_ODONT['observations'] = $('#id_observations').val();
+        DATA_ODONT['teeth_works'] = JSON.stringify(TEETH_WORKS);
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
@@ -45,7 +37,7 @@ $(function() {
                 $('#text-observation').html($('#id_observations').val());
                 $('.edit-odont').addClass('hide');
                 $('.field-odont').removeClass('hide');
-
+                toastr.success('Los datos se han guardado correctamente.', 'ODONTOGRAMA MODIFICADO');
                 console.log('OK---->');
               } else {
                 console.log('error---->');

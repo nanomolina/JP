@@ -43,6 +43,14 @@
             <g id="tooth-corona" transform="" class="hide">
               <circle cx="10" cy="10" r="10" stroke="#555555" stroke-width="1.5" fill="none"/>
             </g>
+            <g id="PBlank" class="tooth hide" transform="translate(0, 0)" data-tooth-id="None" data-work-type="None" data-color="white">
+                <polygon points="0,0    5,5     5,15    0,20" id="L" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
+                <polygon points="15,5   20,0    20,20   15,15" id="R" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
+                <polygon points="5,15   15,15   20,20   0,20" id="B" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
+                <polygon points="0,0    20,0    15,5    5,5" id="T" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
+                <polygon points="5,5    15,5    15,15   5,15" id="C" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
+                <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">None</text>
+            </g>
         </g>
     </svg>
 </div>
@@ -73,25 +81,16 @@
     $('g.tooth').on('click', function (evt) {
         var tooth = $(evt.currentTarget);
         if (tooth.data('work-type') != wt) {
-          $('#gmain').append($('#'+id).clone().attr('id', ''));
+          $('#gmain').append($('#'+id).clone().attr('id', 'draw-'+tooth.data('tooth-id')));
           tooth.data('work-type', wt);
           tooth.data('color', COLOR_NAME);
           tooth.addClass(my_class);
           var data = {
               'id': tooth.data('tooth-id'),
-              'color': tooth.data('color')
+              'color': tooth.data('color'),
+              'type': wt,
           };
-          switch (wt) {
-            case 1:
-              extractions.push(data);
-              break;
-            case 2:
-              endodoncias.push(data);
-              break;
-            case 6:
-              corona.push(data);
-              break;
-          }
+          TEETH_WORKS.push(data);
         }
     });
     $('#'+id+' '+type).on('click', function(evt){
@@ -133,9 +132,10 @@
               sector.parent().data('work-type', 3);
               var data = {
                 'id': sector.data('sector-id'),
-                'color': sector.data('sector-color')
+                'color': sector.data('sector-color'),
+                'type': 3,
               };
-              restoration.push(data);
+              TEETH_WORKS.push(data);
           }
       });
   }
@@ -179,9 +179,10 @@
               sector.parent().data('work-type', 4);
               var data = {
                   'id': sector.data('sector-id'),
-                  'color': sector.data('sector-color')
+                  'color': sector.data('sector-color'),
+                  'type': 4,
               };
-              filtered_restoration.push(data);
+              TEETH_WORKS.push(data);
           }
       });
   }
@@ -216,9 +217,10 @@
               sector.parent().data('work-type', 5);
               var data = {
                 'id': sector.data('sector-id'),
-                'color': sector.data('sector-color')
+                'color': sector.data('sector-color'),
+                'type': 5,
               };
-              caries.push(data);
+              TEETH_WORKS.push(data);
           }
       });
   }
@@ -228,13 +230,14 @@
   function option_eraser() {
     $('g.tooth').mouseover(function (evt) {
         var tooth = $(evt.target).parent();
-        if (tooth.data('work-type') != 7) {
+        if (tooth.data('work-type') != 'None') {
             tooth.css('cursor', 'pointer');
             tooth.find('polygon').each(function(key){
                 $(this).attr('fill', WHITE);
                 $(this).attr('stroke', GREY);
                 $(this).attr('stroke-width', '0.5');
             });
+            $('#draw-'+tooth.data('tooth-id')).hide();
             tooth.find('line, circle').addClass('hide');
         }
     });
@@ -259,34 +262,25 @@
         });
         tooth.css('cursor', 'default');
         tooth.find('line, circle').removeClass('hide');
+        $('#draw-'+tooth.data('tooth-id')).show();
     });
 
     $('g.tooth').on('click', function (evt) {
-        var work_types = [1, 2, 3, 4, 5, 6];
-        var click_enabled = false;
         var tooth = $(evt.target).parent();
-        for (var i=0; i<work_types.length; i++) {
-            if (tooth.data('work-type') == work_types[i]) {
-                var click_enabled = true;
-                break;
-            }
-        }
-        if (click_enabled) {
-            debugger;
-            tooth.find('polygon').each(function(key){
-                $(this).attr('fill', WHITE);
-                $(this).attr('stroke', GREY);
-                $(this).attr('stroke-width', '0.5');
-                $(this).data('sector-color', WHITE);
-            });
-            tooth.addClass('eraser');
-            tooth.data('work-type', 7);
-            tooth.find('line, circle').addClass('hide');
-            var data = {'id': tooth.data('tooth-id')};
-            eraser.push(data);
-            tooth.off('mouseover');
-            tooth.off('mouseout');
-            tooth.off('click');
+        if (tooth.data('work-type') != 'None') {
+            var blank = $('#PBlank');
+            var num = tooth.find('text').html();
+            tooth.html(blank.html());
+            tooth.attr('data-work-type', blank.attr('data-work-type'));
+            tooth.attr('data-color', blank.attr('data-color'));
+            tooth.find('text').html(num);
+            $('#draw-'+tooth.data('tooth-id')).remove();
+            var data = {
+                'id': tooth.data('tooth-id'),
+                'color': tooth.data('color'),
+                'type': '',
+            };
+            TEETH_WORKS.push(data);
         }
     });
   }
@@ -300,9 +294,8 @@
   BLUE = 'rgba(0, 0, 255, 0.63)';
   WHITE = 'white';
   GREY = '#555555';
-  DATA_ODONT = {'csrfmiddlewaretoken': '{{csrf_token}}' }
-  caries = []; extractions = []; endodoncias = []; restoration = [];
-  filtered_restoration = []; corona = []; eraser = [];
+  DATA_ODONT = {'csrfmiddlewaretoken': '{{csrf_token}}'}
+  TEETH_WORKS = [];
 
   $('#button-red').on('click', function(){
       $('#button-blue').removeClass('active');
