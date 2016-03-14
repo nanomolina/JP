@@ -9,7 +9,8 @@ class PatientForm(forms.ModelForm):
             'first_name', 'last_name', 'subsidiary_number', 'social_work',
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
             'number', 'floor', 'apartment', 'suburb', 'locality', 'tel',
-            'Workplace_holder', 'hierarchy', 'email', 'gender'
+            'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
+            'neighborhood'
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -78,6 +79,11 @@ class PatientForm(forms.ModelForm):
                     'style': 'width: 20%',
                 }
             ),
+            'neighborhood': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
             'suburb': forms.TextInput(
                 attrs={
                     'class': 'form-control',
@@ -113,6 +119,11 @@ class PatientForm(forms.ModelForm):
             'gender': forms.Select(
                 attrs={
                     'class': 'selectpicker form-control',
+                }
+            ),
+            'derivation': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
         }
