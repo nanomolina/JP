@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="pdf de prestaciones">
   <meta name="author" content="Nano Molina">
-  <title>{{patient.last_name}}_{{patient.first_name}}__{{benefit.month}}_de_{{benefit.year}}</title>
+  <title>{{benefit.year}} - {{benefit.get_month_display|stringformat:"02d"}} - {{patient.last_name}} {{patient.first_name}}</title>
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
