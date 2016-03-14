@@ -88,18 +88,17 @@ class Patient(models.Model):
 
     @property
     def domicile(self):
+        result = ''
         if self.street not in [None, '']:
-            result = self.street
-            if self.number not in [None, '']:
-                result += ' ' + str(self.number)
-                if self.floor not in [None, '']:
-                    result += ', dpto ' + self.floor
-                    if self.apartment not in [None, '']:
-                        result += ' ' + self.apartment + '. '
-                        if self.neighborhood not in [None, '']:
-                            result += 'Barrio ' + self.neighborhood
-        else:
-            result = None
+            result += self.street
+        if self.number not in [None, '']:
+            result += ' ' + str(self.number)
+        if self.floor not in [None, '']:
+            result += ', dpto ' + self.floor
+        if self.apartment not in [None, '']:
+            result += ' ' + self.apartment
+        if self.neighborhood not in [None, '']:
+            result += '. Barrio ' + self.neighborhood
         return result
 
     @property

@@ -58,7 +58,7 @@
                 <tr>
                   <th style="border-top: 0;">Domicilio(calle, num, piso, dpto, barrio):</th>
                   <td style="border-top: 0; width: 34%">
-                    <span class="field-info">{{patient.domicile|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.domicile|default:'---'}}</span>
                     <span class="edit-info hide">
                       {{patient_info_form.street}}{{patient_info_form.number}}
                     </span>
