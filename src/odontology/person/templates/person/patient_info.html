@@ -56,7 +56,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <th style="border-top: 0;">Domicilio(calle, num, piso, dpto):</th>
+                  <th style="border-top: 0;">Domicilio(calle, num, piso, dpto, barrio):</th>
                   <td style="border-top: 0; width: 34%">
                     <span class="field-info">{{patient.domicile|default_if_none:'---'}}</span>
                     <span class="edit-info hide">
@@ -64,6 +64,9 @@
                     </span>
                     <span class="edit-info hide">
                       {{patient_info_form.floor}}{{patient_info_form.apartment}}
+                    </span>
+                    <span class="edit-info hide">
+                      {{patient_info_form.neighborhood}}
                     </span>
                   </td>
                   <th style="border-top: 0;">Localidad:</th>
@@ -94,6 +97,13 @@
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.get_gender_display|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.gender}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Derivacion:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.derivation|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.derivation}}</span>
                   </td>
                 </tr>
               </tbody>

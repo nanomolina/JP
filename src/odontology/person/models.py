@@ -69,6 +69,7 @@ class Patient(models.Model):
     number = models.PositiveIntegerField(null=True, blank=True)
     floor = models.CharField(max_length=5, null=True, blank=True)
     apartment = models.CharField(max_length=5, null=True, blank=True)
+    neighborhood = models.CharField(max_length=250, null=True, blank=True)
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
     tel = models.CharField(max_length=250, null=True, blank=True)
@@ -76,6 +77,7 @@ class Patient(models.Model):
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     gender = models.IntegerField(choices=GENDER, null=True, blank=True)
+    derivation = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
         verbose_name = "Paciente"
@@ -93,7 +95,9 @@ class Patient(models.Model):
                 if self.floor not in [None, '']:
                     result += ', dpto ' + self.floor
                     if self.apartment not in [None, '']:
-                        result += ' ' + self.apartment
+                        result += ' ' + self.apartment + '. '
+                        if self.neighborhood not in [None, '']:
+                            result += 'Barrio ' + self.neighborhood
         else:
             result = None
         return result
