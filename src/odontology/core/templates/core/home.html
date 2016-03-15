@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}home - {{ request.user.get_full_name }}{% endblock %}
+
 {% block links %}
   {% load staticfiles %}
   <link href="{% static 'css/home.css' %}" rel="stylesheet">
