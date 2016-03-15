@@ -68,6 +68,8 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
+                  <li class="loader"><a href="{% url 'person:settings' %}">Configuraci&oacute;n de usuario</a></li>
+                  <li role="separator" class="divider"></li>
                   <li class="loader"><a href="{% url 'core:logout' %}">Cerrar cesi&oacute;n</a></li>
                 </ul>
               </li>
@@ -111,7 +113,7 @@
         "closeButton": true,
         "positionClass": "toast-bottom-right",
         "preventDuplicates": true,
-        "progressBar": true,
+        // "progressBar": true,
       }
     });
   </script>

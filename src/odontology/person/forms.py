@@ -1,5 +1,6 @@
 from django import forms
-from person.models import Patient, Odontogram
+from person.models import Patient, Odontogram, Dentist
+from django.contrib.auth.models import User
 
 
 class PatientForm(forms.ModelForm):
@@ -147,6 +148,61 @@ class OdontogramForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'rows': '5',
+                }
+            ),
+        }
+
+
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name', 'last_name', 'email', 'password'
+        )
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'password': forms.PasswordInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        }
+
+
+class DentistForm(forms.ModelForm):
+    class Meta:
+        model = Dentist
+        fields = (
+            'circle', 'register_number', 'carrying_home'
+        )
+        widgets = {
+            'circle': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'register_number': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'carrying_home': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
         }
