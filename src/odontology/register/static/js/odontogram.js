@@ -22,6 +22,8 @@ $(function() {
         $('#select-work-type select').selectpicker('val', '');
 
         DATA_ODONT['teeth_works'] = JSON.stringify(TEETH_WORKS);
+        DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
+        DATA_ODONT['observations'] = $('#id_observations').val();
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
