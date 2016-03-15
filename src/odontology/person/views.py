@@ -31,7 +31,7 @@ def patients(request):
     else:
         form = PatientForm(request.POST)
         sub_num = request.POST.get('subsidiary_number', None)
-        sub_num_exist = Patient.objects.filter(subsidiary_number=sub_num).exists()
+        sub_num_exist = Patient.objects.filter(dentist=dentist, subsidiary_number=sub_num).exists()
         if sub_num == '' or not sub_num_exist:
             if form.is_valid():
                 new_patient = form.save(commit=False)
