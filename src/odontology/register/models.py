@@ -33,6 +33,7 @@ class Apross(models.Model):
     managment_code1 = models.CharField(max_length=15, null=True, blank=True)
     managment_code2 = models.CharField(max_length=15, null=True, blank=True)
     managment_code3 = models.CharField(max_length=15, null=True, blank=True)
+    managment_code4 = models.CharField(max_length=15, null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)

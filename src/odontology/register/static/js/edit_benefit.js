@@ -25,7 +25,6 @@ $(document).ready(function() {
 });
 
 $(function () {
-    var dateNow = new Date();
     $('#date_edit_bf_picker').datetimepicker({
         viewMode: 'months',
         format: 'MMMM - YYYY',

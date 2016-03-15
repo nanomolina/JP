@@ -6,7 +6,7 @@ class AprossForm(forms.ModelForm):
         model = Apross
         fields = (
             'managment_code1', 'managment_code2',
-            'managment_code3', 'rx_amount',
+            'managment_code3', 'managment_code4', 'rx_amount',
         )
         widgets = {
             'managment_code1': forms.TextInput(
@@ -20,6 +20,11 @@ class AprossForm(forms.ModelForm):
                 }
             ),
             'managment_code3': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'managment_code4': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
