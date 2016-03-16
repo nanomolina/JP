@@ -201,3 +201,30 @@ class DentistForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class PasswordForm(forms.Form):
+    old_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    new_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    confirm_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )

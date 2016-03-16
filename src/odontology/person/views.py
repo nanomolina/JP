@@ -1,10 +1,11 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm
+from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
 from register.models import Apross, Benefit, ELEMENTS
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
@@ -213,3 +214,44 @@ def settings_dentist(request):
             )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': dentist_form.errors})
+
+
+def reset_password(request):
+    dentist = Dentist.objects.get(user=request.user)
+    if request.method == 'GET':
+        password_form = PasswordForm()
+        return render_to_response(
+            'person/reset_password.html',
+            {
+                'password_form': password_form,
+            },
+            RequestContext(request)
+        )
+    else:
+        password_form = PasswordForm(request.POST)
+        if password_form.is_valid():
+            old_password = request.POST.get('old_password', '')
+            user = authenticate(username=request.user.username, password=old_password)
+            if user is not None:
+                # the password verified for the user
+                if user.is_active:
+                    new_password = request.POST.get('new_password', '')
+                    confirm_password = request.POST.get('confirm_password', '')
+                    if new_password == confirm_password:
+                        request.user.set_password(new_password)
+                        request.user.save()
+                        password_form = PasswordForm()
+                        return TemplateResponse(
+                            request, 'person/reset_password/password.html',
+                            {'password_form': password_form},
+                            RequestContext(request)
+                        )
+                    else:
+                        password_form.errors['new_password'] = 'Las dos claves no coinciden.'
+                        password_form.errors['confirm_password'] = ''
+                        return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
+            else:
+                password_form.errors['old_password'] = 'clave incorrecta.'
+                return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})

@@ -26,6 +26,7 @@
 {% block scripts %}
 <script type="text/javascript">
     $('#but-personal-form').on('click', function(){
+        $('#my-personal-settings .form-group').removeClass('has-error');
         $(this).button('loading');
         var data_form = $('#my-personal-settings').serialize();
         var url = $('#my-personal-settings').attr('action');
@@ -46,6 +47,7 @@
         });
     });
     $('#but-dentist-form').on('click', function(){
+        $('#dentist-settings .form-group').removeClass('has-error');
         $(this).button('loading');
         var data_form = $('#dentist-settings').serialize();
         var url = $('#dentist-settings').attr('action');
