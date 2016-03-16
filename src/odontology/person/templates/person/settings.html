@@ -39,7 +39,8 @@
                 $('#my-personal-settings').html(data);
                 toastr.success('', 'DATOS PERSONALES EDITADOS');
               } else {
-                toastr.error('Hubo un error tratando de editar los datos.', 'DATOS ERRONEOS');
+                validate_errors('my-personal-settings', data.errors, 'alert-personal-edit');
+                $('#alert-personal-edit').removeClass('hide');
               }
           }
         });
@@ -58,7 +59,8 @@
                 $('#dentist-settings').html(data);
                 toastr.success('', 'DATOS DEL ODONTOLOGO EDITADOS');
               } else {
-                toastr.error('Hubo un error tratando de editar los datos.', 'DATOS ERRONEOS');
+                validate_errors('dentist-settings', data.errors, 'alert-personal-edit');
+                $('#alert-dentist-edit').removeClass('hide');
               }
           }
         });
