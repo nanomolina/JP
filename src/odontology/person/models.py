@@ -37,7 +37,7 @@ class SocialWork(models.Model):
 class Dentist(models.Model):
     user = models.ForeignKey(User)
     circle = models.CharField('Círculo', max_length=15, null=True, blank=True)
-    register_number = models.CharField('Número de Registro', max_length=25, null=True, blank=True)
+    register_number = models.CharField('Registro', max_length=25, null=True, blank=True)
     carrying_home = models.CharField('Domicilio', max_length=250, null=True, blank=True)
 
     class Meta:

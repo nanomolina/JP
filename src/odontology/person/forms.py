@@ -157,7 +157,7 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'first_name', 'last_name', 'email', 'password'
+            'first_name', 'last_name', 'email'
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -171,11 +171,6 @@ class UserChangeForm(forms.ModelForm):
                 }
             ),
             'email': forms.EmailInput(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-            'password': forms.PasswordInput(
                 attrs={
                     'class': 'form-control',
                 }
