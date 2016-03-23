@@ -1,8 +1,12 @@
 from django import forms
-from person.models import Patient, Odontogram
+from person.models import Patient, Odontogram, SocialWork
 
 
 class PatientForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PatientForm, self).__init__(*args, **kwargs)
+        self.fields['social_work'].queryset = SocialWork.objects.order_by('initial')
+
     class Meta:
         model = Patient
         fields = (
