@@ -45,8 +45,9 @@ class Apross(models.Model):
         return DetailApross.objects.filter(benefit=self).order_by('id')
 
 
-list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + \
-    range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
+milk_teeth = range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
+MILK_TEETH = tuple([(x, x) for x in milk_teeth])
+list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + milk_teeth
 ELEMENTS = tuple([(x, x) for x in list_elements])
 class DetailApross(models.Model):
     benefit = models.ForeignKey(Apross)

@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm
-from register.models import Apross, Benefit, ELEMENTS
+from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
 from datetime import date as Date
 
@@ -42,6 +42,9 @@ def patients(request):
                     for e1, e2 in ELEMENTS:
                         x, y = get_position(e2)
                         tooth = Tooth(odontogram=odontogram, number=e1, position_x=x, position_y=y)
+                        if (e1, e2) in MILK_TEETH:
+                            tooth.work_type = 1
+                            tooth.color = 1
                         tooth.save()
                         for l1, l2 in LOCATIONS:
                             Sector(tooth=tooth, location=l1, points=l1).save()
