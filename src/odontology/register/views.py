@@ -255,5 +255,11 @@ def edit_odontogram(request, patient_id):
 
         odontogram_form = OdontogramForm(request.POST, instance=patient.odontogram)
         if odontogram_form.is_valid():
-            odontogram_form.save()
+            odontogram = odontogram_form.save()
+            date = request.POST.get('date_odontogram', None)
+            if date:
+                month, year = date.split(' - ')
+                odontogram.month = month
+                odontogram.year = year
+                odontogram.save()
         return JsonResponse({'status': 'OK'})

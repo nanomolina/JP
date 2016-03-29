@@ -102,9 +102,9 @@
       <div class="panel panel-primary">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
-            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Detalles</a></li>
-            <li role="presentation" id="tab-info"><a href="#info">Informacion</a></li>
+            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Facturaci&oacute; Mensual</a></li>
             <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
+            <li role="presentation" id="tab-info"><a href="#info">Datos FIliatorios</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
@@ -173,6 +173,22 @@
                       </td>
                     </tr>
                     <tr>
+                      <td>Cantidad de Dientes:</td>
+                      <td>
+                        <span class="field-odont" id="text-odontogram">{{odontogram_form.instance.period}}</span>
+                        <span class="edit-odont hide">
+                          <div class="date-group input-fields">
+                              <div class='input-group date' id='date_odontogram'>
+                                  <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
+                                  <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
                       <td>Observaciones:</td>
                       <td>
                         <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations|default:'-'}}</span>
@@ -199,6 +215,9 @@
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
     URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
     CSRF = "{{ csrf_token }}";
+    {% if odontogram_form.instance.month and odontogram_form.instance.year %}
+    DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+    {% endif %}
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>

@@ -4,17 +4,30 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
+MONTHS = (
+    ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
+    ('junio', 6), ('julio', 7), ('agosto', 8), ('septiembre', 9),
+    ('octubre', 10), ('noviembre', 11), ('diciembre', 12)
+)
 class Odontogram(models.Model):
     TEETH_NUMBERS = tuple([(x, x) for x in range(33)])
     teeth_number = models.SmallIntegerField(choices=TEETH_NUMBERS, null=True, blank=True)
-    observations = models.TextField()
+    observations = models.TextField(null=True, blank=True)
+    month = models.CharField(choices=MONTHS, max_length=15, null=True, blank=True)
+    year = models.PositiveIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return "%s" % str(self.id)
 
     def get_teeth(self):
         return Tooth.objects.filter(odontogram=self)
+
+    def period(self):
+        if self.month is not None and self.year is not None:
+            result = str(self.month) + ' - ' + str(self.year)
+        else:
+            result = '-'
+        return result
 
 
 class Clinic_history(models.Model):
