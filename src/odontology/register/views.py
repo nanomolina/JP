@@ -263,3 +263,12 @@ def edit_odontogram(request, patient_id):
                 odontogram.year = year
                 odontogram.save()
         return JsonResponse({'status': 'OK'})
+
+def acumulate_benefit(request, patient_id):
+    from django.template.response import TemplateResponse
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, id=patient_id)
+        return TemplateResponse(
+            request, 'register/total_details.html',
+            {'patient': patient}
+        )

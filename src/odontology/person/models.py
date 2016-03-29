@@ -132,6 +132,14 @@ class Patient(models.Model):
     def get_full_name(self):
         return "%s %s" % (self.last_name, self.first_name)
 
+    def get_benefits(self):
+        from register.models import Apross, Benefit
+        if self.social_work and self.social_work.initial == 'APROSS':
+            benefit = Apross.objects.filter(patient=self)
+        else:
+            benefit = Benefit.objects.filter(patient=self)
+        return benefit
+
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (
     (1, 'Extraccion'), (2, 'Endodoncia'), (3, 'Restauracion'),

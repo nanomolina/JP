@@ -10,4 +10,9 @@ $(function() {
   $('#tab-info a, #tab-detail a, #tab-odontogram a').click(function (e) {
     $(this).tab('show');
   });
+  $('#tab-total-detail a').click(function(e) {
+    $('#total-detail').load(URL_ACC_BF, function(){
+      $('#tab-total-detail a').tab('show');
+    });
+  });
 });

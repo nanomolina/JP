@@ -18,6 +18,10 @@
         </div>
       </span>
     </td>
+    {% if show_date %}
+    <td>{{benefit.month}}</td>
+    <td>{{benefit.year}}</td>
+    {% endif %}
     <td>
       <span class="detail-info">
         {{detail.work_done|default_if_none:''}}
@@ -55,6 +59,7 @@
         {{detail_form.faces}}
       </span>
     </td>
+    {% if not hide_edit %}
     <td width="5%">
       <button id="bf-detail-edit-{{detail.id}}" type="button" class="btn btn-primary btn-xs" onclick="javascript: edit_benefit_detail({{detail.id}});">
         <i class="fa fa-pencil"></i> Editar
@@ -63,5 +68,6 @@
         <i class="fa fa-floppy-o"></i> Guardar
       </button>
     </td>
+    {% endif %}
     {% endwith %}
 </tr>

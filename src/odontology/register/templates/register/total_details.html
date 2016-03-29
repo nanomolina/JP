@@ -1,0 +1,67 @@
+<div class="col-md-12" style="margin-top: 20px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Facturaci&oacute;n Acumulada</div>
+    <div class="panel-body no-padding">
+      <table class="table table-hover">
+          {% if patient.social_work and patient.social_work.initial == 'APROSS'%}
+            <thead>
+              <tr>
+                <th width="50">#</th>
+                <th width="100">Dia</th>
+                <th width="100">Mes</th>
+                <th width="100">Año</th>
+                <th>Trabajo realizado</th>
+                <th>C&oacute;digo de practica</th>
+                <th>Elemento</th>
+                <th>Caras/Tratadas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for benefit in patient.get_benefits %}
+                  {% for detail in benefit.get_details %}
+                      {% include "register/detail_apross.html" with counter=forloop.counter patient=benefit.patient hide_edit=True show_date=True %}
+                  {% endfor %}
+              {% empty %}
+              <tr>
+                <td colspan="8" class="text-center">No hay detalles de prestaciones</td>
+                <td width="5%">
+                  <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
+                    <i class="fa fa-pencil-square"></i> Editar
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        {% else %}
+            <thead>
+              <tr>
+                <th width="50">#</th>
+                <th width="100">Dia</th>
+                <th width="100">Mes</th>
+                <th width="100">Año</th>
+                <th>Diente N&deg;</th>
+                <th>Cara</th>
+                <th>Codigo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for benefit in patient.get_benefits %}
+                  {% for detail in benefit.get_details %}
+                      {% include "register/detail_benefit.html" with counter=forloop.counter hide_edit=True show_date=True %}
+                  {% endfor %}
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center">No hay detalles de prestaciones</td>
+                <td width="5%">
+                  <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
+                    <i class="fa fa-pencil-square"></i> Editar
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        {% endif %}
+      </table>
+    </div>
+  </div>
+</div>

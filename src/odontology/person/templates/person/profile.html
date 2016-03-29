@@ -102,9 +102,10 @@
       <div class="panel panel-primary">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
-            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Facturaci&oacute; Mensual</a></li>
+            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Facturaci&oacute;n Mensual</a></li>
+            <li role="presentation" id="tab-total-detail"><a href="#total-detail">Facturaci&oacute;n Acumulada</a></li>
             <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
-            <li role="presentation" id="tab-info"><a href="#info">Datos FIliatorios</a></li>
+            <li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
@@ -113,6 +114,9 @@
               {% else %}
                 {% include "register/benefit.html" %}
               {% endif %}
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
+              {% include "register/total_details.html" with patient=patient %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
                 <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
@@ -215,8 +219,11 @@
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
     URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
     CSRF = "{{ csrf_token }}";
+    URL_ACC_BF = "{% url 'register:acumulate_benefit' patient_id=patient.id %}";
     {% if odontogram_form.instance.month and odontogram_form.instance.year %}
     DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+    {% else %}
+    DATE_OD = "";
     {% endif %}
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
