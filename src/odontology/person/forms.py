@@ -27,7 +27,7 @@ class PatientForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'subsidiary_number': forms.NumberInput(
+            'subsidiary_number': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
