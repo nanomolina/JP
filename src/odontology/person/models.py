@@ -29,6 +29,9 @@ class Odontogram(models.Model):
             result = '-'
         return result
 
+    def teeth_count(self):
+        return 52 - Tooth.objects.filter(odontogram=self, work_type=1, color=1).count()
+
 
 class Clinic_history(models.Model):
     place = models.CharField(max_length=250)

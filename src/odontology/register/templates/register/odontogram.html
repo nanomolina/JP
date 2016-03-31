@@ -91,6 +91,10 @@
               'type': wt,
           };
           TEETH_WORKS.push(data);
+          if (wt == 1 && COLOR_NAME == 'red') {
+              var teeth_count = $('#text-teeth').text();
+              $('#text-teeth').text(parseInt(teeth_count) - 1);
+          }
         }
     });
     $('#'+id+' '+type).on('click', function(evt){
@@ -271,6 +275,10 @@
             var blank = $('#PBlank');
             var num = tooth.find('text').html();
             tooth.html(blank.html());
+            if (tooth.data('work-type') == 1 && tooth.data('color') == 'red') {
+                var teeth_count = $('#text-teeth').text();
+                $('#text-teeth').text(parseInt(teeth_count) + 1);
+            }
             tooth.attr('data-work-type', blank.attr('data-work-type'));
             tooth.attr('data-color', blank.attr('data-color'));
             tooth.find('text').html(num);
