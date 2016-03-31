@@ -19,7 +19,9 @@
             <tbody>
               {% for benefit in patient.get_benefits %}
                   {% for detail in benefit.get_details %}
+                    {% if detail.day or detail.work_done or detail.practic_code or detail.element or detail.faces.count > 0 %}
                       {% include "register/detail_apross.html" with counter=forloop.counter patient=benefit.patient hide_edit=True show_date=True %}
+                    {% endif %}
                   {% endfor %}
               {% empty %}
               <tr>
@@ -47,7 +49,9 @@
             <tbody>
               {% for benefit in patient.get_benefits %}
                   {% for detail in benefit.get_details %}
+                    {% if detail.day or detail.tooth or detail.faces.count > 0 or detail.code %}
                       {% include "register/detail_benefit.html" with counter=forloop.counter hide_edit=True show_date=True %}
+                    {% endif %}
                   {% endfor %}
               {% empty %}
               <tr>
