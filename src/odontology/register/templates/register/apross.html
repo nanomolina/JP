@@ -1,8 +1,8 @@
 <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
     <div class="col-md-6 no-padding">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva prestacion</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">Nueva Ficha Mensual</button>
     {% if last_benefit %}
-        <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">Editar prestacion</button>
+        <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">Editar Ficha Mensual</button>
     </div>
     <div class="col-md-3 col-md-offset-3 no-padding">
         <select id="select-benefit" class="selectpicker show-tick form-control">
@@ -45,7 +45,7 @@
                 <td colspan="6" class="text-center">No hay detalles de prestaciones</td>
                 <td width="5%">
                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-benefit-detail">
-                    <i class="fa fa-pencil-square"></i> Editar
+                    <i class="fa fa-pencil-square"></i> Editar Prestaci&oacute;n
                   </button>
                 </td>
               </tr>
