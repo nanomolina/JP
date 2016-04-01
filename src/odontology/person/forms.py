@@ -150,7 +150,7 @@ class OdontogramForm(forms.ModelForm):
             'observations': forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'rows': '5',
+                    'rows': '2',
                 }
             ),
         }

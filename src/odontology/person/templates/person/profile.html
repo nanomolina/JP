@@ -163,21 +163,22 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="2">
+                      <td width="200">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr><td class="text-center">Cantidad de Dientes</td></tr>
+                            <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">{{patient.odontogram.teeth_count|default:'---'}}</td></tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td>
                         <div>
                             {% include "register/odontogram.html" %}
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td>Cantidad de Dientes:</td>
-                      <td>
-                        <span id="text-teeth">{{odontogram_form.instance.teeth_count|default:'-'}}</span>
-                        <!-- <span class="edit-odont hide">{{odontogram_form.teeth_number}}</span> -->
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Periodo:</td>
+                      <td width="200">Periodo:</td>
                       <td>
                         <span class="field-odont" id="text-odontogram">{{odontogram_form.instance.period}}</span>
                         <span class="edit-odont hide">
@@ -193,7 +194,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Observaciones:</td>
+                      <td width="200">Observaciones:</td>
                       <td>
                         <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations|default:'-'}}</span>
                         <span class="edit-odont hide">{{odontogram_form.observations}}</span>
