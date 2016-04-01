@@ -72,14 +72,12 @@
                 <td>{{bf.managment_code3|default_if_none:"-"}}</td>
                 <th style="width: 2%">4</th>
                 <td>{{bf.managment_code4|default_if_none:"-"}}</td>
+                <th class="text-center" width="200">Cantidad de Rx.adjuntas</th>
               </tr>
               <tr>
                 <th>Domicilio de realizaci&oacute;n</th>
                 <td colspan="8" class="text-center">{{dentist.carrying_home|default_if_none:"-"}}</td>
-              </tr>
-              <tr>
-                <th>Cantidad de Rx.adjuntas</th>
-                <td colspan="8" class="text-center">{{bf.rx_amount|default_if_none:"-"}}</td>
+                <td class="text-center" style="font-size: 18px;" width="200">{{bf.rx_amount|default_if_none:"-"}}</td>
               </tr>
             </tbody>
           </table>
