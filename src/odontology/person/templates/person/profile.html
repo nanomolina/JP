@@ -163,11 +163,31 @@
                       </td>
                     </tr>
                     <tr>
-                      <td width="200">
+                      <td width="200" style="vertical-align: inherit;">
                         <table class="table table-bordered">
                           <tbody>
                             <tr><td class="text-center">Cantidad de Dientes</td></tr>
                             <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">{{patient.odontogram.teeth_count|default:'---'}}</td></tr>
+                          </tbody>
+                        </table>
+                        <table class="table table-bordered" style="margin-top: 8px;">
+                          <tbody>
+                            <tr><td class="text-center">Periodo</td></tr>
+                            <tr>
+                              <td class="text-center">
+                                <span class="field-odont" id="text-odontogram" style="font-size: 18px;">{{odontogram_form.instance.period}}</span>
+                                <span class="edit-odont hide">
+                                  <div class="date-group input-fields">
+                                      <div class='input-group date' id='date_odontogram'>
+                                          <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
+                                          <span class="input-group-addon">
+                                              <span class="glyphicon glyphicon-calendar"></span>
+                                          </span>
+                                      </div>
+                                  </div>
+                                </span>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </td>
@@ -175,22 +195,6 @@
                         <div>
                             {% include "register/odontogram.html" %}
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="200">Periodo:</td>
-                      <td>
-                        <span class="field-odont" id="text-odontogram">{{odontogram_form.instance.period}}</span>
-                        <span class="edit-odont hide">
-                          <div class="date-group input-fields">
-                              <div class='input-group date' id='date_odontogram'>
-                                  <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
-                                  <span class="input-group-addon">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                        </span>
                       </td>
                     </tr>
                     <tr>
