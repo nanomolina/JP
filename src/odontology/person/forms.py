@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from person.models import Patient, Odontogram, SocialWork
 
@@ -62,30 +63,36 @@ class PatientForm(forms.ModelForm):
             'street': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 34%',
+                    'style': 'width: 26%',
+                    'placeholder': 'Calle',
                 }
             ),
             'number': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 25%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Número',
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 20%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Piso',
                 }
             ),
             'apartment': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 20%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Dpto',
                 }
             ),
             'neighborhood': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'style': 'width: 21%',
+                    'placeholder': 'Barrio',
                 }
             ),
             'suburb': forms.TextInput(
