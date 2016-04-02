@@ -4,7 +4,7 @@
     {% with detail.id|benefit_detail_form as detail_form %}
     {% csrf_token %}
     <input type="hidden" name="counter" value="{{counter}}">
-    <td>{{counter}}</td>
+    <td><span class="label label-primary">{{counter}}</span></td>
     <td>
       <span class="detail-info">
         {{detail.day|default_if_none:''}}

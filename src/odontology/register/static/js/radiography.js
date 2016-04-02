@@ -34,6 +34,7 @@ $(function() {
     $('#cancel-radiography').removeClass('hide');
     $('#save-radiography').removeClass('hide');
     $(this).addClass('hide');
+    $form.find('.label-primary').removeClass('label-primary').addClass('label-success');
   });
 
   $('#cancel-radiography').on('click', function() {
@@ -43,5 +44,6 @@ $(function() {
     $('#save-radiography').addClass('hide');
     $('#edit-radiography').removeClass('hide');
     $(this).addClass('hide');
+    $form.find('.label-success').removeClass('label-success').addClass('label-primary');
   });
 });

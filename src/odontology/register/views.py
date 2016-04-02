@@ -269,6 +269,6 @@ def acumulate_benefit(request, patient_id):
     if request.method == 'GET':
         patient = get_object_or_404(Patient, id=patient_id)
         return TemplateResponse(
-            request, 'register/total_details.html',
+            request, 'register/tab_total_details.html',
             {'patient': patient}
         )

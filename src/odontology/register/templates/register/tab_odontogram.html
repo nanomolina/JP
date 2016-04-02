@@ -33,7 +33,9 @@
         <table class="table table-bordered">
           <tbody>
             <tr><td class="text-center">Cantidad de Dientes</td></tr>
-            <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">{{patient.odontogram.teeth_count|default:'---'}}</td></tr>
+            <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">
+              <span class="label label-warning">{{patient.odontogram.teeth_count|default:'---'}}</span>
+            </td></tr>
           </tbody>
         </table>
         <table class="table table-bordered" style="margin-top: 8px;">

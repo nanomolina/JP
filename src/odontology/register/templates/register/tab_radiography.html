@@ -1,62 +1,61 @@
 {% if last_benefit %}
-<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-    <div class="col-md-3 no-padding">
-      <button type="button" class="btn btn-default" id="edit-radiography">Editar radiografias</button>
-      <button type="button" class="btn btn-success hide" id="save-radiography" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
-      <button type="button" class="btn btn-default hide" id="cancel-radiography">Cancelar</button>
-    </div>
-</div>
-<div class="col-md-12 content" style="margin-bottom: 20px;">
+<div class="col-md-12 content" style="margin-top: 20px;">
   <div class="panel panel-primary">
     <div class="panel-heading">Radiografias</div>
     <div class="panel-body no-padding">
-      <form id="radiography-form" method="POST" action="" class="form-inline">
-          {% csrf_token %}
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Numero de Pieza</th>
-                <th>Finalidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>Radiografia 1</th>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.part_number_1|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.part_number_1}}</span>
-                </td>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.finality_1|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.finality_1}}</span>
-                </td>
-              </tr>
-              <tr>
-                <th>Radiografia 2</th>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.part_number_2|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.part_number_2}}</span>
-                </td>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.finality_2|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.finality_2}}</span>
-                </td>
-              </tr>
-              <tr>
-                <th>Radiografia 3</th>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.part_number_3|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.part_number_3}}</span>
-                </td>
-                <td>
-                  <span class="field-info">{{radiography_form.instance.finality_3|default:'---'}}</span>
-                  <span class="edit-info hide">{{radiography_form.finality_3}}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-      </form>
+
+      <style>
+        .panel-title > a {
+            color: #2fa4e7;
+        }
+      </style>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Collapsible Group Item #1
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              {% include "register/_form_radiography.html" %}
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Collapsible Group Item #2
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+              {% include "register/_form_radiography.html" %}
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Collapsible Group Item #3
+              </a>
+            </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+              {% include "register/_form_radiography.html" %}
+          </div>
+            </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
 </div>
