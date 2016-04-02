@@ -26,24 +26,24 @@
 //     });
 // });
 
-$(function() {
-  $('#edit-radiography').on('click', function() {
-    var $form = $('#radiography-form');
-    $form.find('.field-info').hide();
-    $form.find('.edit-info').removeClass('hide');
-    $('#cancel-radiography').removeClass('hide');
-    $('#save-radiography').removeClass('hide');
-    $(this).addClass('hide');
-    $form.find('.label-primary').removeClass('label-primary').addClass('label-success');
-  });
-
-  $('#cancel-radiography').on('click', function() {
-    var $form = $('#radiography-form');
-    $form.find('.field-info').show();
-    $form.find('.edit-info').addClass('hide');
-    $('#save-radiography').addClass('hide');
-    $('#edit-radiography').removeClass('hide');
-    $(this).addClass('hide');
-    $form.find('.label-success').removeClass('label-success').addClass('label-primary');
-  });
-});
+// $(function() {
+//   $('#edit-radiography').on('click', function() {
+//     var $form = $('#radiography-form');
+//     $form.find('.field-info').hide();
+//     $form.find('.edit-info').removeClass('hide');
+//     $('#cancel-radiography').removeClass('hide');
+//     $('#save-radiography').removeClass('hide');
+//     $(this).addClass('hide');
+//     $form.find('.label-primary').removeClass('label-primary').addClass('label-success');
+//   });
+//
+//   $('#cancel-radiography').on('click', function() {
+//     var $form = $('#radiography-form');
+//     $form.find('.field-info').show();
+//     $form.find('.edit-info').addClass('hide');
+//     $('#save-radiography').addClass('hide');
+//     $('#edit-radiography').removeClass('hide');
+//     $(this).addClass('hide');
+//     $form.find('.label-success').removeClass('label-success').addClass('label-primary');
+//   });
+// });

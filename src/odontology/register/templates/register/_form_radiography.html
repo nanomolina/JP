@@ -1,9 +1,9 @@
 <div class="col-md-3 no-padding" style="margin-bottom: 20px;">
-  <button type="button" class="btn btn-default" id="edit-radiography">Editar radiografias</button>
-  <button type="button" class="btn btn-success hide" id="save-radiography" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
-  <button type="button" class="btn btn-default hide" id="cancel-radiography">Cancelar</button>
+  <button type="button" class="btn btn-default" id="edit-radiography-{{bf.id}}">Editar radiografias</button>
+  <button type="button" class="btn btn-success hide" id="save-radiography-{{bf.id}}" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
+  <button type="button" class="btn btn-default hide" id="cancel-radiography-{{bf.id}}">Cancelar</button>
 </div>
-<form id="radiography-form" method="POST" action="" class="form-inline">
+<form id="radiography-form-{{bf.id}}" method="POST" action="" class="form-inline">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <thead>
@@ -50,3 +50,26 @@
       </tbody>
     </table>
 </form>
+<script type="text/javascript">
+$(function() {
+  $('#edit-radiography-{{bf.id}}').on('click', function() {
+    var $form = $('#radiography-form-{{bf.id}}');
+    $form.find('.field-info').hide();
+    $form.find('.edit-info').removeClass('hide');
+    $('#cancel-radiography-{{bf.id}}').removeClass('hide');
+    $('#save-radiography-{{bf.id}}').removeClass('hide');
+    $(this).addClass('hide');
+    $form.find('.label-primary').removeClass('label-primary').addClass('label-success');
+  });
+
+  $('#cancel-radiography-{{bf.id}}').on('click', function() {
+    var $form = $('#radiography-form-{{bf.id}}');
+    $form.find('.field-info').show();
+    $form.find('.edit-info').addClass('hide');
+    $('#save-radiography-{{bf.id}}').addClass('hide');
+    $('#edit-radiography-{{bf.id}}').removeClass('hide');
+    $(this).addClass('hide');
+    $form.find('.label-success').removeClass('label-success').addClass('label-primary');
+  });
+});
+</script>
