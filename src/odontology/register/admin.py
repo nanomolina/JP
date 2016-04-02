@@ -1,5 +1,5 @@
 from django.contrib import admin
-from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit
+from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography
 
 
 class AprossAdmin(admin.ModelAdmin):
@@ -38,3 +38,10 @@ class FacesAdmin(admin.ModelAdmin):
         'name', 'initial'
     )
 admin.site.register(Faces, FacesAdmin)
+
+
+class RadiographyAdmin(admin.ModelAdmin):
+    fields = (
+        'apross', 'benefit'
+    )
+admin.site.register(Radiography, RadiographyAdmin)

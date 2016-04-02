@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -94,6 +95,29 @@ class DetailBenefit(models.Model):
         return "%s - %s" % (self.day, self.benefit)
 
 
+class Radiography(models.Model):
+    FINALITYS = (
+        (1, 'Diagnóstico'), (2, 'Previa'), (3, 'Conductometría'), (4, 'Final')
+    )
+    apross = models.ForeignKey(Apross, null=True, blank=True)
+    benefit = models.ForeignKey(Benefit, null=True, blank=True)
+
+    part_number_1 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_1 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+    part_number_2 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_2 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+    part_number_3 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_3 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+
+    def __unicode__(self):
+        if self.apross:
+            return "%s" % (self.apross.patient)
+        elif self.benefit:
+            return "%s" % (self.benefit.patient)
+        else:
+            return "None"
+
+
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -104,6 +128,7 @@ def handler_new_apross(sender, instance, **kwargs):
     if not instance.get_details().exists():
         for _ in range(4):
             DetailApross(benefit=instance).save()
+        Radiography(apross=instance).save()
 
 
 @receiver(post_save, sender=Benefit)
@@ -111,3 +136,4 @@ def handler_new_benefit(sender, instance, **kwargs):
     if not instance.get_details().exists():
         for _ in range(4):
             DetailBenefit(benefit=instance).save()
+        Radiography(benefit=instance).save()

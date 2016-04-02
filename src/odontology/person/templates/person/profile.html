@@ -106,107 +106,25 @@
             <li role="presentation" id="tab-total-detail"><a href="#total-detail">Facturaci&oacute;n Acumulada</a></li>
             <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
             <li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>
+            <li role="presentation" id="tab-radiography"><a href="#radiography">Radiograf&iacute;as</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
-              {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-                {% include "register/apross.html" %}
-              {% else %}
-                {% include "register/benefit.html" %}
-              {% endif %}
+              {% include "register/tab_detail.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
-              {% include "register/total_details.html" with patient=patient %}
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
-                <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-                    <div class="col-md-3 no-padding">
-                      <button type="button" class="btn btn-default" id="edit-patient-info">Editar info</button>
-                      <button type="button" class="btn btn-success hide" id="save-patient-info" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
-                      <button type="button" class="btn btn-default hide" id="cancel-patient-info">Cancelar</button>
-                    </div>
-                </div>
-                <div class="col-md-12 content" style="margin-bottom: 20px;">
-                {% include "person/patient_info.html" %}
-                </div>
+              {% include "register/tab_total_details.html" with patient=patient %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
-
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr>
-                      <td colspan="2">
-                        <div class="col-md-4">
-                          <button type="button" class="btn btn-default" id="edit-odontogram">Editar odontograma</button>
-                          <button type="button" class="btn btn-success hide" id="save-odontogram" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
-                          <button type="button" class="btn btn-default hide" id="cancel-odontogram">Cancelar</button>
-                        </div>
-                        <div id="select-work-type" class="hide col-md-3">
-                          <select class="selectpicker show-tick">
-                            {% for val, text in work_types %}
-                            <option value="{{val}}">{{text}}</option>
-                            {% endfor %}
-                            <option value="7" selected="selected">Limpiar</option>
-                            <option value="" selected="selected">---------</option>
-                          </select>
-                        </div>
-                        <div class="col-md-2">
-                          <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default hide" id="button-red">
-                              <span class="badge" style="background-color:rgba(255, 0, 0, 0.63);" data-color="red">&nbsp;&nbsp;</span>
-                            </button>
-                            <button type="button" class="btn btn-default hide active" id="button-blue">
-                              <span class="badge" style="background-color: rgba(0, 0, 255, 0.63);" data-color="blue">&nbsp;&nbsp;</span>
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="200" style="vertical-align: inherit;">
-                        <table class="table table-bordered">
-                          <tbody>
-                            <tr><td class="text-center">Cantidad de Dientes</td></tr>
-                            <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">{{patient.odontogram.teeth_count|default:'---'}}</td></tr>
-                          </tbody>
-                        </table>
-                        <table class="table table-bordered" style="margin-top: 8px;">
-                          <tbody>
-                            <tr><td class="text-center">Periodo</td></tr>
-                            <tr>
-                              <td class="text-center">
-                                <span class="field-odont" id="text-odontogram" style="font-size: 18px;">{{odontogram_form.instance.period}}</span>
-                                <span class="edit-odont hide">
-                                  <div class="date-group input-fields">
-                                      <div class='input-group date' id='date_odontogram'>
-                                          <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
-                                          <span class="input-group-addon">
-                                              <span class="glyphicon glyphicon-calendar"></span>
-                                          </span>
-                                      </div>
-                                  </div>
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                      <td>
-                        <div>
-                            {% include "register/odontogram.html" %}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="200">Observaciones:</td>
-                      <td>
-                        <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations|default:'-'}}</span>
-                        <span class="edit-odont hide">{{odontogram_form.observations}}</span>
-                      </td>
-                    </tr>
-                </tbody>
-              </table>
+              {% include "register/tab_odontogram.html" %}
             </div>
+            <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
+              {% include "register/tab_info.html" %}
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="radiography" aria-labelledby="radiography-tab">
+                {% include "register/tab_radiography.html" %}
+            </div>
+
           </div>
         </div>
       </div>
@@ -234,6 +152,7 @@
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/radiography.js'%}"></script>
   {% if rec_added == '1' %}
   <script type="text/javascript">
     $(function(){
