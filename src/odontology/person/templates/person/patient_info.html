@@ -72,10 +72,24 @@
                     <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
                   </td>
-                  <th style="border-top: 0;">Tel/Cel:</th>
+                  <th style="border-top: 0;" class="email-group">
+                    <label class="control-label" for="id_email">email:</label>
+                  </th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.email|default_if_none:'---'}}</span>
+                    <span class="edit-info hide email-group">{{patient_info_form.email}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Tel&eacute;fono fijo:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.tel|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                  <th style="border-top: 0;">Celular:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.cel_phone|default_if_none:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
                   </td>
                 </tr>
                 <tr>

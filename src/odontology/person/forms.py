@@ -13,7 +13,7 @@ class PatientForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'subsidiary_number', 'social_work',
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
-            'number', 'floor', 'apartment', 'suburb', 'locality', 'tel',
+            'number', 'floor', 'apartment', 'suburb', 'locality', 'tel', 'cel_phone',
             'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
             'neighborhood'
         )
@@ -108,6 +108,11 @@ class PatientForm(forms.ModelForm):
                 }
             ),
             'tel': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'cel_phone': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }

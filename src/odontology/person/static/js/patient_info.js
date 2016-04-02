@@ -18,6 +18,7 @@ $(document).ready(function() {
               } else {
                 $('#save-patient-info').button('reset').addClass('hide');
                 $('#edit-patient-info').removeClass('hide');
+                validate_errors('patient-info-form', data.errors, '');
                 toastr.error('Hubo un error tratando de editar los datos.', 'DATOS ERRONEOS');
               }
           }

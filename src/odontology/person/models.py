@@ -89,6 +89,7 @@ class Patient(models.Model):
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
     tel = models.CharField(max_length=250, null=True, blank=True)
+    cel_phone = models.CharField(max_length=250, null=True, blank=True)
     Workplace_holder = models.CharField(max_length=250, null=True, blank=True)
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)

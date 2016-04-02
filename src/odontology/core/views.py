@@ -63,6 +63,15 @@ def logout_user(request):
     return redirect('core:login')
 
 
+@login_required
+def version(request):
+    return render_to_response(
+        'core/version.html',
+        {},
+        RequestContext(request)
+    )
+
+
 def error404(request):
      template = loader.get_template('404.html')
      context = Context({'message': 'All: %s' % request,})
