@@ -50,6 +50,8 @@ $(function () {
         $('#benefit-'+id).show();
         $('#edit_bf').data('bf-id', id);
         edit_url_pdf(id);
+        // $('#radiography').find('.collapse.in').prev().find('a').click();
+        // $('#radiography').find('#tit-collapse-'+id).click();
     }).change();
 
 });
@@ -92,6 +94,7 @@ function edit_benefit_detail(id) {
     $edit_button.addClass('hide');
     var $save_button = $('#bf-detail-save-'+id);
     $save_button.removeClass('hide');
+    $row_detail.find('.label-primary').removeClass('label-primary').addClass('label-success');
 }
 
 function save_benefit_detail(id) {
@@ -111,7 +114,7 @@ function save_benefit_detail(id) {
             maxDate: range.end.toDate()
         });
         $('.selectpicker').selectpicker();
-
+        $detail.find('.label-success').removeClass('label-success').addClass('label-primary');
     });
 }
 

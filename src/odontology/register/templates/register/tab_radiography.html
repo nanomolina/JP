@@ -1,0 +1,38 @@
+{% if last_benefit %}
+<div class="col-md-12 content" style="margin-top: 20px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Radiografias</div>
+    <div class="panel-body no-padding">
+
+      <style>
+        .panel-title > a {
+            color: #2fa4e7;
+        }
+      </style>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">
+        {% for bf in benefits %}
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading-{{bf.id}}">
+            <h4 class="panel-title">
+              <a id="tit-collapse-{{bf.id}}" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{bf.id}}" aria-expanded="false" aria-controls="collapse-{{bf.id}}">
+                {{bf.month}} - {{bf.year}}
+              </a>
+            </h4>
+          </div>
+          <div id="collapse-{{bf.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{bf.id}}">
+            <div class="panel-body">
+              {% include "register/_form_radiography.html" %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
+  <h3>No existen regitros de prestaciones.</h3>
+</div>
+{% endif %}

@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
 
 
@@ -152,7 +152,7 @@ def patient_profile(request, id):
                 'patient_info_form': patient_info,
                 'work_types': WORK_TYPES,
                 'odontogram_form': odontogram_form,
-                'rec_added': rec_added
+                'rec_added': rec_added,
             },
             RequestContext(request)
         )

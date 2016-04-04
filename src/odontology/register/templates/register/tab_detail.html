@@ -1,0 +1,5 @@
+{% if patient.social_work and patient.social_work.initial == 'APROSS' %}
+  {% include "register/apross.html" %}
+{% else %}
+  {% include "register/benefit.html" %}
+{% endif %}

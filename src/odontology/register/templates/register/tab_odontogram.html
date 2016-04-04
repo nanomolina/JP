@@ -1,7 +1,7 @@
 <table class="table table-bordered">
   <tbody>
     <tr>
-      <td colspan="4">
+      <td colspan="2">
         <div class="col-md-4">
           <button type="button" class="btn btn-default" id="edit-odontogram">Editar odontograma</button>
           <button type="button" class="btn btn-success hide" id="save-odontogram" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
@@ -29,34 +29,45 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4">
+      <td width="200" style="vertical-align: inherit;">
+        <table class="table table-bordered">
+          <tbody>
+            <tr><td class="text-center">Cantidad de Dientes</td></tr>
+            <tr><td id="text-teeth" class="text-center" style="font-size: 25px;">
+              <span class="label label-warning">{{patient.odontogram.teeth_count|default:'---'}}</span>
+            </td></tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered" style="margin-top: 8px;">
+          <tbody>
+            <tr><td class="text-center">Periodo</td></tr>
+            <tr>
+              <td class="text-center">
+                <span class="field-odont" id="text-odontogram" style="font-size: 18px;">{{odontogram_form.instance.period}}</span>
+                <span class="edit-odont hide">
+                  <div class="date-group input-fields">
+                      <div class='input-group date' id='date_odontogram'>
+                          <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td>
         <div>
             {% include "register/odontogram.html" %}
         </div>
       </td>
     </tr>
     <tr>
-      <td style="width: 15%">Cantidad de Dientes:</td>
-      <td style="width: 35%">
-        <span class="field-odont" id="text-teeth">{{odontogram_form.instance.teeth_number|default:'-'}}</span>
-        <span class="edit-odont hide">{{odontogram_form.teeth_number}}</span>
-      </td>
-      <td style="width: 15%">Periodo:</td>
-      <td style="width: 35%">
-        <span class="field-odont" id="text-date">{{odontogram_form.instance.period}}</span>
-        <span class="edit-odont hide">
-            <div class='input-group date' id='date_odontogram'>
-                <input class="form-control" id="id_date_odontogram" name="date_odontogram" type="text">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="1">Observaciones:</td>
-      <td colspan="3">
+      <td width="200">Observaciones:</td>
+      <td>
         <span class="field-odont" id="text-observation">{{odontogram_form.instance.observations|default:'-'}}</span>
         <span class="edit-odont hide">{{odontogram_form.observations}}</span>
       </td>

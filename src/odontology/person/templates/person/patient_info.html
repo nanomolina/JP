@@ -76,7 +76,7 @@
                     <label class="control-label" for="id_email" style="vertical-align: top;">email:</label>
                   </th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.email|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.email|default:'---'}}</span>
                     <span class="edit-info hide email-group">{{patient_info_form.email}}</span>
                   </td>
                 </tr>
@@ -88,7 +88,7 @@
                   </td>
                   <th style="border-top: 0;">Celular:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.cel_phone|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
                   </td>
                 </tr>
