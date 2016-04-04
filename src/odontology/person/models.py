@@ -139,9 +139,9 @@ class Patient(models.Model):
     def get_benefits(self):
         from register.models import Apross, Benefit
         if self.social_work and self.social_work.initial == 'APROSS':
-            benefit = Apross.objects.filter(patient=self)
+            benefit = Apross.objects.filter(patient=self).order_by('-real_date')
         else:
-            benefit = Benefit.objects.filter(patient=self)
+            benefit = Benefit.objects.filter(patient=self).order_by('-real_date')
         return benefit
 
 COLORS = ((1, 'red'), (2, 'blue'))
