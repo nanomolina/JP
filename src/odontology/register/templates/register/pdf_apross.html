@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles register_extras %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -198,6 +198,7 @@
         </tbody>
       </table>
 
+      {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
       <table class="table table-bordered">
         <tbody>
           <tr>
@@ -207,20 +208,21 @@
           </tr>
           <tr>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_1|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_1_display|default:'---'}}</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_2|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_2_display|default:'---'}}</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_3|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_3_display|default:'---'}}</p>
               </td>
           </tr>
         </body>
       </table>
+      {% endwith %}
 
 
 
