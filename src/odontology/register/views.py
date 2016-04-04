@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from person.models import Patient, Dentist, Sector, Tooth
 from person.forms import PatientForm, OdontogramForm
-from register.models import Apross, DetailApross, Benefit, DetailBenefit
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
+from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
 
 
@@ -264,6 +264,7 @@ def edit_odontogram(request, patient_id):
                 odontogram.save()
         return JsonResponse({'status': 'OK'})
 
+
 def acumulate_benefit(request, patient_id):
     from django.template.response import TemplateResponse
     if request.method == 'GET':
@@ -272,3 +273,20 @@ def acumulate_benefit(request, patient_id):
             request, 'register/tab_total_details.html',
             {'patient': patient}
         )
+
+
+def edit_radiography(request, patient_id, bf_id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=patient_id)
+        if patient.social_work and patient.social_work.initial == 'APROSS':
+            benefit = get_object_or_404(Apross, id=bf_id)
+            radiography = Radiography.objects.get(apross=benefit)
+        else:
+            benefit = get_object_or_404(Benefit, id=bf_id)
+            radiography = Radiography.objects.get(benefit=benefit)
+        radiography_form = RadiographyForm(request.POST, instance=radiography)
+        if radiography_form.is_valid():
+            radiography_form.save()
+            return JsonResponse({'status': 'OK'})
+        else:
+            return JsonResponse({'status': 'ERROR'})

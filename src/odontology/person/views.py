@@ -138,7 +138,6 @@ def patient_profile(request, id):
             benefit_form = BenefitForm()
             detail_form = detailBenefitForm()
         odontogram_form = OdontogramForm(instance=patient.odontogram)
-        radiography_form = RadiographyForm(instance=last_benefit)
         rec_added = request.GET.get('add', None)
         return render_to_response(
             'person/profile.html',
@@ -154,7 +153,6 @@ def patient_profile(request, id):
                 'work_types': WORK_TYPES,
                 'odontogram_form': odontogram_form,
                 'rec_added': rec_added,
-                'radiography_form': radiography_form
             },
             RequestContext(request)
         )

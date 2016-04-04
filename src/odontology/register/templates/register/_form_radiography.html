@@ -1,9 +1,14 @@
+{% load register_extras %}
 <div class="col-md-3 no-padding" style="margin-bottom: 20px;">
   <button type="button" class="btn btn-default" id="edit-radiography-{{bf.id}}">Editar radiografias</button>
-  <button type="button" class="btn btn-success hide" id="save-radiography-{{bf.id}}" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
+  <button type="button" class="btn btn-success hide" id="save-radiography-{{bf.id}}"
+          data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>" onclick="javascript: save_radiography('{{bf.id}}')">
+          Guardar cambios
+  </button>
   <button type="button" class="btn btn-default hide" id="cancel-radiography-{{bf.id}}">Cancelar</button>
 </div>
-<form id="radiography-form-{{bf.id}}" method="POST" action="" class="form-inline">
+{% with patient.id|get_radiography_form:bf.id as radiography_form %}
+<form id="radiography-form-{{bf.id}}" method="POST" action="{% url 'register:edit_radiography' patient_id=patient.id bf_id=bf.id %}" class="form-inline">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <thead>
@@ -21,7 +26,7 @@
             <span class="edit-info hide">{{radiography_form.part_number_1}}</span>
           </td>
           <td>
-            <span class="field-info">{{radiography_form.instance.finality_1|default:'---'}}</span>
+            <span class="field-info">{{radiography_form.instance.get_finality_1_display|default:'---'}}</span>
             <span class="edit-info hide">{{radiography_form.finality_1}}</span>
           </td>
         </tr>
@@ -32,7 +37,7 @@
             <span class="edit-info hide">{{radiography_form.part_number_2}}</span>
           </td>
           <td>
-            <span class="field-info">{{radiography_form.instance.finality_2|default:'---'}}</span>
+            <span class="field-info">{{radiography_form.instance.get_finality_2_display|default:'---'}}</span>
             <span class="edit-info hide">{{radiography_form.finality_2}}</span>
           </td>
         </tr>
@@ -43,13 +48,14 @@
             <span class="edit-info hide">{{radiography_form.part_number_3}}</span>
           </td>
           <td>
-            <span class="field-info">{{radiography_form.instance.finality_3|default:'---'}}</span>
+            <span class="field-info">{{radiography_form.instance.get_finality_3_display|default:'---'}}</span>
             <span class="edit-info hide">{{radiography_form.finality_3}}</span>
           </td>
         </tr>
       </tbody>
     </table>
 </form>
+{% endwith %}
 <script type="text/javascript">
 $(function() {
   $('#edit-radiography-{{bf.id}}').on('click', function() {

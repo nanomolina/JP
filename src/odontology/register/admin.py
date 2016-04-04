@@ -42,6 +42,8 @@ admin.site.register(Faces, FacesAdmin)
 
 class RadiographyAdmin(admin.ModelAdmin):
     fields = (
-        'apross', 'benefit'
+        'apross', 'benefit', 'part_number_1', 'finality_1',
+        'part_number_2', 'finality_2', 'part_number_3',
+        'finality_3'
     )
 admin.site.register(Radiography, RadiographyAdmin)
