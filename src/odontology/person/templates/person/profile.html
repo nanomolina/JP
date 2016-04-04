@@ -14,7 +14,7 @@
 {% block extra_navs %}
   <li id="to_pdf" class="{% if last_benefit %}loader{% else %}disabled{% endif %}">
     <a  href="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
-      <i class="fa fa-file-pdf-o"></i> Imprimir Ficha
+      <i class="fa fa-print"></i></i> Imprimir Ficha
     </a>
   </li>
 {% endblock %}
