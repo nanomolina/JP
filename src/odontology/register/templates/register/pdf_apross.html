@@ -11,10 +11,22 @@
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <style>
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+  </style>
 </head>
 <body style=" font-size: 10px;">
   <div class="container">
-
+      <a href="{% url 'person:patient_profile' id=patient.id %}" id="back-to" type="button" class="btn btn-primary btn-lg no-print" style="position: absolute;z-index: 1;left:0;">
+        <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Volver
+      </a>
+      <a type="button" class="btn btn-success btn-lg no-print" style="position: absolute;z-index: 1;right:0;font-size: 15px;padding: 16px;" onclick="print_page()">
+        <span class="glyphicon glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+      </a>
       <table class="table" style="margin-bottom: 10px;">
         <tbody>
           <tr>
@@ -223,10 +235,12 @@
         </body>
       </table>
       {% endwith %}
-
-
-
   </div>
-
+  <script type="text/javascript">
+    function print_page(){
+        window.print();
+    }
+    print();
+  </script>
 </body>
 </html>
