@@ -55,21 +55,15 @@
       </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-4">
       <div class="panel panel-primary">
         <div class="panel-heading">Otros Detalles</div>
         <div class="panel-body no-padding">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th width="250">C&oacute;digos de gest&iacute;on</th>
-                <td>{{bf.managment_code|default_if_none:"-"}}</td>
-                <th class="text-center" width="200">Cantidad de Rx.adjuntas</th>
-              </tr>
-              <tr>
-                <th width="250">Domicilio de realizaci&oacute;n</th>
-                <td>{{dentist.carrying_home|default_if_none:"-"}}</td>
-                <td class="text-center" style="font-size: 18px;" width="200">{{bf.rx_amount|default_if_none:"-"}}</td>
+                <th width="150">C&oacute;digos de gest&iacute;on</th>
+                <td class="text-center" style="font-size: 15px;">{{bf.managment_code|default_if_none:"-"}}</td>
               </tr>
             </tbody>
           </table>
