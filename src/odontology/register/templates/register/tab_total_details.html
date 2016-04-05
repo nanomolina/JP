@@ -2,7 +2,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Facturaci&oacute;n Acumulada</div>
     <div class="panel-body no-padding">
-      <table class="table table-hover">
+      <table class="table table-hover table-condensed">
           {% if patient.social_work and patient.social_work.initial == 'APROSS'%}
             <thead>
               <tr>
@@ -19,6 +19,13 @@
             <tbody>
               {% for benefit in patient.get_benefits %}
                   {% for detail in benefit.get_details %}
+                    {% if forloop.first %}
+                        <tr class="info">
+                            <th colspan="8" class="text-center" style="font-size: 18px;">
+                                <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
+                            </th>
+                        </tr>
+                    {% endif%}
                     {% if detail.day or detail.work_done or detail.practic_code or detail.element or detail.faces.count > 0 %}
                       {% include "register/detail_apross.html" with counter=forloop.counter patient=benefit.patient hide_edit=True show_date=True %}
                     {% endif %}
@@ -44,13 +51,20 @@
             <tbody>
               {% for benefit in patient.get_benefits %}
                   {% for detail in benefit.get_details %}
+                    {% if forloop.first %}
+                        <tr class="info">
+                            <th colspan="7" class="text-center" style="font-size: 18px;">
+                                <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
+                            </th>
+                        </tr>
+                    {% endif%}
                     {% if detail.day or detail.tooth or detail.faces.count > 0 or detail.code %}
                       {% include "register/detail_benefit.html" with counter=forloop.counter hide_edit=True show_date=True %}
                     {% endif %}
                   {% endfor %}
               {% empty %}
               <tr>
-                <td colspan="8" class="text-center">No hay detalles de prestaciones</td>
+                <td colspan="7" class="text-center">No hay detalles de prestaciones</td>
               </tr>
               {% endfor %}
             </tbody>
