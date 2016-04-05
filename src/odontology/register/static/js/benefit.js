@@ -50,8 +50,6 @@ $(function () {
         $('#benefit-'+id).show();
         $('#edit_bf').data('bf-id', id);
         edit_url_pdf(id);
-        // $('#radiography').find('.collapse.in').prev().find('a').click();
-        // $('#radiography').find('#tit-collapse-'+id).click();
     }).change();
 
 });
