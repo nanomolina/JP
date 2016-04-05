@@ -7,7 +7,7 @@ function getMonthDateRange(year, month) {
 }
 
 $(function() {
-  $('#tab-info a, #tab-detail a, #tab-odontogram a, #tab-radiography a').click(function (e) {
+  $('#tab-info a, #tab-detail a, #tab-odontogram a').click(function (e) {
     $(this).tab('show');
   });
   $('#tab-total-detail a').click(function(e) {
