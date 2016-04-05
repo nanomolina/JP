@@ -178,6 +178,7 @@
         </tbody>
       </table>
 
+      {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
       <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
         <tbody>
           <tr>
@@ -185,13 +186,13 @@
               <table class="table">
                 <tbody>
                   <tr><td>Cantidad de Dientes:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_count|default:'---'}}</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_count|default_if_none:'---'}}</td></tr>
                 </tbody>
               </table>
               <table class="table">
                 <tbody>
                   <tr><td>Cantidad de Rx. adjuntas:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{benefit.rx_amount|default_if_none:"---"}}</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{radiography_form.instance.rx_amount|default_if_none:"---"}}</td></tr>
                 </tbody>
               </table>
             </td>
@@ -204,7 +205,6 @@
         </tbody>
       </table>
 
-      {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
       <table class="table table-bordered">
         <tbody>
           <tr>

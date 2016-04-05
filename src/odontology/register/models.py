@@ -117,6 +117,16 @@ class Radiography(models.Model):
         else:
             return "None"
 
+    @property
+    def rx_amount(self):
+        count = 0
+        if self.part_number_1 is not None and self.finality_1 is not None:
+            count += 1
+        if self.part_number_2 is not None and self.finality_2 is not None:
+            count += 1
+        if self.part_number_3 is not None and self.finality_3 is not None:
+            count += 1
+        return count
 
 # DATABASE SIGNALS
 from django.db.models.signals import post_save

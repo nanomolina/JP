@@ -286,7 +286,10 @@ def edit_radiography(request, patient_id, bf_id):
             radiography = Radiography.objects.get(benefit=benefit)
         radiography_form = RadiographyForm(request.POST, instance=radiography)
         if radiography_form.is_valid():
-            radiography_form.save()
-            return JsonResponse({'status': 'OK'})
+            radiography = radiography_form.save()
+            return JsonResponse({
+                'status': 'OK',
+                'rx_amount': radiography.rx_amount
+            })
         else:
             return JsonResponse({'status': 'ERROR'})

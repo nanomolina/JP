@@ -124,7 +124,7 @@ def patient_profile(request, id):
         if patient.social_work and patient.social_work.initial == 'APROSS':
             benefits = Apross.objects.filter(patient=patient).order_by('-real_date')
             if benefits.exists():
-                last_benefit = benefits.last()
+                last_benefit = benefits.first()
             else:
                 last_benefit = None
             benefit_form = AprossForm()
@@ -132,7 +132,7 @@ def patient_profile(request, id):
         else:
             benefits = Benefit.objects.filter(patient=patient).order_by('-real_date')
             if benefits.exists():
-                last_benefit = benefits.last()
+                last_benefit = benefits.first()
             else:
                 last_benefit = None
             benefit_form = BenefitForm()
