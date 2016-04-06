@@ -10,7 +10,7 @@
         <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
             {% include "person/settings/personal.html" %}
         </form>
-        <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">
+        <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
           <i class="fa fa-floppy-o"></i> Guardar cambios
         </button>
     </div>
@@ -20,7 +20,7 @@
         <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
             {% include "person/settings/dentist.html" %}
         </form>
-        <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">
+        <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
           <i class="fa fa-floppy-o"></i> Guardar cambios
         </button>
     </div>
