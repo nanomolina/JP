@@ -1,9 +1,11 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm
+from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
@@ -159,7 +161,6 @@ def patient_profile(request, id):
 
 
 def edit_patient(request, id):
-    from django.template.response import TemplateResponse
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=id)
         patient_form = PatientForm(request.POST, instance=patient)
@@ -172,3 +173,88 @@ def edit_patient(request, id):
             )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})
+
+
+def settings(request):
+    dentist = Dentist.objects.get(user=request.user)
+    if request.method == 'GET':
+        user_change_form = UserChangeForm(instance=request.user)
+        dentist_form = DentistForm(instance=dentist)
+        return render_to_response(
+            'person/settings.html',
+            {
+                'user_change_form': user_change_form,
+                'dentist_form': dentist_form,
+            },
+            RequestContext(request)
+        )
+
+
+def settings_personal(request):
+    if request.method == 'POST':
+        user_change_form = UserChangeForm(request.POST, instance=request.user)
+        if user_change_form.is_valid():
+            user_change_form.save()
+            return TemplateResponse(
+                request, 'person/settings/personal.html',
+                {'user_change_form': user_change_form},
+                RequestContext(request)
+            )
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': user_change_form.errors})
+
+
+def settings_dentist(request):
+    if request.method == 'POST':
+        dentist = Dentist.objects.get(user=request.user)
+        dentist_form = DentistForm(request.POST, instance=dentist)
+        if dentist_form.is_valid():
+            dentist_form.save()
+            return TemplateResponse(
+                request, 'person/settings/dentist.html',
+                {'dentist_form': dentist_form},
+                RequestContext(request)
+            )
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': dentist_form.errors})
+
+
+def reset_password(request):
+    dentist = Dentist.objects.get(user=request.user)
+    if request.method == 'GET':
+        password_form = PasswordForm()
+        return render_to_response(
+            'person/reset_password.html',
+            {
+                'password_form': password_form,
+            },
+            RequestContext(request)
+        )
+    else:
+        password_form = PasswordForm(request.POST)
+        if password_form.is_valid():
+            old_password = request.POST.get('old_password', '')
+            user = authenticate(username=request.user.username, password=old_password)
+            if user is not None:
+                # the password verified for the user
+                if user.is_active:
+                    new_password = request.POST.get('new_password', '')
+                    confirm_password = request.POST.get('confirm_password', '')
+                    if new_password == confirm_password:
+                        request.user.set_password(new_password)
+                        request.user.save()
+                        password_form = PasswordForm()
+                        return TemplateResponse(
+                            request, 'person/reset_password/password.html',
+                            {'password_form': password_form},
+                            RequestContext(request)
+                        )
+                    else:
+                        password_form.errors['new_password'] = 'Las dos claves no coinciden.'
+                        password_form.errors['confirm_password'] = ''
+                        return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
+            else:
+                password_form.errors['old_password'] = 'clave incorrecta.'
+                return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
