@@ -7,7 +7,9 @@
   <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
   <td>{{patient.subsidiary_number|default_if_none:''}}</td>
   <td>
-    <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+    <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">
+      <i class="fa fa-folder-open"></i> Fichas
+    </a>
   </td>
 </tr>
 {% empty %}
