@@ -5,8 +5,8 @@ class AprossForm(forms.ModelForm):
     class Meta:
         model = Apross
         fields = (
-            'managment_code1', 'managment_code2',
-            'managment_code3', 'managment_code4', 'rx_amount',
+            'managment_code1', 'managment_code2', 'managment_code3',
+            'managment_code4', 'rx_amount', 'observations'
         )
         widgets = {
             'managment_code1': forms.TextInput(
@@ -33,7 +33,13 @@ class AprossForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                 }
-            )
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': '2',
+                }
+            ),
         }
 
 
@@ -84,7 +90,7 @@ class BenefitForm(forms.ModelForm):
         model = Benefit
         fields = (
             'primary_entity', 'principal_code',
-            'managment_code', 'rx_amount'
+            'managment_code', 'rx_amount', 'observations'
         )
         widgets = {
             'primary_entity': forms.TextInput(
@@ -106,7 +112,13 @@ class BenefitForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                 }
-            )
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': '2',
+                }
+            ),
         }
 
 

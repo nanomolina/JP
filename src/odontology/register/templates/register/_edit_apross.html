@@ -3,14 +3,10 @@
         <div class="modal-body hide">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
             <input type='hidden' name="bf_id" value="{{bf.id}}">
-            <div class="row">
-              <div class="col-xs-12 date-group input-fields">
-                  <label class="control-label" for="id_date">Periodo:</label>
-              </div>
-            </div>
 
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-12 date-group input-fields">
+            <div class="row">
+              <div class="col-xs-6 date-group input-fields">
+                  <label class="control-label" for="id_date">Periodo:</label>
                   <div class='input-group date' id='date_edit_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
                       <span class="input-group-addon">
@@ -21,36 +17,34 @@
             </div>
 
             <div class="row">
-              <div class="col-xs-6 managment_code1-group input-fields">
-                  <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
-              </div>
-              <div class="col-xs-6 managment_code2-group input-fields">
-                  <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 managment_code1-group input-fields">
-                  {{bf_edit_form.managment_code1}}
-              </div>
-              <div class="col-xs-6 managment_code2-group input-fields">
-                  {{bf_edit_form.managment_code2}}
+              <div class=" col-xs-12">
+                  <hr>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-6 managment_code3-group input-fields">
+              <div class="col-xs-3 managment_code1-group input-fields">
+                  <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
+                  {{bf_edit_form.managment_code1}}
+              </div>
+              <div class="col-xs-3 managment_code2-group input-fields">
+                  <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
+                  {{bf_edit_form.managment_code2}}
+              </div>
+              <div class="col-xs-3 managment_code3-group input-fields">
                   <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
-              </div>
-              <div class="col-xs-6 managment_code4-group input-fields">
-                  <label class="control-label" for="id_managment_code4">Codigo de gestion 4:</label>
-              </div>
-            </div>
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 managment_code3-group input-fields">
                   {{bf_edit_form.managment_code3}}
               </div>
-              <div class="col-xs-6 managment_code4-group input-fields">
+              <div class="col-xs-3 managment_code4-group input-fields">
+                  <label class="control-label" for="id_managment_code4">Codigo de gestion 4:</label>
                   {{bf_edit_form.managment_code4}}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="id_observations">Observaciones:</label>
+                  {{bf_edit_form.observations}}
               </div>
             </div>
 

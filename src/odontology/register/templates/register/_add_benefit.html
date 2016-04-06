@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
-  <div class="modal-dialog modal-sm" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -12,13 +12,8 @@
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
 
             <div class="row">
-              <div class="col-xs-12 date-group input-fields">
+              <div class="col-xs-6 date-group input-fields">
                   <label class="control-label" for="id_date">Periodo:</label>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-12 date-group input-fields">
                   <div class='input-group date' id='date_add_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
@@ -26,18 +21,23 @@
                       </span>
                   </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-12 managment_code-group input-fields">
+              <div class="col-xs-6 managment_code-group input-fields">
                   <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
+                  {{benefit_form.managment_code}}
+                  <span id="helpBlock3" class="help-block hidden"></span>
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-12 managment_code-group input-fields">
-                  {{benefit_form.managment_code}}
-                  <span id="helpBlock3" class="help-block hidden"></span>
+            <div class="row">
+              <div class=" col-xs-12">
+                  <hr>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="id_observations">Observaciones:</label>
+                  {{benefit_form.observations}}
               </div>
             </div>
 

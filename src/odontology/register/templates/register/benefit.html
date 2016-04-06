@@ -53,22 +53,30 @@
           </table>
         </div>
       </div>
+      <hr>
     </div>
 
     <div class="col-md-12">
       <div class="panel panel-primary">
-        <div class="panel-heading">Otros Detalles</div>
+        <div class="panel-heading">Detalles de Ficha</div>
         <div class="panel-body no-padding">
           <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="150" class="text-center">C&oacute;digos de gest&iacute;on</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <th width="150">C&oacute;digos de gest&iacute;on</th>
                 <td class="text-center" style="font-size: 15px;">{{bf.managment_code|default_if_none:"-"}}</td>
+                <td>{{bf.observations|default_if_none:'-'}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+      <hr>
     </div>
 
     {% include "register/_form_radiography.html" %}
