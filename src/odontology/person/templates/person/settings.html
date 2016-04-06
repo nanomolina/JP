@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Configuraci&oacute;n - {{ request.user.get_full_name }}{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+    <div class="row well well-md" style="margin-top: 100px;">
+        <h4>Informaci&oacute;n Personal:</h4>
+        <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
+            {% include "person/settings/personal.html" %}
+        </form>
+        <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
+    </div>
+
+    <div class="row well well-md">
+        <h4>Informaci&oacute;n del odontologo:</h4>
+        <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
+            {% include "person/settings/dentist.html" %}
+        </form>
+        <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>">Guardar cambios</button>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $('#but-personal-form').on('click', function(){
+        $('#my-personal-settings .form-group').removeClass('has-error');
+        $(this).button('loading');
+        var data_form = $('#my-personal-settings').serialize();
+        var url = $('#my-personal-settings').attr('action');
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data_form,
+          success: function(data) {
+              $('#but-personal-form').button('reset');
+              if (data.status != 'ERROR') {
+                $('#my-personal-settings').html(data);
+                toastr.success('', 'DATOS PERSONALES EDITADOS');
+              } else {
+                validate_errors('my-personal-settings', data.errors, 'alert-personal-edit');
+                $('#alert-personal-edit').removeClass('hide');
+              }
+          }
+        });
+    });
+    $('#but-dentist-form').on('click', function(){
+        $('#dentist-settings .form-group').removeClass('has-error');
+        $(this).button('loading');
+        var data_form = $('#dentist-settings').serialize();
+        var url = $('#dentist-settings').attr('action');
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data_form,
+          success: function(data) {
+              $('#but-dentist-form').button('reset');
+              if (data.status != 'ERROR') {
+                $('#dentist-settings').html(data);
+                toastr.success('', 'DATOS DEL ODONTOLOGO EDITADOS');
+              } else {
+                validate_errors('dentist-settings', data.errors, 'alert-personal-edit');
+                $('#alert-dentist-edit').removeClass('hide');
+              }
+          }
+        });
+    });
+
+    function validate_errors(name_form, json_errors, alert) {
+      var alert_content = '';
+      for (var key in json_errors) {
+          $('#'+name_form).find('.'+key+'-group').addClass('has-error');
+          alert_content += '<p>' + json_errors[key] + '</p>';
+      }
+      $('#'+alert).html(alert_content);
+    }
+</script>
+{% endblock %}

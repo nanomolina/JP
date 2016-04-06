@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from person.models import Patient, Odontogram, SocialWork
+from django.contrib.auth.models import User
+from person.models import Patient, Dentist, Odontogram, SocialWork
 
 
 class PatientForm(forms.ModelForm):
@@ -166,3 +167,80 @@ class OdontogramForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name', 'last_name', 'email'
+        )
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        }
+
+
+class DentistForm(forms.ModelForm):
+    class Meta:
+        model = Dentist
+        fields = (
+            'circle', 'register_number', 'carrying_home'
+        )
+        widgets = {
+            'circle': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'register_number': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'carrying_home': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        }
+
+
+class PasswordForm(forms.Form):
+    old_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    new_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    confirm_password = forms.CharField(
+        max_length=32,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
