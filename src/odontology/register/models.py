@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -34,7 +35,8 @@ class Apross(models.Model):
     managment_code2 = models.CharField(max_length=15, null=True, blank=True)
     managment_code3 = models.CharField(max_length=15, null=True, blank=True)
     managment_code4 = models.CharField(max_length=15, null=True, blank=True)
-    rx_amount = models.IntegerField(null=True, blank=True)
+    rx_amount = models.IntegerField(null=True, blank=True) #no se usa
+    observations = models.TextField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
     real_date = models.DateField()
@@ -45,8 +47,9 @@ class Apross(models.Model):
         return DetailApross.objects.filter(benefit=self).order_by('id')
 
 
-list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + \
-    range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
+milk_teeth = range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
+MILK_TEETH = tuple([(x, x) for x in milk_teeth])
+list_elements = range(11,19) + range(21,29) + range(31,39) + range(41,49) + milk_teeth
 ELEMENTS = tuple([(x, x) for x in list_elements])
 class DetailApross(models.Model):
     benefit = models.ForeignKey(Apross)
@@ -70,7 +73,8 @@ class Benefit(models.Model):
     principal_code = models.IntegerField(null=True, blank=True)
     social_work = models.CharField(max_length=250, null=True, blank=True)
     managment_code = models.CharField(max_length=15, null=True, blank=True)
-    rx_amount = models.IntegerField(null=True, blank=True)
+    rx_amount = models.IntegerField(null=True, blank=True) #no se usa
+    observations = models.TextField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
     real_date = models.DateField()
@@ -93,6 +97,39 @@ class DetailBenefit(models.Model):
         return "%s - %s" % (self.day, self.benefit)
 
 
+class Radiography(models.Model):
+    FINALITYS = (
+        (1, 'Diagnóstico'), (2, 'Previa'), (3, 'Conductometría'), (4, 'Final')
+    )
+    apross = models.ForeignKey(Apross, null=True, blank=True)
+    benefit = models.ForeignKey(Benefit, null=True, blank=True)
+
+    part_number_1 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_1 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+    part_number_2 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_2 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+    part_number_3 = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    finality_3 = models.IntegerField(choices=FINALITYS, null=True, blank=True)
+
+    def __unicode__(self):
+        if self.apross:
+            return "%s" % (self.apross.patient)
+        elif self.benefit:
+            return "%s" % (self.benefit.patient)
+        else:
+            return "None"
+
+    @property
+    def rx_amount(self):
+        count = 0
+        if self.part_number_1 is not None and self.finality_1 is not None:
+            count += 1
+        if self.part_number_2 is not None and self.finality_2 is not None:
+            count += 1
+        if self.part_number_3 is not None and self.finality_3 is not None:
+            count += 1
+        return count
+
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -103,6 +140,7 @@ def handler_new_apross(sender, instance, **kwargs):
     if not instance.get_details().exists():
         for _ in range(4):
             DetailApross(benefit=instance).save()
+        Radiography(apross=instance).save()
 
 
 @receiver(post_save, sender=Benefit)
@@ -110,3 +148,4 @@ def handler_new_benefit(sender, instance, **kwargs):
     if not instance.get_details().exists():
         for _ in range(4):
             DetailBenefit(benefit=instance).save()
+        Radiography(benefit=instance).save()

@@ -7,17 +7,33 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
+MONTHS = (
+    ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),
+    ('junio', 6), ('julio', 7), ('agosto', 8), ('septiembre', 9),
+    ('octubre', 10), ('noviembre', 11), ('diciembre', 12)
+)
 class Odontogram(models.Model):
     TEETH_NUMBERS = tuple([(x, x) for x in range(33)])
     teeth_number = models.SmallIntegerField(choices=TEETH_NUMBERS, null=True, blank=True)
-    observations = models.TextField()
+    observations = models.TextField(null=True, blank=True)
+    month = models.CharField(choices=MONTHS, max_length=15, null=True, blank=True)
+    year = models.PositiveIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return "%s" % str(self.id)
 
     def get_teeth(self):
         return Tooth.objects.filter(odontogram=self)
+
+    def period(self):
+        if self.month is not None and self.year is not None:
+            result = str(self.month) + ' - ' + str(self.year)
+        else:
+            result = '-'
+        return result
+
+    def teeth_count(self):
+        return 52 - Tooth.objects.filter(odontogram=self, work_type=1, color=1).count()
 
 
 class Clinic_history(models.Model):
@@ -76,6 +92,7 @@ class Patient(models.Model):
     suburb = models.CharField(max_length=250, null=True, blank=True)
     locality = models.CharField(max_length=250, null=True, blank=True)
     tel = models.CharField(max_length=250, null=True, blank=True)
+    cel_phone = models.CharField(max_length=250, null=True, blank=True)
     Workplace_holder = models.CharField(max_length=250, null=True, blank=True)
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -121,6 +138,14 @@ class Patient(models.Model):
 
     def get_full_name(self):
         return "%s %s" % (self.last_name, self.first_name)
+
+    def get_benefits(self):
+        from register.models import Apross, Benefit
+        if self.social_work and self.social_work.initial == 'APROSS':
+            benefit = Apross.objects.filter(patient=self).order_by('-real_date')
+        else:
+            benefit = Benefit.objects.filter(patient=self).order_by('-real_date')
+        return benefit
 
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (

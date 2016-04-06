@@ -8,8 +8,8 @@
                 <tr class="basic-info hide">
                   <th>Apellido y Nombre:</th>
                   <td>
-                    <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.last_name}}</span>
-                    <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.first_name}}</span>
+                    <span class="edit-info hide no-padding">{{patient_info_form.last_name}}</span>
+                    <span class="edit-info hide no-padding">{{patient_info_form.first_name}}</span>
                   </td>
                   <th></th>
                   <td style="border-right: 1px solid #ddd;"></td>
@@ -56,23 +56,40 @@
                   </td>
                 </tr>
                 <tr>
-                  <th style="border-top: 0;">Domicilio(calle, num, piso, dpto, barrio):</th>
-                  <td style="border-top: 0; width: 34%">
+                  <th style="border-top: 0;">Domicilio:</th>
+                  <td style="border-top: 0;" colspan="3">
                     <span class="field-info">{{patient.domicile|default:'---'}}</span>
                     <span class="edit-info hide">
                       {{patient_info_form.street}}{{patient_info_form.number}}
-                    </span>
-                    <span class="edit-info hide">
                       {{patient_info_form.floor}}{{patient_info_form.apartment}}
-                    </span>
-                    <span class="edit-info hide">
                       {{patient_info_form.neighborhood}}
                     </span>
                   </td>
+                </tr>
+                <tr>
                   <th style="border-top: 0;">Localidad:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
+                  </td>
+                  <th style="border-top: 0;" class="email-group">
+                    <label class="control-label" for="id_email" style="vertical-align: top;">email:</label>
+                  </th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.email|default:'---'}}</span>
+                    <span class="edit-info hide email-group">{{patient_info_form.email}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Tel&eacute;fono fijo:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.tel|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                  <th style="border-top: 0;">Celular:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -81,22 +98,10 @@
                     <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>
-                  <th style="border-top: 0;">Tel/Cel:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.tel|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
-                  </td>
-                </tr>
-                <tr>
                   <th style="border-top: 0;">Jerarquia:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
-                  </td>
-                  <th style="border-top: 0;">Sexo:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.get_gender_display|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -104,6 +109,11 @@
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.derivation|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.derivation}}</span>
+                  </td>
+                  <th style="border-top: 0;">Sexo:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.get_gender_display|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
               </tbody>

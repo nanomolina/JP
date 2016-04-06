@@ -3,17 +3,10 @@
         <div class="modal-body hide">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
             <input type='hidden' name="bf_id" value="{{bf.id}}">
+
             <div class="row">
               <div class="col-xs-6 date-group input-fields">
-                  <label class="control-label" for="id_date">Fecha:</label>
-              </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 date-group input-fields">
+                  <label class="control-label" for="id_date">Periodo:</label>
                   <div class='input-group date' id='date_edit_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
@@ -21,20 +14,22 @@
                       </span>
                   </div>
               </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  {{bf_edit_form.rx_amount}}
+              <div class="col-xs-6 managment_code-group input-fields">
+                  <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
+                  {{bf_edit_form.managment_code}}
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-12 managment_code-group input-fields">
-                  <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
+              <div class=" col-xs-12">
+                  <hr>
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-12 managment_code-group input-fields">
-                  {{bf_edit_form.managment_code}}
+            <div class="row">
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="id_observations">Observaciones:</label>
+                  {{bf_edit_form.observations}}
               </div>
             </div>
 

@@ -1,15 +1,20 @@
+# -*- coding: utf-8 -*-
 from django import forms
-from person.models import Patient, Odontogram, Dentist
 from django.contrib.auth.models import User
+from person.models import Patient, Odontogram, SocialWork
 
 
 class PatientForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PatientForm, self).__init__(*args, **kwargs)
+        self.fields['social_work'].queryset = SocialWork.objects.order_by('initial')
+
     class Meta:
         model = Patient
         fields = (
             'first_name', 'last_name', 'subsidiary_number', 'social_work',
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
-            'number', 'floor', 'apartment', 'suburb', 'locality', 'tel',
+            'number', 'floor', 'apartment', 'suburb', 'locality', 'tel', 'cel_phone',
             'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
             'neighborhood'
         )
@@ -24,7 +29,7 @@ class PatientForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'subsidiary_number': forms.NumberInput(
+            'subsidiary_number': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
@@ -59,30 +64,36 @@ class PatientForm(forms.ModelForm):
             'street': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 34%',
+                    'style': 'width: 26%',
+                    'placeholder': 'Calle',
                 }
             ),
             'number': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 25%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Número',
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 20%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Piso',
                 }
             ),
             'apartment': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'style': 'width: 20%',
+                    'style': 'width: 14%',
+                    'placeholder': 'Dpto',
                 }
             ),
             'neighborhood': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'style': 'width: 21%',
+                    'placeholder': 'Barrio',
                 }
             ),
             'suburb': forms.TextInput(
@@ -98,6 +109,11 @@ class PatientForm(forms.ModelForm):
                 }
             ),
             'tel': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'cel_phone': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
@@ -147,7 +163,7 @@ class OdontogramForm(forms.ModelForm):
             'observations': forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'rows': '5',
+                    'rows': '2',
                 }
             ),
         }

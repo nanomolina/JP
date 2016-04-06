@@ -22,7 +22,7 @@ class ToothInline(admin.TabularInline):
 
 
 class OdontogramAdmin(admin.ModelAdmin):
-    fields = ('teeth_number', 'observations')
+    fields = ('teeth_number', 'observations', 'month', 'year')
     inlines = [
         ToothInline,
     ]

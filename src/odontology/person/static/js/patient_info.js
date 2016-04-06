@@ -18,6 +18,7 @@ $(document).ready(function() {
               } else {
                 $('#save-patient-info').button('reset').addClass('hide');
                 $('#edit-patient-info').removeClass('hide');
+                validate_errors('patient-info-form', data.errors, '');
                 toastr.error('Hubo un error tratando de editar los datos.', 'DATOS ERRONEOS');
               }
           }
@@ -27,8 +28,9 @@ $(document).ready(function() {
 
 $(function() {
   $('#edit-patient-info').on('click', function() {
-    $('.field-info').hide();
-    $('.edit-info').removeClass('hide');
+    var $form = $('#patient-info-form');
+    $form.find('.field-info').hide();
+    $form.find('.edit-info').removeClass('hide');
     $('#cancel-patient-info').removeClass('hide');
     $('#save-patient-info').removeClass('hide');
     $(this).addClass('hide');
@@ -36,8 +38,9 @@ $(function() {
   });
 
   $('#cancel-patient-info').on('click', function() {
-    $('.field-info').show();
-    $('.edit-info').addClass('hide');
+    var $form = $('#patient-info-form');
+    $form.find('.field-info').show();
+    $form.find('.edit-info').addClass('hide');
     $('#save-patient-info').addClass('hide');
     $('#edit-patient-info').removeClass('hide');
     $(this).addClass('hide');

@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles register_extras %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -11,10 +11,22 @@
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <style>
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+  </style>
 </head>
 <body style=" font-size: 10px;">
   <div class="container">
-
+      <a href="{% url 'person:patient_profile' id=patient.id %}" id="back-to" type="button" class="btn btn-primary btn-lg no-print" style="position: absolute;z-index: 1;left:0;">
+        <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Volver
+      </a>
+      <a type="button" class="btn btn-success btn-lg no-print" style="position: absolute;z-index: 1;right:0;font-size: 15px;padding: 16px;" onclick="print_page()">
+        <span class="glyphicon glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+      </a>
       <table class="table" style="margin-bottom: 10px;">
         <tbody>
           <tr>
@@ -172,6 +184,7 @@
         </tbody>
       </table>
 
+      {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
       <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
         <tbody>
           <tr>
@@ -179,13 +192,13 @@
               <table class="table">
                 <tbody>
                   <tr><td>Cantidad de Dientes:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_number|default:'---'}}</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_count|default_if_none:'---'}}</td></tr>
                 </tbody>
               </table>
               <table class="table">
                 <tbody>
                   <tr><td>Cantidad de Rx. adjuntas:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{benefit.rx_amount|default_if_none:"---"}}</td></tr>
+                  <tr><td class="text-center" style="font-size: 15px;">{{radiography_form.instance.rx_amount|default_if_none:"---"}}</td></tr>
                 </tbody>
               </table>
             </td>
@@ -193,7 +206,7 @@
           </tr>
           <tr>
             <td>Observaciones:</td>
-            <td>{{patient.odontogram.observations|default:'---'}}</td>
+            <td>{{benefit.observations|default:'---'}}</td>
           </tr>
         </tbody>
       </table>
@@ -207,24 +220,27 @@
           </tr>
           <tr>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_1|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_1_display|default:'---'}}</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_2|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_2_display|default:'---'}}</p>
               </td>
               <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: ....</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: ....</p>
+                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_3|default:'---'}}</p>
+                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_3_display|default:'---'}}</p>
               </td>
           </tr>
         </body>
       </table>
-
-
-
+      {% endwith %}
   </div>
-
+  <script type="text/javascript">
+    function print_page(){
+        window.print();
+    }
+    print();
+  </script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 from django import forms
-from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit
+from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography
 
 class AprossForm(forms.ModelForm):
     class Meta:
         model = Apross
         fields = (
-            'managment_code1', 'managment_code2',
-            'managment_code3', 'managment_code4', 'rx_amount',
+            'managment_code1', 'managment_code2', 'managment_code3',
+            'managment_code4', 'rx_amount', 'observations'
         )
         widgets = {
             'managment_code1': forms.TextInput(
@@ -33,7 +33,13 @@ class AprossForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                 }
-            )
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': '2',
+                }
+            ),
         }
 
 
@@ -84,7 +90,7 @@ class BenefitForm(forms.ModelForm):
         model = Benefit
         fields = (
             'primary_entity', 'principal_code',
-            'managment_code', 'rx_amount'
+            'managment_code', 'rx_amount', 'observations'
         )
         widgets = {
             'primary_entity': forms.TextInput(
@@ -106,7 +112,13 @@ class BenefitForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                 }
-            )
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': '2',
+                }
+            ),
         }
 
 
@@ -143,4 +155,51 @@ class detailBenefitForm(forms.ModelForm):
                     'class': 'selectpicker form-control',
                 }
             )
+        }
+
+class RadiographyForm(forms.ModelForm):
+    class Meta:
+        model = Radiography
+        fields = (
+            'part_number_1', 'finality_1',
+            'part_number_2', 'finality_2',
+            'part_number_3', 'finality_3',
+        )
+        widgets = {
+            'part_number_1': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            'finality_1': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'part_number_2': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            'finality_2': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'part_number_3': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            'finality_3': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
         }

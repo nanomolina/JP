@@ -1,10 +1,10 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-Label">Agregar registro de prestaci&oacute;n</h4>
+        <h4 class="modal-title" id="modal-Label">Agregar Ficha Mensual</h4>
       </div>
       <form id="benefit-form" class="form-horizontal" role="form" method="POST" action="{% url 'register:new_benefit' patient_id=patient.id %}">
         {% csrf_token %}
@@ -13,15 +13,7 @@
 
             <div class="row">
               <div class="col-xs-6 date-group input-fields">
-                  <label class="control-label" for="id_date">Fecha:</label>
-              </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 date-group input-fields">
+                  <label class="control-label" for="id_date">Periodo:</label>
                   <div class='input-group date' id='date_add_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text">
                       <span class="input-group-addon">
@@ -29,22 +21,23 @@
                       </span>
                   </div>
               </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  {{benefit_form.rx_amount}}
-                  <span id="helpBlock2" class="help-block hidden"></span>
+              <div class="col-xs-6 managment_code-group input-fields">
+                  <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
+                  {{benefit_form.managment_code}}
+                  <span id="helpBlock3" class="help-block hidden"></span>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-12 managment_code-group input-fields">
-                  <label class="control-label" for="id_managment_code">Codigo de gestion:</label>
+              <div class=" col-xs-12">
+                  <hr>
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-12 managment_code-group input-fields">
-                  {{benefit_form.managment_code}}
-                  <span id="helpBlock3" class="help-block hidden"></span>
+            <div class="row">
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="id_observations">Observaciones:</label>
+                  {{benefit_form.observations}}
               </div>
             </div>
 

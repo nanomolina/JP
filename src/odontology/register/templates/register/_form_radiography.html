@@ -1,0 +1,100 @@
+{% load register_extras %}
+{% with patient.id|get_radiography_form:bf.id as radiography_form %}
+<div class="col-md-12" style="margin-bottom: 20px;">
+  <button type="button" class="btn btn-default" id="edit-radiography-{{bf.id}}">Editar radiografias</button>
+  <button type="button" class="btn btn-success hide" id="save-radiography-{{bf.id}}"
+          data-loading-text="Guardando &nbsp;<i class='fa fa-refresh fa-spin'></i>" onclick="javascript: save_radiography('{{bf.id}}')">
+          Guardar cambios
+  </button>
+  <button type="button" class="btn btn-default hide" id="cancel-radiography-{{bf.id}}">Cancelar</button>
+  <div class="pull-right">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Cantidad de Rx.adjuntas</th>
+          <td class="text-center" style="font-size: 20px; padding-bottom: 0px;padding-top: 2px;">
+            <span id="rx-amount-{{bf.id}}" class="label label-warning">{{radiography_form.instance.rx_amount}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Radiografias</strong></div>
+    <div class="panel-body no-padding">
+        <form id="radiography-form-{{bf.id}}" method="POST" action="{% url 'register:edit_radiography' patient_id=patient.id bf_id=bf.id %}" class="form-inline">
+            {% csrf_token %}
+            <table class="table table-bordered table-hover col-md-9">
+              <thead>
+                <tr>
+                  <th width="100">Numero</th>
+                  <th width="325">Numero de Pieza</th>
+                  <th width="400">Finalidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th><span class="label label-primary">1</span></th>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.part_number_1|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.part_number_1}}</span>
+                  </td>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.get_finality_1_display|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.finality_1}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-primary">2</span></th>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.part_number_2|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.part_number_2}}</span>
+                  </td>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.get_finality_2_display|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.finality_2}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><span class="label label-primary">3</span></th>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.part_number_3|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.part_number_3}}</span>
+                  </td>
+                  <td>
+                    <span class="field-info">{{radiography_form.instance.get_finality_3_display|default:'---'}}</span>
+                    <span class="edit-info hide">{{radiography_form.finality_3}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </form>
+    </div>
+  </div>
+</div>
+{% endwith %}
+<script type="text/javascript">
+$(function() {
+  $('#edit-radiography-{{bf.id}}').on('click', function() {
+    var $form = $('#radiography-form-{{bf.id}}');
+    $form.find('.field-info').hide();
+    $form.find('.edit-info').removeClass('hide');
+    $('#cancel-radiography-{{bf.id}}').removeClass('hide');
+    $('#save-radiography-{{bf.id}}').removeClass('hide');
+    $(this).addClass('hide');
+    $form.find('.label-primary').removeClass('label-primary').addClass('label-success');
+  });
+
+  $('#cancel-radiography-{{bf.id}}').on('click', function() {
+    var $form = $('#radiography-form-{{bf.id}}');
+    $form.find('.field-info').show();
+    $form.find('.edit-info').addClass('hide');
+    $('#save-radiography-{{bf.id}}').addClass('hide');
+    $('#edit-radiography-{{bf.id}}').removeClass('hide');
+    $(this).addClass('hide');
+    $form.find('.label-success').removeClass('label-success').addClass('label-primary');
+  });
+});
+</script>

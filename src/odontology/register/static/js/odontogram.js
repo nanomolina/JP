@@ -23,6 +23,7 @@ $(function() {
 
         DATA_ODONT['teeth_works'] = JSON.stringify(TEETH_WORKS);
         DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
+        DATA_ODONT['date_odontogram'] = $('#id_date_odontogram').val();
         DATA_ODONT['observations'] = $('#id_observations').val();
         $.ajax({
           type: "POST",
@@ -39,6 +40,7 @@ $(function() {
                 $('#text-observation').html($('#id_observations').val());
                 $('.edit-odont').addClass('hide');
                 $('.field-odont').removeClass('hide');
+                $('#text-odontogram').text($('#id_date_odontogram').val());
                 toastr.success('Los datos se han guardado correctamente.', 'ODONTOGRAMA MODIFICADO');
                 console.log('OK---->');
               } else {
@@ -48,4 +50,11 @@ $(function() {
           dataType: "json",
         });
     });
+
+    $('#date_odontogram').datetimepicker({
+        viewMode: 'months',
+        format: 'MMMM - YYYY',
+        locale: 'es',
+    });
+    $('#id_date_odontogram').val(DATE_OD);
 });

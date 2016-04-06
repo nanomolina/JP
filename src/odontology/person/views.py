@@ -6,8 +6,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
-from register.models import Apross, Benefit, ELEMENTS
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
+from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
 
 
@@ -44,6 +44,9 @@ def patients(request):
                     for e1, e2 in ELEMENTS:
                         x, y = get_position(e2)
                         tooth = Tooth(odontogram=odontogram, number=e1, position_x=x, position_y=y)
+                        if (e1, e2) in MILK_TEETH:
+                            tooth.work_type = 1
+                            tooth.color = 1
                         tooth.save()
                         for l1, l2 in LOCATIONS:
                             Sector(tooth=tooth, location=l1, points=l1).save()
@@ -121,17 +124,17 @@ def patient_profile(request, id):
     if request.method == 'GET':
         patient_info = PatientForm(instance=patient)
         if patient.social_work and patient.social_work.initial == 'APROSS':
-            benefits = Apross.objects.filter(patient=patient).order_by('real_date')
+            benefits = Apross.objects.filter(patient=patient).order_by('-real_date')
             if benefits.exists():
-                last_benefit = benefits.last()
+                last_benefit = benefits.first()
             else:
                 last_benefit = None
             benefit_form = AprossForm()
             detail_form = detailAprossForm()
         else:
-            benefits = Benefit.objects.filter(patient=patient).order_by('real_date')
+            benefits = Benefit.objects.filter(patient=patient).order_by('-real_date')
             if benefits.exists():
-                last_benefit = benefits.last()
+                last_benefit = benefits.first()
             else:
                 last_benefit = None
             benefit_form = BenefitForm()
@@ -151,7 +154,7 @@ def patient_profile(request, id):
                 'patient_info_form': patient_info,
                 'work_types': WORK_TYPES,
                 'odontogram_form': odontogram_form,
-                'rec_added': rec_added
+                'rec_added': rec_added,
             },
             RequestContext(request)
         )
