@@ -24,7 +24,7 @@ $(function() {
         DATA_ODONT['teeth_works'] = JSON.stringify(TEETH_WORKS);
         DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
         DATA_ODONT['date_odontogram'] = $('#id_date_odontogram').val();
-        DATA_ODONT['observations'] = $('#id_observations').val();
+        DATA_ODONT['observations'] = $('#id_odont_observations').val();
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
@@ -37,7 +37,7 @@ $(function() {
                 $('polygon.sector-selected').removeClass('sector-selected');
                 $('g.tooth.extraction').removeClass('extraction');
                 $('#text-teeth').html($('#id_teeth_number').val());
-                $('#text-observation').html($('#id_observations').val());
+                $('#text-observation').html($('#id_odont_observations').val());
                 $('.edit-odont').addClass('hide');
                 $('.field-odont').removeClass('hide');
                 $('#text-odontogram').text($('#id_date_odontogram').val());

@@ -162,6 +162,7 @@ class OdontogramForm(forms.ModelForm):
             ),
             'observations': forms.Textarea(
                 attrs={
+                    'id': 'id_odont_observations',
                     'class': 'form-control',
                     'rows': '2',
                 }
