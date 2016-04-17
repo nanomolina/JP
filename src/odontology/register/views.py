@@ -7,8 +7,10 @@ from person.forms import PatientForm, OdontogramForm
 from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def new_benefit(request, patient_id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=patient_id)
@@ -53,6 +55,7 @@ def new_benefit(request, patient_id):
                 return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
 
 
+@login_required
 def edit_benefit(request, patient_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
@@ -120,6 +123,7 @@ def edit_benefit(request, patient_id):
                     return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
 
 
+@login_required
 def edit_benefit_detail(request, patient_id, detail_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
@@ -153,6 +157,7 @@ def edit_benefit_detail(request, patient_id, detail_id):
             return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
 
 
+@login_required
 def benefit_to_pdf(request, patient_id, bf_id):
     patient = get_object_or_404(Patient, id=patient_id)
     if patient.social_work and patient.social_work.initial == 'APROSS':
@@ -171,6 +176,7 @@ def benefit_to_pdf(request, patient_id, bf_id):
     )
 
 
+@login_required
 def edit_odontogram(request, patient_id):
     import json
     if request.method == 'POST':
@@ -265,6 +271,7 @@ def edit_odontogram(request, patient_id):
         return JsonResponse({'status': 'OK'})
 
 
+@login_required
 def acumulate_benefit(request, patient_id):
     from django.template.response import TemplateResponse
     if request.method == 'GET':
@@ -275,6 +282,7 @@ def acumulate_benefit(request, patient_id):
         )
 
 
+@login_required
 def edit_radiography(request, patient_id, bf_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)

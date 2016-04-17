@@ -7,10 +7,13 @@ from django.http import HttpResponse
 
 def login_user(request):
     if request.method == 'GET':
-        return render_to_response(
-            'core/login.html',
-            RequestContext(request)
-        )
+        if request.user.is_authenticated():
+            return redirect('core:home')
+        else:
+            return render_to_response(
+                'core/login.html',
+                RequestContext(request)
+            )
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -18,7 +21,11 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('core:home')
+                try:
+                    domain, next_q = request.META.get('HTTP_REFERER').split('?next=')
+                    return redirect(next_q)
+                except:
+                    return redirect('core:home')
             else:
                 #return to a disable account
                 pass

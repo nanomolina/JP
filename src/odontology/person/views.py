@@ -9,8 +9,10 @@ from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistFor
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def patients(request):
     from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
@@ -60,6 +62,7 @@ def patients(request):
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
 
+@login_required
 def search_patient(request):
     import operator
     from django.db.models import Q
@@ -89,6 +92,7 @@ def search_patient(request):
         )
 
 
+@login_required
 def paginator_patient(request):
     if request.method == 'POST':
         dentist = Dentist.objects.get(user=request.user)
@@ -118,6 +122,7 @@ def paginator_patient(request):
             )
 
 
+@login_required
 def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
@@ -160,6 +165,7 @@ def patient_profile(request, id):
         )
 
 
+@login_required
 def edit_patient(request, id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=id)
@@ -175,6 +181,7 @@ def edit_patient(request, id):
             return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})
 
 
+@login_required
 def settings(request):
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
@@ -190,6 +197,7 @@ def settings(request):
         )
 
 
+@login_required
 def settings_personal(request):
     if request.method == 'POST':
         user_change_form = UserChangeForm(request.POST, instance=request.user)
@@ -204,6 +212,7 @@ def settings_personal(request):
             return JsonResponse({'status': 'ERROR', 'errors': user_change_form.errors})
 
 
+@login_required
 def settings_dentist(request):
     if request.method == 'POST':
         dentist = Dentist.objects.get(user=request.user)
@@ -219,6 +228,7 @@ def settings_dentist(request):
             return JsonResponse({'status': 'ERROR', 'errors': dentist_form.errors})
 
 
+@login_required
 def reset_password(request):
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
