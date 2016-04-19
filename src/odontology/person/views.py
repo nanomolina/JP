@@ -149,7 +149,6 @@ def patient_profile(request, id):
         return render_to_response(
             'person/profile.html',
             {
-                'template': 'patient',
                 'dentist': dentist,
                 'patient': patient,
                 'benefits': benefits,
