@@ -18,7 +18,7 @@
     </a>
   </li>
   <li class="loader">
-    <a href="#">
+    <a href="{% url 'person:clinical_history' id=patient.id %}">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> Ficha Cl&iacute;nica
     </a>
   </li>
@@ -59,60 +59,9 @@
 </div>
 
 <div class="row padding-top">
-  <!-- <div class="col-md-6">
-    <div class="panel panel-info" id="basic-info">
-      <div class="panel-heading"><strong>Paciente</strong> - Informaci&oacute;n b&aacute;sica</div>
-      <div class="panel-body no-padding">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Nombre</th>
-              <td>{{ patient.get_full_name }}</td>
-            </tr>
-            <tr>
-              <th>Obra social</th>
-              <td>{{ patient.social_work|default_if_none:'Ninguna' }}</td>
-            </tr>
-            <tr>
-              {% if patient.subsidiary_number %}
-              <th>Nro de afiliado</th>
-              <td><span class="label label-info" style="font-size: 14px">{{ patient.subsidiary_number }}</span></td>
-              {% else %}
-              <th>&nbsp;</th>
-              <td>&nbsp;</td>
-              {% endif %}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-info">
-      <div class="panel-heading"><strong>Odont&oacute;logo</strong> - Informaci&oacute;n b&aacute;sica</div>
-      <div class="panel-body no-padding">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Nombre</th>
-              <td>{{ dentist.user.last_name }} {{ dentist.user.first_name }}</td>
-            </tr>
-            <tr>
-              <th>C&iacute;rculo</th>
-              <td>{{ dentist.circle }}</td>
-            </tr>
-            <tr>
-              <th>N&deg; de Matr&iacute;cula</th>
-              <td><span class="label label-info" style="font-size: 14px">{{ dentist.register_number }}</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div> -->
 
   <div class="col-md-12" style="margin-bottom: 20px;">
-      <div class="panel panel-primary">
+      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
             <li role="presentation" id="tab-detail" class="active"><a href="#detail">Ficha Mensual</a></li>

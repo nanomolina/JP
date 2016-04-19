@@ -181,6 +181,21 @@ def edit_patient(request, id):
 
 
 @login_required
+def clinical_history(request, id):
+    dentist = Dentist.objects.get(user=request.user)
+    patient = get_object_or_404(Patient, id=id)
+    if request.method == 'GET':
+        return render_to_response(
+            'person/clinical_history.html',
+            {
+                'dentist': dentist,
+                'patient': patient,
+            },
+            RequestContext(request)
+        )
+
+
+@login_required
 def settings(request):
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
