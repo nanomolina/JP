@@ -39,7 +39,7 @@
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="clinic-rec" aria-labelledby="clinic-rec-tab">
-              {% include "register/tab_clinical_record.html" %}
+              {% include "register/tab_record.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
             </div>
@@ -51,4 +51,11 @@
 {% endblock %}
 
 {% block scripts %}
+  <script type="text/javascript">
+    $(function () {
+        $('.date').datetimepicker({
+            locale: 'es',
+        });
+    });
+  </script>
 {% endblock %}

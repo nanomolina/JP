@@ -206,7 +206,7 @@ class RadiographyForm(forms.ModelForm):
         }
 
 
-class RecordForm(forms.Form):
+class RecordForm(forms.ModelForm):
     class Meta:
         model = Record
         fields = (
@@ -224,14 +224,16 @@ class RecordForm(forms.Form):
                     'class': 'form-control',
                 }
             ),
-            'faces': forms.Select(
+            'faces': forms.SelectMultiple(
                 attrs={
                     'class': 'selectpicker form-control',
                 }
             ),
-            'tooth': forms.NumberInput(
+            'tooth': forms.SelectMultiple(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
                 }
             ),
             'period_so': forms.TextInput(
