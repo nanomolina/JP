@@ -130,6 +130,24 @@ class Radiography(models.Model):
             count += 1
         return count
 
+
+class Record(models.Model):
+    patient = models.ForeignKey(Patient)
+    date = models.DateTimeField(null=True, blank=True)
+    treatment = models.CharField(max_length=25 ,null=True, blank=True)
+    faces = models.ManyToManyField(Faces, blank=True)
+    tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    period_so = models.CharField(max_length=30, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    observations = models.TextField(null=True, blank=True)
+
+    date_created = models.DateField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "%s" % (self.patient)
+
+
+
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
 from django.dispatch import receiver

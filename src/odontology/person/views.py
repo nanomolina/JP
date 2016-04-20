@@ -7,7 +7,7 @@ from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm
 from datetime import date as Date
 from django.contrib.auth.decorators import login_required
 
@@ -185,11 +185,13 @@ def clinical_history(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
+        rform = RecordForm()
         return render_to_response(
             'person/clinical_history.html',
             {
                 'dentist': dentist,
                 'patient': patient,
+                'rform': rform,
             },
             RequestContext(request)
         )

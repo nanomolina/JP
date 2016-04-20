@@ -1,5 +1,6 @@
 from django import forms
-from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography
+from register.models import (Apross, DetailApross,
+    Faces, Benefit, DetailBenefit, Radiography, Record)
 
 class AprossForm(forms.ModelForm):
     class Meta:
@@ -200,6 +201,52 @@ class RadiographyForm(forms.ModelForm):
             'finality_3': forms.Select(
                 attrs={
                     'class': 'selectpicker form-control',
+                }
+            ),
+        }
+
+
+class RecordForm(forms.Form):
+    class Meta:
+        model = Record
+        fields = (
+            'date', 'treatment', 'faces', 'tooth', 'period_so',
+            'state', 'observations',
+        )
+        widgets = {
+            'date': forms.DateTimeInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'treatment': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'faces': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'tooth': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'period_so': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'state': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'observations': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
         }

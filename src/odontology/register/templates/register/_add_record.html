@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-record" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-Label">Nueva Ficha Clinica</h4>
+      </div>
+      <form id="benefit-form" class="form-horizontal" role="form" method="POST" action="">
+        {% csrf_token %}
+        <div class="modal-body">
+          
+            <div class="row">
+              <div class="col-xs-6 date-group input-fields">
+                  <label class="control-label" for="id_date">Periodo:</label>
+                  <div class='input-group date' id='date_add_bf_picker'>
+                      <input class="form-control" id="id_date" name="date" type="text">
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-3 managment_code1-group input-fields">
+                  <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
+                  {{rform.state}}
+              </div>
+              <div class="col-xs-3 managment_code2-group input-fields">
+                  <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
+                  {{benefit_form.managment_code2}}
+              </div>
+              <div class="col-xs-3 managment_code3-group input-fields">
+                  <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
+                  {{benefit_form.managment_code3}}
+              </div>
+              <div class="col-xs-3 managment_code4-group input-fields">
+                  <label class="control-label" for="id_managment_code4">Codigo de gestion 4:</label>
+                  {{benefit_form.managment_code4}}
+              </div>
+            </div>
+
+            <div id="alert-add-apross" class="alert alert-danger hide"></div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" id="btn-save-benefit" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+            <i class="fa fa-floppy-o"></i> Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
