@@ -1,8 +1,8 @@
 {% for record in patient.get_records %}
             <tr>
               <td>{{forloop.counter}}</td>
-              <td>{{record.date.date|date:'l'}}</td>
-              <td>{{record.date.date|date:'SHORT_DATE_FORMAT'}}</td>
+              <td>{{record.date|date:'l'}}</td>
+              <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
               <td>{{record.date.time}}</td>
               <td>{{record.treatment|default:''}}</td>
               <td>
@@ -13,9 +13,20 @@
               <td>{{record.tooth}}</td>
               <td>{{record.period_so|default:''}}</td>
               <td>{{record.state|default:''}}</td>
+              <td>
+                <a tabindex="0" class="btn btn-xs btn-default rec-popover" role="button" data-toggle="popover"
+                  data-trigger="focus" data-placement="top" data-content="{{record.observations}}">
+                  <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+                </a>
+              </td>
             </tr>
 {% empty %}
             <tr>
               <td colspan="8" class="text-center">Sin detalles</td>
             </tr>
 {% endfor %}
+<script type="text/javascript">
+    $(function(){
+      $('.rec-popover').popover()
+    });
+</script>
