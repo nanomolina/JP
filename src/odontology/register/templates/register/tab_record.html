@@ -14,9 +14,8 @@
           <tr>
             <th>#</th>
             <th>Dia</th>
+            <th>Fecha</th>
             <th>Hora</th>
-            <th>Paciente</th>
-            <th>Obra Social</th>
             <th>Tratamiento</th>
             <th>Caras</th>
             <th>Diente</th>
@@ -24,19 +23,8 @@
             <th>Estado</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+        <tbody id="tbody-record">
+          {% include "register/record.html" %}
         </tbody>
       </table>
 

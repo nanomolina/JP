@@ -1,5 +1,5 @@
 from django.contrib import admin
-from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography
+from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography, Record
 
 
 def apross_create_radiography(modeladmin, request, queryset):
@@ -60,3 +60,11 @@ class RadiographyAdmin(admin.ModelAdmin):
         'finality_3'
     )
 admin.site.register(Radiography, RadiographyAdmin)
+
+
+class RecordAdmin(admin.ModelAdmin):
+    fields = (
+        'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
+        'state', 'observations',
+    )
+admin.site.register(Record, RecordAdmin)

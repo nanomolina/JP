@@ -147,6 +147,10 @@ class Patient(models.Model):
             benefit = Benefit.objects.filter(patient=self).order_by('-real_date')
         return benefit
 
+    def get_records(self):
+        from register.models import Record
+        return Record.objects.filter(patient=self).order_by('date')
+
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (
     (1, 'Extraccion'), (2, 'Endodoncia'), (3, 'Restauracion'),
