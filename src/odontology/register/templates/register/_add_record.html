@@ -12,9 +12,33 @@
 
             <div class="row">
               <div class="col-xs-6 date-group input-fields">
-                  <label class="control-label" for="id_date">Fecha:</label>
-                  <div class='input-group date' id='date_add_bf_picker'>
+                  <label class="control-label" for="id_date">Dia y Hora:</label>
+                  <div class='input-group date' id='date_gral'>
                       <input class="form-control" id="id_date" name="date" type="text">
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+              <div class="col-xs-6 managment_code1-group input-fields">
+                  <label class="control-label" for="{{rform.treatment.id_for_label}}">Tratamiento:</label>
+                  {{rform.treatment}}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-4 faces-group input-fields">
+                  <label class="control-label" for="{{rform.faces.id_for_label}}">Caras:</label>
+                  {{rform.faces}}
+              </div>
+              <div class="col-xs-4 tooth-group input-fields">
+                  <label class="control-label" for="{{rform.tooth.id_for_label}}">Dientes:</label>
+                  {{rform.tooth}}
+              </div>
+              <div class="col-xs-4 period_so-group input-fields">
+                  <label class="control-label" for="id_period_so">Periodo O.Soc.:</label>
+                  <div class='input-group date' id='date_period_so'>
+                      <input class="form-control" id="id_period_so" name="date" type="text">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -23,21 +47,9 @@
             </div>
 
             <div class="row">
-              <div class="col-xs-3 managment_code1-group input-fields">
-                  <label class="control-label" for="{{rform.treatment.id_for_label}}">Tratamiento:</label>
-                  {{rform.treatment}}
-              </div>
-              <div class="col-xs-3 managment_code2-group input-fields">
-                  <label class="control-label" for="{{rform.faces.id_for_label}}">Caras:</label>
-                  {{rform.faces}}
-              </div>
-              <div class="col-xs-3 managment_code3-group input-fields">
-                  <label class="control-label" for="{{rform.tooth.id_for_label}}">Dientes:</label>
-                  {{rform.tooth}}
-              </div>
-              <div class="col-xs-3 managment_code4-group input-fields">
-                  <label class="control-label" for="{{rform.period_so.id_for_label}}">Periodo:</label>
-                  {{rform.period_so}}
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="{{rform.observations.id_for_label}}">Observaciones:</label>
+                  {{rform.observations}}
               </div>
             </div>
 

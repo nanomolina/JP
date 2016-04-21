@@ -51,11 +51,5 @@
 {% endblock %}
 
 {% block scripts %}
-  <script type="text/javascript">
-    $(function () {
-        $('.date').datetimepicker({
-            locale: 'es',
-        });
-    });
-  </script>
+<script type="text/javascript" src="{% static 'js/record.js' %}"></script>
 {% endblock %}
