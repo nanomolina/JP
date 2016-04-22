@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^odontogram/edit/(?P<patient_id>[0-9]+)/$', views.edit_odontogram, name='edit_odontogram'),
     url(r'^acumulate_benefit/(?P<patient_id>[0-9]+)/$', views.acumulate_benefit, name='acumulate_benefit'),
     url(r'^radiography/(?P<patient_id>[0-9]+)/edit/(?P<bf_id>[0-9]+)/$', views.edit_radiography, name='edit_radiography'),
+    url(r'^record/new/(?P<patient_id>[0-9]+)/$', views.new_record, name='new_record'),
 ]

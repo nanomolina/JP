@@ -4,14 +4,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-Label">Nueva Ficha Clinica</h4>
+        <h4 class="modal-title" id="modal-Label">Agregar Ficha Clinica</h4>
       </div>
-      <form id="benefit-form" class="form-horizontal" role="form" method="POST" action="">
+      <form id="record-form" class="form-horizontal" role="form" method="POST" action="{% url 'register:new_record' patient_id=patient.id %}">
         {% csrf_token %}
         <div class="modal-body">
 
             <div class="row">
-              <div class="col-xs-6 date-group input-fields">
+              <div class="col-xs-4 date-group input-fields">
                   <label class="control-label" for="id_date">Fecha y Hora:</label>
                   <div class='input-group date' id='date_gral'>
                       <input class="form-control" id="id_date" name="date" type="text">
@@ -20,9 +20,13 @@
                       </span>
                   </div>
               </div>
-              <div class="col-xs-6 managment_code1-group input-fields">
+              <div class="col-xs-4 treatment-group input-fields">
                   <label class="control-label" for="{{rform.treatment.id_for_label}}">Tratamiento:</label>
                   {{rform.treatment}}
+              </div>
+              <div class="col-xs-4 state-group input-fields">
+                  <label class="control-label" for="{{rform.state.id_for_label}}">Estado:</label>
+                  {{rform.state}}
               </div>
             </div>
 
@@ -36,9 +40,9 @@
                   {{rform.tooth}}
               </div>
               <div class="col-xs-4 period_so-group input-fields">
-                  <label class="control-label" for="id_period_so">Periodo O.Soc.:</label>
+                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
                   <div class='input-group date' id='date_period_so'>
-                      <input class="form-control" id="id_period_so" name="date" type="text">
+                      <input class="form-control" id="id_period_so" name="period_so" type="text">
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -53,12 +57,14 @@
               </div>
             </div>
 
-            <div id="alert-add-apross" class="alert alert-danger hide"></div>
+            <div id="alert-add-record" class="alert alert-danger hide" style="margin-top: 20px;"></div>
 
         </div>
         <div class="modal-footer">
+          <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick="reset_form()">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" id="btn-save-benefit" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+          <button type="button" class="btn btn-success" id="btn-save-record" onclick="save_record()"
+            data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
             <i class="fa fa-floppy-o"></i> Guardar cambios
           </button>
         </div>

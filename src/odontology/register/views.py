@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from person.models import Patient, Dentist, Sector, Tooth
 from person.forms import PatientForm, OdontogramForm
-from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
+from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography, Record
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm
 from datetime import date as Date
 from django.contrib.auth.decorators import login_required
 
@@ -153,7 +153,6 @@ def edit_benefit_detail(request, patient_id, detail_id):
                 RequestContext(request)
             )
         else:
-            print detail_form.errors
             return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
 
 
@@ -301,3 +300,22 @@ def edit_radiography(request, patient_id, bf_id):
             })
         else:
             return JsonResponse({'status': 'ERROR'})
+
+
+@login_required
+def new_record(request, patient_id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=patient_id)
+        form = RecordForm(request.POST)
+        if form.is_valid():
+            from django.template.response import TemplateResponse
+            record = form.save(commit=False)
+            record.patient = patient
+            record.save()
+            form.save_m2m()
+            return TemplateResponse(
+                request, 'register/record.html',
+                {'patient': patient}
+            )
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': form.errors})

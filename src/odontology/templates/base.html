@@ -121,6 +121,15 @@
         // "progressBar": true,
       }
     });
+
+    function validate_errors(name_form, json_errors, alert) {
+      var alert_content = '';
+      for (var key in json_errors) {
+          $('#'+name_form).find('.'+key+'-group').addClass('has-error');
+          alert_content += '<p>' + json_errors[key] + '</p>';
+      }
+      $('#'+alert).html(alert_content);
+    }
   </script>
   {% block scripts %}{% endblock %}
 </body>

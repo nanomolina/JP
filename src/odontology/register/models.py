@@ -88,7 +88,7 @@ class Benefit(models.Model):
 class DetailBenefit(models.Model):
     benefit = models.ForeignKey(Benefit)
     day = models.IntegerField(null=True, blank=True)
-    tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
+    tooth = models.IntegerField(choices=ELEMENTS, blank=True)
     code = models.CharField(max_length=15, null=True, blank=True)
     faces = models.ManyToManyField(Faces, blank=True)
     date_created = models.DateField(null=True, blank=True)

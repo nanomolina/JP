@@ -215,6 +215,7 @@ class RecordForm(forms.ModelForm):
         )
         widgets = {
             'date': forms.DateTimeInput(
+                format=('%d/%m/%Y %I:%M'),
                 attrs={
                     'class': 'form-control',
                 }
@@ -229,7 +230,7 @@ class RecordForm(forms.ModelForm):
                     'class': 'selectpicker form-control',
                 }
             ),
-            'tooth': forms.SelectMultiple(
+            'tooth': forms.Select(
                 attrs={
                     'class': 'selectpicker form-control',
                     'data-live-search': 'true',

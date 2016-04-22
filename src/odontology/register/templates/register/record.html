@@ -10,7 +10,7 @@
                   {{face.initial}}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
-              <td>{{record.tooth}}</td>
+              <td>{{record.tooth|default:''}}</td>
               <td>{{record.period_so|default:''}}</td>
               <td>{{record.state|default:''}}</td>
               <td>
@@ -27,6 +27,6 @@
 {% endfor %}
 <script type="text/javascript">
     $(function(){
-      $('.rec-popover').popover()
+      $('.rec-popover').popover();
     });
 </script>
