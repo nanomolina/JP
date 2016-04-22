@@ -19,14 +19,20 @@
                   <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
                 </a>
               </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenuR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuR">
+                    <li><a onclick="edit_record({{record.id}})"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></li>
+                    <li><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Borrar</a></li>
+                  </ul>
+                </div>
+              </td>
             </tr>
 {% empty %}
             <tr>
-              <td colspan="8" class="text-center">Sin detalles</td>
+              <td colspan="9" class="text-center">Sin detalles</td>
             </tr>
 {% endfor %}
-<script type="text/javascript">
-    $(function(){
-      $('.rec-popover').popover();
-    });
-</script>

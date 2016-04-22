@@ -7,6 +7,7 @@ $(function () {
         format: 'MMMM - YYYY',
         locale: 'es',
     });
+    $('.rec-popover').popover();
 });
 
 function save_record() {
@@ -25,6 +26,7 @@ function save_record() {
         if (data.status !== 'ERROR') {
           $('#tbody-record').html(data);
           $('#modal-record').modal('hide');
+          $('.rec-popover').popover();
           toastr.success('Se ah agragado exitosamente.', 'REGISTRO AGREGADO');
         } else {
           $('#record-form .input-fields').addClass('has-success');
@@ -39,4 +41,10 @@ function save_record() {
 function reset_form() {
     $('#id_faces').selectpicker('val', '');
     $('#id_tooth').selectpicker('val', '');
+}
+
+function edit_record(id) {
+  var url = '/register/record/edit/'+id+'/';
+  $('#modal-edit-record').modal('show');
+
 }

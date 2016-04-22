@@ -319,3 +319,13 @@ def new_record(request, patient_id):
             )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
+
+
+@login_required
+def edit_record(request, record_id):
+    pass
+
+@login_required
+
+def remove_record(request, record_id):
+    pass
