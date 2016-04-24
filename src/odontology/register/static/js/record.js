@@ -45,6 +45,10 @@ function reset_form() {
 
 function edit_record(id) {
   var url = '/register/record/edit/'+id+'/';
-  $('#modal-edit-record').modal('show');
+  var $modal = $('#modal-edit-record');
+  $modal.modal('show');
+  $modal.find('#benefit-edit-record').load(url, function(){
+    $('#modal-edit-record').find('.loading').hide();
+  });
 
 }

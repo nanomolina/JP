@@ -5,7 +5,7 @@
                   <div class="col-xs-4 date-group input-fields">
                       <label class="control-label" for="id_date">Fecha y Hora:</label>
                       <div class='input-group date' id='date_gral'>
-                          <input class="form-control" id="id_date" name="date" type="text">
+                          {{r_edit_form.date}}
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -33,7 +33,7 @@
                   <div class="col-xs-4 period_so-group input-fields">
                       <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
                       <div class='input-group date' id='date_period_so'>
-                          <input class="form-control" id="id_period_so" name="period_so" type="text">
+                          {{r_edit_form.period_so}}
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -52,10 +52,23 @@
 
             </div>
             <div class="modal-footer">
-              <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick="reset_form()">
+              <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick="">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-success" id="btn-save-record" onclick="save_record()"
+              <button type="button" class="btn btn-success" id="btn-save-record" onclick=""
                 data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
                 <i class="fa fa-floppy-o"></i> Guardar cambios
               </button>
             </div>
+            <script type="text/javascript">
+            var $modal = $('#modal-edit-record');
+                $modal.find('#date_gral').datetimepicker({
+                    locale: 'es',
+                });
+                $modal.find('#date_period_so').datetimepicker({
+                    viewMode: 'months',
+                    format: 'MMMM - YYYY',
+                    locale: 'es',
+                });
+                $modal.find('#id_faces').selectpicker('show');
+                $modal.find('#id_tooth').selectpicker('show');
+            </script>

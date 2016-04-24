@@ -323,7 +323,14 @@ def new_record(request, patient_id):
 
 @login_required
 def edit_record(request, record_id):
-    pass
+    record = get_object_or_404(Record, id=record_id)
+    if request.method == 'GET':
+        form = RecordForm(instance=record)
+        from django.template.response import TemplateResponse
+        return TemplateResponse(
+            request, 'register/_form_edit_record.html',
+            {'r_edit_form': form}
+        )
 
 @login_required
 
