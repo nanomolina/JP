@@ -8,8 +8,6 @@
               <tr>
                 <th width="50">#</th>
                 <th width="100">Dia</th>
-                <th width="100">Mes</th>
-                <th width="100">Año</th>
                 <th>Trabajo realizado</th>
                 <th>C&oacute;digo de practica</th>
                 <th>Elemento</th>
@@ -27,7 +25,7 @@
                         </tr>
                     {% endif%}
                     {% if detail.day or detail.work_done or detail.practic_code or detail.element or detail.faces.count > 0 %}
-                      {% include "register/detail_apross.html" with counter=forloop.counter patient=benefit.patient hide_edit=True show_date=True %}
+                      {% include "register/detail_apross.html" with counter=forloop.counter hide_edit=True %}
                     {% endif %}
                   {% endfor %}
               {% empty %}
@@ -41,8 +39,6 @@
               <tr>
                 <th width="50">#</th>
                 <th width="100">Dia</th>
-                <th width="100">Mes</th>
-                <th width="100">Año</th>
                 <th>Diente N&deg;</th>
                 <th>Cara</th>
                 <th>Codigo</th>
@@ -59,7 +55,7 @@
                         </tr>
                     {% endif%}
                     {% if detail.day or detail.tooth or detail.faces.count > 0 or detail.code %}
-                      {% include "register/detail_benefit.html" with counter=forloop.counter hide_edit=True show_date=True %}
+                      {% include "register/detail_benefit.html" with counter=forloop.counter hide_edit=True %}
                     {% endif %}
                   {% endfor %}
               {% empty %}
