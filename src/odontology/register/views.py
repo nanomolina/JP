@@ -343,6 +343,13 @@ def edit_record(request, record_id):
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
 @login_required
-
 def remove_record(request, record_id):
-    pass
+    from django.template.response import TemplateResponse
+    if request.method == 'POST':
+        record = get_object_or_404(Record, id=record_id)
+        patient = Patient.objects.get(id=record.patient.id)
+        record.delete()
+        return TemplateResponse(
+            request, 'register/record.html',
+            {'patient': patient}
+        )

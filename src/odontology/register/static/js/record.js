@@ -82,3 +82,33 @@ function edit_record(id) {
     }
   });
 }
+
+function load_delete(id) {
+  var $modal = $('#modal-delete');
+  $modal.modal('show');
+  $modal.find('#btn-delete').attr('href', 'javascript: delete_record('+id+')');
+}
+
+function delete_record(id) {
+  var $modal = $('#modal-delete');
+  $modal.find('#btn-delete').button('loading');
+  var url = '/register/record/remove/'+id+'/';
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: $('#csrf_token').serialize(),
+    success: function(data) {
+        if (data.status !== 'ERROR') {
+          $('#tbody-record').html(data);
+          $('#modal-delete').modal('hide');
+          $('.rec-popover').popover();
+          toastr.success('Se ah borrado exitosamente.', 'REGISTRO BORRADO');
+        } else {
+          toastr.error('Se ah borrado exitosamente.', 'REGISTRO NO BORRADO');
+        }
+        $('#modal-delete').find('#btn-delete').button('reset');
+    }
+
+  })
+
+}
