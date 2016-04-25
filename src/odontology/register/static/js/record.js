@@ -43,12 +43,42 @@ function reset_form() {
     $('#id_tooth').selectpicker('val', '');
 }
 
-function edit_record(id) {
+function load_record(id) {
   var url = '/register/record/edit/'+id+'/';
   var $modal = $('#modal-edit-record');
+  $modal.find('.loading').show();
+  $modal.find('#form-edit-record').hide();
   $modal.modal('show');
-  $modal.find('#benefit-edit-record').load(url, function(){
+  $modal.find('#form-edit-record').load(url, function(){
+    $modal.find('#form-edit-record').show();
     $('#modal-edit-record').find('.loading').hide();
   });
+}
 
+function edit_record(id) {
+  $('#btn-edit-record').button('loading');
+  var $form = $('#form-edit-record');
+  var data_form = $form.serialize();
+  var url = '/register/record/edit/'+id+'/';
+  $form.find('.has-error').removeClass('has-error');
+  $form.find('.has-success').removeClass('has-success');
+  $('#alert-edit-record').addClass('hide');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: data_form,
+    success: function(data) {
+        if (data.status !== 'ERROR') {
+          $('#tbody-record').html(data);
+          $('#modal-edit-record').modal('hide');
+          $('.rec-popover').popover();
+          toastr.success('Se ah editado exitosamente.', 'REGISTRO EDITADO');
+        } else {
+          $('#form-edit-record .input-fields').addClass('has-success');
+          $('#alert-edit-record').removeClass('hide');
+          validate_errors('form-edit-record', data.errors, 'alert-edit-record');
+        }
+        $('#btn-edit-record').button('reset');
+    }
+  });
 }

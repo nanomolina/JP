@@ -48,13 +48,13 @@
                   </div>
                 </div>
 
-                <div id="alert-add-record" class="alert alert-danger hide" style="margin-top: 20px;"></div>
+                <div id="alert-edit-record" class="alert alert-danger hide" style="margin-top: 20px;"></div>
 
             </div>
             <div class="modal-footer">
-              <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick="">
+              <!-- <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick=""> -->
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-success" id="btn-save-record" onclick=""
+              <button type="button" class="btn btn-success" id="btn-edit-record" onclick="edit_record({{r_edit_form.instance.id}})"
                 data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
                 <i class="fa fa-floppy-o"></i> Guardar cambios
               </button>
