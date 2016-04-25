@@ -104,7 +104,7 @@ function delete_record(id) {
           $('.rec-popover').popover();
           toastr.success('Se ah borrado exitosamente.', 'REGISTRO BORRADO');
         } else {
-          toastr.error('Se ah borrado exitosamente.', 'REGISTRO NO BORRADO');
+          toastr.error('', 'ERROR AL BORRAR');
         }
         $('#modal-delete').find('#btn-delete').button('reset');
     }
