@@ -9,7 +9,7 @@
 
 {% block content %}
 {{ block.super }}
-{% include "person/_add_patient.html" %}
+{% include "person/patients/_add.html" %}
 {% include "register/_delete.html" with title="Borrar Paciente" %}
 
 <div class="row padding-top buttons">
@@ -27,7 +27,7 @@
   <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
     <div class="panel-heading">Lista de pacientes</div>
     <div class="panel-body no-padding">
-      {% include "person/patients_table.html" %}
+      {% include "person/patients/table.html" %}
     </div>
   </div>
 </div>

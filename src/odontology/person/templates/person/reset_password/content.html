@@ -8,7 +8,7 @@
     <div class="row well well-md" style="margin-top: 100px;">
         <h4>Cambiar contrase&ntilde;a:</h4>
         <form id="reset-password" action="{% url 'person:reset_password' %}" method="POST" class="form-horizontal" role="form">
-            {% include "person/reset_password/password.html" %}
+            {% include "person/reset_password/form.html" %}
         </form>
         <button id="but-password-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
           <i class="fa fa-floppy-o"></i> Guardar cambios

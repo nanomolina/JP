@@ -30,7 +30,7 @@ def patients(request):
 
         if request.is_ajax():
             return TemplateResponse(
-                request, 'person/patients_table.html',
+                request, 'person/patients/table.html',
                 {
                     'patients': patients,
                 }
@@ -99,7 +99,7 @@ def search_patient(request):
             patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
 
         return render_to_response(
-            'person/list_patients.html',
+            'person/list.html',
             {
                 'patients': patients,
                 'text_search': text_search
@@ -195,7 +195,7 @@ def settings(request):
         user_change_form = UserChangeForm(instance=request.user)
         dentist_form = DentistForm(instance=dentist)
         return render_to_response(
-            'person/settings.html',
+            'person/settings/content.html',
             {
                 'user_change_form': user_change_form,
                 'dentist_form': dentist_form,
@@ -211,7 +211,7 @@ def settings_personal(request):
         if user_change_form.is_valid():
             user_change_form.save()
             return TemplateResponse(
-                request, 'person/settings/personal.html',
+                request, 'person/settings/form_personal.html',
                 {'user_change_form': user_change_form},
                 RequestContext(request)
             )
@@ -227,7 +227,7 @@ def settings_dentist(request):
         if dentist_form.is_valid():
             dentist_form.save()
             return TemplateResponse(
-                request, 'person/settings/dentist.html',
+                request, 'person/settings/form_dentist.html',
                 {'dentist_form': dentist_form},
                 RequestContext(request)
             )
@@ -241,7 +241,7 @@ def reset_password(request):
     if request.method == 'GET':
         password_form = PasswordForm()
         return render_to_response(
-            'person/reset_password.html',
+            'person/reset_password/content.html',
             {
                 'password_form': password_form,
             },
@@ -262,7 +262,7 @@ def reset_password(request):
                         request.user.save()
                         password_form = PasswordForm()
                         return TemplateResponse(
-                            request, 'person/reset_password/password.html',
+                            request, 'person/reset_password/form.html',
                             {'password_form': password_form},
                             RequestContext(request)
                         )
