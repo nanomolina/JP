@@ -19,6 +19,18 @@ def patients(request):
     if request.method == 'GET':
         patients = Patient.objects.filter(dentist=dentist).order_by('-id')
 
+        import operator
+        from django.db.models import Q
+        text_search = request.GET.get('text_search', None)
+        if text_search is not None:
+            terms = text_search.split(' ')
+            qs1 = reduce(operator.or_, (Q(last_name__icontains=n) for n in terms))
+            qs2 = reduce(operator.or_, (Q(first_name__icontains=n) for n in terms))
+            qs3 = reduce(operator.or_, (Q(social_work__initial__icontains=n) for n in terms))
+            qs4 = reduce(operator.or_, (Q(social_work__name__icontains=n) for n in terms))
+            qs5 = reduce(operator.or_, (Q(subsidiary_number__icontains=n) for n in terms))
+            patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
+
         page = request.GET.get('page', 1)
         paginator = Paginator(patients, 10)
         try:
@@ -44,7 +56,8 @@ def patients(request):
                     'template': 'patient',
                     'patient_form': form,
                     'patients': patients,
-                    'rec_added': rec_added
+                    'rec_added': rec_added,
+                    'text_search': text_search,
                 },
                 RequestContext(request)
             )
@@ -76,36 +89,6 @@ def patients(request):
         else:
             form.errors['subsidiary_number'] = [u'Ya existe un/a Paciente con este/a Numero de afiliado.']
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
-
-
-@login_required
-def search_patient(request):
-    import operator
-    from django.db.models import Q
-    dentist = Dentist.objects.get(user=request.user)
-    if request.method == 'GET':
-        form = PatientForm()
-        text_search = request.GET.get('text_search', None)
-
-        if text_search is not None:
-            terms = text_search.split(' ')
-            qs1 = reduce(operator.or_, (Q(last_name__icontains=n) for n in terms))
-            qs2 = reduce(operator.or_, (Q(first_name__icontains=n) for n in terms))
-            qs3 = reduce(operator.or_, (Q(social_work__initial__icontains=n) for n in terms))
-            qs4 = reduce(operator.or_, (Q(social_work__name__icontains=n) for n in terms))
-            qs5 = reduce(operator.or_, (Q(subsidiary_number__icontains=n) for n in terms))
-
-            patients = Patient.objects.filter(dentist=dentist)
-            patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
-
-        return render_to_response(
-            'person/list.html',
-            {
-                'patients': patients,
-                'text_search': text_search
-            },
-            RequestContext(request)
-        )
 
 
 @login_required

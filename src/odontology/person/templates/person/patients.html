@@ -13,7 +13,7 @@
 {% include "register/_delete.html" with title="Borrar Paciente" %}
 
 <div class="row padding-top buttons">
-    <form id="filter" action="{% url 'person:search_patient' %}" method="GET" class="form-inline" role="form">
+    <form id="filter" action="." method="GET" class="form-inline" role="form">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
       <button type="button" class="btn btn-default hide">Eliminar</button>
       <div class="form-group" style="padding-left:25px;">
