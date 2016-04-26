@@ -17,15 +17,20 @@ def patients(request):
     from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
-        rec_added = request.GET.get('add', None)
-        form = PatientForm()
         patients = Patient.objects.filter(dentist=dentist).order_by('-id')
+
+        page = request.GET.get('page', 1)
         paginator = Paginator(patients, 10)
         try:
-            patients = paginator.page(request.GET.get('page', 1))
-        except:
+            patients = paginator.page(page)
+        except PageNotAnInteger:
             patients = paginator.page(1)
+        except EmptyPage:
+            patients = paginator.page(paginator.num_pages)
 
+
+        form = PatientForm()
+        rec_added = request.GET.get('add', None)
         return render_to_response(
             'person/patients.html',
             {
@@ -95,25 +100,6 @@ def search_patient(request):
             RequestContext(request)
         )
 
-
-@login_required
-def paginator_patient(request, page):
-    if request.method == 'GET':
-        dentist = Dentist.objects.get(user=request.user)
-        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
-
-        paginator = Paginator(patients, 10)
-        try:
-            patients = paginator.page(page)
-        except PageNotAnInteger:
-            patients = paginator.page(1)
-        except EmptyPage:
-            patients = paginator.page(paginator.num_pages)
-        return render_to_response(
-            'person/list_patients.html',
-            {'patients': patients},
-            RequestContext(request)
-        )
 
 @login_required
 def patient_profile(request, id):
