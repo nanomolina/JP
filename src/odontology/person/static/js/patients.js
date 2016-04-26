@@ -1,9 +1,19 @@
-function search() {
-    var url = $('#filter').attr('action');
-    var data = $('#filter').serialize();
+function loading_state() {
     var $body = $('#body-list-patients');
     $body.find('tr').hide();
     $body.find('#loading').show().removeClass('hide');
+}
+
+function init_paginator(){
+  $('#pagination').find('li').not('.disabled').on('click', function(event){
+    loading_state();
+  })
+}
+
+function search() {
+    loading_state();
+    var url = $('#filter').attr('action');
+    var data = $('#filter').serialize();
     $body.load(url, data);
 }
 
@@ -14,6 +24,7 @@ $(function() {
            $(this).next().click();
         }
     })
+    init_paginator();
 });
 
 function load_delete_modal(url) {

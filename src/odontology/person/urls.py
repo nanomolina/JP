@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^patient/edit/(?P<id>[0-9]+)/$', views.edit_patient, name='edit_patient'),
     url(r'^patient/remove/(?P<id>[0-9]+)/$', views.remove_patient, name='remove_patient'),
     url(r'^patient/search/$', views.search_patient, name='search_patient'),
-    url(r'^patient/paginator/(?P<page>[0-9]+)/$', views.paginator_patient, name='paginator_patient'),
     url(r'^settings/$', views.settings, name='settings'),
     url(r'^settings/personal/$', views.settings_personal, name='settings_personal'),
     url(r'^settings/dentist/$', views.settings_dentist, name='settings_dentist'),

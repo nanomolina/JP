@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    $('#list-patients').find('.panel-body').slideToggle();
-
     $('#btn-save-patient').on('click', function(event) {
         $('#btn-save-patient').button('loading')
         var data_form = $('#patient-form').serialize();
