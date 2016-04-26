@@ -12,25 +12,25 @@
 {% include "person/patients/_add.html" %}
 {% include "register/_delete.html" with title="Borrar Paciente" %}
 
-<div class="row padding-top buttons">
-    <form id="filter" action="." method="GET" class="form-inline" role="form">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
-      <button type="button" class="btn btn-default hide">Eliminar</button>
-      <div class="form-group" style="padding-left:25px;">
-        <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
-        <button type="button" class="btn btn-primary" onclick="javascript: search();"><i class="fa fa-search"></i></button>
-      </div>
-    </form>
-</div>
+<form id="filter" action="." method="GET" class="form-inline" role="form">
+  <div class="row padding-top buttons">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
+        <button type="button" class="btn btn-default hide">Eliminar</button>
+        <div class="form-group" style="padding-left:25px;">
+          <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
+          <button type="button" class="btn btn-primary" onclick="javascript: filter();"><i class="fa fa-search"></i></button>
+        </div>
+  </div>
 
-<div class="row" id="list-patients">
-  <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
-    <div class="panel-heading">Lista de pacientes</div>
-    <div class="panel-body no-padding">
-      {% include "person/patients/table.html" %}
+  <div class="row" id="list-patients">
+    <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+      <div class="panel-heading">Lista de pacientes</div>
+      <div class="panel-body no-padding">
+        {% include "person/patients/table.html" %}
+      </div>
     </div>
   </div>
-</div>
+</form>
 {% endblock %}
 
 {% block scripts %}

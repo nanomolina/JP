@@ -15,6 +15,20 @@
     {% include "person/patients/list.html" %}
   </tbody>
 </table>
-<div id="pagination" class="pull-right" style="font-size: 16px; padding-right: 8px;">
-  {% bootstrap_paginate patients range=11 show_first_last="true" %}
+  <div class="pull-left" style="font-size: 16px; padding-left: 8px; margin-top: 22px;">
+    <select id="select_rows" class="selectpicker" data-width="fit" name="nro_row">
+      <option selected>10</option>
+      <option>20</option>
+      <option>30</option>
+      <option>50</option>
+      <option>100</option>
+      <option>Todas</option>
+    </select>
+    <div style="display: inline; vertical-align: middle;">
+      Filas por pagina.
+    </div>
+  </div>
+  <div id="pagination" class="pull-right" style="font-size: 16px; padding-right: 8px;">
+    {% bootstrap_paginate patients range=11 show_first_last="true" %}
+  </div>
 </div>

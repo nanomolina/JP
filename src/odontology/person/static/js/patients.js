@@ -6,6 +6,30 @@ function init_paginator(){
   });
 }
 
+function loading_state() {
+    var $body = $('#body-list-patients');
+    $body.find('tr').hide();
+    $body.find('#loading').show().removeClass('hide');
+}
+
+function filter() {
+    loading_state();
+    var url = $('#filter').attr('action');
+    var data = $('#filter').serialize();
+    $('#list-patients').find('.panel-body').load(url, data, function(){
+      init_paginator();
+      init_selector();      
+    });
+}
+
+function init_selector(){
+  var $selector = $('#list-patients').find('#select_rows');
+  $selector.selectpicker('show');
+  $selector.on('change', function(){
+    filter();
+  });
+}
+
 $(document).ready(function(){
     $('#text_search').keypress(function( event ) {
         if ( event.which == 13 ) {
@@ -14,29 +38,18 @@ $(document).ready(function(){
         }
     })
     init_paginator();
+    init_selector();
 });
-
-function loading_state() {
-    var $body = $('#body-list-patients');
-    $body.find('tr').hide();
-    $body.find('#loading').show().removeClass('hide');
-}
-
 
 function load_page(href) {
   loading_state();
   var url = href;
   $('#list-patients').find('.panel-body').load(url, function(){
     init_paginator();
+    init_selector();
   });
 }
 
-function search() {
-    loading_state();
-    var url = $('#filter').attr('action');
-    var data = $('#filter').serialize();
-    $('#list-patients').find('.panel-body').load(url, data);
-}
 
 function load_delete_modal(url) {
   var $modal = $('#modal-delete');

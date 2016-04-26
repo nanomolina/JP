@@ -32,7 +32,8 @@ def patients(request):
             patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(patients, 10)
+        nro_row = request.GET.get('nro_row', 10)
+        paginator = Paginator(patients, nro_row)
         try:
             patients = paginator.page(page)
         except PageNotAnInteger:
