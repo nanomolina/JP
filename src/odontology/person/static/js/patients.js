@@ -16,21 +16,6 @@ $(function() {
     })
 });
 
-function paginator(page) {
-    var $body = $('#body-list-patients');
-    $body.find('tr').hide();
-    $body.find('#loading').show().removeClass('hide');
-    var $pagination = $('#pagination')
-    $pagination.load(
-        URL_PAGINATOR,
-        {'page': page, 'csrfmiddlewaretoken': CSRF, 'type': 2}
-    );
-    $body.load(
-        URL_PAGINATOR,
-        {'page': page, 'csrfmiddlewaretoken': CSRF, 'type': 1}
-    );
-}
-
 function load_delete_modal(url) {
   var $modal = $('#modal-delete');
   $modal.modal('show');
@@ -38,5 +23,23 @@ function load_delete_modal(url) {
 }
 
 function delete_patient(url) {
-  
+  var $modal = $('#modal-delete');
+  $modal.find('#btn-delete').button('loading');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: $('#csrf_token').serialize(),
+    success: function(data) {
+        if (data.status !== 'ERROR') {
+          $('#tbody-record').html(data);
+          $('#modal-delete').modal('hide');
+          $('.rec-popover').popover();
+          toastr.success('Se ah borrado exitosamente.', 'REGISTRO BORRADO');
+        } else {
+          toastr.error('', 'ERROR AL BORRAR');
+        }
+        $('#modal-delete').find('#btn-delete').button('reset');
+    }
+
+  });
 }

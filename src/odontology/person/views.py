@@ -21,7 +21,11 @@ def patients(request):
         form = PatientForm()
         patients = Patient.objects.filter(dentist=dentist).order_by('-id')
         paginator = Paginator(patients, 10)
-        patients = paginator.page(1)
+        try:
+            patients = paginator.page(request.GET.get('page', 1))
+        except:
+            patients = paginator.page(1)
+
         return render_to_response(
             'person/patients.html',
             {
@@ -93,34 +97,23 @@ def search_patient(request):
 
 
 @login_required
-def paginator_patient(request):
-    if request.method == 'POST':
+def paginator_patient(request, page):
+    if request.method == 'GET':
         dentist = Dentist.objects.get(user=request.user)
         patients = Patient.objects.filter(dentist=dentist).order_by('-id')
 
         paginator = Paginator(patients, 10)
-        page = request.POST.get('page', 1)
         try:
             patients = paginator.page(page)
         except PageNotAnInteger:
             patients = paginator.page(1)
         except EmptyPage:
             patients = paginator.page(paginator.num_pages)
-        data = {'patients': patients}
-        pag_type = int(request.POST.get('type'))
-        if pag_type == 1:
-            return render_to_response(
-                'person/list_patients.html',
-                data,
-                RequestContext(request)
-            )
-        elif pag_type == 2:
-            return render_to_response(
-                'person/paginator.html',
-                data,
-                RequestContext(request)
-            )
-
+        return render_to_response(
+            'person/list_patients.html',
+            {'patients': patients},
+            RequestContext(request)
+        )
 
 @login_required
 def patient_profile(request, id):
