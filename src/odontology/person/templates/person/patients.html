@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles bootstrap_pagination%}
+{% load staticfiles %}
 
 {% block title %}Mis Pacientes{% endblock %}
 
@@ -27,27 +27,8 @@
   <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
     <div class="panel-heading">Lista de pacientes</div>
     <div class="panel-body no-padding">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Apellido</th>
-            <th>Nombre</th>
-            <th>Obra social</th>
-            <th>Afiliado n&deg;</th>
-            <th width="50"></th>
-          </tr>
-        </thead>
-        <tbody id="body-list-patients">
-          {% include "person/list_patients.html" %}
-        </tbody>
-      </table>
+      {% include "person/patients_table.html" %}
     </div>
-  </div>
-</div>
-<div class="row" id="pagination">
-  <div class="pull-right" style="font-size: 16px;">
-    {% bootstrap_paginate patients range=11 show_first_last="true" %}
   </div>
 </div>
 {% endblock %}

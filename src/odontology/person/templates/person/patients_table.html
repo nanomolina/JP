@@ -1,0 +1,20 @@
+{% load bootstrap_pagination %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Apellido</th>
+      <th>Nombre</th>
+      <th>Obra social</th>
+      <th>Afiliado n&deg;</th>
+      <th width="50"></th>
+    </tr>
+  </thead>
+  <tbody id="body-list-patients">
+    {% include "person/list_patients.html" %}
+  </tbody>
+</table>
+<div id="pagination" class="pull-right" style="font-size: 16px; padding-right: 8px;">
+  {% bootstrap_paginate patients range=11 show_first_last="true" %}
+</div>

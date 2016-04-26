@@ -28,19 +28,26 @@ def patients(request):
         except EmptyPage:
             patients = paginator.page(paginator.num_pages)
 
-
-        form = PatientForm()
-        rec_added = request.GET.get('add', None)
-        return render_to_response(
-            'person/patients.html',
-            {
-                'template': 'patient',
-                'patient_form': form,
-                'patients': patients,
-                'rec_added': rec_added
-            },
-            RequestContext(request)
-        )
+        if request.is_ajax():
+            return TemplateResponse(
+                request, 'person/patients_table.html',
+                {
+                    'patients': patients,
+                }
+            )
+        else:
+            form = PatientForm()
+            rec_added = request.GET.get('add', None)
+            return render_to_response(
+                'person/patients.html',
+                {
+                    'template': 'patient',
+                    'patient_form': form,
+                    'patients': patients,
+                    'rec_added': rec_added
+                },
+                RequestContext(request)
+            )
     else:
         form = PatientForm(request.POST)
         sub_num = request.POST.get('subsidiary_number', None)
