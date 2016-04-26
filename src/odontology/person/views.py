@@ -181,6 +181,11 @@ def edit_patient(request, id):
 
 
 @login_required
+def remove_patient(request, id):
+    pass
+
+
+@login_required
 def clinical_history(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)

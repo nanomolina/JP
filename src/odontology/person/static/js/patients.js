@@ -30,3 +30,13 @@ function paginator(page) {
         {'page': page, 'csrfmiddlewaretoken': CSRF, 'type': 1}
     );
 }
+
+function load_delete_modal(url) {
+  var $modal = $('#modal-delete');
+  $modal.modal('show');
+  $modal.find('#btn-delete').attr('href', 'javascript: delete_patient("'+url+'")');
+}
+
+function delete_patient(url) {
+  
+}

@@ -43,8 +43,7 @@ function reset_form() {
     $('#id_tooth').selectpicker('val', '');
 }
 
-function load_record(id) {
-  var url = '/register/record/edit/'+id+'/';
+function load_record_modal(url) {
   var $modal = $('#modal-edit-record');
   $modal.find('.loading').show();
   $modal.find('#form-edit-record').hide();
@@ -55,11 +54,10 @@ function load_record(id) {
   });
 }
 
-function edit_record(id) {
+function edit_record(url) {
   $('#btn-edit-record').button('loading');
   var $form = $('#form-edit-record');
   var data_form = $form.serialize();
-  var url = '/register/record/edit/'+id+'/';
   $form.find('.has-error').removeClass('has-error');
   $form.find('.has-success').removeClass('has-success');
   $('#alert-edit-record').addClass('hide');
@@ -83,16 +81,15 @@ function edit_record(id) {
   });
 }
 
-function load_delete(id) {
+function load_delete_modal(url) {
   var $modal = $('#modal-delete');
   $modal.modal('show');
-  $modal.find('#btn-delete').attr('href', 'javascript: delete_record('+id+')');
+  $modal.find('#btn-delete').attr('href', 'javascript: delete_record("'+url+'")');
 }
 
-function delete_record(id) {
+function delete_record(url) {
   var $modal = $('#modal-delete');
   $modal.find('#btn-delete').button('loading');
-  var url = '/register/record/remove/'+id+'/';
   $.ajax({
     type: "POST",
     url: url,
@@ -109,6 +106,6 @@ function delete_record(id) {
         $('#modal-delete').find('#btn-delete').button('reset');
     }
 
-  })
+  });
 
 }

@@ -10,7 +10,7 @@
 {% block content %}
 {{ block.super }}
 {% include "person/_add_patient.html" %}
-{% include "register/_delete.html" %}
+{% include "register/_delete.html" with title="Borrar Paciente" %}
 
 <div class="row padding-top buttons">
     <form id="filter" action="{% url 'person:search_patient' %}" method="GET" class="form-inline" role="form">
