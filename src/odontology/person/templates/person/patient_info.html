@@ -1,12 +1,3 @@
-<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-    <div class="col-md-3 no-padding">
-      <button type="button" class="btn btn-default" id="edit-patient-info">Editar info</button>
-      <button type="button" class="btn btn-success hide" id="save-patient-info" data-loading-text="Guardando...">Guardar cambios</button>
-      <button type="button" class="btn btn-default hide" id="cancel-patient-info">Cancelar</button>
-    </div>
-</div>
-
-<div class="col-md-12" style="margin-bottom: 20px;">
     <div class="panel panel-primary">
       <div class="panel-heading">Informacion del paciente</div>
       <div class="panel-body no-padding">
@@ -17,8 +8,8 @@
                 <tr class="basic-info hide">
                   <th>Apellido y Nombre:</th>
                   <td>
-                    <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.last_name}}</span>
-                    <span class="edit-info hide col-md-6 no-padding">{{patient_info_form.first_name}}</span>
+                    <span class="edit-info hide no-padding">{{patient_info_form.last_name}}</span>
+                    <span class="edit-info hide no-padding">{{patient_info_form.first_name}}</span>
                   </td>
                   <th></th>
                   <td style="border-right: 1px solid #ddd;"></td>
@@ -53,7 +44,7 @@
                   </td>
                   <th style="border-top: 0;">Fecha de nacimiento:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.birth_date|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span>
                     <span class="edit-info hide">
                       <div class='input-group date' id='birth_date_picker'>
                           <input class="form-control" id="id_birth_date" name="birth_date" type="text" value="{{patient.birth_date|date:'d/m/Y'}}">
@@ -65,20 +56,40 @@
                   </td>
                 </tr>
                 <tr>
-                  <th style="border-top: 0;">Domicilio(calle, num, piso, dpto):</th>
-                  <td style="border-top: 0; width: 34%">
-                    <span class="field-info">{{patient.domicile|default_if_none:'---'}}</span>
+                  <th style="border-top: 0;">Domicilio:</th>
+                  <td style="border-top: 0;" colspan="3">
+                    <span class="field-info">{{patient.domicile|default:'---'}}</span>
                     <span class="edit-info hide">
                       {{patient_info_form.street}}{{patient_info_form.number}}
-                    </span>
-                    <span class="edit-info hide">
                       {{patient_info_form.floor}}{{patient_info_form.apartment}}
+                      {{patient_info_form.neighborhood}}
                     </span>
                   </td>
+                </tr>
+                <tr>
                   <th style="border-top: 0;">Localidad:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
+                  </td>
+                  <th style="border-top: 0;" class="email-group">
+                    <label class="control-label" for="id_email" style="vertical-align: top;">email:</label>
+                  </th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.email|default:'---'}}</span>
+                    <span class="edit-info hide email-group">{{patient_info_form.email}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Tel&eacute;fono fijo:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.tel|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                  <th style="border-top: 0;">Celular:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -87,17 +98,17 @@
                     <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>
-                  <th style="border-top: 0;">Tel/Cel:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.tel|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
-                  </td>
-                </tr>
-                <tr>
                   <th style="border-top: 0;">Jerarquia:</th>
                   <td style="border-top: 0;">
                     <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th style="border-top: 0;">Derivacion:</th>
+                  <td style="border-top: 0;">
+                    <span class="field-info">{{patient.derivation|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.derivation}}</span>
                   </td>
                   <th style="border-top: 0;">Sexo:</th>
                   <td style="border-top: 0;">
@@ -110,4 +121,12 @@
         </form>
       </div>
     </div>
-</div>
+    <script type="text/javascript">
+        $(function(){
+            $('.selectpicker').selectpicker();
+            $('#birth_date_picker').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'es',
+            });
+        });
+    </script>

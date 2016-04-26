@@ -12,7 +12,7 @@ $(document).ready(function() {
         data: data_form,
         success: function(data) {
             if (data.status !== 'ERROR') {
-              location.href = url_profile;
+              location.href = url_profile + '?add=2';
             } else {
               $('#btn-edit-benefit').button('reset');
               $('#benefit-edit-form .input-fields').addClass('has-success');
@@ -25,11 +25,10 @@ $(document).ready(function() {
 });
 
 $(function () {
-    var dateNow = new Date();
     $('#date_edit_bf_picker').datetimepicker({
         viewMode: 'months',
         format: 'MMMM - YYYY',
         locale: 'es',
-        defaultDate: dateNow,
     });
+    $('#benefit-edit-form #id_date').val(DATE);
 });

@@ -3,12 +3,14 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from person.models import Patient, Dentist, Sector, Tooth
-from person.forms import PatientForm
-from register.models import Apross, DetailApross, Benefit, DetailBenefit
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm
+from person.forms import PatientForm, OdontogramForm
+from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
 from datetime import date as Date
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def new_benefit(request, patient_id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=patient_id)
@@ -53,6 +55,7 @@ def new_benefit(request, patient_id):
                 return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
 
 
+@login_required
 def edit_benefit(request, patient_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
@@ -120,6 +123,7 @@ def edit_benefit(request, patient_id):
                     return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
 
 
+@login_required
 def edit_benefit_detail(request, patient_id, detail_id):
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
@@ -153,6 +157,7 @@ def edit_benefit_detail(request, patient_id, detail_id):
             return JsonResponse({'status': 'ERROR', 'errors': detail_form.errors})
 
 
+@login_required
 def benefit_to_pdf(request, patient_id, bf_id):
     patient = get_object_or_404(Patient, id=patient_id)
     if patient.social_work and patient.social_work.initial == 'APROSS':
@@ -171,103 +176,128 @@ def benefit_to_pdf(request, patient_id, bf_id):
     )
 
 
+@login_required
 def edit_odontogram(request, patient_id):
     import json
     if request.method == 'POST':
         patient = get_object_or_404(Patient, id=patient_id)
-        caries = request.POST.get('caries', None)
-        extractions = request.POST.get('extractions', None)
-        endodoncias = request.POST.get('endodoncias', None)
-        corona = request.POST.get('corona', None)
-        restoration = request.POST.get('restoration', None)
-        filtered_restoration = request.POST.get('filtered_restoration', None)
-        eraser = request.POST.get('eraser', None)
-        if caries is not None:
-            caries = json.loads(caries)
-        if extractions is not None:
-            extractions = json.loads(extractions)
-        if endodoncias is not None:
-            endodoncias = json.loads(endodoncias)
-        if corona is not None:
-            corona = json.loads(corona)
-        if restoration is not None:
-            restoration = json.loads(restoration)
-        if filtered_restoration is not None:
-            filtered_restoration = json.loads(filtered_restoration)
-        if eraser is not None:
-            eraser = json.loads(eraser)
-            
-        for er in eraser:
-            tooth = Tooth.objects.get(id=er['id'])
-            for sector in tooth.get_sectors():
-                sector.color = None
-                sector.stroke_blue = False
+        teeth_works = request.POST.get('teeth_works', None)
+        if teeth_works is not None:
+            teeth_works = json.loads(teeth_works)
+        for tw in teeth_works:
+            if tw['type'] == '':
+                tooth = Tooth.objects.get(id=tw['id'])
+                for sector in tooth.get_sectors():
+                    sector.color = None
+                    sector.stroke_blue = False
+                    sector.save()
+                tooth.color = None
+                tooth.work_type = None
+                tooth.save()
+            if tw['type'] == 1:
+                tooth = Tooth.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    tooth.color = 1
+                elif tw['color'] == 'blue':
+                    tooth.color = 2
+                else:
+                    tooth.color = None
+                tooth.work_type = 1
+                tooth.save()
+            elif tw['type'] == 2:
+                tooth = Tooth.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    tooth.color = 1
+                elif tw['color'] == 'blue':
+                    tooth.color = 2
+                else:
+                    tooth.color = None
+                tooth.work_type = 2
+                tooth.save()
+            elif tw['type'] == 3:
+                sector = Sector.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    sector.color = 1
+                elif tw['color'] == 'blue':
+                    sector.color = 2
+                else:
+                    sector.color = None
                 sector.save()
-            tooth.color = None
-            tooth.work_type = None
-            tooth.save()
-        for x in extractions:
-            tooth = Tooth.objects.get(id=x['id'])
-            if x['color'] == 'red':
-                tooth.color = 1
-            elif x['color'] == 'blue':
-                tooth.color = 2
-            else:
-                tooth.color = None
-            tooth.work_type = 1
-            tooth.save()
-        for e in endodoncias:
-            tooth = Tooth.objects.get(id=e['id'])
-            if e['color'] == 'red':
-                tooth.color = 1
-            elif e['color'] == 'blue':
-                tooth.color = 2
-            else:
-                sector.color = None
-            tooth.work_type = 2
-            tooth.save()
-        for r in restoration:
-            sector = Sector.objects.get(id=r['id'])
-            if r['color'] == 'red':
-                sector.color = 1
-            elif r['color'] == 'blue':
-                sector.color = 2
-            else:
-                sector.color = None
-            sector.save()
-            sector.tooth.work_type = 3
-            sector.tooth.save()
-        for fr in filtered_restoration:
-            sector = Sector.objects.get(id=fr['id'])
-            if fr['color'] == 'red':
-                sector.color = 1
-            elif fr['color'] == 'blue':
-                sector.color = 2
-            else:
-                sector.color = None
-            sector.stroke_blue = True
-            sector.save()
-            sector.tooth.work_type = 4
-            sector.tooth.save()
-        for s in caries:
-            sector = Sector.objects.get(id=s['id'])
-            if s['color'] == 'red':
-                sector.color = 1
-            elif s['color'] == 'blue':
-                sector.color = 2
-            else:
-                sector.color = None
-            sector.save()
-            sector.tooth.work_type = 5
-            sector.tooth.save()
-        for c in corona:
-            tooth = Tooth.objects.get(id=c['id'])
-            if c['color'] == 'red':
-                tooth.color = 1
-            elif c['color'] == 'blue':
-                tooth.color = 2
-            else:
-                tooth.color = None
-            tooth.work_type = 6
-            tooth.save()
+                sector.tooth.work_type = 3
+                sector.tooth.save()
+            elif tw['type'] == 4:
+                sector = Sector.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    sector.color = 1
+                elif tw['color'] == 'blue':
+                    sector.color = 2
+                else:
+                    sector.color = None
+                sector.stroke_blue = True
+                sector.save()
+                sector.tooth.work_type = 4
+                sector.tooth.save()
+            elif tw['type'] == 5:
+                sector = Sector.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    sector.color = 1
+                elif tw['color'] == 'blue':
+                    sector.color = 2
+                else:
+                    sector.color = None
+                sector.save()
+                sector.tooth.work_type = 5
+                sector.tooth.save()
+            elif tw['type'] == 6:
+                tooth = Tooth.objects.get(id=tw['id'])
+                if tw['color'] == 'red':
+                    tooth.color = 1
+                elif tw['color'] == 'blue':
+                    tooth.color = 2
+                else:
+                    tooth.color = None
+                tooth.work_type = 6
+                tooth.save()
+
+        odontogram_form = OdontogramForm(request.POST, instance=patient.odontogram)
+        if odontogram_form.is_valid():
+            odontogram = odontogram_form.save()
+            date = request.POST.get('date_odontogram', None)
+            if date:
+                month, year = date.split(' - ')
+                odontogram.month = month
+                odontogram.year = year
+                odontogram.save()
         return JsonResponse({'status': 'OK'})
+
+
+@login_required
+def acumulate_benefit(request, patient_id):
+    from django.template.response import TemplateResponse
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, id=patient_id)
+        return TemplateResponse(
+            request, 'register/tab_total_details.html',
+            {'patient': patient}
+        )
+
+
+@login_required
+def edit_radiography(request, patient_id, bf_id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=patient_id)
+        if patient.social_work and patient.social_work.initial == 'APROSS':
+            benefit = get_object_or_404(Apross, id=bf_id)
+            radiography = Radiography.objects.get(apross=benefit)
+        else:
+            benefit = get_object_or_404(Benefit, id=bf_id)
+            radiography = Radiography.objects.get(benefit=benefit)
+        radiography_form = RadiographyForm(request.POST, instance=radiography)
+        if radiography_form.is_valid():
+            radiography = radiography_form.save()
+            return JsonResponse({
+                'status': 'OK',
+                'rx_amount': radiography.rx_amount
+            })
+        else:
+            return JsonResponse({'status': 'ERROR'})

@@ -1,27 +1,12 @@
-{% load staticfiles %}
-<!-- Modal -->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-Label">Editar registro de prestaci&oacute;n</h4>
-      </div>
-      <form id="benefit-edit-form" class="form-horizontal" role="form" method="POST" action="{% url 'register:edit_benefit' patient_id=patient.id %}">
+        {% load staticfiles %}
         {% csrf_token %}
-        <div class="modal-body">
+        <div class="modal-body hide">
             <!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
             <input type='hidden' name="bf_id" value="{{bf.id}}">
+
             <div class="row">
               <div class="col-xs-6 date-group input-fields">
-                  <label class="control-label" for="id_date">Fecha:</label>
-              </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  <label class="control-label" for="id_rx_amount">Cantidad de Rx. adjuntas:</label>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-6 date-group input-fields">
+                  <label class="control-label" for="id_date">Periodo:</label>
                   <div class='input-group date' id='date_edit_bf_picker'>
                       <input class="form-control" id="id_date" name="date" type="text" value="{{bf.month}} - {{bf.year}}">
                       <span class="input-group-addon">
@@ -29,32 +14,37 @@
                       </span>
                   </div>
               </div>
-              <div class="col-xs-6 rx_amount-group input-fields">
-                  {{bf_edit_form.rx_amount}}
+            </div>
+
+            <div class="row">
+              <div class=" col-xs-12">
+                  <hr>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-xs-4 managment_code1-group input-fields">
+              <div class="col-xs-3 managment_code1-group input-fields">
                   <label class="control-label" for="id_managment_code1">Codigo de gestion 1:</label>
+                  {{bf_edit_form.managment_code1}}
               </div>
-              <div class="col-xs-4 managment_code2-group input-fields">
+              <div class="col-xs-3 managment_code2-group input-fields">
                   <label class="control-label" for="id_managment_code2">Codigo de gestion 2:</label>
+                  {{bf_edit_form.managment_code2}}
               </div>
-              <div class="col-xs-4 managment_code3-group input-fields">
+              <div class="col-xs-3 managment_code3-group input-fields">
                   <label class="control-label" for="id_managment_code3">Codigo de gestion 3:</label>
+                  {{bf_edit_form.managment_code3}}
+              </div>
+              <div class="col-xs-3 managment_code4-group input-fields">
+                  <label class="control-label" for="id_managment_code4">Codigo de gestion 4:</label>
+                  {{bf_edit_form.managment_code4}}
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 30px;">
-              <div class="col-xs-4 managment_code1-group input-fields">
-                  {{bf_edit_form.managment_code1}}
-              </div>
-              <div class="col-xs-4 managment_code2-group input-fields">
-                  {{bf_edit_form.managment_code2}}
-              </div>
-              <div class="col-xs-4 managment_code3-group input-fields">
-                  {{bf_edit_form.managment_code3}}
+            <div class="row">
+              <div class="col-xs-12 observations-group input-fields">
+                  <label class="control-label" for="id_observations">Observaciones:</label>
+                  {{bf_edit_form.observations}}
               </div>
             </div>
 
@@ -62,11 +52,11 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" id="btn-edit-benefit" data-loading-text="Guardando...">Guardar cambios</button>
+          <button type="button" class="btn btn-default hide" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success hide" id="btn-edit-benefit" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+            <i class="fa fa-floppy-o"></i> Guardar cambios
+          </button>
         </div>
-      </form>
-    </div>
-  </div>
 
-  <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>
+        <script type="text/javascript">DATE = "{{bf.month}} - {{bf.year}}";</script>
+        <script type="text/javascript" src="{% static 'js/edit_benefit.js' %}"></script>

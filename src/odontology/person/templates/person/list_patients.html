@@ -7,7 +7,9 @@
   <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
   <td>{{patient.subsidiary_number|default_if_none:''}}</td>
   <td>
-    <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">Info</a>
+    <a href="{% url 'person:patient_profile' id=patient.id %}" type="button" class="btn btn-primary btn-xs loader" style="width: 100%">
+      <i class="fa fa-folder-open"></i> Fichas
+    </a>
   </td>
 </tr>
 {% empty %}
@@ -16,7 +18,7 @@
 </tr>
 {% endfor %}
 <tr id="loading" class="hide">
-  <td colspan="6" class="text-center"><img src="{% static 'images/ring-alt.gif' %}"></img></td>
+  <td colspan="6" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
 </tr>
 <script type="text/javascript">
   $(document).ready(function(){

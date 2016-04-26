@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Mis Pacientes{% endblock %}
+
 {% block links %}
   {% load staticfiles %}
   <link href="{% static 'css/patients.css' %}" rel="stylesheet">
@@ -11,15 +13,12 @@
 
 <div class="row padding-top buttons">
     <form id="filter" action="{% url 'person:search_patient' %}" method="GET" class="form-inline" role="form">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient">Agregar nuevo</button>
-      <button type="button" class="btn btn-default">Eliminar</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
+      <button type="button" class="btn btn-default hide">Eliminar</button>
       <div class="form-group" style="padding-left:25px;">
         <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
         <button type="button" class="btn btn-primary" onclick="javascript: search();"><i class="fa fa-search"></i></button>
       </div>
-      {% if rec_added %}
-      <div id="block-info" class="alert alert-success pull-right" role="alert"><i class="fa fa-check-circle"></i> El paciente se a añadido correctamente</div>
-      {% endif %}
     </form>
 </div>
 
@@ -58,4 +57,11 @@
 </script>
 <script type="text/javascript" src="{% static 'js/patients.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
+{% if rec_added %}
+<script type="text/javascript">
+  $(function(){
+    toastr.success("El paciente se ha añadido correctamente.", "NUEVO PACIENTE.");
+  });
+</script>
+{% endif %}
 {%endblock%}

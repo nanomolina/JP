@@ -9,32 +9,17 @@ $(document).ready(function() {
           url: url,
           data: data_form,
           success: function(data) {
-              if (data.status === 'OK') {
+              if (data.status != 'ERROR') {
                 var url = $('#patient-form').attr('action');
-                location.href = '';
+                $('#info .content').html(data);
+                $('#save-patient-info').button('reset').addClass('hide');
+                $('#edit-patient-info').removeClass('hide');
+                toastr.success('La información del paciente ah sido editada correctamente', 'INFORMACION EDITADA');
               } else {
-                $('#btn-save-patient').button('reset');
-                if (data.errors.first_name !== undefined) {
-                    $('#patient-form .form-group').first().addClass('has-error');
-                    $('#patient-form .form-group').first().find('#helpBlock1').removeClass('hidden');
-                    $('#patient-form .form-group').first().find('#helpBlock1').text(data.errors.first_name[0]);
-                } else {
-                    $('#patient-form .form-group').first().addClass('has-success');
-                }
-                if (data.errors.last_name !== undefined) {
-                    $('#patient-form .form-group').first().next().addClass('has-error');
-                    $('#patient-form .form-group').first().next().find('#helpBlock2').removeClass('hidden');
-                    $('#patient-form .form-group').first().next().find('#helpBlock2').text(data.errors.last_name[0]);
-                } else {
-                    $('#patient-form .form-group').first().next().addClass('has-success');
-                }
-                if (data.errors.social_work !== undefined) {
-                    $('#patient-form .form-group').last().addClass('has-error');
-                    $('#patient-form .form-group').last().find('#helpBlock3').removeClass('hidden');
-                    $('#patient-form .form-group').last().find('#helpBlock3').text(data.errors.social_work[0]);
-                } else {
-                    $('#patient-form .form-group').last().addClass('has-success');
-                }
+                $('#save-patient-info').button('reset').addClass('hide');
+                $('#edit-patient-info').removeClass('hide');
+                validate_errors('patient-info-form', data.errors, '');
+                toastr.error('Hubo un error tratando de editar los datos.', 'DATOS ERRONEOS');
               }
           }
         });
@@ -43,8 +28,9 @@ $(document).ready(function() {
 
 $(function() {
   $('#edit-patient-info').on('click', function() {
-    $('.field-info').hide();
-    $('.edit-info').removeClass('hide');
+    var $form = $('#patient-info-form');
+    $form.find('.field-info').hide();
+    $form.find('.edit-info').removeClass('hide');
     $('#cancel-patient-info').removeClass('hide');
     $('#save-patient-info').removeClass('hide');
     $(this).addClass('hide');
@@ -52,16 +38,12 @@ $(function() {
   });
 
   $('#cancel-patient-info').on('click', function() {
-    $('.field-info').show();
-    $('.edit-info').addClass('hide');
+    var $form = $('#patient-info-form');
+    $form.find('.field-info').show();
+    $form.find('.edit-info').addClass('hide');
     $('#save-patient-info').addClass('hide');
     $('#edit-patient-info').removeClass('hide');
     $(this).addClass('hide');
     $('#patient-info-form .basic-info').addClass('hide');
-  });
-
-  $('#birth_date_picker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      locale: 'es',
   });
 });

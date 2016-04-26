@@ -1,7 +1,8 @@
+from django.shortcuts import get_object_or_404
 from django import template
-from register.models import DetailApross, DetailBenefit
-from register.forms import detailAprossForm, detailBenefitForm
-
+from person.models import Patient
+from register.models import Apross, Benefit, DetailApross, DetailBenefit, Radiography
+from register.forms import detailAprossForm, detailBenefitForm, RadiographyForm
 register = template.Library()
 
 @register.filter(name='detail_form_instance')
@@ -18,3 +19,16 @@ def benefit_detail_form(detail_id):
     detail = DetailBenefit.objects.get(id=detail_id)
     form = detailBenefitForm(instance=detail)
     return form
+
+
+@register.filter(name='get_radiography_form')
+def get_radiography_form(patient_id, bf_id):
+    patient = get_object_or_404(Patient, id=patient_id)
+    if patient.social_work and patient.social_work.initial == 'APROSS':
+        benefit = get_object_or_404(Apross, id=bf_id)
+        radiography = Radiography.objects.get(apross=benefit)
+    else:
+        benefit = get_object_or_404(Benefit, id=bf_id)
+        radiography = Radiography.objects.get(benefit=benefit)
+    radiography_form = RadiographyForm(instance=radiography)
+    return radiography_form

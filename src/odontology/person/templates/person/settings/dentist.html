@@ -1,0 +1,20 @@
+{% csrf_token %}
+<div class="form-group">
+  <label for="{{dentist_form.last_name.id_for_label}}" class="col-sm-2 control-label">{{dentist_form.circle.label}}</label>
+  <div class="col-sm-10">
+    {{dentist_form.circle}}
+  </div>
+</div>
+<div class="form-group">
+  <label for="{{dentist_form.register_number.id_for_label}}" class="col-sm-2 control-label">{{dentist_form.register_number.label}}</label>
+  <div class="col-sm-10">
+    {{dentist_form.register_number}}
+  </div>
+</div>
+<div class="form-group">
+  <label for="{{dentist_form.carrying_home.id_for_label}}" class="col-sm-2 control-label">{{dentist_form.carrying_home.label}}</label>
+  <div class="col-sm-10">
+    {{dentist_form.carrying_home}}
+  </div>
+</div>
+<div id="alert-dentist-edit" class="alert alert-danger hide"></div>
