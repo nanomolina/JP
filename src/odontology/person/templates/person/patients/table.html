@@ -16,17 +16,15 @@
   </tbody>
 </table>
   <div class="pull-left" style="font-size: 16px; padding-left: 8px; margin-top: 22px;">
-    <select id="select_rows" class="selectpicker" data-width="fit" name="nro_row">
-      <option selected>10</option>
-      <option>20</option>
-      <option>30</option>
-      <option>50</option>
-      <option>100</option>
-      <option>Todas</option>
+    <select id="select_rows" class="selectpicker" data-width="auto" name="nro_row">
+      <option {% if nro_row == '5' %}selected{% endif %}>5</option>
+      <option {% if nro_row == '10' %}selected{% endif %}>10</option>
+      <option {% if nro_row == '20' %}selected{% endif %}>20</option>
+      <option {% if nro_row == '30' %}selected{% endif %}>30</option>
+      <option {% if nro_row == '50' %}selected{% endif %}>50</option>
+      <option {% if nro_row == '100' %}selected{% endif %}>100</option>
     </select>
-    <div style="display: inline; vertical-align: middle;">
-      Filas por pagina.
-    </div>
+    <div style="display: inline; vertical-align: middle;padding-left:10px;"> Filas por pagina.</div>
   </div>
   <div id="pagination" class="pull-right" style="font-size: 16px; padding-right: 8px;">
     {% bootstrap_paginate patients range=11 show_first_last="true" %}

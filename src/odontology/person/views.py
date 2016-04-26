@@ -32,7 +32,7 @@ def patients(request):
             patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
 
         page = request.GET.get('page', 1)
-        nro_row = request.GET.get('nro_row', 10)
+        nro_row = request.GET.get('nro_row', '10')
         paginator = Paginator(patients, nro_row)
         try:
             patients = paginator.page(page)
@@ -46,6 +46,7 @@ def patients(request):
                 request, 'person/patients/table.html',
                 {
                     'patients': patients,
+                    'nro_row': nro_row,
                 }
             )
         else:
@@ -59,6 +60,7 @@ def patients(request):
                     'patients': patients,
                     'rec_added': rec_added,
                     'text_search': text_search,
+                    'nro_row': nro_row,
                 },
                 RequestContext(request)
             )
