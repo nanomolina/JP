@@ -27,8 +27,8 @@
 {% block content %}
 {{ block.super }}
 
-{% include "register/_add_record.html" %}
-{% include "register/_edit_record.html" %}
+{% include "register/clinic_record/_add.html" %}
+{% include "register/clinic_record/_edit.html" %}
 {% include "register/_delete.html" with title="Borrar prestaci&oacute;n" %}
 
 <div class="row padding-top">
@@ -41,7 +41,7 @@
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="clinic-rec" aria-labelledby="clinic-rec-tab">
-              {% include "register/tab_record.html" %}
+              {% include "register/clinic_record/tab_record.html" %}
             </div>
             <!-- <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
             </div> -->

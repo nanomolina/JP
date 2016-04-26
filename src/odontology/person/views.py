@@ -143,7 +143,7 @@ def edit_patient(request, id):
             patient_form.save()
             patient_info = PatientForm(instance=patient)
             return TemplateResponse(
-                request, 'person/patient_info.html',
+                request, 'register/patient_data/_form.html',
                 {'patient_info_form': patient_info, 'patient': patient}
             )
         else:
@@ -246,7 +246,7 @@ def reset_password(request):
                         request.user.save()
                         password_form = PasswordForm()
                         return TemplateResponse(
-                            request, 'person/reset_password/form.html',
+                            request, 'person/reset_password/_form.html',
                             {'password_form': password_form},
                             RequestContext(request)
                         )

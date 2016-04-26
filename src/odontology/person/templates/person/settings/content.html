@@ -8,7 +8,7 @@
     <div class="row well well-md" style="margin-top: 100px;">
         <h4>Informaci&oacute;n Personal:</h4>
         <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
-            {% include "person/settings/form_personal.html" %}
+            {% include "person/settings/_form_personal.html" %}
         </form>
         <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
           <i class="fa fa-floppy-o"></i> Guardar cambios
@@ -18,7 +18,7 @@
     <div class="row well well-md">
         <h4>Informaci&oacute;n del odontologo:</h4>
         <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
-            {% include "person/settings/form_dentist.html" %}
+            {% include "person/settings/_form_dentist.html" %}
         </form>
         <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
           <i class="fa fa-floppy-o"></i> Guardar cambios

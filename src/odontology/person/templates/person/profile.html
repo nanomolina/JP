@@ -36,9 +36,9 @@
 {{ block.super }}
 
 {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-  {% include "register/_add_apross.html" %}
+  {% include "register/monthly_detail/apross/_add.html" %}
 {% else %}
-  {% include "register/_add_benefit.html" %}
+  {% include "register/monthly_detail/benefit/_add.html" %}
 {% endif %}
 <div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
     <div class="modal-dialog modal-md" role="document">
@@ -71,16 +71,16 @@
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
-              {% include "register/tab_detail.html" %}
+              {% include "register/monthly_detail/tab_detail.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
-              {% include "register/tab_total_details.html" with patient=patient %}
+              {% include "register/monthly_detail/tab_total_details.html" with patient=patient %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
-              {% include "register/tab_odontogram.html" %}
+              {% include "register/odontogram/tab_odontogram.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
-              {% include "register/tab_info.html" %}
+              {% include "register/patient_data/tab_data.html" %}
             </div>
           </div>
         </div>

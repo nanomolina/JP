@@ -65,11 +65,11 @@ def edit_benefit(request, patient_id):
             if patient.social_work and patient.social_work.initial == 'APROSS':
                 benefit = Apross.objects.get(id=bf_id)
                 bf_edit_form = AprossForm(instance=benefit)
-                template = 'register/_edit_apross.html'
+                template = 'register/monthly_detail/apross/_edit.html'
             else: #cambiar
                 benefit = Benefit.objects.get(id=bf_id)
                 bf_edit_form = BenefitForm(instance=benefit)
-                template = 'register/_edit_benefit.html'
+                template = 'register/monthly_detail/benefit/_edit.html'
             return render_to_response(
                 template,
                 {
@@ -130,11 +130,11 @@ def edit_benefit_detail(request, patient_id, detail_id):
         if patient.social_work and patient.social_work.initial == 'APROSS':
             detail = DetailApross.objects.get(id=detail_id)
             detail_form = detailAprossForm(request.POST, instance=detail)
-            template = 'register/detail_apross.html'
+            template = 'register/monthly_detail/apross/details.html'
         else:
             detail = DetailBenefit.objects.get(id=detail_id)
             detail_form = detailBenefitForm(request.POST, instance=detail)
-            template = 'register/detail_benefit.html'
+            template = 'register/monthly_detail/benefit/details.html'
 
         if detail_form.is_valid():
             detail = detail_form.save()
@@ -161,10 +161,10 @@ def benefit_to_pdf(request, patient_id, bf_id):
     patient = get_object_or_404(Patient, id=patient_id)
     if patient.social_work and patient.social_work.initial == 'APROSS':
         benefit = get_object_or_404(Apross, id=bf_id)
-        template = 'register/pdf_apross.html'
+        template = 'register/monthly_detail/apross/pdf.html'
     else:
         benefit = get_object_or_404(Benefit, id=bf_id)
-        template = 'register/pdf_benefit.html'
+        template = 'register/monthly_detail/benefit/pdf.html'
     return render_to_response(
         template,
         {
@@ -276,7 +276,7 @@ def acumulate_benefit(request, patient_id):
     if request.method == 'GET':
         patient = get_object_or_404(Patient, id=patient_id)
         return TemplateResponse(
-            request, 'register/tab_total_details.html',
+            request, 'register/monthly_detail/tab_total_details.html',
             {'patient': patient}
         )
 
@@ -314,7 +314,7 @@ def new_record(request, patient_id):
             record.save()
             form.save_m2m()
             return TemplateResponse(
-                request, 'register/record.html',
+                request, 'register/clinic_record/list.html',
                 {'patient': patient}
             )
         else:
@@ -328,7 +328,7 @@ def edit_record(request, record_id):
     if request.method == 'GET':
         form = RecordForm(instance=record)
         return TemplateResponse(
-            request, 'register/_form_edit_record.html',
+            request, 'register/clinic_record/_form_edit.html',
             {'r_edit_form': form}
         )
     else:
@@ -336,7 +336,7 @@ def edit_record(request, record_id):
         if form.is_valid():
             form.save()
             return TemplateResponse(
-                request, 'register/record.html',
+                request, 'register/clinic_record/list.html',
                 {'patient': record.patient}
             )
         else:
@@ -350,6 +350,6 @@ def remove_record(request, record_id):
         patient = Patient.objects.get(id=record.patient.id)
         record.delete()
         return TemplateResponse(
-            request, 'register/record.html',
+            request, 'register/clinic_record/list.html',
             {'patient': patient}
         )
