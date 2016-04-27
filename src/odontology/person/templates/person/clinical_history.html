@@ -12,16 +12,28 @@
 {% endblock %}
 
 {% block extra_left_navs %}
-  <li class="loader">
-    <a href="{% url 'person:patient_profile' id=patient.id %}">
-      <i class="fa fa-building" aria-hidden="true"></i> Obra social
-    </a>
-  </li>
-  <li class="loader active">
-    <a href="{% url 'person:clinical_history' id=patient.id %}">
-      <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
-    </a>
-  </li>
+<li class="dropdown active">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    {% if patient.gender == 2 %}
+      <i class="fa fa-female" aria-hidden="true"></i> {{patient.get_full_name}}
+    {% else %}
+      <i class="fa fa-male" aria-hidden="true"></i> {{patient.get_full_name}}
+    {% endif %}
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="loader">
+      <a href="{% url 'person:patient_profile' id=patient.id %}">
+        <i class="fa fa-building" aria-hidden="true"></i> Obra social
+      </a>
+    </li>
+    <li class="loader active">
+      <a href="{% url 'person:clinical_history' id=patient.id %}">
+        <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
+      </a>
+    </li>
+  </ul>
+</li>
 {% endblock %}
 
 {% block content %}
