@@ -1,0 +1,34 @@
+<div class="col-md-12 content" style="margin-top: 20px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Detalle de prestaciones
+      <div class="btn-plus pull-right" style="margin-top: -5px;">
+        <button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#modal-record" style="color: #2fa4e7;">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="panel-body no-padding">
+      <table class="table table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Dia</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Tratamiento</th>
+            <th>Caras</th>
+            <th>Diente</th>
+            <th>Periodo O.Soc.</th>
+            <th>Estado</th>
+            <th width="100"></th>
+          </tr>
+        </thead>
+        <tbody id="tbody-record">
+          {% include "register/clinic_record/list.html" %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+{% if patient.social_work and patient.social_work.initial == 'APROSS' %}
+  {% include "register/monthly_detail/apross/main.html" %}
+{% else %}
+  {% include "register/monthly_detail/benefit/main.html" %}
+{% endif %}

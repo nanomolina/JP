@@ -1,0 +1,28 @@
+<!-- Modal Delete-->
+<div class="modal fade" id="{{name|default:'modal-delete'}}" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-Label">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tbody>
+            <tr>
+              <td style="padding-right: 5px;"><i class="fa fa-trash-o fa-3x" aria-hidden="true"></i></td>
+              <td class="text-center" style="width: 200px;"><strong> Seguro de que desea borrar esto?</strong></td>
+              <input id="csrf_token" type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <a type="button" class="btn btn-danger" id="{{name|default:'btn-delete'}}" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Borrando">
+          Borrar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

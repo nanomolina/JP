@@ -1,0 +1,17 @@
+{% load staticfiles %}
+<div class="modal fade" id="modal-edit-record" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modal-Label">Editar Ficha Clinica</h4>
+        </div>
+        <div class="loading text-center">
+            <img src="{% static 'images/ring-alt.svg' %}" style="padding-top: 30px; padding-bottom: 30px;"></img>
+        </div>
+        <form id="form-edit-record" class="form-horizontal" role="form">
+          <!-- BODY DINAMIC -->
+        </form>
+      </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@ from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm
 from datetime import date as Date
 from django.contrib.auth.decorators import login_required
 
@@ -17,21 +17,53 @@ def patients(request):
     from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
-        rec_added = request.GET.get('add', None)
-        form = PatientForm()
-        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
-        paginator = Paginator(patients, 10)
-        patients = paginator.page(1)
-        return render_to_response(
-            'person/patients.html',
-            {
-                'template': 'patient',
-                'patient_form': form,
-                'patients': patients,
-                'rec_added': rec_added
-            },
-            RequestContext(request)
-        )
+        patients = Patient.objects.filter(dentist=dentist, active=True).order_by('-id')
+
+        import operator
+        from django.db.models import Q
+        text_search = request.GET.get('text_search', None)
+        if text_search is not None:
+            terms = text_search.split(' ')
+            qs1 = reduce(operator.or_, (Q(last_name__icontains=n) for n in terms))
+            qs2 = reduce(operator.or_, (Q(first_name__icontains=n) for n in terms))
+            qs3 = reduce(operator.or_, (Q(social_work__initial__icontains=n) for n in terms))
+            qs4 = reduce(operator.or_, (Q(social_work__name__icontains=n) for n in terms))
+            qs5 = reduce(operator.or_, (Q(subsidiary_number__icontains=n) for n in terms))
+            patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
+
+        page = request.GET.get('page', 1)
+        nro_row = request.GET.get('nro_row', '10')
+        paginator = Paginator(patients, nro_row)
+        try:
+            patients = paginator.page(page)
+        except PageNotAnInteger:
+            patients = paginator.page(1)
+        except EmptyPage:
+            patients = paginator.page(paginator.num_pages)
+
+        if request.is_ajax():
+            return TemplateResponse(
+                request, 'person/patients/table.html',
+                {
+                    'patients': patients,
+                    'nro_row': nro_row,
+                }
+            )
+        else:
+            form = PatientForm()
+            rec_added = request.GET.get('add', None)
+            return render_to_response(
+                'person/patients.html',
+                {
+                    'template': 'patient',
+                    'patient_form': form,
+                    'patients': patients,
+                    'rec_added': rec_added,
+                    'text_search': text_search,
+                    'nro_row': nro_row,
+                },
+                RequestContext(request)
+            )
     else:
         form = PatientForm(request.POST)
         sub_num = request.POST.get('subsidiary_number', None)
@@ -63,66 +95,6 @@ def patients(request):
 
 
 @login_required
-def search_patient(request):
-    import operator
-    from django.db.models import Q
-    dentist = Dentist.objects.get(user=request.user)
-    if request.method == 'GET':
-        form = PatientForm()
-        text_search = request.GET.get('text_search', None)
-
-        if text_search is not None:
-            terms = text_search.split(' ')
-            qs1 = reduce(operator.or_, (Q(last_name__icontains=n) for n in terms))
-            qs2 = reduce(operator.or_, (Q(first_name__icontains=n) for n in terms))
-            qs3 = reduce(operator.or_, (Q(social_work__initial__icontains=n) for n in terms))
-            qs4 = reduce(operator.or_, (Q(social_work__name__icontains=n) for n in terms))
-            qs5 = reduce(operator.or_, (Q(subsidiary_number__icontains=n) for n in terms))
-
-            patients = Patient.objects.filter(dentist=dentist)
-            patients = patients.filter(Q(qs1) | Q(qs2) | Q(qs3) | Q(qs4) | Q(qs5) )
-
-        return render_to_response(
-            'person/list_patients.html',
-            {
-                'patients': patients,
-                'text_search': text_search
-            },
-            RequestContext(request)
-        )
-
-
-@login_required
-def paginator_patient(request):
-    if request.method == 'POST':
-        dentist = Dentist.objects.get(user=request.user)
-        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
-
-        paginator = Paginator(patients, 10)
-        page = request.POST.get('page', 1)
-        try:
-            patients = paginator.page(page)
-        except PageNotAnInteger:
-            patients = paginator.page(1)
-        except EmptyPage:
-            patients = paginator.page(paginator.num_pages)
-        data = {'patients': patients}
-        pag_type = int(request.POST.get('type'))
-        if pag_type == 1:
-            return render_to_response(
-                'person/list_patients.html',
-                data,
-                RequestContext(request)
-            )
-        elif pag_type == 2:
-            return render_to_response(
-                'person/paginator.html',
-                data,
-                RequestContext(request)
-            )
-
-
-@login_required
 def patient_profile(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
@@ -149,7 +121,6 @@ def patient_profile(request, id):
         return render_to_response(
             'person/profile.html',
             {
-                'template': 'patient',
                 'dentist': dentist,
                 'patient': patient,
                 'benefits': benefits,
@@ -174,11 +145,37 @@ def edit_patient(request, id):
             patient_form.save()
             patient_info = PatientForm(instance=patient)
             return TemplateResponse(
-                request, 'person/patient_info.html',
+                request, 'register/patient_data/_form.html',
                 {'patient_info_form': patient_info, 'patient': patient}
             )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})
+
+
+@login_required
+def remove_patient(request, id):
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=id)
+        patient.active = False
+        patient.save()
+        return redirect('person:patient_list')
+
+
+@login_required
+def clinical_history(request, id):
+    dentist = Dentist.objects.get(user=request.user)
+    patient = get_object_or_404(Patient, id=id)
+    if request.method == 'GET':
+        rform = RecordForm()
+        return render_to_response(
+            'person/clinical_history.html',
+            {
+                'dentist': dentist,
+                'patient': patient,
+                'rform': rform,
+            },
+            RequestContext(request)
+        )
 
 
 @login_required
@@ -188,7 +185,7 @@ def settings(request):
         user_change_form = UserChangeForm(instance=request.user)
         dentist_form = DentistForm(instance=dentist)
         return render_to_response(
-            'person/settings.html',
+            'person/settings/content.html',
             {
                 'user_change_form': user_change_form,
                 'dentist_form': dentist_form,
@@ -204,7 +201,7 @@ def settings_personal(request):
         if user_change_form.is_valid():
             user_change_form.save()
             return TemplateResponse(
-                request, 'person/settings/personal.html',
+                request, 'person/settings/form_personal.html',
                 {'user_change_form': user_change_form},
                 RequestContext(request)
             )
@@ -220,7 +217,7 @@ def settings_dentist(request):
         if dentist_form.is_valid():
             dentist_form.save()
             return TemplateResponse(
-                request, 'person/settings/dentist.html',
+                request, 'person/settings/form_dentist.html',
                 {'dentist_form': dentist_form},
                 RequestContext(request)
             )
@@ -234,7 +231,7 @@ def reset_password(request):
     if request.method == 'GET':
         password_form = PasswordForm()
         return render_to_response(
-            'person/reset_password.html',
+            'person/reset_password/content.html',
             {
                 'password_form': password_form,
             },
@@ -255,7 +252,7 @@ def reset_password(request):
                         request.user.save()
                         password_form = PasswordForm()
                         return TemplateResponse(
-                            request, 'person/reset_password/password.html',
+                            request, 'person/reset_password/_form.html',
                             {'password_form': password_form},
                             RequestContext(request)
                         )

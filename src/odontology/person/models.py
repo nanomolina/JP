@@ -78,6 +78,7 @@ class Patient(models.Model):
     date_created = models.DateField(auto_now_add=True)
     social_work = models.ForeignKey(SocialWork, null=True, blank=True)
     odontogram = models.ForeignKey(Odontogram, null=True, blank=True)
+    active = models.BooleanField(default=True)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
@@ -146,6 +147,10 @@ class Patient(models.Model):
         else:
             benefit = Benefit.objects.filter(patient=self).order_by('-real_date')
         return benefit
+
+    def get_records(self):
+        from register.models import Record
+        return Record.objects.filter(patient=self).order_by('date')
 
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (

@@ -34,16 +34,15 @@
               <tr>
                 <th>#</th>
                 <th width="100px">Dia</th>
-                <th>Trabajo realizado</th>
-                <th>C&oacute;digo de practica</th>
-                <th>Elemento</th>
-                <th>Caras/Tratadas</th>
+                <th>Diente N&deg;</th>
+                <th>Cara</th>
+                <th>Codigo</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {% for detail in bf.get_details %}
-                  {% include "register/detail_apross.html" with counter=forloop.counter patient=bf.patient %}
+                  {% include "register/monthly_detail/benefit/details.html" with counter=forloop.counter %}
               {% endfor %}
             </tbody>
           </table>
@@ -57,21 +56,16 @@
         <div class="panel-heading">Detalles de Ficha</div>
         <div class="panel-body no-padding">
           <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="150" class="text-center">C&oacute;digos de gest&iacute;on</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <th width="250">C&oacute;digos de gest&iacute;on</th>
-                <th style="width: 2%">1</th>
-                <td width="250">{{bf.managment_code1|default_if_none:"-"}}</td>
-                <th style="width: 2%">2</th>
-                <td width="250">{{bf.managment_code2|default_if_none:"-"}}</td>
-                <th style="width: 2%">3</th>
-                <td width="250">{{bf.managment_code3|default_if_none:"-"}}</td>
-                <th style="width: 2%">4</th>
-                <td width="250">{{bf.managment_code4|default_if_none:"-"}}</td>
-              </tr>
-              <tr>
-                <th width="250">Observaciones</th>
-                <td colspan="8">{{bf.observations|default_if_none:'-'}}</td>
+                <td class="text-center" style="font-size: 15px;">{{bf.managment_code|default_if_none:"-"}}</td>
+                <td>{{bf.observations|default_if_none:'-'}}</td>
               </tr>
             </tbody>
           </table>
@@ -80,8 +74,7 @@
       <hr>
     </div>
 
-
-    {% include "register/_form_radiography.html" %}
+    {% include "register/monthly_detail/_form_radiography.html" %}
 
   </div>
   <script type="text/javascript">

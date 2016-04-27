@@ -1,0 +1,47 @@
+{% for record in patient.get_records %}
+            <tr>
+              <td><span class="label label-primary">{{forloop.counter}}</span></td>
+              <td>{{record.date|date:'l'}}</td>
+              <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
+              <td>{{record.date.time}}</td>
+              <td>{{record.treatment|default:''}}</td>
+              <td>
+                {% for face in record.faces.all %}
+                  {{face.initial}}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
+              <td>{{record.tooth|default:''}}</td>
+              <td>{{record.period_so|default:''}}</td>
+              <td>{{record.state|default:''}}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button tabindex="0" class="btn btn-sm btn-default rec-popover" role="button" data-toggle="popover"
+                      data-trigger="focus" data-placement="left" data-content="{{record.observations}}" data-container="body">
+                      <i class="fa fa-caret-square-o-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenuR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuR">
+                        <li>
+                          <a onclick="load_record_modal('{% url "register:edit_record" record_id=record.id %}')">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                          </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                          <a onclick="load_delete_modal('{% url "register:remove_record" record_id=record.id %}')">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> Borrar
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+              </td>
+            </tr>
+{% empty %}
+            <tr>
+              <td colspan="9" class="text-center">Sin detalles</td>
+            </tr>
+{% endfor %}

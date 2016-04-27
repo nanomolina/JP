@@ -11,7 +11,20 @@
   </style>
 {% endblock %}
 
-{% block extra_navs %}
+{% block extra_left_navs %}
+  <li class="loader active">
+    <a href="{% url 'person:patient_profile' id=patient.id %}">
+      <i class="fa fa-building" aria-hidden="true"></i> Obra social
+    </a>
+  </li>
+  <li class="loader">
+    <a href="{% url 'person:clinical_history' id=patient.id %}">
+      <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
+    </a>
+  </li>
+{% endblock %}
+
+{% block extra_right_navs %}
   <li id="to_pdf" class="{% if last_benefit %}loader{% else %}disabled{% endif %}">
     <a  href="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
       <i class="fa fa-print"></i></i> Imprimir Ficha
@@ -23,9 +36,9 @@
 {{ block.super }}
 
 {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-  {% include "register/_add_apross.html" %}
+  {% include "register/monthly_detail/apross/_add.html" %}
 {% else %}
-  {% include "register/_add_benefit.html" %}
+  {% include "register/monthly_detail/benefit/_add.html" %}
 {% endif %}
 <div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
     <div class="modal-dialog modal-md" role="document">
@@ -46,61 +59,9 @@
 </div>
 
 <div class="row padding-top">
-  <div class="col-md-6">
-    <div class="panel panel-info" id="basic-info">
-      <div class="panel-heading"><strong>Paciente</strong> - Informaci&oacute;n b&aacute;sica</div>
-      <div class="panel-body no-padding">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Nombre</th>
-              <td>{{ patient.get_full_name }}</td>
-            </tr>
-            <tr>
-              <th>Obra social</th>
-              <td>{{ patient.social_work|default_if_none:'Ninguna' }}</td>
-            </tr>
-            <tr>
-              {% if patient.subsidiary_number %}
-              <th>Nro de afiliado</th>
-              <td><span class="label label-info" style="font-size: 14px">{{ patient.subsidiary_number }}</span></td>
-              {% else %}
-              <th>&nbsp;</th>
-              <td>&nbsp;</td>
-              {% endif %}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-info">
-      <div class="panel-heading"><strong>Odont&oacute;logo</strong> - Informaci&oacute;n b&aacute;sica</div>
-      <div class="panel-body no-padding">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Nombre</th>
-              <td>{{ dentist.user.last_name }} {{ dentist.user.first_name }}</td>
-            </tr>
-            <tr>
-              <th>C&iacute;rculo</th>
-              <td>{{ dentist.circle }}</td>
-            </tr>
-            <tr>
-              <th>N&deg; de Matr&iacute;cula</th>
-              <td><span class="label label-info" style="font-size: 14px">{{ dentist.register_number }}</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
 
   <div class="col-md-12" style="margin-bottom: 20px;">
-      <div class="panel panel-primary">
+      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
             <li role="presentation" id="tab-detail" class="active"><a href="#detail">Ficha Mensual</a></li>
@@ -110,16 +71,16 @@
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
-              {% include "register/tab_detail.html" %}
+              {% include "register/monthly_detail/tab_detail.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
-              {% include "register/tab_total_details.html" with patient=patient %}
+              {% include "register/monthly_detail/tab_total_details.html" with patient=patient %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
-              {% include "register/tab_odontogram.html" %}
+              {% include "register/odontogram/tab_odontogram.html" %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
-              {% include "register/tab_info.html" %}
+              {% include "register/patient_data/tab_data.html" %}
             </div>
           </div>
         </div>

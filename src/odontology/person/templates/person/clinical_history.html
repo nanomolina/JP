@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Ficha clinica - {{ patient.get_full_name }}{% endblock %}
+
+
+{% block links %}
+  <style media="screen">
+    .table {
+      margin-bottom: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block extra_left_navs %}
+  <li class="loader">
+    <a href="{% url 'person:patient_profile' id=patient.id %}">
+      <i class="fa fa-building" aria-hidden="true"></i> Obra social
+    </a>
+  </li>
+  <li class="loader active">
+    <a href="{% url 'person:clinical_history' id=patient.id %}">
+      <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
+    </a>
+  </li>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% include "register/clinic_record/_add.html" %}
+{% include "register/clinic_record/_edit.html" %}
+{% include "register/_delete.html" with title="Borrar prestaci&oacute;n" %}
+
+<div class="row padding-top">
+  <div class="col-md-12">
+      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+        <div class="panel-body no-padding">
+          <ul class="nav nav-tabs">
+            <li role="presentation" id="tab-clinic-rec" class="active"><a href="#clinic-rec">Ficha clinica</a></li>
+            <!--<li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>-->
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="clinic-rec" aria-labelledby="clinic-rec-tab">
+              {% include "register/clinic_record/tab_record.html" %}
+            </div>
+            <!-- <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
+            </div> -->
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/record.js' %}"></script>
+{% endblock %}

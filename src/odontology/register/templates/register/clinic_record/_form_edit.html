@@ -1,0 +1,74 @@
+            {% csrf_token %}
+            <div class="modal-body">
+
+                <div class="row">
+                  <div class="col-xs-4 date-group input-fields">
+                      <label class="control-label" for="id_date">Fecha y Hora:</label>
+                      <div class='input-group date' id='date_gral'>
+                          {{r_edit_form.date}}
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+                  <div class="col-xs-4 treatment-group input-fields">
+                      <label class="control-label" for="{{r_edit_form.treatment.id_for_label}}">Tratamiento:</label>
+                      {{r_edit_form.treatment}}
+                  </div>
+                  <div class="col-xs-4 state-group input-fields">
+                      <label class="control-label" for="{{r_edit_form.state.id_for_label}}">Estado:</label>
+                      {{r_edit_form.state}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-4 faces-group input-fields">
+                      <label class="control-label" for="{{r_edit_form.faces.id_for_label}}">Caras:</label>
+                      {{r_edit_form.faces}}
+                  </div>
+                  <div class="col-xs-4 tooth-group input-fields">
+                      <label class="control-label" for="{{r_edit_form.tooth.id_for_label}}">Dientes:</label>
+                      {{r_edit_form.tooth}}
+                  </div>
+                  <div class="col-xs-4 period_so-group input-fields">
+                      <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                      <div class='input-group date' id='date_period_so'>
+                          {{r_edit_form.period_so}}
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 observations-group input-fields">
+                      <label class="control-label" for="{{r_edit_form.observations.id_for_label}}">Observaciones:</label>
+                      {{r_edit_form.observations}}
+                  </div>
+                </div>
+
+                <div id="alert-edit-record" class="alert alert-danger hide" style="margin-top: 20px;"></div>
+
+            </div>
+            <div class="modal-footer">
+              <!-- <input type="reset" class="btn btn-default pull-left" id="form-record-reset" onclick=""> -->
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success" id="btn-edit-record" onclick="edit_record('{% url "register:edit_record" record_id=r_edit_form.instance.id %}')"
+                data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+                <i class="fa fa-floppy-o"></i> Guardar cambios
+              </button>
+            </div>
+            <script type="text/javascript">
+            var $modal = $('#modal-edit-record');
+                $modal.find('#date_gral').datetimepicker({
+                    locale: 'es',
+                });
+                $modal.find('#date_period_so').datetimepicker({
+                    viewMode: 'months',
+                    format: 'MMMM - YYYY',
+                    locale: 'es',
+                });
+                $modal.find('#id_faces').selectpicker('show');
+                $modal.find('#id_tooth').selectpicker('show');
+            </script>
