@@ -12,7 +12,7 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = (
-            'first_name', 'last_name', 'subsidiary_number', 'social_work',
+            'first_name', 'last_name', 'subsidiary_number', 'social_work', 'plan',
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
             'number', 'floor', 'apartment', 'suburb', 'locality', 'tel', 'cel_phone',
             'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
@@ -39,6 +39,11 @@ class PatientForm(forms.ModelForm):
                     'class': 'selectpicker form-control',
                     'data-live-search': 'true',
                     'data-size': '8',
+                }
+            ),
+            'plan': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
                 }
             ),
             'incumbent': forms.TextInput(
