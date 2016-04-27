@@ -18,7 +18,7 @@ function filter() {
     var data = $('#filter').serialize();
     $('#list-patients').find('.panel-body').load(url, data, function(){
       init_paginator();
-      init_selector();      
+      init_selector();
     });
 }
 
@@ -66,10 +66,10 @@ function delete_patient(url) {
     data: $('#csrf_token').serialize(),
     success: function(data) {
         if (data.status !== 'ERROR') {
-          $('#tbody-record').html(data);
+          $('#list-patients').find('.panel-body').html(data);
           $('#modal-delete').modal('hide');
           $('.rec-popover').popover();
-          toastr.success('Se ah borrado exitosamente.', 'REGISTRO BORRADO');
+          toastr.success('Se ah borrado exitosamente.', 'PACIENTE BORRADO');
         } else {
           toastr.error('', 'ERROR AL BORRAR');
         }

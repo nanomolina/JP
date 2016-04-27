@@ -17,7 +17,7 @@ def patients(request):
     from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
-        patients = Patient.objects.filter(dentist=dentist).order_by('-id')
+        patients = Patient.objects.filter(dentist=dentist, active=True).order_by('-id')
 
         import operator
         from django.db.models import Q
@@ -154,7 +154,11 @@ def edit_patient(request, id):
 
 @login_required
 def remove_patient(request, id):
-    pass
+    if request.method == 'POST':
+        patient = get_object_or_404(Patient, id=id)
+        patient.active = False
+        patient.save()
+        return redirect('person:patient_list')
 
 
 @login_required

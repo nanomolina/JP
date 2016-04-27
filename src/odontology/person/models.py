@@ -78,6 +78,7 @@ class Patient(models.Model):
     date_created = models.DateField(auto_now_add=True)
     social_work = models.ForeignKey(SocialWork, null=True, blank=True)
     odontogram = models.ForeignKey(Odontogram, null=True, blank=True)
+    active = models.BooleanField(default=True)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
