@@ -65,6 +65,6 @@ admin.site.register(Radiography, RadiographyAdmin)
 class RecordAdmin(admin.ModelAdmin):
     fields = (
         'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
-        'state', 'observations', 
+        'state', 'assistance', 'observations',
     )
 admin.site.register(Record, RecordAdmin)
