@@ -13,7 +13,11 @@
               <td>{{record.tooth|default:''}}</td>
               <td>{{record.period_so|default:''}}</td>
               <td>{{record.get_state_display|default:''}}</td>
-              <td>{{record.get_assistance_display|default:''}}</td>
+              <td>
+                <span class="label label-{% if record.assistance == 1 %}success{% elif record.assistance == 2 %}warning{% else %}danger{% endif %}">
+                  {{record.get_assistance_display|default:''}}
+                </span>
+              </td>
               <td>
                 <div class="btn-group" role="group" aria-label="...">
                     <button tabindex="0" class="btn btn-sm btn-default rec-popover" role="button" data-toggle="popover"
