@@ -24,9 +24,14 @@
                   <label class="control-label" for="{{rform.treatment.id_for_label}}">Tratamiento:</label>
                   {{rform.treatment}}
               </div>
-              <div class="col-xs-4 state-group input-fields">
-                  <label class="control-label" for="{{rform.state.id_for_label}}">Estado:</label>
-                  {{rform.state}}
+              <div class="col-xs-4 period_so-group input-fields">
+                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                  <div class='input-group date' id='date_period_so'>
+                      <input class="form-control" id="id_period_so" name="period_so" type="text">
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
               </div>
             </div>
 
@@ -39,14 +44,16 @@
                   <label class="control-label" for="{{rform.tooth.id_for_label}}">Dientes:</label>
                   {{rform.tooth}}
               </div>
-              <div class="col-xs-4 period_so-group input-fields">
-                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
-                  <div class='input-group date' id='date_period_so'>
-                      <input class="form-control" id="id_period_so" name="period_so" type="text">
-                      <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-4 state-group input-fields">
+                  <label class="control-label" for="{{rform.state.id_for_label}}">Estado:</label>
+                  {{rform.state}}
+              </div>
+              <div class="col-xs-4 assistance-group input-fields">
+                  <label class="control-label" for="{{rform.assistance.id_for_label}}">Asistencia:</label>
+                  {{rform.assistance}}
               </div>
             </div>
 

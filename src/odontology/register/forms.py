@@ -211,7 +211,7 @@ class RecordForm(forms.ModelForm):
         model = Record
         fields = (
             'date', 'treatment', 'faces', 'tooth', 'period_so',
-            'state', 'observations',
+            'state', 'assistance', 'observations',
         )
         widgets = {
             'date': forms.DateTimeInput(
@@ -242,9 +242,14 @@ class RecordForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'state': forms.TextInput(
+            'state': forms.Select(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'assistance': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
                 }
             ),
             'observations': forms.Textarea(

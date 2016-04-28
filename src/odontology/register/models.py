@@ -132,6 +132,12 @@ class Radiography(models.Model):
 
 
 class Record(models.Model):
+    STATES = (
+        (1, 'Realizado'), (2, 'Por Terminar'), (3, 'A realizar')
+    )
+    ASSISTANCE = (
+        (1, 'Presente'), (2, 'Ausente con aviso'), (3, 'Ausente sin aviso')
+    )
     patient = models.ForeignKey(Patient)
     date = models.DateTimeField(null=True, blank=True)
     treatment = models.CharField(max_length=25 ,null=True, blank=True)
@@ -139,6 +145,9 @@ class Record(models.Model):
     tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     period_so = models.CharField(max_length=30, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
+    state2 = models.SmallIntegerField(choices=STATES, default=3)
+    assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
+
     observations = models.TextField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
