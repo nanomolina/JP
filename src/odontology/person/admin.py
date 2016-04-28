@@ -7,7 +7,7 @@ admin.site.register(Dentist, DentistAdmin)
 
 
 class PatientAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('dentist', )
 admin.site.register(Patient, PatientAdmin)
 
 
@@ -19,6 +19,7 @@ admin.site.register(SocialWork, SocialWorkAdmin)
 class ToothInline(admin.TabularInline):
     model = Tooth
     raw_id_fields = ('odontogram', )
+    extra = 0
 
 
 class OdontogramAdmin(admin.ModelAdmin):

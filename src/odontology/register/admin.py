@@ -13,21 +13,25 @@ def benefit_create_radiography(modeladmin, request, queryset):
 benefit_create_radiography.short_description = "Crear radiografia"
 
 
+class DetailAprossInline(admin.TabularInline):
+    model = DetailApross
+    extra = 0
+
 class AprossAdmin(admin.ModelAdmin):
     fields = (
         'patient', 'month', 'year', 'managment_code1',
         'managment_code2', 'managment_code3', 'rx_amount',
     )
+    inlines = [
+        DetailAprossInline,
+    ]
     actions = [apross_create_radiography]
 admin.site.register(Apross, AprossAdmin)
 
 
-class DetailAprossAdmin(admin.ModelAdmin):
-    fields = (
-        'day', 'benefit', 'work_done', 'practic_code',
-        'element', 'faces'
-    )
-admin.site.register(DetailApross, DetailAprossAdmin)
+class DetailBenefitInline(admin.TabularInline):
+    model = DetailBenefit
+    extra = 0
 
 
 class BenefitAdmin(admin.ModelAdmin):
@@ -35,15 +39,11 @@ class BenefitAdmin(admin.ModelAdmin):
         'patient', 'month', 'year', 'primary_entity',
         'principal_code', 'managment_code', 'rx_amount',
     )
+    inlines = [
+        DetailBenefitInline,
+    ]
     actions = [benefit_create_radiography]
 admin.site.register(Benefit, BenefitAdmin)
-
-
-class DetailBenefitAdmin(admin.ModelAdmin):
-    fields = (
-        'day', 'benefit', 'tooth', 'code', 'faces'
-    )
-admin.site.register(DetailBenefit, DetailBenefitAdmin)
 
 
 class FacesAdmin(admin.ModelAdmin):
@@ -67,4 +67,5 @@ class RecordAdmin(admin.ModelAdmin):
         'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
         'state', 'assistance', 'observations',
     )
+    list_filter = ('patient', 'date', 'state', 'assistance')
 admin.site.register(Record, RecordAdmin)
