@@ -25,6 +25,7 @@ class AprossAdmin(admin.ModelAdmin):
     inlines = [
         DetailAprossInline,
     ]
+    list_filter = ('patient__dentist', )
     actions = [apross_create_radiography]
 admin.site.register(Apross, AprossAdmin)
 
@@ -42,6 +43,7 @@ class BenefitAdmin(admin.ModelAdmin):
     inlines = [
         DetailBenefitInline,
     ]
+    list_filter = ('patient__dentist', )
     actions = [benefit_create_radiography]
 admin.site.register(Benefit, BenefitAdmin)
 
@@ -67,5 +69,5 @@ class RecordAdmin(admin.ModelAdmin):
         'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
         'state', 'assistance', 'observations',
     )
-    list_filter = ('patient', 'date', 'state', 'assistance')
+    list_filter = ('patient__dentist', 'date', 'state', 'assistance')
 admin.site.register(Record, RecordAdmin)
