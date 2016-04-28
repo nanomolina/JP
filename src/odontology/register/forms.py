@@ -211,7 +211,7 @@ class RecordForm(forms.ModelForm):
         model = Record
         fields = (
             'date', 'treatment', 'faces', 'tooth', 'period_so',
-            'state', 'assistance', 'observations',
+             'assistance', 'observations',
         )
         widgets = {
             'date': forms.DateTimeInput(

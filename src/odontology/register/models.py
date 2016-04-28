@@ -144,7 +144,6 @@ class Record(models.Model):
     faces = models.ManyToManyField(Faces, blank=True)
     tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     period_so = models.CharField(max_length=30, null=True, blank=True)
-    state = models.CharField(max_length=50, null=True, blank=True)
     state2 = models.SmallIntegerField(choices=STATES, default=3)
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
 
