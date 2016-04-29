@@ -3,7 +3,7 @@
               <td><span class="label label-primary">{{forloop.counter}}</span></td>
               <td>{{record.date|date:'l'}}</td>
               <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
-              <td>{{record.date.time}}</td>
+              <td>{{record.date|date:'H:i'}}</td>
               <td>{{record.treatment|default:''}}</td>
               <td>
                 {% for face in record.faces.all %}
