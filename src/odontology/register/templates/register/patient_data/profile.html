@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block links %}
+{% endblock %}
+
+{% block extra_left_navs %}
+  <li class="dropdown active">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      {% if patient.gender == 2 %}
+        <i class="fa fa-female" aria-hidden="true"></i> {{patient.last_name|title}}
+      {% else %}
+        <i class="fa fa-male" aria-hidden="true"></i> {{patient.last_name|title}}
+      {% endif %}
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="loader active">
+        <a href="{% url 'person:profile_patient' id=patient.id %}">
+          <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
+        </a>
+      </li>
+      <li class="loader">
+        <a href="{% url 'person:clinical_history' id=patient.id %}">
+          <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
+        </a>
+      </li>
+      <li class="loader">
+        <a href="{% url 'person:social_work' id=patient.id %}">
+          <i class="fa fa-building" aria-hidden="true"></i> Obra social
+        </a>
+      </li>
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+  <div class="row padding-top">
+    <div class="col-md-12 toppad pull-right">
+     <div class="text-right"><em>May 05,2014,03:00 pm</em></div>
+    </div>
+    <div class="col-md-12" >
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{patient.get_full_name}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3" align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+            <div class="col-md-9 col-lg-9">
+              <form id="patient-info-form" method="POST" action="{% url 'person:edit_patient' id=patient.id %}" class="form-horizontal">
+              {% include "register/patient_data/_form.html" %}
+              </form>
+              <a href="#" class="btn btn-primary">My Sales Performance</a>
+              <a href="#" class="btn btn-primary">Team Sales Performance</a>
+            </div>
+          </div>
+        </div>
+       <div class="panel-footer">
+         <div class="row">
+           <div class="col-md-12 col-lg-12">
+                <a type="button" class="btn btn-default pull-right" id="edit-patient-info">
+                  <i class="fa fa-pencil-square-o"></i> Editar Datos
+                </a>
+                <a type="button" class="btn btn-success pull-right hide" id="save-patient-info" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+                  <i class="fa fa-floppy-o"></i> Guardar cambios
+                </a>
+                <a type="button" class="btn btn-default pull-right hide" id="cancel-patient-info">Cancelar</a>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+{{block.super}}
+<script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
+{% endblock %}

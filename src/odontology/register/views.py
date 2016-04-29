@@ -103,7 +103,6 @@ def edit_benefit(request, patient_id):
                         benefit.year = int(year)
                         benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
                         benefit.save()
-                        #return HttpResponseRedirect(reverse('person:patient_profile', kwargs={'id': patient_id}))
                         return JsonResponse({'status': 'OK'})
                     else:
                         return JsonResponse({'status': 'ERROR', 'errors': benefit_form.errors})
