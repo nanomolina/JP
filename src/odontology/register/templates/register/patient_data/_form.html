@@ -112,7 +112,7 @@
                   </td>
                   <th style="border-top: 0;">Sexo:</th>
                   <td style="border-top: 0;">
-                    <span class="field-info">{{patient.get_gender_display|default:'---'}}</span>
+                    <span class="field-info">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span>
                     <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
