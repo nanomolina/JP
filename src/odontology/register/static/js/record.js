@@ -1,14 +1,32 @@
 $(function () {
-    $('#date_gral').datetimepicker({
+    var dateNow = new Date();
+    $('#modal-record #date_gral').datetimepicker({
         locale: 'es',
+        defaultDate: dateNow,
     });
-    $('#date_period_so').datetimepicker({
+    $('#modal-record #date_period_so').datetimepicker({
         viewMode: 'months',
         format: 'MMMM - YYYY',
         locale: 'es',
     });
     $('.rec-popover').popover();
 });
+
+function init_form_edit(){
+  var $modal = $('#modal-edit-record');
+  $modal.find('#date_gral').datetimepicker({
+      locale: 'es',
+  });
+  $modal.find('#date_period_so').datetimepicker({
+      viewMode: 'months',
+      format: 'MMMM - YYYY',
+      locale: 'es',
+  });
+  $modal.find('#id_faces').selectpicker('show');
+  $modal.find('#id_tooth').selectpicker('show');
+  $modal.find('#id_state').selectpicker('show');
+  $modal.find('#id_assistance').selectpicker('show');
+}
 
 function save_record() {
   $('#btn-save-record').button('loading');
@@ -49,6 +67,7 @@ function load_record_modal(url) {
   $modal.find('#form-edit-record').hide();
   $modal.modal('show');
   $modal.find('#form-edit-record').load(url, function(){
+    init_form_edit();
     $modal.find('#form-edit-record').show();
     $('#modal-edit-record').find('.loading').hide();
   });
