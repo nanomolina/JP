@@ -151,7 +151,7 @@ class Patient(models.Model):
 
     def get_records(self):
         from register.models import Record
-        return Record.objects.filter(patient=self).order_by('date')
+        return Record.objects.filter(patient=self).order_by('-date')
 
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (
