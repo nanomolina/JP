@@ -52,17 +52,20 @@
                     <span class="field-info">{{patient.relationship|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
+
+                </tr>
+                <tr>
                   <th>Fecha de nacimiento:</th>
-                  <td>
+                  <td colspan="3">
                     <span class="field-info">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span>
-                    <!-- <span class="edit-info hide">
-                      <div class='input-group date' id='birth_date_picker'>
+                    <span class="edit-info hide">
+                      <div class='input-group date' id='birth_date_picker' style="width: 100%;">
                           {{patient_info_form.birth_date}}
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
                       </div>
-                    </span> -->
+                    </span>
                   </td>
                 </tr>
                 <tr class="field-info">
