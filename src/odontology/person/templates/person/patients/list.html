@@ -13,13 +13,13 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
         <li class="loader">
-          <a href="{% url 'person:patient_profile' id=patient.id %}">
-            <i class="fa fa-building" aria-hidden="true"></i> Obra social
+          <a href="{% url 'person:clinical_history' id=patient.id %}">
+            <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
           </a>
         </li>
         <li class="loader">
-          <a href="{% url 'person:clinical_history' id=patient.id %}">
-            <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
+          <a href="{% url 'person:patient_profile' id=patient.id %}">
+            <i class="fa fa-building" aria-hidden="true"></i> Obra social
           </a>
         </li>
         <li role="separator" class="divider"></li>
