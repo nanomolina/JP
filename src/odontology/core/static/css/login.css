@@ -7,7 +7,16 @@
 body, html {
     height: 100%;
     background-repeat: no-repeat;
-    background-color: #3498DB;
+}
+
+#principal-title {
+    color: #3498DB;
+    font-family: 'Lobster';
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 40px;
+    padding-top: 15px;
 }
 
 .card-container.card {
