@@ -1,53 +1,164 @@
-    <div class="panel panel-primary">
-      <div class="panel-heading">Informacion del paciente</div>
-      <div class="panel-body no-padding">
-        <form id="patient-info-form" method="POST" action="{% url 'person:edit_patient' id=patient.id %}" class="form-inline">
             {% csrf_token %}
-            <table class="table">
+            <table class="table table-condensed">
               <tbody>
-                <tr class="basic-info hide">
-                  <th>Apellido y Nombre:</th>
+                <tr>
+                  <th>Apellido:</th>
                   <td>
-                    <span class="edit-info hide no-padding">{{patient_info_form.last_name}}</span>
-                    <span class="edit-info hide no-padding">{{patient_info_form.first_name}}</span>
+                    <span class="field-info">{{patient.last_name}}</span>
+                    <span class="edit-info hide">{{patient_info_form.last_name}}</span>
                   </td>
-                  <th>Obra social:</th>
-                  <td style="border-right: 1px solid #ddd;">{{patient_info_form.social_work}}</td>
+                  <th>Nombre:</th>
+                  <td>
+                    <span class="field-info">{{patient.first_name}}</span>
+                    <span class="edit-info hide">{{patient_info_form.first_name}}</span>
+                  </td>
                 </tr>
-                <tr class="basic-info hide">
-                  <th style="border-top: 0;">Nro de afiliado:</th>
-                  <td style="border-top: 0;">
-                    <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
+                <tr>
+                  <th>DNI:</th>
+                  <td>
+                    <span class="field-info">{{patient.dni|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.dni}}</span>
                   </td>
-                  <th style="border-top: 0;">Plan</th>
-                  <td style="border-top: 0;">
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <th>Obra social:</th>
+                  <td>
+                    <span class="field-info">{{patient.social_work|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.social_work}}</span>
+                  </td>
+                  <th>Plan</th>
+                  <td>
+                    <span class="field-info">{{patient.plan|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.plan}}</span>
                   </td>
                 </tr>
                 <tr>
+                  <th>Nro de afiliado:</th>
+                  <td>
+                    <span class="field-info">{{patient.subsidiary_number|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
+                  </td>
                   <th>Titular:</th>
                   <td>
                     <span class="field-info">{{patient.incumbent|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
+                </tr>
+                <tr>
                   <th>Grupo familiar:</th>
                   <td>
                     <span class="field-info">{{patient.family_group|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.family_group}}</span>
                   </td>
-                </tr>
-                <tr>
-                  <th style="border-top: 0;">Parentesco:</th>
-                  <td style="border-top: 0;">
+                  <th>Parentesco:</th>
+                  <td>
                     <span class="field-info">{{patient.relationship|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
-                  <th style="border-top: 0;">Fecha de nacimiento:</th>
-                  <td style="border-top: 0;">
+                </tr>
+                <tr class="field-info">
+                  <th>Localidad:</th>
+                  <td>
+                    <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
+                  </td>
+                  <th>Domicilio:</th>
+                  <td>
+                    <span>{{patient.domicile|default:'---'}}</span>
+                  </td>
+                </tr>
+                <tr class="field-info">
+                  <th>Email:</th>
+                  <td>
+                    <span class="field-info">{{patient.email|default:'---'}}</span>
+                  </td>
+                  <th></th>
+                  <td></td>
+                </tr>
+                <tr class="edit-info hide">
+                  <th>Provincia:</th>
+                  <td>
+                    <span>{{patient_info_form.suburb}}</span>
+                  </td>
+                  <th>Localidad</th>
+                  <td>
+                    <span>{{patient_info_form.locality}}</span>
+                  </td>
+                </tr>
+                <tr class="edit-info hide">
+                  <th>Calle:</th>
+                  <td>
+                    <span >{{patient_info_form.street}}</span>
+                  </td>
+                  <th>Numero:</th>
+                  <td>
+                    <span>{{patient_info_form.number}}</span>
+                  </td>
+                </tr>
+                <tr class="edit-info hide">
+                  <th>Piso:</th>
+                  <td>
+                    <span>{{patient_info_form.floor}}</span>
+                  </td>
+                  <th>Departamento:</th>
+                  <td>
+                    <span>{{patient_info_form.apartment}}</span>
+                  </td>
+                </tr>
+                <tr class="edit-info hide">
+                  <th>Barrio:</th>
+                  <td>
+                    <span>{{patient_info_form.neighborhood}}</span>
+                  </td>
+                  <th>Email:</th>
+                  <td>
+                    <span>{{patient_info_form.email}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Tel&eacute;fono fijo:</th>
+                  <td>
+                    <span class="field-info">{{patient.tel|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
+                  </td>
+                  <th>Celular:</th>
+                  <td>
+                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th><strong data-toggle="tooltip" data-placement="top" title="Lugar de trabajo del Titular">Lug.Trab.Tit.:</strong></th>
+                  <td>
+                    <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
+                  </td>
+                  <th>Jerarquia:</th>
+                  <td>
+                    <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Derivacion:</th>
+                  <td>
+                    <span class="field-info">{{patient.derivation|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.derivation}}</span>
+                  </td>
+                  <th>Sexo:</th>
+                  <td>
+                    <span class="field-info">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span>
+                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Fecha de Nacimiento:</th>
+                  <td colspan="3">
                     <span class="field-info">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span>
                     <span class="edit-info hide">
-                      <div class='input-group date' id='birth_date_picker'>
-                          <input class="form-control" id="id_birth_date" name="birth_date" type="text" value="{{patient.birth_date|date:'d/m/Y'}}">
+                      <div class='input-group date' id='birth_date_picker' style="width: 100%;">
+                          {{patient_info_form.birth_date}}
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -55,78 +166,18 @@
                     </span>
                   </td>
                 </tr>
-                <tr>
-                  <th style="border-top: 0;">Domicilio:</th>
-                  <td style="border-top: 0;" colspan="3">
-                    <span class="field-info">{{patient.domicile|default:'---'}}</span>
-                    <span class="edit-info hide">
-                      {{patient_info_form.street}}{{patient_info_form.number}}
-                      {{patient_info_form.floor}}{{patient_info_form.apartment}}
-                      {{patient_info_form.neighborhood}}
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <th style="border-top: 0;">Localidad:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.suburb}}{{patient_info_form.locality}}</span>
-                  </td>
-                  <th style="border-top: 0;" class="email-group">
-                    <label class="control-label" for="id_email" style="vertical-align: top;">email:</label>
-                  </th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.email|default:'---'}}</span>
-                    <span class="edit-info hide email-group">{{patient_info_form.email}}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th style="border-top: 0;">Tel&eacute;fono fijo:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.tel|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.tel}}</span>
-                  </td>
-                  <th style="border-top: 0;">Celular:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th style="border-top: 0;">Lugar de trabajo del Titular:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
-                  </td>
-                  <th style="border-top: 0;">Jerarquia:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th style="border-top: 0;">Derivacion:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{{patient.derivation|default:'---'}}</span>
-                    <span class="edit-info hide">{{patient_info_form.derivation}}</span>
-                  </td>
-                  <th style="border-top: 0;">Sexo:</th>
-                  <td style="border-top: 0;">
-                    <span class="field-info">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span>
-                    <span class="edit-info hide">{{patient_info_form.gender}}</span>
-                  </td>
-                </tr>
+
               </tbody>
             </table>
-        </form>
-      </div>
-    </div>
-    <script type="text/javascript">
-        $(function(){
-            $('.selectpicker').selectpicker();
-            $('#birth_date_picker').datetimepicker({
-                format: 'DD/MM/YYYY',
-                locale: 'es',
-            });
-        });
-    </script>
+            <script type="text/javascript">
+                $(function(){
+                    $('.selectpicker').selectpicker();
+                    $('#birth_date_picker').datetimepicker({
+                        format: 'DD/MM/YYYY',
+                        locale: 'es',
+                    });
+                });
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>

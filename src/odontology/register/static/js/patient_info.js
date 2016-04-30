@@ -10,8 +10,7 @@ $(document).ready(function() {
           data: data_form,
           success: function(data) {
               if (data.status != 'ERROR') {
-                var url = $('#patient-form').attr('action');
-                $('#info .content').html(data);
+                $('#patient-info-form').html(data);
                 $('#save-patient-info').button('reset').addClass('hide');
                 $('#edit-patient-info').removeClass('hide');
                 toastr.success('La información del paciente ah sido editada correctamente', 'INFORMACION EDITADA');

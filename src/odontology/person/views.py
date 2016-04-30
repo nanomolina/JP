@@ -95,11 +95,41 @@ def patients(request):
 
 
 @login_required
-def patient_profile(request, id):
+def profile_patient(request, id):
+    patient = get_object_or_404(Patient, id=id)
+    patient_info = PatientForm(instance=patient)
+    return render_to_response(
+        'register/patient_data/profile.html',
+        {
+            'patient': patient,
+            'patient_info_form': patient_info,
+        },
+        RequestContext(request)
+    )
+
+
+@login_required
+def clinical_history(request, id):
     dentist = Dentist.objects.get(user=request.user)
     patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
-        patient_info = PatientForm(instance=patient)
+        rform = RecordForm()
+        return render_to_response(
+            'person/clinical_history.html',
+            {
+                'dentist': dentist,
+                'patient': patient,
+                'rform': rform,
+            },
+            RequestContext(request)
+        )
+
+
+@login_required
+def social_work(request, id):
+    dentist = Dentist.objects.get(user=request.user)
+    patient = get_object_or_404(Patient, id=id)
+    if request.method == 'GET':
         if patient.social_work and patient.social_work.initial == 'APROSS':
             benefits = Apross.objects.filter(patient=patient).order_by('-real_date')
             if benefits.exists():
@@ -119,7 +149,7 @@ def patient_profile(request, id):
         odontogram_form = OdontogramForm(instance=patient.odontogram)
         rec_added = request.GET.get('add', None)
         return render_to_response(
-            'person/profile.html',
+            'person/social_work.html',
             {
                 'dentist': dentist,
                 'patient': patient,
@@ -127,7 +157,6 @@ def patient_profile(request, id):
                 'last_benefit': last_benefit,
                 'benefit_form': benefit_form,
                 'detail_form': detail_form,
-                'patient_info_form': patient_info,
                 'work_types': WORK_TYPES,
                 'odontogram_form': odontogram_form,
                 'rec_added': rec_added,
@@ -159,23 +188,6 @@ def remove_patient(request, id):
         patient.active = False
         patient.save()
         return redirect('person:patient_list')
-
-
-@login_required
-def clinical_history(request, id):
-    dentist = Dentist.objects.get(user=request.user)
-    patient = get_object_or_404(Patient, id=id)
-    if request.method == 'GET':
-        rform = RecordForm()
-        return render_to_response(
-            'person/clinical_history.html',
-            {
-                'dentist': dentist,
-                'patient': patient,
-                'rform': rform,
-            },
-            RequestContext(request)
-        )
 
 
 @login_required

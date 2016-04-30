@@ -65,7 +65,7 @@ class Dentist(models.Model):
 
 
 GENDER = (
-    (1, 'M'),(2, 'F')
+    (1, 'Masculino'),(2, 'Femenino')
 )
 class Patient(models.Model):
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
@@ -80,6 +80,7 @@ class Patient(models.Model):
     plan = models.CharField(max_length=25, null=True, blank=True)
     odontogram = models.ForeignKey(Odontogram, null=True, blank=True)
     active = models.BooleanField(default=True)
+    dni = models.IntegerField(null=True, blank=True)
 
     #-- extra info
     incumbent = models.CharField(max_length=250, null=True, blank=True)
@@ -98,7 +99,7 @@ class Patient(models.Model):
     Workplace_holder = models.CharField(max_length=250, null=True, blank=True)
     hierarchy = models.CharField(max_length=250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
-    gender = models.IntegerField(choices=GENDER, null=True, blank=True)
+    gender = models.IntegerField(choices=GENDER, default=1)
     derivation = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:

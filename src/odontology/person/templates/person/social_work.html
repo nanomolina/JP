@@ -23,12 +23,17 @@
     </a>
     <ul class="dropdown-menu">
       <li class="loader">
+        <a href="{% url 'person:profile_patient' id=patient.id %}">
+          <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
+        </a>
+      </li>
+      <li class="loader">
         <a href="{% url 'person:clinical_history' id=patient.id %}">
           <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
         </a>
       </li>
       <li class="loader active">
-        <a href="{% url 'person:patient_profile' id=patient.id %}">
+        <a href="{% url 'person:social_work' id=patient.id %}">
           <i class="fa fa-building" aria-hidden="true"></i> Obra social
         </a>
       </li>
@@ -79,7 +84,6 @@
             <li role="presentation" id="tab-detail" class="active"><a href="#detail">Ficha Mensual</a></li>
             <li role="presentation" id="tab-total-detail"><a href="#total-detail">Historial de Fichas</a></li>
             <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
-            <li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>
           </ul>
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
@@ -91,9 +95,6 @@
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
               {% include "register/odontogram/tab_odontogram.html" %}
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
-              {% include "register/patient_data/tab_data.html" %}
-            </div>
           </div>
         </div>
       </div>
@@ -104,9 +105,9 @@
 {% endblock %}
 
 {% block scripts %}
-  <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/social_work.js' %}"></script>
   <script type="text/javascript">
-    url_profile = "{% url 'person:patient_profile' id=patient.id %}";
+    url_profile = "{% url 'person:social_work' id=patient.id %}";
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}";
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
     URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
@@ -119,7 +120,6 @@
     {% endif %}
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
-  <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/radiography.js'%}"></script>
   {% if rec_added == '1' %}
