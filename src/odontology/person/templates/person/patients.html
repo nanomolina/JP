@@ -15,9 +15,8 @@
 <form id="filter" action="." method="GET" class="form-inline" role="form">
   <div class="row padding-top buttons">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
-        <button type="button" class="btn btn-default hide">Eliminar</button>
         <div class="form-group" style="padding-left:25px;">
-          <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search">
+          <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search" style="width: 280px;">
           <button type="button" class="btn btn-primary" onclick="javascript: filter();"><i class="fa fa-search"></i></button>
         </div>
   </div>

@@ -11,6 +11,11 @@ body {
     /*background-color: #e3e3e3;*/
     /*background-color: rgba(227, 227, 227, 0.34);*/
     background-color: #f2f6fa;
+    background: url("1619.jpg") no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     height: 100%;
     font-family: 'Crimson Text', serif;
 }
