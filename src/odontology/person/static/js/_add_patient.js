@@ -29,8 +29,10 @@ $(function(){
     $('#id_social_work option:selected').each(function() {
         if ($(this).val() == '') {
           $('#id_subsidiary_number').parent().hide('fast');
+          $('#modal-patient').find('.modal-body').css('padding-bottom', '85px');
         } else {
           $('#id_subsidiary_number').parent().show('fast');
+          $('#modal-patient').find('.modal-body').css('padding-bottom', '0px');
         }
     });
   });
