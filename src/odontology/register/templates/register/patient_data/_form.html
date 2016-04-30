@@ -1,5 +1,5 @@
             {% csrf_token %}
-            <table class="table">
+            <table class="table table-condensed">
               <tbody>
                 <tr>
                   <th>Apellido:</th>
@@ -14,58 +14,47 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>DNI:</th>
+                  <td>
+                    <span class="field-info">{{patient.dni|default:'---'}}</span>
+                    <span class="edit-info hide">{{patient_info_form.dni}}</span>
+                  </td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
                   <th>Obra social:</th>
                   <td>
-                    <span class="field-info">{{patient.social_work}}</span>
+                    <span class="field-info">{{patient.social_work|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.social_work}}</span>
                   </td>
                   <th>Plan</th>
                   <td>
-                    <span class="field-info">{{patient.plan}}</span>
+                    <span class="field-info">{{patient.plan|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.plan}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>Nro de afiliado:</th>
                   <td>
-                    <span class="field-info">{{patient.subsidiary_number}}</span>
+                    <span class="field-info">{{patient.subsidiary_number|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
                   </td>
-                  <th></th>
-                  <td></td>
-                </tr>
-                <tr>
                   <th>Titular:</th>
                   <td>
                     <span class="field-info">{{patient.incumbent|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
+                </tr>
+                <tr>
                   <th>Grupo familiar:</th>
                   <td>
                     <span class="field-info">{{patient.family_group|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.family_group}}</span>
                   </td>
-                </tr>
-                <tr>
                   <th>Parentesco:</th>
                   <td>
                     <span class="field-info">{{patient.relationship|default:'---'}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <th>Fecha de nacimiento:</th>
-                  <td colspan="3">
-                    <span class="field-info">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span>
-                    <span class="edit-info hide">
-                      <div class='input-group date' id='birth_date_picker' style="width: 100%;">
-                          {{patient_info_form.birth_date}}
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                      </div>
-                    </span>
                   </td>
                 </tr>
                 <tr class="field-info">
@@ -161,6 +150,20 @@
                   <td>
                     <span class="field-info">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span>
                     <span class="edit-info hide">{{patient_info_form.gender}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Fecha de Nacimiento:</th>
+                  <td colspan="3">
+                    <span class="field-info">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span>
+                    <span class="edit-info hide">
+                      <div class='input-group date' id='birth_date_picker' style="width: 100%;">
+                          {{patient_info_form.birth_date}}
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                    </span>
                   </td>
                 </tr>
 

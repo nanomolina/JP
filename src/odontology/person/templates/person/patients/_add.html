@@ -8,7 +8,7 @@
       </div>
       <form id="patient-form" method="POST" action=".">
         {% csrf_token %}
-        <div class="modal-body">
+        <div class="modal-body" style="padding-bottom: 85px;">
             <div class="form-group last_name-group">
               <label class="control-label" for="id_last_name">Apellido:</label>
               {{patient_form.last_name}}
@@ -17,9 +17,17 @@
               <label class="control-label" for="id_first_name">Nombre:</label>
               {{patient_form.first_name}}
             </div>
-            <div class="form-group social_work-group">
-              <label class="control-label" for="id_social_work">Obra social:</label>
-              {{patient_form.social_work}}
+            <div class="col-md-6" style="padding-left: 0;">
+              <div class="form-group social_work-group">
+                <label class="control-label" for="id_social_work">Obra social:</label>
+                {{patient_form.social_work}}
+              </div>
+            </div>
+            <div class="col-md-6" style="padding-right: 0;">
+              <div class="form-group gender-group">
+                <label class="control-label" for="id_gender">Sexo:</label>
+                {{patient_form.gender}}
+              </div>
             </div>
             <div class="form-group subsidiary_number-group" id="afiliado" style="display: none">
               <label class="control-label" for="id_social_work">Nro de afiliado:</label>

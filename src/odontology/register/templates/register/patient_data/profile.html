@@ -38,25 +38,23 @@
 {{block.super}}
 
   <div class="row padding-top">
-    <div class="col-md-12 toppad pull-right">
+     <!-- <div class="col-md-12 toppad pull-right">
      <div class="text-right"><em>May 05,2014,03:00 pm</em></div>
-    </div>
-    <div class="col-md-12" >
-
-
+          </div> -->
+    <div class="col-md-12">
       <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{patient.get_full_name}}</h3>
+        <div class="panel-heading" style="background-color: {% if patient.gender == 2 %}#F1ABCD;{% else %}#71CFEB;{% endif %}">
+          <h3 class="panel-title">Datos Filiatorios</h3>
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class="col-md-3 col-lg-3" align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+            <div class="col-md-3 col-lg-3" align="center">
+              <img alt="User Pic" class="img-circle img-responsive" src="{% if patient.gender == 2 %}{% static 'images/woman-min.jpg' %}{% else %}{% static 'images/man-min.jpg' %}{% endif %}">
+            </div>
             <div class="col-md-9 col-lg-9">
               <form id="patient-info-form" method="POST" action="{% url 'person:edit_patient' id=patient.id %}" class="form-horizontal">
               {% include "register/patient_data/_form.html" %}
               </form>
-              <a href="#" class="btn btn-primary">My Sales Performance</a>
-              <a href="#" class="btn btn-primary">Team Sales Performance</a>
             </div>
           </div>
         </div>

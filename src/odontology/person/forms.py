@@ -16,7 +16,7 @@ class PatientForm(forms.ModelForm):
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
             'number', 'floor', 'apartment', 'suburb', 'locality', 'tel', 'cel_phone',
             'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
-            'neighborhood'
+            'neighborhood', 'dni',
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -132,6 +132,11 @@ class PatientForm(forms.ModelForm):
                 }
             ),
             'derivation': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'dni': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                 }
