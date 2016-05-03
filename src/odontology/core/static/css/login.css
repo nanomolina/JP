@@ -6,11 +6,11 @@
  */
 body, html {
     height: 100%;
-    background-repeat: no-repeat;
+    background-color: #3498DB;
 }
 
 #principal-title {
-    color: #3498DB;
+    color: #fff;
     font-family: 'Lobster';
     display: block;
     margin-left: auto;
