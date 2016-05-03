@@ -213,7 +213,7 @@ def settings_personal(request):
         if user_change_form.is_valid():
             user_change_form.save()
             return TemplateResponse(
-                request, 'person/settings/form_personal.html',
+                request, 'person/settings/_form_personal.html',
                 {'user_change_form': user_change_form},
                 RequestContext(request)
             )
@@ -229,7 +229,7 @@ def settings_dentist(request):
         if dentist_form.is_valid():
             dentist_form.save()
             return TemplateResponse(
-                request, 'person/settings/form_dentist.html',
+                request, 'person/settings/_form_dentist.html',
                 {'dentist_form': dentist_form},
                 RequestContext(request)
             )

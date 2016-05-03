@@ -5,25 +5,49 @@
 {% block content %}
 {{ block.super }}
 
-    <div class="row well well-md" style="margin-top: 100px;">
-        <h4>Informaci&oacute;n Personal:</h4>
-        <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
-            {% include "person/settings/_form_personal.html" %}
-        </form>
-        <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
-          <i class="fa fa-floppy-o"></i> Guardar cambios
-        </button>
-    </div>
-
-    <div class="row well well-md">
-        <h4>Informaci&oacute;n del odontologo:</h4>
-        <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
-            {% include "person/settings/_form_dentist.html" %}
-        </form>
-        <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
-          <i class="fa fa-floppy-o"></i> Guardar cambios
-        </button>
-    </div>
+<div class="row padding-top">
+  <div class="col-md-12">
+      <h1 class="page-header"><i class="fa fa-cogs"></i> Configuraci&oacute;n</h1>
+  </div>
+  <div class="col-md-6">
+      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+        <div class="panel-heading">Informaci&oacute;n Personal</div>
+        <div class="panel-body">
+          <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
+              {% include "person/settings/_form_personal.html" %}
+          </form>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-md-12">
+                <button id="but-personal-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+                  <i class="fa fa-floppy-o"></i> Guardar cambios
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-md-6">
+      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+        <div class="panel-heading">Informaci&oacute;n del odontologo</div>
+        <div class="panel-body">
+          <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
+              {% include "person/settings/_form_dentist.html" %}
+          </form>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-md-12">
+              <button id="but-dentist-form" type="button" class="btn btn-success pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+                <i class="fa fa-floppy-o"></i> Guardar cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 
 {% endblock %}
 

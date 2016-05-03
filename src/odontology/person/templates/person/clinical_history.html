@@ -26,7 +26,7 @@
       <a href="{% url 'person:profile_patient' id=patient.id %}">
         <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
       </a>
-    </li>    
+    </li>
     <li class="loader active">
       <a href="{% url 'person:clinical_history' id=patient.id %}">
         <i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica
@@ -50,6 +50,7 @@
 
 <div class="row padding-top">
   <div class="col-md-12">
+      <h1 class="page-header"><i class="fa fa-folder-open"></i> Ficha Cl&iacute;nica</h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">

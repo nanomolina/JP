@@ -1,5 +1,5 @@
 .padding-top {
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .starter-template {
@@ -11,7 +11,7 @@ body {
     /*background-color: #e3e3e3;*/
     /*background-color: rgba(227, 227, 227, 0.34);*/
     background-color: #f2f6fa;
-    background: url("16192-min.jpg") no-repeat;
+    /*background: url("16192-min.jpg") no-repeat;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
