@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import  render, render_to_response, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+import mercadopago
 
 
 def login_user(request):
@@ -75,6 +79,28 @@ def version(request):
     return render_to_response(
         'core/version.html',
         {},
+        RequestContext(request)
+    )
+
+
+@login_required
+def mp(request):
+    preference = {
+        "items": [
+            {
+                "title": "Servidor de página dentalsoft.com.ar",
+                "quantity": 1,
+                "currency_id": "ARS", # Available currencies at: https://api.mercadopago.com/currencies
+                "unit_price": 150.0
+            }
+        ]
+    }
+    mp = mercadopago.MP("1413986768414297", "NRFtu2EIIUzUOmAz5NJLd0UtORfvy6d5")
+    preferenceResult = mp.create_preference(preference)
+    url = preferenceResult["response"]["init_point"]
+    return render_to_response(
+        'core/mp.html',
+        {'url': url},
         RequestContext(request)
     )
 
