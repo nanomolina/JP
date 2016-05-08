@@ -60,6 +60,16 @@ class Dentist(models.Model):
         verbose_name = "Odontologo"
         verbose_name_plural = "Odontologos"
 
+    def get_patients_birthdays(self, month):
+        from person.models import Patient
+        patients = Patient.objects.filter(
+            dentist=self, birth_date__month=month
+        )
+        patients.extra(select={'birth_date_day': 'DAY(birth_date)'},
+            order_by=['birth_date_day']
+        )
+        return patients
+
     def __unicode__(self):
         return "%s" % (self.user.get_full_name())
 

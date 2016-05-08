@@ -47,23 +47,13 @@ def login_user(request):
 
 @login_required
 def home(request):
-    from register.models import Benefit, Apross, MONTHS
     from person.models import Patient, Dentist
+    from datetime import datetime
     dentist = Dentist.objects.get(user=request.user)
-    data_months = []
-    for month in MONTHS:
-        count = Apross.objects.filter(patient__dentist=dentist, month=month[0]).count()
-        count += Benefit.objects.filter(patient__dentist=dentist, month=month[0]).count()
-        data_months.append(count)
-
-    from django.db.models import Count
-    social_works = Patient.objects.filter(
-        dentist=dentist
-    ).values('social_work__initial').annotate(value=Count('social_work'))
-
+    patients_birthday = dentist.get_patients_birthdays(datetime.now().month)
     return render_to_response(
         'core/home.html',
-        {'template': 'home', 'data_months': data_months, 'social_works': social_works},
+        {'template': 'home', 'list_patients_birthday': patients_birthday},
         RequestContext(request)
     )
 

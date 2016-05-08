@@ -1,0 +1,45 @@
+{% load register_extras %}
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+    <ul class="event-list">
+      {% for patient in list_patients_birthday %}
+      <li class="{% if patient.gender == 2 %}woman{%else%}man{%endif%}">
+        <time>
+          <span class="day">{{patient.birth_date.day}}</span>
+          <span class="month">{{patient.birth_date.month|get_month_name}}</span>
+          <span class="year">{{patient.birth_date.year}}</span>
+          <span class="time">ALL DAY</span>
+        </time>
+
+        <div class="info">
+          <h2 class="desc">
+            <span class="label label-primary">
+              {{patient.get_full_name}}
+            </span>
+          </h2>
+          {% if patient.email %}
+          <p class="email desc">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            {{patient.email}}
+          </p>
+          {% endif %}
+          {% if patient.tel %}
+          <p class="phone desc">
+            <i class="fa fa-phone-square" aria-hidden="true" style="padding-right: 2px;"></i>
+            {{patient.tel}}
+          </p>
+          {% endif %}
+          {% if patient.cel_phone %}
+          <p class="cel-phone desc">
+            <i class="fa fa-mobile" aria-hidden="true" style="padding-right: 10px;"></i>
+            {{patient.cel_phone}}
+          </p>
+          {% endif %}
+        </div>
+
+
+      </li>
+      {% empty %}
+      <h4 class="text-center">No hay cumpleaños este mes.</h4>
+      {% endfor %}
+    </ul>
+  </div>

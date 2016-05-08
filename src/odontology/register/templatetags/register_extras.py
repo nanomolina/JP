@@ -32,3 +32,21 @@ def get_radiography_form(patient_id, bf_id):
         radiography = Radiography.objects.get(benefit=benefit)
     radiography_form = RadiographyForm(instance=radiography)
     return radiography_form
+
+@register.filter(name='get_month_name')
+def get_month_name(key):
+    MONTHS = {
+        1: 'Enero',
+        2: 'Febrero',
+        3: 'Marzo',
+        4: 'Abril',
+        5: 'Mayo',
+        6: 'Junio',
+        7: 'Julio',
+        8: 'Agosto',
+        9: 'Septiembre',
+        10: 'Octubre',
+        11: 'Noviembre',
+        12: 'Diciembre',
+    }
+    return MONTHS[key]
