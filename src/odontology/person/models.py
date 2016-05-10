@@ -111,6 +111,7 @@ class Patient(models.Model):
     email = models.EmailField(null=True, blank=True)
     gender = models.IntegerField(choices=GENDER, default=1)
     derivation = models.CharField(max_length=250, null=True, blank=True)
+    alias = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
         verbose_name = "Paciente"

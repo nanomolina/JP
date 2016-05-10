@@ -4,6 +4,7 @@
   <td>{{patient.code}}
   <td>{{patient.last_name}}</td>
   <td>{{patient.first_name}}</td>
+  <td>{{patient.alias|default:''}}</td>
   <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
   <td>{{patient.subsidiary_number|default_if_none:''}}</td>
   <td>
