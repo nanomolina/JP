@@ -7,6 +7,7 @@ from django.template import RequestContext, Context, loader
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import mercadopago
+from person.models import Dentist
 
 
 def login_user(request):
@@ -25,6 +26,9 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                dentist, is_new = Dentist.objects.get_or_create(user=user)
+                if is_new:
+                    return redirect('core:home')
                 try:
                     domain, next_q = request.META.get('HTTP_REFERER').split('?next=')
                     return redirect(next_q)
