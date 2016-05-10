@@ -85,6 +85,7 @@ def patients(request):
                         for l1, l2 in LOCATIONS:
                             Sector(tooth=tooth, location=l1, points=l1).save()
                 new_patient.odontogram = odontogram
+                new_patient.code = 'PJ%04d' % (dentist.number_of_patients + 1)
                 new_patient.save()
                 return JsonResponse({'status': 'OK'})
             else:

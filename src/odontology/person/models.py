@@ -70,6 +70,10 @@ class Dentist(models.Model):
         )
         return patients
 
+    @property
+    def number_of_patients(self):
+        return Patient.objects.filter(dentist=self).count()
+
     def __unicode__(self):
         return "%s" % (self.user.get_full_name())
 
@@ -78,6 +82,7 @@ GENDER = (
     (1, 'Masculino'),(2, 'Femenino')
 )
 class Patient(models.Model):
+    code = models.CharField(max_length=250, null=True, blank=True)
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
     first_name = models.CharField(max_length=250)
@@ -145,10 +150,6 @@ class Patient(models.Model):
         else:
             result = None
         return result
-
-    @property
-    def code(self):
-        return "P%04d" % (self.id)
 
     def get_full_name(self):
         return "%s %s" % (self.last_name, self.first_name)

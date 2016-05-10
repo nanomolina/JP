@@ -6,8 +6,18 @@ class DentistAdmin(admin.ModelAdmin):
 admin.site.register(Dentist, DentistAdmin)
 
 
+def create_code(modeladmin, request, queryset):
+    amount = 1
+    for patient in queryset.order_by('id'):
+        patient.code = 'PJ%04d' % (amount)
+        patient.save()
+        amount += 1
+create_code.short_description = "Crear codigo"
+
+
 class PatientAdmin(admin.ModelAdmin):
-    list_filter = ('dentist', )
+    list_filter = ('dentist', 'active')
+    actions = [create_code]
 admin.site.register(Patient, PatientAdmin)
 
 
