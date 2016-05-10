@@ -9,7 +9,7 @@ admin.site.register(Dentist, DentistAdmin)
 def create_code(modeladmin, request, queryset):
     amount = 1
     for patient in queryset.order_by('id'):
-        patient.code = 'PJ%04d' % (amount)
+        patient.code = 'P%04d' % (amount)
         patient.save()
         amount += 1
 create_code.short_description = "Crear codigo"
