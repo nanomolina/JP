@@ -1,6 +1,7 @@
 Django==1.9.2
 argparse==1.2.1
 decorator==4.0.9
+django-allauth==0.25.2
 django-bootstrap-pagination==1.6.1
 ipdb==0.8.1
 ipython==4.1.1

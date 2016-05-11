@@ -151,12 +151,12 @@ STATICFILES_DIRS = [
     "static",
 ]
 
-LOGIN_URL = '/'
+LOGIN_URL = '/accounts/login/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
 
 SOCIALACCOUNT_PROVIDERS = \
     { 'google':
         { 'SCOPE': ['profile', 'email'],
-          'AUTH_PARAMS': { 'access_type': 'online' } }}
+          'AUTH_PARAMS': { 'access_type': 'online'} }}
 
