@@ -4,7 +4,6 @@
 {% block title %}login{% endblock %}
 
 {% block links %}
-  {% load staticfiles %}
   <link href="{% static 'css/login.css' %}" rel="stylesheet">
 {% endblock %}
 
@@ -24,18 +23,22 @@
             <p id="profile-name" class="profile-name-card"></p>
             <form method='POST' action="{% url 'account_login' %}" class="login form-signin">
                 {% csrf_token %}
-                <div class="form-group {% if login_error %}has-error{% endif %}">
-                    <input id="id_login" maxlength="30" name="login" type="text" class="form-control" placeholder="Usuario" {% if login_error %}value="{{ username }}"{% endif %}>
+                <div class="form-group {% if form.login.errors %}has-error{% endif %}">
+                    <input id="{{form.login.id_for_label}}" maxlength="30" name="{{form.login.html_name}}"
+                     type="text" class="form-control" placeholder="Usuario"></input>
                 </div>
-                <div class="form-group {% if login_error %}has-error{% endif %}">
-                    <input id="id_password" name="password" type="password" class="form-control" placeholder="Password" {% if login_error %}value="{{ password }}"{% endif %}>
+                <div class="form-group {% if form.password.errors %}has-error{% endif %}">
+                    <input id="{{form.password.id_for_label}}" name="{{form.password.html_name}}"
+                    type="password" class="form-control" placeholder="Password"></input>
                 </div>
-                {% if login_error %}
-                    <div class="alert alert-danger" role="alert">Usuario o contraseña invalidos.</div>
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {% for err in form.errors.items %}{{err.1}}{% endfor %}
+                    </div>
                 {% endif %}
                 <div id="remember" class="checkbox">
                     <label>
-                        <input id="id_remember" name="remember" type="checkbox"> Mantener la sesión iniciada
+                        <input id="{{form.remember.id_for_label}}" name="{{form.remember.html_name}}" type="checkbox"> Mantener la sesión iniciada
                     </label>
                 </div>
                 {% if redirect_field_value %}
@@ -46,7 +49,7 @@
                   <i class="fa fa-google-plus"></i>
                   Iniciar sesi&oacute;n con Google
                 </a>
-            </form><!-- /form -->
+            </form>
             <a href="{% url 'account_reset_password' %}" class="forgot-password">
                 Recuperar clave.
             </a>
@@ -54,6 +57,4 @@
     </div><!-- /container -->
 {% endblock %}
 
-{% block scripts %}
-<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
-{% endblock %}
+{% block scripts %}{% endblock scripts %}

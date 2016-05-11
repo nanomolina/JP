@@ -16,14 +16,15 @@
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
   <link rel="stylesheet" href="{% static 'css/font-awesome-4.6.1/css/font-awesome.min.css'%}">
+  <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
+  {% block links %}
   <link rel="stylesheet" href="{% static 'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}">
   <link rel="stylesheet" href="{% static 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css' %}" />
   <link rel="stylesheet" href="{% static 'bower_components/fakeLoader/fakeLoader.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'bower_components/toastr/toastr.min.css' %}">
-  <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-  {% block links %}{% endblock %}
+  {% endblock %}
   <!--[if IE]>
   <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
@@ -96,14 +97,15 @@
   </footer>
 
 
+  <script type="text/javascript" src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/base.js'%}"></script>
+  {% block scripts %}
   <script type="text/javascript" src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'bower_components/moment/min/locales.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'node_modules/bootstrap-select/dist/js/i18n/defaults-es_CL.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'bower_components/fakeLoader/fakeLoader.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'bower_components/toastr/toastr.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/base.js'%}"></script>
-  {% block scripts %}{% endblock %}
+  {% endblock %}
 </body>
