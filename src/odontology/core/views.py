@@ -10,44 +10,12 @@ import mercadopago
 from person.models import Dentist
 
 
-def login_user(request):
+def principal(request):
     if request.method == 'GET':
         if request.user.is_authenticated():
             return redirect('core:home')
         else:
-            return render_to_response(
-                'core/login.html',
-                RequestContext(request)
-            )
-    else:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                dentist, is_new = Dentist.objects.get_or_create(user=user)
-                if is_new:
-                    dentist.save()
-                    return redirect('core:home')
-                try:
-                    domain, next_q = request.META.get('HTTP_REFERER').split('?next=')
-                    return redirect(next_q)
-                except:
-                    return redirect('core:home')
-            else:
-                #return to a disable account
-                pass
-        else:
-            return render_to_response(
-                'core/login.html',
-                {
-                    'login_error': True,
-                    'username': username,
-                    'password': password
-                },
-                RequestContext(request)
-            )
+            return redirect('account_login')
 
 
 @login_required
@@ -68,7 +36,7 @@ def home(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect('core:login')
+    return redirect('account_login')
 
 
 @login_required

@@ -1,0 +1,59 @@
+{% extends "account/base.html" %}
+{% load i18n account staticfiles socialaccount %}
+
+{% block title %}login{% endblock %}
+
+{% block links %}
+  {% load staticfiles %}
+  <link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <!--
+    you can substitue the span of reauth email for a input with the email and
+    include the remember me checkbox
+    -->
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <strong class="text-center" id="principal-title">DENTALSOFT</strong>
+          </div>
+        </div>
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form method='POST' action="{% url 'account_login' %}" class="login form-signin">
+                {% csrf_token %}
+                <div class="form-group {% if login_error %}has-error{% endif %}">
+                    <input id="id_login" maxlength="30" name="login" type="text" class="form-control" placeholder="Usuario" {% if login_error %}value="{{ username }}"{% endif %}>
+                </div>
+                <div class="form-group {% if login_error %}has-error{% endif %}">
+                    <input id="id_password" name="password" type="password" class="form-control" placeholder="Password" {% if login_error %}value="{{ password }}"{% endif %}>
+                </div>
+                {% if login_error %}
+                    <div class="alert alert-danger" role="alert">Usuario o contraseña invalidos.</div>
+                {% endif %}
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input id="id_remember" name="remember" type="checkbox"> Mantener la sesión iniciada
+                    </label>
+                </div>
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-block btn-primary btn-lg btn-signin" type="submit">Iniciar sesi&oacute;n</button>
+                <a href='{% provider_login_url "google" process="login" %}' class="btn btn-block btn-social btn-lg btn-signin btn-google-plus">
+                  <i class="fa fa-google-plus"></i>
+                  Iniciar sesi&oacute;n con Google
+                </a>
+            </form><!-- /form -->
+            <a href="{% url 'account_reset_password' %}" class="forgot-password">
+                Recuperar clave.
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+{% endblock %}
