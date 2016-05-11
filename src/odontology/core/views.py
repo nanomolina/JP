@@ -28,6 +28,7 @@ def login_user(request):
                 login(request, user)
                 dentist, is_new = Dentist.objects.get_or_create(user=user)
                 if is_new:
+                    dentist.save()
                     return redirect('core:home')
                 try:
                     domain, next_q = request.META.get('HTTP_REFERER').split('?next=')
@@ -53,7 +54,9 @@ def login_user(request):
 def home(request):
     from person.models import Patient, Dentist
     from datetime import datetime
-    dentist = Dentist.objects.get(user=request.user)
+    dentist, is_new = Dentist.objects.get_or_create(user=request.user)
+    if is_new:
+        dentist.save()
     patients_birthday = dentist.get_patients_birthdays(datetime.now().month)
     return render_to_response(
         'core/home.html',
