@@ -160,3 +160,4 @@ SOCIALACCOUNT_PROVIDERS = \
         { 'SCOPE': ['profile', 'email'],
           'AUTH_PARAMS': { 'access_type': 'online'} }}
 
+SOCIALACCOUNT_ADAPTER = 'core.adapter.MyAdapter'
