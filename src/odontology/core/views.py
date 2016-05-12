@@ -22,13 +22,17 @@ def principal(request):
 def home(request):
     from person.models import Patient, Dentist
     from datetime import datetime
+    from allauth.socialaccount.models import SocialAccount
     dentist, is_new = Dentist.objects.get_or_create(user=request.user)
     if is_new:
         dentist.save()
     patients_birthday = dentist.get_patients_birthdays(datetime.now().month)
+    has_connection = SocialAccount.objects.filter(user=request.user).exists()
     return render_to_response(
         'core/home.html',
-        {'template': 'home', 'list_patients_birthday': patients_birthday},
+        {'template': 'home',
+         'list_patients_birthday': patients_birthday,
+         'has_connection': has_connection},
         RequestContext(request)
     )
 

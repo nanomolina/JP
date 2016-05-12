@@ -31,10 +31,20 @@
 {{ block.super }}
     <div id="home-content">
       <div class="col-lg-12">
-        <div class="row">
-          <h1 class="page-header">
-              Bienvenido {{ request.user.first_name }}!
-          </h1>
+        <div class="row page-header">
+          <div class="col-md-8">
+            <h1>
+                Bienvenido {{ request.user.first_name }}!
+            </h1>
+          </div>
+          {% if not has_connection %}
+          <div class="col-md-4">
+            <a href="{% url 'socialaccount_connections' %}" class="btn btn-block btn-social btn-md btn-signin btn-google-plus">
+              <i class="fa fa-google-plus"></i>
+              Conectar con Google
+            </a>
+          </div>
+          {% endif %}
         </div>
         <div class="row">
           <p>
