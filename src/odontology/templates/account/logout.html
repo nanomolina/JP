@@ -1,0 +1,32 @@
+{% extends "account/base.html" %}
+
+{% load i18n staticfiles %}
+
+{% block title %}Logout{% endblock %}
+
+{% block links %}
+  <link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <strong class="text-center" id="principal-title">DENTALSOFT</strong>
+          </div>
+        </div>
+        <div class="card card-container">
+          <h1>{% trans "Sign Out" %}</h1>
+
+          <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button type="submit" class="btn btn-block btn-danger btn-lg btn-signin">{% trans 'Sign Out' %}</button>
+          </form>
+        </div>
+    </div>
+{% endblock %}
