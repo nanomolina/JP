@@ -146,14 +146,19 @@ class Record(models.Model):
     period_so = models.CharField(max_length=30, null=True, blank=True)
     state = models.SmallIntegerField(choices=STATES, default=1)
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
-
     observations = models.TextField(null=True, blank=True)
-
+    #Accounting
+    debit = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True
+    )
+    havings = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True
+    )
+    # other
     date_created = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return "%s" % (self.patient)
-
 
 
 # DATABASE SIGNALS
