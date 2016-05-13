@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
 .padding-top {
     padding-top: 50px;
 }
@@ -17,7 +18,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     height: 100%;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Lato', sans-serif;
 }
 
 footer {
