@@ -17,7 +17,7 @@ def patients(request):
     from person.function import get_position
     dentist = Dentist.objects.get(user=request.user)
     if request.method == 'GET':
-        patients = Patient.objects.filter(dentist=dentist, active=True).order_by('-id')
+        patients = Patient.objects.filter(dentist=dentist, active=True).order_by('last_name')
 
         import operator
         from django.db.models import Q

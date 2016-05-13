@@ -1,6 +1,6 @@
 {% load staticfiles %}
 {% for patient in patients %}
-<tr>
+<tr {% if patient.has_observations %}class="info"{% endif %}>
   <td>{{patient.code}}
   <td>{{patient.last_name}}</td>
   <td>{{patient.first_name}}</td>

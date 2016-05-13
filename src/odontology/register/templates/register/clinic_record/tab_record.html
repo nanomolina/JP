@@ -1,4 +1,7 @@
 <div class="col-md-12 content" style="margin-top: 20px;">
+  <div class="alert alert-info {% if not patient.has_observations %}hide{% endif %}" id="alert-obs">
+    <strong>Atención!</strong> Chequea las observaciones de estos detalles.
+  </div>
   <div class="panel panel-primary">
     <div class="panel-heading">
       Detalle de ficha

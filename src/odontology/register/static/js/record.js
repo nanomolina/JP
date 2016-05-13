@@ -28,6 +28,21 @@ function init_form_edit(){
   $modal.find('#id_assistance').selectpicker('show');
 }
 
+function check_alert(){
+  show_alert = false;
+  $('#tbody-record tr').each(function(key, value){
+    if ($(this).hasClass('info')){
+      show_alert = true;
+      return false;
+    }
+  });
+  if (show_alert) {
+    $('#alert-obs').removeClass('hide');
+  } else {
+    $('#alert-obs').addClass('hide');
+  }
+}
+
 function save_record() {
   $('#btn-save-record').button('loading');
   var $form = $('#record-form');
@@ -45,6 +60,7 @@ function save_record() {
           $('#tbody-record').html(data);
           $('#modal-record').modal('hide');
           $('.rec-popover').popover();
+          check_alert();
           toastr.success('Se ah agragado exitosamente.', 'REGISTRO AGREGADO');
         } else {
           $('#record-form .input-fields').addClass('has-success');
@@ -89,6 +105,7 @@ function edit_record(url) {
           $('#tbody-record').html(data);
           $('#modal-edit-record').modal('hide');
           $('.rec-popover').popover();
+          check_alert();
           toastr.success('Se ah editado exitosamente.', 'REGISTRO EDITADO');
         } else {
           $('#form-edit-record .input-fields').addClass('has-success');
@@ -118,6 +135,7 @@ function delete_record(url) {
           $('#tbody-record').html(data);
           $('#modal-delete').modal('hide');
           $('.rec-popover').popover();
+          check_alert();
           toastr.success('Se ah borrado exitosamente.', 'REGISTRO BORRADO');
         } else {
           toastr.error('', 'ERROR AL BORRAR');
@@ -126,5 +144,4 @@ function delete_record(url) {
     }
 
   });
-
 }

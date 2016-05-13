@@ -63,7 +63,7 @@ class Dentist(models.Model):
     def get_patients_birthdays(self, month):
         from person.models import Patient
         patients = Patient.objects.filter(
-            dentist=self, birth_date__month=month
+            dentist=self, birth_date__month=month, active=True
         )
         patients.extra(select={'birth_date_day': 'DAY(birth_date)'},
             order_by=['birth_date_day']
@@ -165,6 +165,14 @@ class Patient(models.Model):
     def get_records(self):
         from register.models import Record
         return Record.objects.filter(patient=self).order_by('-date')
+
+
+    def has_observations(self):
+        from register.models import Record
+        exists = Record.objects.filter(patient=self).exclude(
+            observations__exact='').exists()
+        return exists
+
 
 COLORS = ((1, 'red'), (2, 'blue'))
 WORK_TYPES = (

@@ -19,6 +19,7 @@ function filter() {
     $('#list-patients').find('.panel-body').load(url, data, function(){
       init_paginator();
       init_selector();
+      check_alert();
     });
 }
 
@@ -30,6 +31,21 @@ function init_selector(){
   });
 }
 
+function check_alert(){
+  show_alert = false;
+  $('#body-list-patients tr').each(function(key, value){
+    if ($(this).hasClass('info')){
+      show_alert = true;
+      return false;
+    }
+  });
+  if (show_alert) {
+    $('#alert-obs').removeClass('hide');
+  } else {
+    $('#alert-obs').addClass('hide');
+  }
+}
+
 $(document).ready(function(){
     $('#text_search').keypress(function( event ) {
         if ( event.which == 13 ) {
@@ -39,6 +55,7 @@ $(document).ready(function(){
     })
     init_paginator();
     init_selector();
+    check_alert();
 });
 
 function load_page(href) {
@@ -47,6 +64,7 @@ function load_page(href) {
   $('#list-patients').find('.panel-body').load(url, function(){
     init_paginator();
     init_selector();
+    check_alert();
   });
 }
 
@@ -69,6 +87,7 @@ function delete_patient(url) {
           $('#list-patients').find('.panel-body').html(data);
           $('#modal-delete').modal('hide');
           $('.rec-popover').popover();
+          check_alert();
           toastr.success('Se ah borrado exitosamente.', 'PACIENTE BORRADO');
         } else {
           toastr.error('', 'ERROR AL BORRAR');

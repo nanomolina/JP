@@ -25,3 +25,7 @@ function validate_errors(name_form, json_errors, alert) {
   }
   $('#'+alert).html(alert_content);
 }
+
+function logout() {
+  $('#form-logout').submit();
+}

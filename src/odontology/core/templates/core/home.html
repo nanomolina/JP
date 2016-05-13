@@ -9,22 +9,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'bower_components/Chart.js/Chart.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/Please-compressed.js'%}"></script>
-<script type="text/javascript">
-  DATA_MONTHS = {{data_months}};
-  DATA_DOUGHNUT = [
-      {% for sw in social_works %}
-      {
-          value: {{sw.value}},
-          color: Please.make_color(),
-          highlight: '#3498DB',
-          label: "{{sw.social_work__initial}}"
-      }{% if not forloop.last %},{% endif %}
-      {% endfor %}
-  ]
-</script>
-<script type="text/javascript" src="{% static 'js/draw_my_chart.js'%}"></script>
 {% endblock %}
 
 {% block content %}
@@ -34,7 +18,7 @@
         <div class="row page-header">
           <div class="col-md-8">
             <h1>
-                Bienvenido {{ request.user.first_name }}!
+                Bienvenido Odontólogo {{ request.user.last_name }}!
             </h1>
           </div>
           {% if not has_connection %}
@@ -56,24 +40,4 @@
         </div>
       </div>
     </div>
-    <!--<div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4><i class="fa fa-file-text"></i> Registro de prestaciones de servicios</h4>
-            </div>
-            <div class="panel-body">
-                <canvas id="myChart" class="col-md-12"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4><i class="fa fa-medkit"></i> Registro de obras sociales</h4>
-            </div>
-            <div class="panel-body">
-                <canvas id="myChart2" class="col-md-12"></canvas>
-            </div>
-        </div>
-    </div>-->
 {% endblock %}
