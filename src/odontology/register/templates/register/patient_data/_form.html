@@ -1,4 +1,5 @@
-            {% csrf_token %}
+          {% csrf_token %}
+          <div class="table-responsive">
             <table class="table table-condensed">
               <tbody>
                 <tr>
@@ -173,15 +174,16 @@
 
               </tbody>
             </table>
-            <script type="text/javascript">
-                $(function(){
-                    $('.selectpicker').selectpicker();
-                    $('#birth_date_picker').datetimepicker({
-                        format: 'DD/MM/YYYY',
-                        locale: 'es',
-                    });
-                });
-                $(function () {
-                  $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
+          </div>
+          <script type="text/javascript">
+              $(function(){
+                  $('.selectpicker').selectpicker();
+                  $('#birth_date_picker').datetimepicker({
+                      format: 'DD/MM/YYYY',
+                      locale: 'es',
+                  });
+              });
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              })
+          </script>
