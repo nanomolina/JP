@@ -17,11 +17,21 @@
     <div class="col-md-12">
         <h1 class="page-header"><i class="fa fa-users"></i>&nbsp;&nbsp;Pacientes</h1>
         <div class="buttons">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient"><i class="fa fa-user-plus"></i> Agregar nuevo</button>
-              <div class="form-group" style="padding-left:25px;">
-                <input id="text_search" name="text_search" class="form-control" type="text"{% if text_search %} value="{{text_search}}" {% endif %}placeholder="Search" style="width: 280px;">
-                <button type="button" class="btn btn-primary" onclick="javascript: filter();"><i class="fa fa-search"></i></button>
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-patient" style="width: 100%;">
+                <i class="fa fa-user-plus"></i> Agregar nuevo
+              </button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="input-group" style="width: 100%;">
+                <input id="text_search" name="text_search" type="text" class="form-control" placeholder="Buscar por..." {% if text_search %}value="{{text_search}}"{% endif %}>
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" onclick="javascript: filter();"><i class="fa fa-search"></i></button>
+                </span>
               </div>
+            </div>
+          </div>
         </div>
         <div id="list-patients">
             <!--<div class="alert alert-info hide" id="alert-obs">
@@ -29,8 +39,8 @@
             </div>-->
             <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
               <div class="panel-heading">Lista de pacientes</div>
-              <div class="panel-body no-padding">
-                {% include "person/patients/table.html" %}
+              <div class="panel-content-load">
+              {% include "person/patients/table.html" %}
               </div>
             </div>
         </div>
