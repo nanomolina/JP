@@ -48,7 +48,9 @@
 {% include "register/clinic_record/_edit.html" %}
 {% include "register/_delete.html" with title="Borrar prestaci&oacute;n" %}
 
-<div class="row padding-top">
+{% include "register/side_bar.html" with active=2 %}
+
+<div class="row">
   <div class="col-md-12">
       <h1 class="page-header">
         <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}

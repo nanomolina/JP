@@ -1,0 +1,94 @@
+<style media="screen">
+      #sidebar-wrapper {
+      top: 52px;
+      left: -200px;
+      width: 200px;
+      background-color: #5677fc;
+      color: white;
+      position: fixed;
+      height: 100%;
+      z-index: 1;
+    }
+    .sidebar-nav {
+      position: absolute;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      width: 250px;
+      list-style: none;
+    }
+    .sidebar-nav li {
+      text-indent: 20px;
+      line-height: 50px;
+    }
+    .sidebar-nav li a {
+      color: white;
+      display: block;
+      text-decoration: none;
+    }
+    .sidebar-nav li a:hover {
+      background: rgba(255,255,255,0.25);
+      color: white;
+      text-decoration: none;
+    }
+    .sidebar-nav li a:active, .sidebar-nav li a:focus {
+      text-decoration: none;
+    }
+    #sidebar-wrapper.sidebar-toggle {
+      transition: all 0.3s ease-out;
+      margin-left: -200px;
+    }
+    @media (min-width: 768px) {
+      #sidebar-wrapper.sidebar-toggle {
+        transition: 0s;
+        left: 200px;
+      }
+    }
+</style>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div id="sidebar-wrapper" class="sidebar-toggle">
+			<ul class="sidebar-nav">
+		    	<li>
+		      		<a href="#item1" {% if active == 1 %}class="active"{% endif %}><i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios</a>
+		    	</li>
+		    	<li>
+		      		<a href="#item2" {% if active == 2 %}class="active"{% endif %}><i class="fa fa-folder-open"></i> Historia Cl&iacute;nica</a>
+		    	</li>
+		    	<li>
+		      		<a href="#item3" {% if active == 3 %}class="active"{% endif %}><i class="fa fa-building" aria-hidden="true"></i> Obra social</a>
+		    	</li>
+		  	</ul>
+		</div>
+	</div>
+</nav>
+<script type="text/javascript">
+  $(window).resize(function() {
+	var path = $(this);
+	var contW = path.width();
+	if(contW >= 751){
+		document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+	}else{
+		document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+	}
+});
+$(document).ready(function() {
+	$('.dropdown').on('show.bs.dropdown', function(e){
+	    $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+	});
+	$('.dropdown').on('hide.bs.dropdown', function(e){
+		$(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+	});
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		var elem = document.getElementById("sidebar-wrapper");
+		left = window.getComputedStyle(elem,null).getPropertyValue("left");
+		if(left == "200px"){
+			document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+		}
+		else if(left == "-200px"){
+			document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+		}
+	});
+});
+</script>

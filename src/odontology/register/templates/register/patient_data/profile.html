@@ -37,7 +37,9 @@
 {% block content %}
 {{block.super}}
 
-  <div class="row padding-top">
+  {% include "register/side_bar.html" with active=1 %}
+
+  <div class="row">
     <div class="col-md-12">
       <h1 class="page-header">
         <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios - {{patient.last_name|upper}} {{patient.first_name|title}}
