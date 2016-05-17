@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles register_extras %}
-{% block title %}Ficha clinica - {{ patient.get_full_name }}{% endblock %}
-
+{% block title %}Cuentas - {{ patient.get_full_name }}{% endblock %}
 
 {% block links %}
   <style media="screen">
@@ -27,7 +26,7 @@
         <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
       </a>
     </li>
-    <li class="loader active">
+    <li class="loader">
       <a href="{% url 'person:clinical_history' id=patient.id %}">
         <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
       </a>
@@ -37,37 +36,34 @@
         <i class="fa fa-building" aria-hidden="true"></i> Obra social
       </a>
     </li>
-    <li class="loader">
+    <li class="loader active">
       <a href="{% url 'person:accounts' id=patient.id %}">
-        <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuentas
+        <i class="fa fa-usd" aria-hidden="true"></i> Cuentas
       </a>
-    </li>    
+    </li>
   </ul>
 </li>
 {% endblock %}
 
+
 {% block content %}
 {{ block.super }}
-
-{% include "register/clinic_record/_add.html" %}
-{% include "register/clinic_record/_edit.html" %}
-{% include "register/_delete.html" with title="Borrar prestaci&oacute;n" %}
 
 <div class="row padding-top">
   <div class="col-md-12">
       <h1 class="page-header">
-        <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}
+        <i class="fa fa-usd" aria-hidden="true"></i> Cuentas - {{patient.last_name|upper}} {{patient.first_name|title}}
         {% if patient.birth_date %}<span class="label label-default pull-right" style="background-color: {% if patient.gender == 2 %}#EF84B8;{% else %}#2fa4e7;{% endif %}">{{patient.birth_date|calculate_age}} Años</span>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
-            <li role="presentation" id="tab-clinic-rec" class="active"><a href="#clinic-rec">Ficha Odontol&oacute;gica</a></li>
+            <li role="presentation" id="tab-account-detail" class="active"><a href="#clinic-rec">Ficha Odontol&oacute;gica</a></li>
             <!--<li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>-->
           </ul>
           <div id="myTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="clinic-rec" aria-labelledby="clinic-rec-tab">
-              {% include "register/clinic_record/tab_record.html" %}
+            <div role="tabpanel" class="tab-pane fade in active" id="account-det" aria-labelledby="account-det-tab">
+              {% include "register/accounts/tab_account.html" %}
             </div>
             <!-- <div role="tabpanel" class="tab-pane fade" id="info" aria-labelledby="info-tab">
             </div> -->
@@ -79,5 +75,4 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'js/record.js' %}"></script>
 {% endblock %}

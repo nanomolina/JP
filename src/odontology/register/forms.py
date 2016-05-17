@@ -278,3 +278,4 @@ class AccountingForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
+        }
