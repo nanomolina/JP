@@ -1,80 +1,81 @@
-            {% csrf_token %}
+          {% csrf_token %}
+          <div class="table-responsive">
             <table class="table table-condensed">
               <tbody>
                 <tr>
                   <th>Apellido:</th>
                   <td>
-                    <span class="field-info">{{patient.last_name}}</span>
+                    <span class="field-info">{{patient.last_name|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.last_name}}</span>
                   </td>
                   <th>Nombre:</th>
                   <td>
-                    <span class="field-info">{{patient.first_name}}</span>
+                    <span class="field-info">{{patient.first_name|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.first_name}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>DNI:</th>
                   <td>
-                    <span class="field-info">{{patient.dni|default:'---'}}</span>
+                    <span class="field-info">{{patient.dni|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.dni}}</span>
                   </td>
                   <th>Alias:</th>
                   <td>
-                    <span class="field-info">{{patient.alias|default:'---'}}</span>
+                    <span class="field-info">{{patient.alias|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.alias}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>Obra social:</th>
                   <td>
-                    <span class="field-info">{{patient.social_work|default:'---'}}</span>
+                    <span class="field-info">{{patient.social_work|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.social_work}}</span>
                   </td>
                   <th>Plan</th>
                   <td>
-                    <span class="field-info">{{patient.plan|default:'---'}}</span>
+                    <span class="field-info">{{patient.plan|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.plan}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>Nro de afiliado:</th>
                   <td>
-                    <span class="field-info">{{patient.subsidiary_number|default:'---'}}</span>
+                    <span class="field-info">{{patient.subsidiary_number|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.subsidiary_number}}</span>
                   </td>
                   <th>Titular:</th>
                   <td>
-                    <span class="field-info">{{patient.incumbent|default:'---'}}</span>
+                    <span class="field-info">{{patient.incumbent|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.incumbent}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>Grupo familiar:</th>
                   <td>
-                    <span class="field-info">{{patient.family_group|default:'---'}}</span>
+                    <span class="field-info">{{patient.family_group|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.family_group}}</span>
                   </td>
                   <th>Parentesco:</th>
                   <td>
-                    <span class="field-info">{{patient.relationship|default:'---'}}</span>
+                    <span class="field-info">{{patient.relationship|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.relationship}}</span>
                   </td>
                 </tr>
                 <tr class="field-info">
                   <th>Localidad:</th>
                   <td>
-                    <span class="field-info">{{patient.full_locality|default_if_none:'---'}}</span>
+                    <span class="field-info">{{patient.full_locality|upper|default_if_none:'---'}}</span>
                   </td>
                   <th>Domicilio:</th>
                   <td>
-                    <span>{{patient.domicile|default:'---'}}</span>
+                    <span>{{patient.domicile|default:'---'|upper}}</span>
                   </td>
                 </tr>
                 <tr class="field-info">
                   <th>Email:</th>
                   <td>
-                    <span class="field-info">{{patient.email|default:'---'}}</span>
+                    <span class="field-info">{{patient.email|default:'---'|upper}}</span>
                   </td>
                   <th></th>
                   <td></td>
@@ -122,12 +123,12 @@
                 <tr>
                   <th>Tel&eacute;fono fijo:</th>
                   <td>
-                    <span class="field-info">{{patient.tel|default:'---'}}</span>
+                    <span class="field-info">{{patient.tel|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.tel}}</span>
                   </td>
                   <th>Celular:</th>
                   <td>
-                    <span class="field-info">{{patient.cel_phone|default:'---'}}</span>
+                    <span class="field-info">{{patient.cel_phone|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.cel_phone}}</span>
                   </td>
                 </tr>
@@ -135,24 +136,24 @@
                 <tr>
                   <th><strong data-toggle="tooltip" data-placement="top" title="Lugar de trabajo del Titular">Lug.Trab.Tit.:</strong></th>
                   <td>
-                    <span class="field-info">{{patient.Workplace_holder|default:'---'}}</span>
+                    <span class="field-info">{{patient.Workplace_holder|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.Workplace_holder}}</span>
                   </td>
                   <th>Jerarquia:</th>
                   <td>
-                    <span class="field-info">{{patient.hierarchy|default:'---'}}</span>
+                    <span class="field-info">{{patient.hierarchy|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.hierarchy}}</span>
                   </td>
                 </tr>
                 <tr>
                   <th>Derivacion:</th>
                   <td>
-                    <span class="field-info">{{patient.derivation|default:'---'}}</span>
+                    <span class="field-info">{{patient.derivation|default:'---'|upper}}</span>
                     <span class="edit-info hide">{{patient_info_form.derivation}}</span>
                   </td>
                   <th>Sexo:</th>
                   <td>
-                    <span class="field-info">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span>
+                    <span class="field-info">{% if patient.gender == 1%}MASCULINO{% elif patient.gender == 2%}FEMENINO{% else %}---{%endif%}</span>
                     <span class="edit-info hide">{{patient_info_form.gender}}</span>
                   </td>
                 </tr>
@@ -173,15 +174,16 @@
 
               </tbody>
             </table>
-            <script type="text/javascript">
-                $(function(){
-                    $('.selectpicker').selectpicker();
-                    $('#birth_date_picker').datetimepicker({
-                        format: 'DD/MM/YYYY',
-                        locale: 'es',
-                    });
-                });
-                $(function () {
-                  $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
+          </div>
+          <script type="text/javascript">
+              $(function(){
+                  $('.selectpicker').selectpicker();
+                  $('#birth_date_picker').datetimepicker({
+                      format: 'DD/MM/YYYY',
+                      locale: 'es',
+                  });
+              });
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              })
+          </script>

@@ -16,10 +16,10 @@ function filter() {
     loading_state();
     var url = $('#filter').attr('action');
     var data = $('#filter').serialize();
-    $('#list-patients').find('.panel-body').load(url, data, function(){
+    $('#list-patients').find('.panel-content-load').load(url, data, function(){
       init_paginator();
       init_selector();
-      check_alert();
+      // check_alert();
     });
 }
 
@@ -31,40 +31,40 @@ function init_selector(){
   });
 }
 
-function check_alert(){
-  show_alert = false;
-  $('#body-list-patients tr').each(function(key, value){
-    if ($(this).hasClass('info')){
-      show_alert = true;
-      return false;
-    }
-  });
-  if (show_alert) {
-    $('#alert-obs').removeClass('hide');
-  } else {
-    $('#alert-obs').addClass('hide');
-  }
-}
+// function check_alert(){
+//   show_alert = false;
+//   $('#body-list-patients tr').each(function(key, value){
+//     if ($(this).hasClass('info')){
+//       show_alert = true;
+//       return false;
+//     }
+//   });
+//   if (show_alert) {
+//     $('#alert-obs').removeClass('hide');
+//   } else {
+//     $('#alert-obs').addClass('hide');
+//   }
+// }
 
 $(document).ready(function(){
     $('#text_search').keypress(function( event ) {
         if ( event.which == 13 ) {
            event.preventDefault();
-           $(this).next().click();
+           $(this).next().find('button').click();
         }
-    })
+    });
     init_paginator();
     init_selector();
-    check_alert();
+    // check_alert();
 });
 
 function load_page(href) {
   loading_state();
   var url = href;
-  $('#list-patients').find('.panel-body').load(url, function(){
+  $('#list-patients').find('.panel-content-load').load(url, function(){
     init_paginator();
     init_selector();
-    check_alert();
+    // check_alert();
   });
 }
 
@@ -84,10 +84,10 @@ function delete_patient(url) {
     data: $('#csrf_token').serialize(),
     success: function(data) {
         if (data.status !== 'ERROR') {
-          $('#list-patients').find('.panel-body').html(data);
+          $('#list-patients').find('.panel-content-load').html(data);
           $('#modal-delete').modal('hide');
           $('.rec-popover').popover();
-          check_alert();
+          // check_alert();
           toastr.success('Se ah borrado exitosamente.', 'PACIENTE BORRADO');
         } else {
           toastr.error('', 'ERROR AL BORRAR');
