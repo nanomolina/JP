@@ -160,6 +160,9 @@ class Record(models.Model):
     def __unicode__(self):
         return "%s" % (self.patient)
 
+    @property
+    def balance(self):
+        return self.debit - self.havings
 
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
