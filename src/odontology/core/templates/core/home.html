@@ -18,7 +18,7 @@
         <div class="row page-header">
           <div class="col-md-8">
             <h1>
-                Bienvenido Odontólogo {{ request.user.last_name }}!
+                Bienvenido Odontólogo {{ request.user.get_full_name }}!
             </h1>
           </div>
           {% if not has_connection %}

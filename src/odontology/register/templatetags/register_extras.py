@@ -50,3 +50,10 @@ def get_month_name(key):
         12: 'Diciembre',
     }
     return MONTHS[key]
+
+
+@register.filter(name='calculate_age')
+def calculate_age(born):
+    from datetime import date
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
