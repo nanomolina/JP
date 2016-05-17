@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.template import RequestContext
@@ -87,7 +88,11 @@ def patients(request):
                 new_patient.odontogram = odontogram
                 new_patient.code = 'P%04d' % (dentist.number_of_patients + 1)
                 new_patient.save()
-                return JsonResponse({'status': 'OK'})
+                return JsonResponse(
+                    {'status': 'OK',
+                     'url': reverse('person:profile_patient', kwargs={'id': new_patient.id})
+                    }
+                )
             else:
                 return JsonResponse({'status': 'ERROR', 'errors': form.errors})
         else:

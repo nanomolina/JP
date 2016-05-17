@@ -11,8 +11,7 @@ $(document).ready(function() {
           data: data_form,
           success: function(data) {
               if (data.status === 'OK') {
-                var url = $('#patient-form').attr('action');
-                location.href = url + "?add=1";
+                location.href = data.url;
               } else {
                 $('#btn-save-patient').button('reset');
                 $('#patient-form .form-group').addClass('has-success');
