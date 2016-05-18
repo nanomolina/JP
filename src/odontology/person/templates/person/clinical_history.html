@@ -52,7 +52,7 @@
   <div class="col-md-12">
       <h1 class="page-header">
         <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}
-        {% if patient.birth_date %}<span class="label label-default pull-right" style="background-color: {% if patient.gender == 2 %}#EF84B8;{% else %}#2fa4e7;{% endif %}">{{patient.birth_date|calculate_age}} Años</span>{% endif %}
+        {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
