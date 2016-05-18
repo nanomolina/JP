@@ -52,11 +52,4 @@
 {% block scripts %}
 <script type="text/javascript" src="{% static 'js/patients.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
-{% if rec_added %}
-<script type="text/javascript">
-  $(function(){
-    toastr.success("El paciente se ha añadido correctamente.", "NUEVO PACIENTE.");
-  });
-</script>
-{% endif %}
 {%endblock%}

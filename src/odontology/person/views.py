@@ -52,14 +52,12 @@ def patients(request):
             )
         else:
             form = PatientForm()
-            rec_added = request.GET.get('add', None)
             return render_to_response(
                 'person/patients.html',
                 {
                     'template': 'patient',
                     'patient_form': form,
                     'patients': patients,
-                    'rec_added': rec_added,
                     'text_search': text_search,
                     'nro_row': nro_row,
                 },
@@ -104,11 +102,13 @@ def patients(request):
 def profile_patient(request, id):
     patient = get_object_or_404(Patient, id=id)
     patient_info = PatientForm(instance=patient)
+    rec_added = request.GET.get('add', None)
     return render_to_response(
         'register/patient_data/profile.html',
         {
             'patient': patient,
             'patient_info_form': patient_info,
+            'rec_added': rec_added,
         },
         RequestContext(request)
     )
