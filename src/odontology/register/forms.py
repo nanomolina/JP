@@ -268,12 +268,12 @@ class AccountingForm(forms.ModelForm):
             'debit', 'havings',
         )
         widgets = {
-            'debit': forms.TextInput(
+            'debit': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                 }
             ),
-            'havings': forms.TextInput(
+            'havings': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                 }
