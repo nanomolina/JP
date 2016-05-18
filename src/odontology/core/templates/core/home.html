@@ -18,7 +18,7 @@
         <div class="row page-header">
           <div class="col-md-8">
             <h1>
-                Bienvenido Odontólogo {{ request.user.get_full_name }}!
+                ¡Bienvenido! Dr. {{ request.user.get_full_name }}.
             </h1>
           </div>
           {% if not has_connection %}
@@ -32,7 +32,7 @@
         </div>
         <div class="row">
           <p>
-            <h3 class="text-center">Estos son los cumpleaños de este mes</h3>
+            <h3 class="text-center">Cumpleaños de este Mes.</h3>
           </p>
         </div>
         <div class="row">
