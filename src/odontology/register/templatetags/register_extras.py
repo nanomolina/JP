@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404
 from django import template
 from person.models import Patient
-from register.models import Apross, Benefit, DetailApross, DetailBenefit, Radiography
-from register.forms import detailAprossForm, detailBenefitForm, RadiographyForm
+from register.models import Apross, Benefit, DetailApross, DetailBenefit, Radiography, Record
+from register.forms import detailAprossForm, detailBenefitForm, RadiographyForm, AccountingForm
 register = template.Library()
 
 @register.filter(name='detail_form_instance')
@@ -57,3 +57,10 @@ def calculate_age(born):
     from datetime import date
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+
+@register.filter(name='account_form')
+def account_form(record_id):
+    record = get_object_or_404(Record, id=record_id)
+    aform = AccountingForm(instance=record)
+    return aform

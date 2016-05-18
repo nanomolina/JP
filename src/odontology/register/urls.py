@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^record/new/(?P<patient_id>[0-9]+)/$', views.new_record, name='new_record'),
     url(r'^record/edit/(?P<record_id>[0-9]+)/$', views.edit_record, name='edit_record'),
     url(r'^record/remove/(?P<record_id>[0-9]+)/$', views.remove_record, name='remove_record'),
+    url(r'^record/account/edit/(?P<record_id>[0-9]+)/$', views.edit_record_account, name='edit_record_account'),
 ]

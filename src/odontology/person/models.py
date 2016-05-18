@@ -166,12 +166,24 @@ class Patient(models.Model):
         from register.models import Record
         return Record.objects.filter(patient=self).order_by('-date')
 
-
     def has_observations(self):
         from register.models import Record
         exists = Record.objects.filter(patient=self).exclude(
             observations__exact='').exists()
         return exists
+
+    def total_debit_records(self):
+        from register.models import Record
+        from django.db.models import Sum
+        return Record.objects.filter(patient=self).aggregate(total=Sum('debit'))['total']
+
+    def total_having_records(self):
+        from register.models import Record
+        from django.db.models import Sum
+        return Record.objects.filter(patient=self).aggregate(total=Sum('havings'))['total']
+
+    def total_balance_records(self):
+        return self.total_debit_records() - self.total_having_records()
 
 
 COLORS = ((1, 'red'), (2, 'blue'))

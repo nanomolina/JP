@@ -149,10 +149,10 @@ class Record(models.Model):
     observations = models.TextField(null=True, blank=True)
     #Accounting
     debit = models.DecimalField(
-        max_digits=7, decimal_places=2, null=True, blank=True
+        max_digits=7, decimal_places=2, default=0,
     )
     havings = models.DecimalField(
-        max_digits=7, decimal_places=2, null=True, blank=True
+        max_digits=7, decimal_places=2, default=0,
     )
     # other
     date_created = models.DateField(auto_now_add=True)
