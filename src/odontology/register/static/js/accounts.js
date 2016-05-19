@@ -20,7 +20,7 @@ function save_account(record_id) {
             $acc.find('.havings').html('$ '+data.havings);
             var $balance = $acc.find('.balance');
             $balance.html('$ '+data.balance);
-            if (data.balance < 0) {
+            if (data.balance.replace(',', '.') < 0) {
               $balance.css('color', 'crimson');
             } else {
               $balance.css('color', '');
@@ -32,7 +32,7 @@ function save_account(record_id) {
             $acc_total.find('.havings').html('$ '+data.total_havings);
             var $total_balance = $acc_total.find('.balance');
             $total_balance.html('$ '+data.total_balance);
-            if (data.total_balance < 0) {
+            if (data.total_balance.replace(',', '.') < 0) {
               $total_balance.css('color', 'crimson');
             } else {
               $total_balance.css('color', '');
