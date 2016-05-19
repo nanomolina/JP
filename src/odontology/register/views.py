@@ -357,7 +357,6 @@ def remove_record(request, record_id):
 @login_required
 def edit_record_account(request, record_id):
     if request.method == 'POST':
-        from django.template.defaultfilters import floatformat
         record = get_object_or_404(Record, id=record_id)
         aform = AccountingForm(request.POST, instance=record)
         if aform.is_valid():
@@ -365,12 +364,12 @@ def edit_record_account(request, record_id):
             return JsonResponse(
                 {
                     'status': 'OK',
-                    'balance': floatformat(record.balance),
-                    'debit': floatformat(record.debit),
-                    'havings': floatformat(record.havings),
-                    'total_debit': floatformat(record.patient.total_debit_records()),
-                    'total_havings': floatformat(record.patient.total_having_records()),
-                    'total_balance': floatformat(record.patient.total_balance_records()),
+                    'balance': record.balance,
+                    'debit': record.debit,
+                    'havings': record.havings,
+                    'total_debit': record.patient.total_debit_records(),
+                    'total_havings': record.patient.total_having_records(),
+                    'total_balance': record.patient.total_balance_records(),
                 }
             )
         else:
