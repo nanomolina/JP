@@ -259,3 +259,23 @@ class RecordForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class AccountingForm(forms.ModelForm):
+    class Meta:
+        model = Record
+        fields = (
+            'debit', 'havings',
+        )
+        widgets = {
+            'debit': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'havings': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        }

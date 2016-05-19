@@ -146,15 +146,23 @@ class Record(models.Model):
     period_so = models.CharField(max_length=30, null=True, blank=True)
     state = models.SmallIntegerField(choices=STATES, default=1)
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
-
     observations = models.TextField(null=True, blank=True)
-
+    #Accounting
+    debit = models.DecimalField(
+        max_digits=7, decimal_places=2, default=0,
+    )
+    havings = models.DecimalField(
+        max_digits=7, decimal_places=2, default=0,
+    )
+    # other
     date_created = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return "%s" % (self.patient)
 
-
+    @property
+    def balance(self):
+        return self.debit - self.havings
 
 # DATABASE SIGNALS
 from django.db.models.signals import post_save

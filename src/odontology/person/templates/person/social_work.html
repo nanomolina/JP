@@ -37,6 +37,11 @@
           <i class="fa fa-building" aria-hidden="true"></i> Obra social
         </a>
       </li>
+      <li class="loader">
+        <a href="{% url 'person:accounts' id=patient.id %}">
+          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuentas
+        </a>
+      </li>      
     </ul>
   </li>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.template import RequestContext
 from person.models import Patient, Dentist, Sector, Tooth
 from person.forms import PatientForm, OdontogramForm
 from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography, Record
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
 from django.contrib.auth.decorators import login_required
 
@@ -352,3 +352,23 @@ def remove_record(request, record_id):
             request, 'register/clinic_record/list.html',
             {'patient': patient}
         )
+
+
+@login_required
+def edit_record_account(request, record_id):
+    if request.method == 'POST':
+        record = get_object_or_404(Record, id=record_id)
+        aform = AccountingForm(request.POST, instance=record)
+        if aform.is_valid():
+            record = aform.save()
+            return JsonResponse(
+                {
+                    'status': 'OK', 'balance': record.balance,
+                    'debit': record.debit, 'havings': record.havings,
+                    'total_debit': record.patient.total_debit_records(),
+                    'total_havings': record.patient.total_having_records(),
+                    'total_balance': record.patient.total_balance_records(),
+                }
+            )
+        else:
+            return JsonResponse({'status': 'ERROR', 'errors': aform.errors})

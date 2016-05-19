@@ -8,7 +8,7 @@ from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
 from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm
+from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
 from django.contrib.auth.decorators import login_required
 
@@ -169,6 +169,22 @@ def social_work(request, id):
             },
             RequestContext(request)
         )
+
+
+@login_required
+def accounts(request, id):
+    patient = get_object_or_404(Patient, id=id)
+    if request.method == 'GET':
+        aform = AccountingForm()
+        return render_to_response(
+            'person/accounts.html',
+            {
+                'patient': patient,
+                'aform': aform,
+            },
+            RequestContext(request)
+        )
+
 
 
 @login_required

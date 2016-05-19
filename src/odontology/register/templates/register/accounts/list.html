@@ -1,0 +1,53 @@
+{% load register_extras %}
+
+{% with patient_records=patient.get_records %}
+    {% for record in patient_records %}
+            <tr id="account-{{record.id}}" data-url="{% url 'register:edit_record_account' record_id=record.id %}">
+              <td><span class="label label-primary">{{forloop.counter}}</span></td>
+              <td>{{record.date|date:'l'}}</td>
+              <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
+              <td>{{record.date|date:'H:i'}}</td>
+              <td>{{record.treatment|default:''}}</td>
+              <td>
+                {% for face in record.faces.all %}
+                  {{face.initial}}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
+              <td>{{record.tooth|default:''}}</td>
+              {% with record.id|account_form as aform %}
+              {% csrf_token %}
+              <td>
+                <span class="field-info debit">{{record.debit|floatformat|default_if_none:''}}</span>
+                <span class="edit-info hide">{{aform.debit}}</span>
+              </td>
+              <td>
+                <span class="field-info havings">{{record.havings|floatformat|default_if_none:''}}</span>
+                <span class="edit-info hide">{{aform.havings}}</span>
+              </td>
+              {% endwith %}
+              <td class="balance">{{record.balance|floatformat|default_if_none:''}}</td>
+              <td>
+                <button id="btn-acc-edit-{{record.id}}" type="button" class="btn btn-primary btn-xs" onclick="edit_account('{{record.id}}')">
+                  <i class="fa fa-pencil"></i> Editar
+                </button>
+                <button id="btn-acc-save-{{record.id}}" type="button" class="btn btn-success btn-sm hide" onclick="javascript: save_account({{record.id}})" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Guardando">
+                  <i class="fa fa-floppy-o"></i> Guardar
+                </button>
+              </td>
+            </tr>
+    {% empty %}
+            <tr>
+              <td colspan="9" class="text-center">Sin detalles</td>
+            </tr>
+    {% endfor %}
+    {% if patient_records %}
+            <tr id="account-total" class="info">
+              <td colspan="7">Total</td>
+              <td class="debit">{{patient.total_debit_records|floatformat|default_if_none:''}}</td>
+              <td class="havings">{{patient.total_having_records|floatformat|default_if_none:''}}</td>
+              <td class="balance">{{patient.total_balance_records|floatformat|default_if_none:''}}</td>
+              <td></td>
+            </tr>
+    {% endif %}
+
+{% endwith %}
