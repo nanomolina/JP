@@ -17,15 +17,15 @@
               {% with record.id|account_form as aform %}
               {% csrf_token %}
               <td>
-                <span class="field-info debit">{{record.debit|floatformat|default_if_none:''}}</span>
+                <span class="field-info debit">$ {{record.debit|floatformat}}</span>
                 <span class="edit-info hide">{{aform.debit}}</span>
               </td>
               <td>
-                <span class="field-info havings">{{record.havings|floatformat|default_if_none:''}}</span>
+                <span class="field-info havings">$ {{record.havings|floatformat}}</span>
                 <span class="edit-info hide">{{aform.havings}}</span>
               </td>
               {% endwith %}
-              <td class="balance">{{record.balance|floatformat|default_if_none:''}}</td>
+              <td class="balance">$ {{record.balance|floatformat}}</td>
               <td>
                 <button id="btn-acc-edit-{{record.id}}" type="button" class="btn btn-primary btn-xs" onclick="edit_account('{{record.id}}')">
                   <i class="fa fa-pencil"></i> Editar
@@ -43,9 +43,9 @@
     {% if patient_records %}
             <tr id="account-total" class="info">
               <td colspan="7">Total</td>
-              <td class="debit">{{patient.total_debit_records|floatformat|default_if_none:''}}</td>
-              <td class="havings">{{patient.total_having_records|floatformat|default_if_none:''}}</td>
-              <td class="balance">{{patient.total_balance_records|floatformat|default_if_none:''}}</td>
+              <td class="debit">$ {{patient.total_debit_records|floatformat}}</td>
+              <td class="havings">$ {{patient.total_having_records|floatformat}}</td>
+              <td class="balance">$ {{patient.total_balance_records|floatformat}}</td>
               <td></td>
             </tr>
     {% endif %}
