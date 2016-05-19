@@ -18,11 +18,23 @@
               {% csrf_token %}
               <td>
                 <span class="field-info debit">$ {{record.debit}}</span>
-                <span class="edit-info hide">{{aform.debit}}</span>
+                <span class="edit-info hide">
+                    <div class="input-group">
+                      <span class="input-group-addon">$</span>
+                          {{aform.debit}}
+                      </span>
+                    </div>
+                </span>
               </td>
               <td>
                 <span class="field-info havings">$ {{record.havings}}</span>
-                <span class="edit-info hide">{{aform.havings}}</span>
+                <span class="edit-info hide">
+                    <div class="input-group">
+                      <span class="input-group-addon">$</span>
+                          {{aform.havings}}
+                      </span>
+                    </div>
+                </span>
               </td>
               {% endwith %}
               <td class="balance" {% if record.balance < 0 %}style="color:crimson;"{%endif%}>$ {{record.balance}}</td>
