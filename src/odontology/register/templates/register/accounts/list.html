@@ -25,7 +25,7 @@
                 <span class="edit-info hide">{{aform.havings}}</span>
               </td>
               {% endwith %}
-              <td class="balance">$ {{record.balance|floatformat}}</td>
+              <td class="balance" {% if record.balance < 0 %}style="color:crimson;"{%endif%}>$ {{record.balance|floatformat}}</td>
               <td>
                 <button id="btn-acc-edit-{{record.id}}" type="button" class="btn btn-primary btn-xs" onclick="edit_account('{{record.id}}')">
                   <i class="fa fa-pencil"></i> Editar
@@ -45,7 +45,9 @@
               <td colspan="7">Total</td>
               <td class="debit">$ {{patient.total_debit_records|floatformat}}</td>
               <td class="havings">$ {{patient.total_having_records|floatformat}}</td>
-              <td class="balance">$ {{patient.total_balance_records|floatformat}}</td>
+              {% with total_balance=patient.total_balance_records %}
+              <td class="balance" {% if total_balance < 0 %}style="color:crimson;"{%endif%}>$ {{total_balance|floatformat}}</td>
+              {% endwith %}
               <td></td>
             </tr>
     {% endif %}

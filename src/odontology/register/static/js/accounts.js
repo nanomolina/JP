@@ -16,19 +16,33 @@ function save_account(record_id) {
       success: function(data) {
           if (data.status == 'OK') {
             var $acc = $('#account-'+record_id);
-            $acc.find('.debit').html(data.debit);
-            $acc.find('.havings').html(data.havings);
-            $acc.find('.balance').html(data.balance);
+            $acc.find('.debit').html('$ '+data.debit);
+            $acc.find('.havings').html('$ '+data.havings);
+            var $balance = $acc.find('.balance');
+            $balance.html('$ '+data.balance);
+            if (data.balance < 0) {
+              $balance.css('color', 'crimson');
+            } else {
+              $balance.css('color', '');
+            }
+
 
             var $acc_total = $('#account-total');
-            $acc_total.find('.debit').html(data.total_debit);
-            $acc_total.find('.havings').html(data.total_havings);
-            $acc_total.find('.balance').html(data.total_balance);
+            $acc_total.find('.debit').html('$ '+data.total_debit);
+            $acc_total.find('.havings').html('$ '+data.total_havings);
+            var $total_balance = $acc_total.find('.balance');
+            $total_balance.html('$ '+data.total_balance);
+            if (data.total_balance < 0) {
+              $total_balance.css('color', 'crimson');
+            } else {
+              $total_balance.css('color', '');
+            }
 
             $acc.find('.field-info').removeClass('hide');
             $acc.find('.edit-info').addClass('hide');
             $('#btn-acc-edit-'+record_id).removeClass('hide');
             $('#btn-acc-save-'+record_id).addClass('hide');
+
           } else {
             var $acc = $('#account-'+record_id);
             for (var key in data.errors) {
