@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles register_extras %}
-{% block title %}Cuenta corriente - {{ patient.get_full_name }}{% endblock %}
+{% block title %}Cuenta Corriente - {{ patient.get_full_name }}{% endblock %}
 
 {% block links %}
   <style media="screen">
@@ -33,12 +33,12 @@
     </li>
     <li class="loader">
       <a href="{% url 'person:social_work' id=patient.id %}">
-        <i class="fa fa-building" aria-hidden="true"></i> Obra social
+        <i class="fa fa-building" aria-hidden="true"></i> Obra Social
       </a>
     </li>
     <li class="loader active">
       <a href="{% url 'person:accounts' id=patient.id %}">
-        <i class="fa fa-usd" aria-hidden="true"></i> Cuenta corriente
+        <i class="fa fa-usd" aria-hidden="true"></i> Cuenta Corriente
       </a>
     </li>
   </ul>
@@ -52,7 +52,7 @@
 <div class="row padding-top">
   <div class="col-md-12">
       <h1 class="page-header">
-        <i class="fa fa-usd" aria-hidden="true"></i> Cuenta corriente - {{patient.last_name|upper}} {{patient.first_name|title}}
+        <i class="fa fa-usd" aria-hidden="true"></i> Cuenta Corriente - {{patient.last_name|upper}} {{patient.first_name|title}}
         {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">

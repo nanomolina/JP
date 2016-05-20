@@ -34,12 +34,12 @@
       </li>
       <li class="loader active">
         <a href="{% url 'person:social_work' id=patient.id %}">
-          <i class="fa fa-building" aria-hidden="true"></i> Obra social
+          <i class="fa fa-building" aria-hidden="true"></i> Obra Social
         </a>
       </li>
       <li class="loader">
         <a href="{% url 'person:accounts' id=patient.id %}">
-          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta corriente
+          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
         </a>
       </li>
     </ul>
@@ -84,7 +84,7 @@
 
   <div class="col-md-12">
       <h1 class="page-header">
-        <i class="fa fa-building" aria-hidden="true"></i> Obra social - {{patient.last_name|upper}} {{patient.first_name|title}}
+        <i class="fa fa-building" aria-hidden="true"></i> Obra Social - {{patient.last_name|upper}} {{patient.first_name|title}}
         {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
