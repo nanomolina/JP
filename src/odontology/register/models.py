@@ -136,7 +136,7 @@ class Record(models.Model):
         (1, 'Realizado'), (2, 'Por Terminar'), (3, 'A realizar')
     )
     ASSISTANCE = (
-        (1, 'Presente'), (2, 'Ausente con aviso'), (3, 'Ausente sin aviso')
+        (1, 'Presente'), (2, 'Ausente con aviso'), (3, 'Ausente sin aviso'), (4, 'Pendiente'),
     )
     patient = models.ForeignKey(Patient)
     date = models.DateTimeField(null=True, blank=True)
@@ -144,7 +144,7 @@ class Record(models.Model):
     faces = models.ManyToManyField(Faces, blank=True)
     tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     period_so = models.CharField(max_length=30, null=True, blank=True)
-    state = models.SmallIntegerField(choices=STATES, default=1)
+    state = models.SmallIntegerField(choices=STATES, default=1, blank=True)
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
     observations = models.TextField(null=True, blank=True)
     #Accounting
