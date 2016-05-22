@@ -16,7 +16,7 @@
               <td>{{record.tooth|default:''}}</td>
               {% with record.id|account_form as aform %}
               {% csrf_token %}
-              <td>
+              <td style="max-width: 80px;">
                 <span class="field-info debit">$ {{record.debit}}</span>
                 <span class="edit-info hide">
                     <div class="input-group input-group-sm">
@@ -26,7 +26,7 @@
                     </div>
                 </span>
               </td>
-              <td>
+              <td style="max-width: 80px;">
                 <span class="field-info havings">$ {{record.havings}}</span>
                 <span class="edit-info hide">
                     <div class="input-group input-group-sm">
@@ -37,7 +37,7 @@
                 </span>
               </td>
               {% endwith %}
-              <td class="balance" {% if record.balance < 0 %}style="color:crimson;"{%endif%}>$ {{record.balance}}</td>
+              <td class="balance" style="max-width: 80px;{% if record.balance < 0 %}color:crimson;{%endif%}">$ {{record.balance}}</td>
               <td>
                 <button id="btn-acc-edit-{{record.id}}" type="button" class="btn btn-primary btn-xs" onclick="edit_account('{{record.id}}')">
                   <i class="fa fa-pencil"></i> Editar
