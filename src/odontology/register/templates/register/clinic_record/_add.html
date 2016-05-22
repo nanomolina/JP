@@ -11,7 +11,7 @@
         <div class="modal-body">
 
             <div class="row">
-              <div class="col-xs-4 date-group input-fields">
+              <div class="col-xs-6 date-group input-fields">
                   <label class="control-label" for="id_date">Fecha y Hora:</label>
                   <div class='input-group date' id='date_gral'>
                       <input class="form-control" id="id_date" name="date" type="text">
@@ -20,18 +20,9 @@
                       </span>
                   </div>
               </div>
-              <div class="col-xs-4 treatment-group input-fields">
+              <div class="col-xs-6 treatment-group input-fields">
                   <label class="control-label" for="{{rform.treatment.id_for_label}}">Tratamiento:</label>
                   {{rform.treatment}}
-              </div>
-              <div class="col-xs-4 period_so-group input-fields">
-                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
-                  <div class='input-group date' id='date_period_so'>
-                      <input class="form-control" id="id_period_so" name="period_so" type="text">
-                      <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
               </div>
             </div>
 
@@ -43,6 +34,15 @@
               <div class="col-xs-4 tooth-group input-fields">
                   <label class="control-label" for="{{rform.tooth.id_for_label}}">Dientes:</label>
                   {{rform.tooth}}
+              </div>
+              <div class="col-xs-4 period_so-group input-fields">
+                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                  <div class='input-group date' id='date_period_so'>
+                      <input class="form-control" id="id_period_so" name="period_so" type="text">
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
               </div>
             </div>
 

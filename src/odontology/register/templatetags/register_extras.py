@@ -64,3 +64,8 @@ def account_form(record_id):
     record = get_object_or_404(Record, id=record_id)
     aform = AccountingForm(instance=record)
     return aform
+
+
+@register.filter(name='lolalhour')
+def lolalhour(hour):
+    return (hour - 3) % 24

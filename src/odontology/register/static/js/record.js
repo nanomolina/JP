@@ -14,8 +14,16 @@ $(function () {
 
 function init_form_edit(){
   var $modal = $('#modal-edit-record');
+  var $dp_input = $modal.find('#id_date');
+  year = $dp_input.data('year');
+  month = $dp_input.data('month');
+  day = $dp_input.data('day');
+  hour = $dp_input.data('hour');
+  minute = $dp_input.data('minute');
+  var date = new Date(year, month, day, hour, minute);
   $modal.find('#date_gral').datetimepicker({
       locale: 'es',
+      defaultDate: date,
   });
   $modal.find('#date_period_so').datetimepicker({
       viewMode: 'months',
