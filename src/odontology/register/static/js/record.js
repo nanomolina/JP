@@ -16,7 +16,7 @@ function init_form_edit(){
   var $modal = $('#modal-edit-record');
   var $dp_input = $modal.find('#id_date');
   year = $dp_input.data('year');
-  month = $dp_input.data('month');
+  month = $dp_input.data('month') - 1;
   day = $dp_input.data('day');
   hour = $dp_input.data('hour');
   minute = $dp_input.data('minute');
