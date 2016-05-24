@@ -147,6 +147,7 @@ class Record(models.Model):
     state = models.SmallIntegerField(choices=STATES, default=1, blank=True)
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
     observations = models.TextField(null=True, blank=True)
+    code = models.CharField(max_length=15, null=True, blank=True)
     #Accounting
     debit = models.DecimalField(
         max_digits=7, decimal_places=0, default=0,

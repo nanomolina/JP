@@ -11,6 +11,7 @@
                 {% endfor %}
               </td>
               <td>{{record.tooth|default:''}}</td>
+              <td>{{record.code|default:''}}</td>
               <td>{{record.period_so|default:''}}</td>
               <td>{{record.get_state_display|default:''}}</td>
               <td>
@@ -48,6 +49,6 @@
             </tr>
 {% empty %}
             <tr>
-              <td colspan="9" class="text-center">Sin detalles</td>
+              <td colspan="12" class="text-center">Sin detalles</td>
             </tr>
 {% endfor %}

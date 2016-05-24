@@ -211,7 +211,7 @@ class RecordForm(forms.ModelForm):
         model = Record
         fields = (
             'date', 'treatment', 'faces', 'tooth', 'period_so',
-            'state', 'assistance', 'observations',
+            'state', 'assistance', 'observations', 'code',
         )
         widgets = {
             'date': forms.DateTimeInput(
@@ -256,6 +256,11 @@ class RecordForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'rows': '2',
+                }
+            ),
+            'code': forms.TextInput(
+                attrs={
+                'class': 'form-control',
                 }
             ),
         }
