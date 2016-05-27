@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -140,7 +140,7 @@ class Record(models.Model):
     )
     patient = models.ForeignKey(Patient)
     date = models.DateTimeField(null=True, blank=True)
-    treatment = models.CharField(max_length=25 ,null=True, blank=True)
+    treatment = models.CharField(max_length=250 ,null=True, blank=True)
     faces = models.ManyToManyField(Faces, blank=True)
     tooth = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     period_so = models.CharField(max_length=30, null=True, blank=True)
@@ -164,6 +164,35 @@ class Record(models.Model):
     @property
     def balance(self):
         return self.debit - self.havings
+
+    def create_social_work(self):
+        import ipdb; ipdb.set_trace()
+        month, year = self.period_so.split(' - ')
+        if self.patient.social_work and self.patient.social_work.initial == 'APROSS':
+            benefit, created = Apross.objects.get_or_create(
+                patient=self.patient, month=month, year=int(year)
+            )
+            if created:
+                benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
+                benefit.save()
+            new_detail = DetailApross(
+                benefit=benefit, work_done=self.treatment, practic_code=self.code,
+                element=self.tooth, faces=self.faces,
+            )
+            new_detail.save()
+        else:
+            benefit, created = Benefit.objects.get_or_create(
+                patient=self.patient, month=month, year=int(year)
+            )
+            if created:
+                benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
+                benefit.save()
+            new_detail = DetailApross(
+                benefit=benefit, code=self.code,
+                tooth=self.tooth, faces=self.faces,
+            )
+            new_detail.save()
+
 
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
