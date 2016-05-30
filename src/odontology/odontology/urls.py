@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('core.urls', namespace='core')),
     url(r'^persons/', include('person.urls', namespace='person')),
+    url(r'^rest-persons/', include('person.rest_urls', namespace='rest_person')),
     url(r'^register/', include('register.urls', namespace='register')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
