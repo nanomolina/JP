@@ -211,7 +211,7 @@ class RecordForm(forms.ModelForm):
         model = Record
         fields = (
             'date', 'treatment', 'faces', 'tooth', 'period_so',
-            'state', 'assistance', 'observations', 'code',
+            'state', 'assistance', 'observations', 'code', 'to_account'
         )
         widgets = {
             'date': forms.DateTimeInput(
@@ -260,9 +260,14 @@ class RecordForm(forms.ModelForm):
             ),
             'code': forms.TextInput(
                 attrs={
-                'class': 'form-control',
+                    'class': 'form-control',
                 }
             ),
+            'to_account': forms.CheckboxInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
         }
 
 

@@ -169,6 +169,8 @@ class Record(models.Model):
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
     observations = models.TextField(null=True, blank=True)
     code = models.CharField(max_length=15, null=True, blank=True)
+    to_account = models.BooleanField(default=True)
+    
     #Accounting
     debit = models.DecimalField(
         max_digits=7, decimal_places=0, default=0,
