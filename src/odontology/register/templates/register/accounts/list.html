@@ -7,13 +7,13 @@
               <td>{{record.date|date:'l'}}</td>
               <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
               <td>{{record.date|date:'H:i'}}</td>
-              <td>{{record.treatment|default:''}}</td>
               <td>
                 {% for face in record.faces.all %}
                   {{face.initial}}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
               <td>{{record.tooth|default:''}}</td>
+              <td>{{record.code|default:''}}</td>
               {% with record.id|account_form as aform %}
               {% csrf_token %}
               <td style="max-width: 80px;">

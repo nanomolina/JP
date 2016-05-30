@@ -56,7 +56,7 @@
 <div class="row padding-top">
   <div class="col-md-12">
       <h1 class="page-header">
-        <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}
+        <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
         {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
