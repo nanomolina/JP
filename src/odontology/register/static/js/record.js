@@ -10,6 +10,7 @@ $(function () {
         locale: 'es',
     });
     $('.rec-popover').popover();
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function init_form_edit(){

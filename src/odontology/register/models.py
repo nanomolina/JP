@@ -39,12 +39,18 @@ class Apross(models.Model):
     observations = models.TextField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
-    real_date = models.DateField()
+    real_date = models.DateField(null=True)
     def __unicode__(self):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
         return DetailApross.objects.filter(benefit=self).order_by('id')
+
+    def get_empty_detail(self):
+        for detail in self.get_details():
+            if detail.is_empty():
+                return detail
+        return None
 
 
 milk_teeth = range(51, 56) + range(61,66) + range(71,76) + range(81, 86)
@@ -63,6 +69,11 @@ class DetailApross(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.day, self.benefit)
 
+    def is_empty(self):
+        return self.day is None and self.work_done in [None, ''] and \
+            self.practic_code in [None, ''] and self.element is None and \
+            self.faces.count() == 0
+
 
 class Benefit(models.Model):
     patient = models.ForeignKey(Patient)
@@ -77,12 +88,18 @@ class Benefit(models.Model):
     observations = models.TextField(null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
-    real_date = models.DateField()
+    real_date = models.DateField(null=True)
     def __unicode__(self):
         return "%s - (%s, %s)" % (self.patient, self.month, self.year)
 
     def get_details(self):
         return DetailBenefit.objects.filter(benefit=self).order_by('id')
+
+    def get_empty_detail(self):
+        for detail in self.get_details():
+            if detail.is_empty():
+                return detail
+        return None
 
 
 class DetailBenefit(models.Model):
@@ -95,6 +112,10 @@ class DetailBenefit(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.day, self.benefit)
+
+    def is_empty(self):
+        return self.day is None and self.tooth is None and \
+            self.faces.count() == 0 and self.code in [None, '']
 
 
 class Radiography(models.Model):
@@ -166,32 +187,41 @@ class Record(models.Model):
         return self.debit - self.havings
 
     def create_social_work(self):
-        import ipdb; ipdb.set_trace()
-        month, year = self.period_so.split(' - ')
+        try:
+            month, year = self.period_so.split(' - ')
+        except ValueError:
+            return None
         if self.patient.social_work and self.patient.social_work.initial == 'APROSS':
             benefit, created = Apross.objects.get_or_create(
                 patient=self.patient, month=month, year=int(year)
             )
             if created:
+                from datetime import date as Date
                 benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
                 benefit.save()
-            new_detail = DetailApross(
-                benefit=benefit, work_done=self.treatment, practic_code=self.code,
-                element=self.tooth, faces=self.faces,
-            )
-            new_detail.save()
+            new_detail = benefit.get_empty_detail()
+            if new_detail is not None:
+                new_detail.work_done = self.treatment
+                new_detail.practic_code = self.code
+                new_detail.element = self.tooth
+                for face in self.faces.all():
+                    new_detail.faces.add(face)
+                new_detail.save()
         else:
             benefit, created = Benefit.objects.get_or_create(
                 patient=self.patient, month=month, year=int(year)
             )
             if created:
+                from datetime import date as Date
                 benefit.real_date = Date(int(year), int(benefit.get_month_display()), 1)
                 benefit.save()
-            new_detail = DetailApross(
-                benefit=benefit, code=self.code,
-                tooth=self.tooth, faces=self.faces,
-            )
-            new_detail.save()
+            new_detail = benefit.get_empty_detail()
+            if new_detail is not None:
+                new_detail.code = self.code
+                new_detail.tooth = self.tooth
+                for face in self.faces.all():
+                    new_detail.faces.add(face)
+                new_detail.save()
 
 
 # DATABASE SIGNALS
