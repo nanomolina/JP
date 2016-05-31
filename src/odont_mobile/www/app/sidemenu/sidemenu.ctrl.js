@@ -1,6 +1,11 @@
-angular.module('starter.controllers', [])
+angular
+  .module('sidemenu')
+  .controller('SidemenuCtrl', SidemenuCtrl)
+  .controller('PlaylistsCtrl', PlaylistsCtrl)
+  .controller('PlaylistCtrl', PlaylistCtrl);
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+//----------------------------------------------------------------------------//
+function SidemenuCtrl($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -13,7 +18,7 @@ angular.module('starter.controllers', [])
   $scope.loginData = {};
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('app/sidemenu/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -39,9 +44,10 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
-})
+}
 
-.controller('PlaylistsCtrl', function($scope) {
+//----------------------------------------------------------------------------//
+function PlaylistsCtrl($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -50,7 +56,7 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
-})
+}
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+//----------------------------------------------------------------------------//
+function PlaylistCtrl($scope, $stateParams) {}
