@@ -263,11 +263,7 @@ class RecordForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'to_account': forms.CheckboxInput(
-                attrs={
-                    'class': 'form-control',
-                }
-            )
+            'to_account': forms.CheckboxInput()
         }
 
 

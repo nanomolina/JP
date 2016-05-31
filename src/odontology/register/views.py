@@ -312,7 +312,8 @@ def new_record(request, patient_id):
             record.patient = patient
             record.save()
             form.save_m2m()
-            record.create_social_work()
+            if record.to_account:
+                record.create_social_work()
             return TemplateResponse(
                 request, 'register/clinic_record/list.html',
                 {'patient': patient}
