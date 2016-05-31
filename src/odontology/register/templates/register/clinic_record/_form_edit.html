@@ -23,22 +23,13 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-xs-4 faces-group input-fields">
+                  <div class="col-xs-6 faces-group input-fields">
                       <label class="control-label" for="{{r_edit_form.faces.id_for_label}}">Caras:</label>
                       {{r_edit_form.faces}}
                   </div>
-                  <div class="col-xs-4 tooth-group input-fields">
+                  <div class="col-xs-6 tooth-group input-fields">
                       <label class="control-label" for="{{r_edit_form.tooth.id_for_label}}">Dientes:</label>
                       {{r_edit_form.tooth}}
-                  </div>
-                  <div class="col-xs-4 period_so-group input-fields">
-                      <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
-                      <div class='input-group date' id='date_period_so'>
-                          {{r_edit_form.period_so}}
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                      </div>
                   </div>
                 </div>
 
@@ -63,6 +54,30 @@
                       {{r_edit_form.observations}}
                   </div>
                 </div>
+
+
+                <div class="row">
+                  <div class="col-xs-6 to_account-group input-fields" style="margin-top: 30px;">
+                    <div class="checkbox checkbox-success">
+                      <input {% if r_edit_form.instance.to_account %}checked="checked"{% endif %} id="id_edit_to_account" name="to_account" type="checkbox">
+                      <label for="id_edit_to_account">
+                          Exportar a cuenta y obra social
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 period_so-group input-fields">
+                      <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                      <div class='input-group date' id='date_period_so'>
+                          {{r_edit_form.period_so}}
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+                </div>
+
+
+
 
                 <div id="alert-edit-record" class="alert alert-danger hide" style="margin-top: 20px;"></div>
 

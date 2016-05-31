@@ -1,6 +1,6 @@
 {% load register_extras %}
 
-{% with patient_records=patient.get_records %}
+{% with patient_records=patient.get_records_accounting %}
     {% for record in patient_records %}
             <tr id="account-{{record.id}}" data-url="{% url 'register:edit_record_account' record_id=record.id %}">
               <td><span class="label label-primary">{{forloop.counter}}</span></td>

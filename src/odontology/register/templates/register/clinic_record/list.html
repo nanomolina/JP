@@ -20,6 +20,11 @@
                 </span>
               </td>
               <td>
+                {% if record.to_account %}<i class="fa fa-check-circle" aria-hidden="true" style="color:#73a839"></i>
+                {% else %} <i class="fa fa-times-circle" aria-hidden="true" style="color:#c71c22"></i>
+                {% endif %}
+              </td>
+              <td>
                 <div class="btn-group" role="group" aria-label="...">
                     <button tabindex="0" class="btn btn-sm btn-{% if record.observations %}success{% else %}default{% endif %} rec-popover {% if not record.observations %}disabled{% endif %}"
                             role="button" data-toggle="popover" data-placement="left"
