@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles register_extras %}
+
+{% block links %}
+{% endblock %}
+
+{% block extra_left_navs %}
+  <li class="dropdown active">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      {% if patient.gender == 2 %}
+        <i class="fa fa-female" aria-hidden="true"></i> {{patient.last_name|title}}
+      {% else %}
+        <i class="fa fa-male" aria-hidden="true"></i> {{patient.last_name|title}}
+      {% endif %}
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="loader active">
+        <a href="{% url 'person:profile_patient' id=patient.id %}">
+          <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
+        </a>
+      </li>
+      <li class="loader">
+        <a href="{% url 'person:clinical_history' id=patient.id %}">
+          <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
+        </a>
+      </li>
+      <li class="loader">
+        <a href="{% url 'person:social_work' id=patient.id %}">
+          <i class="fa fa-building" aria-hidden="true"></i> Obra Social
+        </a>
+      </li>
+      <li class="loader">
+        <a href="{% url 'person:accounts' id=patient.id %}">
+          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
+        </a>
+      </li>
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+  <div class="row padding-top">
+    <div class="col-md-12">
+      <h1 class="page-header">
+        <i class="fa fa-th" aria-hidden="true"></i> Odontograma - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
+        {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
+      </h1>
+      <div class="panel panel-info" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+        <div class="panel-heading">
+          <h3 class="panel-title"></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+{{block.super}}
+{% endblock %}
