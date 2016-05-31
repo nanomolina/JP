@@ -188,12 +188,14 @@ def accounts(request, id):
 
 @login_required
 def odontogram(request, id):
-    patient = get_object_or_404(Patient, id=id)
     if request.method == 'GET':
+        patient = get_object_or_404(Patient, id=id)
+        odontogram_form = OdontogramForm(instance=patient.odontogram)
         return render_to_response(
             'person/odontogram.html',
             {
                 'patient': patient,
+                'odontogram_form': odontogram_form,
             },
             RequestContext(request)
         )

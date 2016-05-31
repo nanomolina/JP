@@ -53,7 +53,7 @@
         </div>
         <div class="panel-body">
           <div class="row">
-
+            {% include "register/odontogram/tab_odontogram.html" %}
           </div>
         </div>
       </div>
@@ -64,4 +64,14 @@
 
 {% block scripts %}
 {{block.super}}
+<script type="text/javascript">
+  URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+  CSRF = "{{ csrf_token }}";
+  {% if odontogram_form.instance.month and odontogram_form.instance.year %}
+  DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+  {% else %}
+  DATE_OD = "";
+  {% endif %}
+</script>
+<script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
 {% endblock %}
