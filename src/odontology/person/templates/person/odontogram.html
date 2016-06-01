@@ -15,26 +15,7 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li class="loader active">
-        <a href="{% url 'person:profile_patient' id=patient.id %}">
-          <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
-        </a>
-      </li>
-      <li class="loader">
-        <a href="{% url 'person:clinical_history' id=patient.id %}">
-          <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
-        </a>
-      </li>
-      <li class="loader">
-        <a href="{% url 'person:social_work' id=patient.id %}">
-          <i class="fa fa-building" aria-hidden="true"></i> Obra Social
-        </a>
-      </li>
-      <li class="loader">
-        <a href="{% url 'person:accounts' id=patient.id %}">
-          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
-        </a>
-      </li>
+      {% include "core/navs.html" with active=5 %}
     </ul>
   </li>
 {% endblock %}
@@ -53,6 +34,15 @@
         </div>
         <div class="panel-body">
           <div class="row">
+            <script type="text/javascript">
+              URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+              CSRF = "{{ csrf_token }}";
+              {% if odontogram_form.instance.month and odontogram_form.instance.year %}
+              DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+              {% else %}
+              DATE_OD = "";
+              {% endif %}
+            </script>
             {% include "register/odontogram/tab_odontogram.html" %}
           </div>
         </div>
@@ -64,14 +54,5 @@
 
 {% block scripts %}
 {{block.super}}
-<script type="text/javascript">
-  URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
-  CSRF = "{{ csrf_token }}";
-  {% if odontogram_form.instance.month and odontogram_form.instance.year %}
-  DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
-  {% else %}
-  DATE_OD = "";
-  {% endif %}
-</script>
 <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>
 {% endblock %}

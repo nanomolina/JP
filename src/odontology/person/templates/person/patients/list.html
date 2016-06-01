@@ -13,37 +13,13 @@
         <i class="fa fa-cog" aria-hidden="true"></i>
       </button>
       <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-        <li class="loader">
-          <a href="{% url 'person:profile_patient' id=patient.id %}">
-            <i class="fa fa-info-circle" aria-hidden="true" style="padding-right: 3px;"></i> Datos Filiatorios
-          </a>
-        </li>
-        <li class="loader">
-          <a href="{% url 'person:clinical_history' id=patient.id %}">
-            <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
-          </a>
-        </li>
-        <li class="loader">
-          <a href="{% url 'person:social_work' id=patient.id %}">
-            <i class="fa fa-building" aria-hidden="true" style="padding-right: 3px;"></i> Obra Social
-          </a>
-        </li>
-        <li class="loader">
-          <a href="{% url 'person:accounts' id=patient.id %}">
-            <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
-          </a>
-        </li>
-        <li class="loader">
-          <a href="{% url 'person:odontogram' id=patient.id %}">
-            <i class="fa fa-th" aria-hidden="true"></i> Odontograma
-          </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-          <a href="javascript: load_delete_modal('{% url "person:remove_patient" id=patient.id %}');">
-            <i class="fa fa-trash-o" aria-hidden="true" style="padding-right: 5px;"></i> Borrar
-          </a>
-        </li>
+          {% include "core/navs.html" %}
+          <li role="separator" class="divider"></li>
+          <li>
+            <a href="javascript: load_delete_modal('{% url "person:remove_patient" id=patient.id %}');">
+              <i class="fa fa-trash-o" aria-hidden="true" style="padding-right: 5px;"></i> Borrar
+            </a>
+          </li>
       </ul>
     </div>
   </td>

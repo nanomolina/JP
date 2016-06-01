@@ -1,0 +1,25 @@
+<li class="loader {% if active == 1 %}active{% endif %}">
+  <a href="{% url 'person:profile_patient' id=patient.id %}">
+    <i class="fa fa-info-circle" aria-hidden="true" style="padding-right: 3px;"></i> Datos Filiatorios
+  </a>
+</li>
+<li class="loader {% if active == 2 %}active{% endif %}">
+  <a href="{% url 'person:clinical_history' id=patient.id %}">
+    <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
+  </a>
+</li>
+<li class="loader {% if active == 3 %}active{% endif %}">
+  <a href="{% url 'person:social_work' id=patient.id %}">
+    <i class="fa fa-building" aria-hidden="true" style="padding-right: 3px;"></i> Obra Social
+  </a>
+</li>
+<li class="loader {% if active == 4 %}active{% endif %}">
+  <a href="{% url 'person:accounts' id=patient.id %}">
+    <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
+  </a>
+</li>
+<li class="loader {% if active == 5 %}active{% endif %}">
+  <a href="{% url 'person:odontogram' id=patient.id %}">
+    <i class="fa fa-th" aria-hidden="true" style="padding-right: 1px;"></i> Odontograma
+  </a>
+</li>

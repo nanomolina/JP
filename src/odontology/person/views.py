@@ -196,6 +196,7 @@ def odontogram(request, id):
             {
                 'patient': patient,
                 'odontogram_form': odontogram_form,
+                'work_types': WORK_TYPES,
             },
             RequestContext(request)
         )
