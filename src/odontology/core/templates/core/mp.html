@@ -13,15 +13,25 @@
 <div class="row padding-top">
     <div class="col-md-12">
         <h1 class="page-header">Datos de facturación</h1>
-        <a href="{% static 'images/linode-04-16.pdf' %}">
-          <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-          Factura de linode Abril 2016.
-        </a>
+        <div class="panel panel-success" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+            <ul class="list-group text-center">
+                <a class="list-group-item" href="{% static 'linode/linode-04-16.pdf' %}" target="_blank">
+                  <i class="fa fa-check-circle-o fa-3x pull-left" aria-hidden="true"></i>
+                  <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
+                  <strong>Factura de servidor linode ABRIL 2016.</strong>
+                </a>
+                <a class="list-group-item list-group-item-danger" href="{% static 'linode/linode-05-16.pdf' %}" target="_blank">
+                  <i class="fa fa-times-circle-o fa-3x pull-left" aria-hidden="true"></i>
+                  <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
+                  <strong>Factura de servidor linode MAYO 2016.</strong>
+                </a>
+            </ul>
+        </div>
     </div>
 </div>
 <div class="row" style="margin-top: 15px;">
   <div class="col-md-12" style="height: 700px;">
-      <iframe src="{{url}}" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+      <iframe src="{{url}}" frameborder="0" style="overflow:hidden;height:100%;width:100%;box-shadow: 0 4px 12px rgba(60,55,75,.16);"></iframe>
   </div>
 </div>
 {% endblock %}
