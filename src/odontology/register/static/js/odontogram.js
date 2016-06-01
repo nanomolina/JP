@@ -30,7 +30,8 @@ $(function() {
           url: URL_EDIT_ODONT,
           data: DATA_ODONT,
           success: function(data) {
-              if (data.status === 'OK') {
+              if (data.status !== 'ERROR') {
+                $('#odontogram-plot').html(data);
                 $('#save-odontogram').button('reset');
                 $('#save-odontogram').addClass('hide');
                 $('#edit-odontogram').removeClass('hide');
@@ -46,8 +47,7 @@ $(function() {
               } else {
                 console.log('error---->');
               }
-          },
-          dataType: "json",
+          }
         });
     });
 

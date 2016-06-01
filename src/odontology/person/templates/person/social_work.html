@@ -22,26 +22,7 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li class="loader">
-        <a href="{% url 'person:profile_patient' id=patient.id %}">
-          <i class="fa fa-info-circle" aria-hidden="true"></i> Datos Filiatorios
-        </a>
-      </li>
-      <li class="loader">
-        <a href="{% url 'person:clinical_history' id=patient.id %}">
-          <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica
-        </a>
-      </li>
-      <li class="loader active">
-        <a href="{% url 'person:social_work' id=patient.id %}">
-          <i class="fa fa-building" aria-hidden="true"></i> Obra Social
-        </a>
-      </li>
-      <li class="loader">
-        <a href="{% url 'person:accounts' id=patient.id %}">
-          <i class="fa fa-usd" aria-hidden="true" style="padding-right: 7px;"></i> Cuenta Corriente
-        </a>
-      </li>
+      {% include "core/navs.html" with active=3 %}
     </ul>
   </li>
 {% endblock %}
@@ -102,6 +83,15 @@
               {% include "register/monthly_detail/tab_total_details.html" with patient=patient %}
             </div>
             <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
+              <script type="text/javascript">
+                URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+                CSRF = "{{ csrf_token }}";
+                {% if odontogram_form.instance.month and odontogram_form.instance.year %}
+                DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+                {% else %}
+                DATE_OD = "";
+                {% endif %}
+              </script>
               {% include "register/odontogram/tab_odontogram.html" %}
             </div>
           </div>
@@ -119,14 +109,8 @@
     url_profile = "{% url 'person:social_work' id=patient.id %}";
     URL_EDIT_BF = "{% url 'register:edit_benefit' patient_id=patient.id %}";
     URL_TO_PDF = "{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% endif %}";
-    URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
     CSRF = "{{ csrf_token }}";
     URL_ACC_BF = "{% url 'register:acumulate_benefit' patient_id=patient.id %}";
-    {% if odontogram_form.instance.month and odontogram_form.instance.year %}
-    DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
-    {% else %}
-    DATE_OD = "";
-    {% endif %}
   </script>
   <script type="text/javascript" src="{% static 'js/benefit.js'%}"></script>
   <script type="text/javascript" src="{% static 'js/odontogram.js'%}"></script>

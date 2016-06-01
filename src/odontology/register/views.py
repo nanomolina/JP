@@ -266,7 +266,13 @@ def edit_odontogram(request, patient_id):
                 odontogram.month = month
                 odontogram.year = year
                 odontogram.save()
-        return JsonResponse({'status': 'OK'})
+        else:
+            return JsonResponse({'status': 'ERROR'})
+        from django.template.response import TemplateResponse
+        return TemplateResponse(
+            request, 'register/odontogram/plot.html',
+            {'patient': patient}
+        )
 
 
 @login_required

@@ -104,7 +104,7 @@ def profile_patient(request, id):
     patient_info = PatientForm(instance=patient)
     rec_added = request.GET.get('add', None)
     return render_to_response(
-        'register/patient_data/profile.html',
+        'person/profile.html',
         {
             'patient': patient,
             'patient_info_form': patient_info,
@@ -185,6 +185,21 @@ def accounts(request, id):
             RequestContext(request)
         )
 
+
+@login_required
+def odontogram(request, id):
+    if request.method == 'GET':
+        patient = get_object_or_404(Patient, id=id)
+        odontogram_form = OdontogramForm(instance=patient.odontogram)
+        return render_to_response(
+            'person/odontogram.html',
+            {
+                'patient': patient,
+                'odontogram_form': odontogram_form,
+                'work_types': WORK_TYPES,
+            },
+            RequestContext(request)
+        )
 
 
 @login_required
