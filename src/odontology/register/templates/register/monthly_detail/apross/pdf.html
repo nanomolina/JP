@@ -17,6 +17,9 @@
       display: none !important;
     }
   }
+  .text-muted {
+      color: rgb(85, 85, 85);
+  }
   </style>
 </head>
 <body style=" font-size: 10px;">
@@ -24,7 +27,7 @@
       <a href="{% url 'person:social_work' id=patient.id %}" id="back-to" type="button" class="btn btn-primary btn-lg no-print" style="position: absolute;z-index: 1;left:0;">
         <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Volver
       </a>
-      <table class="table" style="margin-bottom: 10px;">
+      <table class="table text-muted" style="margin-bottom: 10px;">
         <tbody>
           <tr>
             <td width="33%" style="border-top-width: 0;">
@@ -33,7 +36,7 @@
               </div>
             </td>
             <td width="33%" style="border-top-width: 0;">
-              <div class="text-center" style="font-size:13px; position:relative; top: 10px;">
+              <div class="text-center text-muted" style="font-size:13px; position:relative; top: 10px;">
                 <p><strong>Registro de</strong></p>
                 <p><strong>Prestaciones Odontológicas</strong></p>
               </div>
@@ -47,7 +50,7 @@
         </tbody>
       </table>
 
-      <table class="col-sm-12 table table-bordered table-condensed" style="margin-bottom: 10px;">
+      <table class="col-sm-12 table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
         <tbody>
           <tr>
             <td width="40%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
@@ -85,8 +88,8 @@
       </table>
 
 
-      <p style="margin-bottom: 0;">DETALLE DE PRESTACIONES:</p>
-      <table class="table table-bordered table-condensed" style="margin-bottom:4px;">
+      <p class="text-muted" style="margin-bottom: 0;">DETALLE DE PRESTACIONES:</p>
+      <table class="table table-bordered table-condensed text-muted" style="margin-bottom:4px;">
         <thead>
           <tr>
             <td></td>
@@ -116,7 +119,7 @@
         </tbody>
       </table>
 
-      <table class="table table-bordered table-condensed" style="margin-bottom: 4px; width: 60%">
+      <table class="table table-bordered table-condensed text-muted" style="margin-bottom: 4px; width: 60%">
         <tbody>
           <tr>
             <td style="min-width: 100px;">C&oacute;digos de gest&iacute;on</td>
@@ -132,7 +135,7 @@
         </tbody>
       </table>
 
-      <table class="table table-condensed" style="margin-bottom: 0">
+      <table class="table table-condensed text-muted" style="margin-bottom: 0">
         <tbody>
           <tr>
             <td colspan="2" style="border-top: 0;">
@@ -146,7 +149,7 @@
         </tbody>
       </table>
 
-      <table class="table table-condensed" style="margin-bottom: 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+      <table class="table table-condensed text-muted" style="margin-bottom: 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
         <tbody>
           <style>
             .row-info {
@@ -182,7 +185,7 @@
       </table>
 
       {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
-      <table class="table table-bordered table-condensed" style="margin-bottom: 10px;">
+      <table class="table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
         <tbody>
           <tr>
             <td style="padding: 0;">
@@ -208,7 +211,7 @@
         </tbody>
       </table>
 
-      <table class="table table-bordered">
+      <table class="table table-bordered text-muted">
         <tbody>
           <tr>
               <td width="33%" height="100px"></td>
