@@ -34,17 +34,29 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-xs-4 state-group input-fields">
+                  <div class="col-xs-6 state-group input-fields">
                       <label class="control-label" for="{{r_edit_form.state.id_for_label}}">Estado:</label>
                       {{r_edit_form.state}}
                   </div>
-                  <div class="col-xs-4 assistance-group input-fields">
+                  <div class="col-xs-6 assistance-group input-fields">
                       <label class="control-label" for="{{rform.assistance.id_for_label}}">Asistencia:</label>
                       {{r_edit_form.assistance}}
                   </div>
-                  <div class="col-xs-4 code-group input-fields">
-                      <label class="control-label" for="{{rform.code.id_for_label}}">Código:</label>
-                      {{r_edit_form.code}}
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-6 code-group input-fields">
+                    <label class="control-label" for="{{rform.code.id_for_label}}">Código:</label>
+                    {{r_edit_form.code}}
+                  </div>
+                  <div class="col-xs-6 period_so-group input-fields">
+                    <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                    <div class='input-group date' id='date_period_so'>
+                      {{r_edit_form.period_so}}
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -65,15 +77,14 @@
                       </label>
                     </div>
                   </div>
-                  <div class="col-xs-6 period_so-group input-fields">
-                      <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
-                      <div class='input-group date' id='date_period_so'>
-                          {{r_edit_form.period_so}}
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                      </div>
-                  </div>
+                  <!--<div class="col-xs-6 to_social_work-group input-fields" style="margin-top: 30px;">
+                    <div class="checkbox checkbox-success">
+                      <input {% if r_edit_form.instance.to_social_work %}checked="checked"{% endif %} id="id_edit_to_social_work" name="to_social_work" type="checkbox">
+                      <label for="id_edit_to_social_work">
+                          Exportada a Obra Social.
+                      </label>
+                    </div>
+                  </div>-->
                 </div>
 
 
