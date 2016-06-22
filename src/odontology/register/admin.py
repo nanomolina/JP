@@ -68,7 +68,7 @@ class RecordAdmin(admin.ModelAdmin):
     fields = (
         'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
         'state', 'assistance', 'observations', 'code', 'debit', 'havings',
-        'to_account',
+        'to_account', 'to_social_work',
     )
     list_filter = ('patient__dentist', 'date', 'state', 'assistance')
 admin.site.register(Record, RecordAdmin)

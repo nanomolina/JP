@@ -38,17 +38,29 @@
             </div>
 
             <div class="row">
-              <div class="col-xs-4 state-group input-fields">
+              <div class="col-xs-6 state-group input-fields">
                   <label class="control-label" for="{{rform.state.id_for_label}}">Estado:</label>
                   {{rform.state}}
               </div>
-              <div class="col-xs-4 assistance-group input-fields">
+              <div class="col-xs-6 assistance-group input-fields">
                   <label class="control-label" for="{{rform.assistance.id_for_label}}">Asistencia:</label>
                   {{rform.assistance}}
               </div>
-              <div class="col-xs-4 code-group input-fields">
-                  <label class="control-label" for="{{rform.code.id_for_label}}">Código:</label>
-                  {{rform.code}}
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 code-group input-fields">
+                <label class="control-label" for="{{rform.code.id_for_label}}">Código:</label>
+                {{rform.code}}
+              </div>
+              <div class="col-xs-6 period_so-group input-fields">
+                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
+                  <div class='input-group date' id='date_period_so'>
+                      <input class="form-control" id="id_period_so" name="period_so">
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
               </div>
             </div>
 
@@ -64,18 +76,17 @@
                 <div class="checkbox checkbox-success">
                   {{rform.to_account}}
                   <label for="{{rform.to_account.id_for_label}}">
-                      Exportar a cuenta y obra social.
+                      Exportar a Cuenta Corriente.
                   </label>
                 </div>
               </div>
-              <div class="col-xs-6 period_so-group input-fields">
-                  <label class="control-label" for="id_period_so">Periodo de Obra Social:</label>
-                  <div class='input-group date' id='date_period_so'>
-                      <input class="form-control" id="id_period_so" name="period_so">
-                      <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
+              <div class="col-xs-6 to_account-group input-fields" style="margin-top: 30px;">
+                <div class="checkbox checkbox-success">
+                  {{rform.to_social_work}}
+                  <label for="{{rform.to_social_work.id_for_label}}">
+                      Exportar a Obra Social.
+                  </label>
+                </div>
               </div>
             </div>
 
