@@ -55,9 +55,9 @@ $(function () {
 });
 
 function edit_url_pdf(id) {
-    var url_split = $('#to_pdf a').attr('href').split('/');
+    var url_split = $('#form-print').attr('action').split('/');
     url_split[5] = id;
-    $('#to_pdf a').attr('href', url_split.join('/'));
+    $('#form-print').attr('action', url_split.join('/'));
 }
 
 function edit_benefit() {

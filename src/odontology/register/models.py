@@ -46,6 +46,9 @@ class Apross(models.Model):
     def get_details(self):
         return DetailApross.objects.filter(benefit=self).order_by('id')
 
+    def get_elements(self):
+        return DetailApross.objects.filter(benefit=self).values_list('element', flat=True)
+
     def get_empty_detail(self):
         for detail in self.get_details():
             if detail.is_empty():
@@ -94,6 +97,9 @@ class Benefit(models.Model):
 
     def get_details(self):
         return DetailBenefit.objects.filter(benefit=self).order_by('id')
+
+    def get_elements(self):
+        return DetailBenefit.objects.filter(benefit=self).values_list('tooth', flat=True)
 
     def get_empty_detail(self):
         for detail in self.get_details():
