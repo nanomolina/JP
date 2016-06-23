@@ -3,7 +3,22 @@
 <div id="svgselect" class="center-block" style="width: 620px; height: 240px; margin-top: 15px;">
     <svg version="1.1" height="225px" width="610px">
         <g transform="scale(1.5)" id="gmain">
+          {% with benefit.get_elements as elements_monthly %}
             {% for tooth in patient.odontogram.get_teeth %}
+            {% if od_type == '2' and tooth.number not in elements_monthly %}
+            <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
+            data-tooth-id={{tooth.id}} data-work-type="None" data-color="white">
+                {% for sector in tooth.get_sectors %}
+                <polygon points="{{sector.get_points_display}}" id="{{sector.get_location_display}}" opacity="1" data-sector-id="{{sector.id}}"
+                  data-sector-color="white"
+                  data-stroke-blue="False" data-stroke-color""
+                  fill="white"
+                  stroke="#555555" stroke-width="0.5"
+                  class="">
+                </polygon>
+                {% endfor %}
+            </g>
+            {% else %}
             <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
             data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
                 {% for sector in tooth.get_sectors %}
@@ -33,6 +48,7 @@
                   stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>
                 {% endif %}
             </g>
+            {% endif %}
             {% endfor %}
             <g id="tooth-extraction" transform="" class="hide">
               <line x1="0" x2="20" y1="0" y2="20" stroke="#555555" stroke-width="1.5" opacity="1"/>
@@ -53,6 +69,7 @@
                 <polygon points="5,5    15,5    15,15   5,15" id="C" opacity="1" data-sector-id="None" data-sector-color="white" data-stroke-blue="False" data-stroke-color="" fill="white" stroke="#555555" stroke-width="0.5" class=""></polygon>
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">None</text>
             </g>
+          {% endwith %}
         </g>
     </svg>
 </div>

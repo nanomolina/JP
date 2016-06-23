@@ -164,11 +164,13 @@ def benefit_to_pdf(request, patient_id, bf_id):
     else:
         benefit = get_object_or_404(Benefit, id=bf_id)
         template = 'register/monthly_detail/benefit/pdf.html'
+    od_type = request.GET.get('type', '1')
     return render_to_response(
         template,
         {
             'patient': patient,
             'benefit': benefit,
+            'od_type': od_type,
         },
         RequestContext(request)
     )
