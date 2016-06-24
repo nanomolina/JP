@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles core_extras %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -73,9 +73,18 @@
 
             <ul class="nav navbar-nav navbar-right" style="margin-right: 0">
               {% block extra_right_navs %}{% endblock %}
+              {% with request.user|get_avatar_url as avatar_url %}
+              <li class="hidden-xs hidden-sm">
+                {% if avatar_url %}
+                <img src="{{avatar_url}}" alt="" class="img-responsive" width="50" height="auto"/>
+                {% endif %}
+              </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-user"></i> {{ request.user.last_name }} {{ request.user.first_name }}
+                    {% if not avatar_url %}
+                      <i class="fa fa-user"></i>
+                    {% endif %}
+                    {{ request.user.last_name }} {{ request.user.first_name }}
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -94,6 +103,7 @@
                   </li>
                 </ul>
               </li>
+              {% endwith %}
             </ul>
 
           </div>
