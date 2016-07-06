@@ -72,12 +72,12 @@
         <div class="modal-body">
           <form id="form-print" action="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
             <div class="radio radio-primary">
-              <input name="type" type="radio" value="1" checked="" id="radio-print-1">
-              <label for="radio-print-1">Todo.</label>
+              <input name="type" type="radio" value="1" id="radio-print-1">
+              <label for="radio-print-1">Odontograma completo</label>
             </div>
             <div class="radio radio-primary">
-              <input name="type" type="radio" value="2" id="radio-print-2">
-              <label for="radio-print-2">Este mes.</label>
+              <input name="type" type="radio" value="2" checked="" id="radio-print-2">
+              <label for="radio-print-2">Odontograma mensual</label>
             </div>
           </form>
         </div>
