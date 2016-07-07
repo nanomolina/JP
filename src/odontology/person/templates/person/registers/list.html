@@ -1,0 +1,36 @@
+{% load static %}
+{% for record in records %}
+<tr>
+  <td><span class="label label-primary">{{forloop.counter}}</span></td>
+  <td>{{record.patient.get_full_name}}</td>
+  <td>{{record.date|date:'l'}}</td>
+  <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
+  <td>{{record.date|date:'H:i'}}</td>
+  <td>
+    {% for face in record.faces.all %}
+      {{face.initial}}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </td>
+  <td>{{record.tooth|default:''}}</td>
+  <td>{{record.code|default:''}}</td>
+  <td>$ {{record.debit}}</td>
+  <td>$ {{record.havings}}</td>
+  <td style="{% if record.balance < 0 %}color:crimson;{%endif%}">$ {{record.balance}}</td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="11" class="text-center">No hay ning&uacute;na cuenta en el periodo seleccionado.</td>
+</tr>
+{% endfor %}
+{% if records %}
+<tr id="account-total" class="info">
+  <td colspan="8">Total</td>
+  <td class="debit">$ {{total_debit_records|default_if_none:'-'}}</td>
+  <td class="havings">$ {{total_having_records|default_if_none:'-'}}</td>
+  <td class="balance" {% if total_balance < 0 %}style="color:crimson;"{%endif%}>$ {{total_balance|default_if_none:'-'}}</td>
+  <td></td>
+</tr>
+{% endif %}
+<tr id="loading" class="hide">
+  <td colspan="11" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
+</tr>

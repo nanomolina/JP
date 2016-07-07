@@ -56,10 +56,10 @@
               <li id="patient" class="loader {% if template == 'patient'%}active{% endif %}">
                 <a href="{% url 'person:patient_list'%}"><i class="fa fa-users"></i>&nbsp;&nbsp;Pacientes</a>
               </li>
-              <li id="register" class="hide {% if template == 'register'%}active{% endif %}">
-                <a  href="#register">Registros</a>
-              </li>
               {% block extra_left_navs %}{% endblock %}
+              <li id="register" class="{% if template == 'register'%}active{% endif %}">
+                <a  href="{% url 'person:registers' %}"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;&nbsp;Registros</a>
+              </li>
             </ul>
 
             <form class="navbar-form navbar-left" role="search" action="{% url 'person:patient_list' %}">

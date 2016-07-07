@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Cuenta Corriente General{% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+    <div class="col-md-12">
+        <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Cuenta Corriente General</h1>
+
+        <div class="row">
+          <form id="period-form" action="{% url 'person:accounts_registers_data' %}" method="GET">
+              <div class='col-md-1'>
+                <h4>Desde:</h4>
+              </div>
+              <div class='col-md-3'>
+                  <div class="form-group">
+                      <div class='input-group date' id='date-from'>
+                          <input type='text' name="date_from" class="form-control" />
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+              <div class='col-md-1'>
+                <h4>Hasta:</h4>
+              </div>
+              <div class='col-md-3'>
+                  <div class="form-group">
+                      <div class='input-group date' id='date-to'>
+                          <input type='text' name="date_to" class="form-control" />
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Cuentas de pacientes
+                  </div>
+                  <div class="panel-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Dia</th>
+                              <th>Fecha</th>
+                              <th>Hora</th>
+                              <th>Caras</th>
+                              <th>Diente</th>
+                              <th>Código</th>
+                              <th>Debe</th>
+                              <th>Haber</th>
+                              <th>Saldo</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody-account">
+                            {% include "person/registers/list.html" %}
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $(function () {
+      var dateNow = new Date();
+      var firstDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
+      $('#date-from').datetimepicker({
+        locale: 'es',
+        defaultDate: firstDay,
+      });
+      $('#date-to').datetimepicker({
+          locale: 'es',
+          defaultDate: dateNow,
+      });
+      $("#date-from").on("dp.change", function (e) {
+          $('#date-to').data("DateTimePicker").minDate(e.date);
+          getListAccounts();
+      });
+      $("#date-to").on("dp.change", function (e) {
+          $('#date-from').data("DateTimePicker").maxDate(e.date);
+          getListAccounts();
+      });
+      getListAccounts();
+  });
+
+  function getListAccounts() {
+    $('#tbody-account tr').not('#loading').remove();
+    $('#loading').removeClass('hide');
+    $.ajax({
+      type: 'GET',
+      url: $('#period-form').attr('action'),
+      data: $('#period-form').serialize(),
+      success: function(data) {
+        $('#tbody-account').html(data);
+      }
+    })
+  }
+</script>
+{%endblock%}
