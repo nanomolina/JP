@@ -314,3 +314,27 @@ def reset_password(request):
                 return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
         else:
             return JsonResponse({'status': 'ERROR', 'errors': password_form.errors})
+
+
+@login_required
+def registers(request):
+    if request.method == 'GET':
+        return render_to_response(
+            'person/registers.html',
+            {
+                'template': 'register',
+            },
+            RequestContext(request)
+        )
+
+
+@login_required
+def accounts_registers(request):
+    if request.method == 'GET':
+        return render_to_response(
+            'person/registers/account.html',
+            {
+                'template': 'register',
+            },
+            RequestContext(request)
+        )

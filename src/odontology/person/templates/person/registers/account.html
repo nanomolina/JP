@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Cuenta Corriente General{% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+    <div class="col-md-12">
+        <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Cuenta Corriente General</h1>
+
+        <div class="row">
+            <div class='col-md-1'>
+              <h4>Desde:</h4>
+            </div>
+            <div class='col-md-3'>
+                <div class="form-group">
+                    <div class='input-group date' id='date-from'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-1'>
+              <h4>Hasta:</h4>
+            </div>
+            <div class='col-md-3'>
+                <div class="form-group">
+                    <div class='input-group date' id='date-to'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var dateNow = new Date();
+            var firstDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
+            $(function () {
+                $('#date-from').datetimepicker({
+                  locale: 'es',
+                  defaultDate: firstDay,
+                });
+                $('#date-to').datetimepicker({
+                    locale: 'es',
+                    defaultDate: dateNow,
+                });
+                $("#date-from").on("dp.change", function (e) {
+                    $('#date-to').data("DateTimePicker").minDate(e.date);
+                });
+                $("#date-to").on("dp.change", function (e) {
+                    $('#date-from').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+        </script>
+
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Cuentas de pacientes
+                  </div>
+                  <div class="panel-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Dia</th>
+                              <th>Fecha</th>
+                              <th>Hora</th>
+                              <th>Caras</th>
+                              <th>Diente</th>
+                              <th>Código</th>
+                              <th>Debe</th>
+                              <th>Haber</th>
+                              <th>Saldo</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody-account">
+                            {% for patient in patients %}
+                            {% empty %}
+                            <tr>
+                              <td colspan="11" class="text-center">No hay ning&uacute;na cuenta en el periodo seleccionado.</td>
+                            </tr>
+                            {% endfor %}
+                            <tr id="loading" class="hide">
+                              <td colspan="11" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{%endblock%}

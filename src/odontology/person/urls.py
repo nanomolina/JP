@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^settings/personal/$', views.settings_personal, name='settings_personal'),
     url(r'^settings/dentist/$', views.settings_dentist, name='settings_dentist'),
     url(r'^reset_password/$', views.reset_password, name='reset_password'),
+    url(r'^registers/$', views.registers, name='registers'),
+    url(r'^registers/accounts/$', views.accounts_registers, name='accounts_registers'),
 ]
