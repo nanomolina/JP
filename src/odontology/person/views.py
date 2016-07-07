@@ -343,20 +343,41 @@ def accounts_registers(request):
 @login_required
 def accounts_registers_data(request):
     if request.method == 'GET':
+        from register.models import Record
+        from datetime import datetime
+        from django.db.models import Sum
+
         date_from = request.GET.get('date_from', None)
         date_to = request.GET.get('date_to', None)
-        dentist = request.user.dentist
-        from register.models import Record
-        records = Record.objects.filter(
-            patient__dentist=dentist,
-            date__gte=date_from,
-            date__lte=date_to
+        date_from = datetime.strptime(
+            date_from,
+            '%d/%m/%Y %H:%M'
         )
+        date_to = datetime.strptime(
+            date_to,
+            '%d/%m/%Y %H:%M'
+        )
+
+        records = Record.objects.filter(
+            patient__dentist=request.user.dentist,
+            date__gte=date_from,
+            date__lte=date_to,
+            to_account=True,
+        ).order_by('-date')
+        total_debit_records = records.aggregate(total=Sum('debit'))['total']
+        total_having_records = records.aggregate(total=Sum('havings'))['total']
+        if total_debit_records is not None and total_having_records is not None:
+            total_balance = total_debit_records - total_having_records
+        else:
+            total_balance = None
         return render_to_response(
             'person/registers/list.html',
             {
                 'template': 'register',
                 'records': records,
+                'total_debit_records': total_debit_records,
+                'total_having_records': total_having_records,
+                'total_balance': total_balance,
             },
             RequestContext(request)
         )

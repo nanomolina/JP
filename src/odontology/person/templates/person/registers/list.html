@@ -22,6 +22,15 @@
   <td colspan="11" class="text-center">No hay ning&uacute;na cuenta en el periodo seleccionado.</td>
 </tr>
 {% endfor %}
+{% if records %}
+<tr id="account-total" class="info">
+  <td colspan="8">Total</td>
+  <td class="debit">$ {{total_debit_records|default_if_none:'-'}}</td>
+  <td class="havings">$ {{total_having_records|default_if_none:'-'}}</td>
+  <td class="balance" {% if total_balance < 0 %}style="color:crimson;"{%endif%}>$ {{total_balance|default_if_none:'-'}}</td>
+  <td></td>
+</tr>
+{% endif %}
 <tr id="loading" class="hide">
   <td colspan="11" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
 </tr>

@@ -20,7 +20,7 @@
               <div class='col-md-3'>
                   <div class="form-group">
                       <div class='input-group date' id='date-from'>
-                          <input type='text' class="form-control" />
+                          <input type='text' name="date_from" class="form-control" />
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -33,7 +33,7 @@
               <div class='col-md-3'>
                   <div class="form-group">
                       <div class='input-group date' id='date-to'>
-                          <input type='text' class="form-control" />
+                          <input type='text' name="date_to" class="form-control" />
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -83,9 +83,9 @@
 
 {% block scripts %}
 <script type="text/javascript">
-  var dateNow = new Date();
-  var firstDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
   $(function () {
+      var dateNow = new Date();
+      var firstDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
       $('#date-from').datetimepicker({
         locale: 'es',
         defaultDate: firstDay,
@@ -102,9 +102,11 @@
           $('#date-from').data("DateTimePicker").maxDate(e.date);
           getListAccounts();
       });
+      getListAccounts();
   });
 
   function getListAccounts() {
+    $('#tbody-account tr').not('#loading').remove();
     $('#loading').removeClass('hide');
     $.ajax({
       type: 'GET',
