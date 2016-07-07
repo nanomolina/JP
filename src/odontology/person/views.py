@@ -338,3 +338,25 @@ def accounts_registers(request):
             },
             RequestContext(request)
         )
+
+
+@login_required
+def accounts_registers_data(request):
+    if request.method == 'GET':
+        date_from = request.GET.get('date_from', None)
+        date_to = request.GET.get('date_to', None)
+        dentist = request.user.dentist
+        from register.models import Record
+        records = Record.objects.filter(
+            patient__dentist=dentist,
+            date__gte=date_from,
+            date__lte=date_to
+        )
+        return render_to_response(
+            'person/registers/list.html',
+            {
+                'template': 'register',
+                'records': records,
+            },
+            RequestContext(request)
+        )
