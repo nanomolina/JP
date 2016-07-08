@@ -74,6 +74,15 @@ class Dentist(models.Model):
     def number_of_patients(self):
         return Patient.objects.filter(dentist=self).count()
 
+    @property
+    def has_pending_invoices(self):
+        from core.models import Bill
+        return Bill.objects.filter(user=self.user, paid=False).exists()
+
+    def get_bills(self):
+        from core.models import Bill
+        return Bill.objects.filter(user=self.user)
+
     def __unicode__(self):
         return "%s" % (self.user.get_full_name())
 

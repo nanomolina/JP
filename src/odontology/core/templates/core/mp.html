@@ -15,23 +15,31 @@
         <h1 class="page-header">Datos de facturación</h1>
         <div class="panel panel-success" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
             <ul class="list-group text-center">
-                <a class="list-group-item" href="{% static 'linode/linode-04-16.pdf' %}" target="_blank">
-                  <i class="fa fa-check-circle-o fa-3x pull-left" aria-hidden="true"></i>
+              {% for bill in request.user.dentist.get_bills %}
+                <a class="list-group-item {% if not bill.paid %}list-group-item-danger{% endif %}"
+                   href="{{bill.url_file}}" target="_blank">
+                  <i class="fa fa-check-circle-o fa-3x pull-left {% if bill.paid %}text-success{% endif %}" aria-hidden="true"></i>
                   <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
-                  <strong>Factura de servidor linode ABRIL 2016.</strong>
+                  <strong>{{bill.text}}</strong>
                 </a>
-                <a class="list-group-item list-group-item-danger" href="{% static 'linode/linode-05-16.pdf' %}" target="_blank">
-                  <i class="fa fa-times-circle-o fa-3x pull-left" aria-hidden="true"></i>
-                  <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
-                  <strong>Factura de servidor linode MAYO 2016.</strong>
+              {% empty %}
+                <a class="list-group-item">
+                  <i class="fa fa-info-circle fa-3x pull-left text-info" aria-hidden="true"></i>
+                  <h4>No hay deudas registradas.</h4>
                 </a>
+              {% endfor %}
             </ul>
         </div>
     </div>
 </div>
+
+{% if request.user.dentist.has_pending_invoices %}
 <div class="row" style="margin-top: 15px;">
   <div class="col-md-12" style="height: 700px;">
+      <h1 class="page-header">Medios de pago - Mercadopago</h1>
       <iframe src="{{url}}" frameborder="0" style="overflow:hidden;height:100%;width:100%;box-shadow: 0 4px 12px rgba(60,55,75,.16);"></iframe>
   </div>
 </div>
+{% endif %}
+
 {% endblock %}
