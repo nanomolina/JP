@@ -1,5 +1,5 @@
 {% load staticfiles register_extras %}
-<div class="hide">{{benefit.year}} - {{benefit.get_month_display|stringformat:"02d"}} - {{patient.last_name}} {{patient.first_name}}</div>
+<div id="pdf-title" class="hide">{{benefit.year}} - {{benefit.get_month_display|stringformat:"02d"}} - {{patient.last_name}} {{patient.first_name}}</div>
 <style>
   @media print {
     .no-print {
