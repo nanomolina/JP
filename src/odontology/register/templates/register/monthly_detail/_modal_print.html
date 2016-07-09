@@ -1,4 +1,4 @@
-<div id="modal-print" class="modal fade" role="dialog">
+<div id="modal-print" class="modal fade hidden-print" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
         <div class="modal-header">
@@ -24,14 +24,6 @@
                   type="button" id="button-print" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Cargando">
               <i class="fa fa-print"></i></i> Imprimir
           </button>
-          <script type="text/javascript">
-            function print_benefit(){
-              $('#button-print').button('loading');
-              var url = $('#form-print').attr('action');
-              url += '?' + $('#form-print').serialize();
-              location.href = url;
-            }
-          </script>
         </div>
     </div>
   </div>

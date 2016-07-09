@@ -157,6 +157,7 @@ def edit_benefit_detail(request, patient_id, detail_id):
 
 @login_required
 def benefit_to_pdf(request, patient_id, bf_id):
+    from django.template.response import TemplateResponse
     patient = get_object_or_404(Patient, id=patient_id)
     if patient.social_work and patient.social_work.initial == 'APROSS':
         benefit = get_object_or_404(Apross, id=bf_id)
@@ -165,14 +166,13 @@ def benefit_to_pdf(request, patient_id, bf_id):
         benefit = get_object_or_404(Benefit, id=bf_id)
         template = 'register/monthly_detail/benefit/pdf.html'
     od_type = request.GET.get('type', '1')
-    return render_to_response(
-        template,
+    return TemplateResponse(
+        request, template,
         {
             'patient': patient,
             'benefit': benefit,
             'od_type': od_type,
         },
-        RequestContext(request)
     )
 
 

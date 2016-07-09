@@ -37,7 +37,7 @@
   {% endif %}
   {% include "register/monthly_detail/_modal_edit.html" %}
   {% include "register/monthly_detail/_modal_print.html" %}
-  <div class="row padding-top">
+  <div class="row padding-top hidden-print">
     <div class="col-md-12">
         <h1 class="page-header">
           <i class="fa fa-building" aria-hidden="true"></i> Obra Social - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
@@ -74,6 +74,10 @@
         </div>
     </div>
   </div>
+{% endblock %}
+
+{% block extra_content %}
+<div id="block-to-print" class="visible-print-block"></div>
 {% endblock %}
 
 {% block scripts %}
