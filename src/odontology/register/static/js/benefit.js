@@ -68,6 +68,7 @@ function print_benefit(){
       $('#block-to-print').html(data);
       $('#button-print').button('reset');
       $('#modal-print').modal('hide');
+      document.title = $('#pdf-title').text();
       setTimeout(function(){
         window.print();
       }, 500);
