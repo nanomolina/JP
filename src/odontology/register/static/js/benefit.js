@@ -46,10 +46,13 @@ $(function () {
 
     $('#select-benefit').change(function () {
         $('.benefits').hide();
-        var id = $( "#select-benefit option:selected" ).val();
+        var $selected = $( "#select-benefit option:selected" );
+        var id = $selected.val();
+        var text = $selected.text();
         $('#benefit-'+id).show();
         $('#edit_bf').data('bf-id', id);
         edit_url_pdf(id);
+        edit_print_modal(text);
     }).change();
 
 });
@@ -58,6 +61,10 @@ function edit_url_pdf(id) {
     var url_split = $('#form-print').attr('action').split('/');
     url_split[5] = id;
     $('#form-print').attr('action', url_split.join('/'));
+}
+
+function edit_print_modal(text){
+    $('#modal-print .record-name').html(text);
 }
 
 function edit_benefit() {

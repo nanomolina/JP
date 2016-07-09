@@ -1,0 +1,38 @@
+<div id="modal-print" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Imprimir Ficha</h4>
+        </div>
+        <div class="modal-body">
+          <form id="form-print" action="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
+            <strong class="record-name text-uppercase"></strong>
+            <div class="radio radio-primary">
+              <input name="type" type="radio" value="1" id="radio-print-1">
+              <label for="radio-print-1">Odontograma completo</label>
+            </div>
+            <div class="radio radio-primary">
+              <input name="type" type="radio" value="2" checked="" id="radio-print-2">
+              <label for="radio-print-2">Odontograma mensual</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button onclick="javascript: print_benefit();" class="btn btn-primary"
+                  type="button" id="button-print" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Cargando">
+              <i class="fa fa-print"></i></i> Imprimir
+          </button>
+          <script type="text/javascript">
+            function print_benefit(){
+              $('#button-print').button('loading');
+              var url = $('#form-print').attr('action');
+              url += '?' + $('#form-print').serialize();
+              location.href = url;
+            }
+          </script>
+        </div>
+    </div>
+  </div>
+</div>
