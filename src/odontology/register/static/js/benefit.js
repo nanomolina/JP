@@ -57,6 +57,24 @@ $(function () {
 
 });
 
+function print_benefit(){
+  $('#button-print').button('loading');
+  var url = $('#form-print').attr('action');
+  url += '?' + $('#form-print').serialize();
+  $.ajax({
+    type: 'GET',
+    url: url,
+    success: function(data) {
+      $('#block-to-print').html(data);
+      $('#button-print').button('reset');
+      $('#modal-print').modal('hide');
+      setTimeout(function(){
+        window.print();
+      }, 500);
+    }
+  })
+}
+
 function edit_url_pdf(id) {
     var url_split = $('#form-print').attr('action').split('/');
     url_split[5] = id;

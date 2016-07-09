@@ -1,6 +1,6 @@
 {% load register_extras %}
 {% with patient.id|get_radiography_form:bf.id as radiography_form %}
-<div class="col-md-12" style="margin-bottom: 20px;">
+<div class="col-md-12 hidden-print" style="margin-bottom: 20px;">
   <button type="button" class="btn btn-default" id="edit-radiography-{{bf.id}}">
     <i class="fa fa-pencil-square-o"></i> Editar radiografias
   </button>
