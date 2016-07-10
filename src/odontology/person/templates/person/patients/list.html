@@ -1,13 +1,29 @@
 {% load staticfiles %}
 {% for patient in patients %}
 <tr>
+  <td class="visible-xs">
+    <div class="dropdown">
+      <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenu" style="position: absolute !important;">
+          {% include "core/navs.html" %}
+          <li role="separator" class="divider"></li>
+          <li>
+            <a href="javascript: load_delete_modal('{% url "person:remove_patient" id=patient.id %}');">
+              <i class="fa fa-trash-o" aria-hidden="true" style="padding-right: 5px;"></i> Borrar
+            </a>
+          </li>
+      </ul>
+    </div>
+  </td>
   <td>{{patient.code}}
   <td>{{patient.last_name}}</td>
   <td>{{patient.first_name}}</td>
   <td>{{patient.alias|default:''}}</td>
   <td>{{patient.social_work|default_if_none:'Ninguna'}}</td>
   <td>{{patient.subsidiary_number|default_if_none:''}}</td>
-  <td>
+  <td class="hidden-xs">
     <div class="dropdown">
       <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <i class="fa fa-cog" aria-hidden="true"></i>
