@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm
+from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm, ImageUploadForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
@@ -103,12 +103,14 @@ def profile_patient(request, id):
     patient = get_object_or_404(Patient, id=id)
     patient_info = PatientForm(instance=patient)
     rec_added = request.GET.get('add', None)
+    img_upload_form = ImageUploadForm(instance=patient)
     return render_to_response(
         'person/profile.html',
         {
             'patient': patient,
             'patient_info_form': patient_info,
             'rec_added': rec_added,
+            'img_upload_form': img_upload_form,
         },
         RequestContext(request)
     )
@@ -216,6 +218,20 @@ def edit_patient(request, id):
             )
         else:
             return JsonResponse({'status': 'ERROR', 'errors': patient_form.errors})
+
+
+@login_required
+def upload_picture(request, id):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            patient = get_object_or_404(Patient, id=id)
+            patient.picture = form.cleaned_data['picture']
+            patient.save()
+            return TemplateResponse(
+                request, 'register/patient_data/_form_picture.html',
+                {'patient': patient}
+            )
 
 
 @login_required

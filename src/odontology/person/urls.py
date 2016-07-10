@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^patient/profile/(?P<id>[0-9]+)/$', views.profile_patient, name='profile_patient'),
     url(r'^patient/account/(?P<id>[0-9]+)/$', views.accounts, name='accounts'),
     url(r'^patient/edit/(?P<id>[0-9]+)/$', views.edit_patient, name='edit_patient'),
+    url(r'^patient/upload_picture/(?P<id>[0-9]+)/$', views.upload_picture, name='upload_picture'),
     url(r'^patient/remove/(?P<id>[0-9]+)/$', views.remove_patient, name='remove_patient'),
     url(r'^settings/$', views.settings, name='settings'),
     url(r'^settings/personal/$', views.settings_personal, name='settings_personal'),
