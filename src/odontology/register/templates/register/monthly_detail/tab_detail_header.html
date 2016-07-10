@@ -1,5 +1,13 @@
 <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-    <style media="screen">.space-right{margin-right: 11px;}</style>
+  <style media="screen">
+    .space-right{margin-right: 11px;}
+    @media (max-width: 500px) {
+      .pull-left-mobile {
+        float: left !important;
+      }
+    }
+  </style>
+  <div class="table-responsive">
     <div class="col-md-12 no-padding">
         <button type="button" class="btn btn-primary space-right" data-toggle="modal" data-target="#modal-benefit">
           <i class="fa fa-plus-square-o"></i> Nueva Ficha Mensual
@@ -9,7 +17,7 @@
           <i class="fa fa-pencil-square-o"></i> Editar Ficha Mensual
         </button>
 
-        <select id="select-benefit" class="selectpicker show-tick pull-right">
+        <select id="select-benefit" class="selectpicker show-tick pull-right pull-left-mobile">
           {% for bf in benefits %}
           <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
             {{bf.month}} - {{bf.year}}
@@ -17,11 +25,12 @@
           {% endfor %}
         </select>
 
-        <button class="btn btn-default pull-right space-right" type="button" data-toggle="modal" data-target="#modal-print" >
+        <button class="btn btn-default pull-right space-right pull-left-mobile" type="button" data-toggle="modal" data-target="#modal-print" >
           <i class="fa fa-print"></i></i> Imprimir
         </button>
     </div>
     {% else %}
     </div>
     {% endif %}
+  </div>
 </div>

@@ -2,70 +2,72 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Historial</div>
     <div class="panel-body no-padding">
-      <table class="table table-condensed">
-          {% if patient.social_work and patient.social_work.initial == 'APROSS'%}
-            <thead>
-              <tr>
-                <th width="50">#</th>
-                <th width="100">Dia</th>
-                <th>Trabajo realizado</th>
-                <th>C&oacute;digo de practica</th>
-                <th>Elemento</th>
-                <th>Caras/Tratadas</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for benefit in patient.get_benefits %}
-                  {% for detail in benefit.get_details %}
-                    {% if forloop.first %}
-                        <tr class="info">
-                            <th colspan="8" class="text-center" style="font-size: 18px;">
-                                <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
-                            </th>
-                        </tr>
-                    {% endif%}
-                    {% if detail.day or detail.work_done or detail.practic_code or detail.element or detail.faces.count > 0 %}
-                      {% include "register/monthly_detail/apross/details.html" with counter=forloop.counter hide_edit=True %}
-                    {% endif %}
-                  {% endfor %}
-              {% empty %}
-              <tr>
-                <td colspan="9" class="text-center">No hay detalles de prestaciones</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-        {% else %}
-            <thead>
-              <tr>
-                <th width="50">#</th>
-                <th width="100">Dia</th>
-                <th>Diente N&deg;</th>
-                <th>Cara</th>
-                <th>Codigo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for benefit in patient.get_benefits %}
-                  {% for detail in benefit.get_details %}
-                    {% if forloop.first %}
-                        <tr class="info">
-                            <th colspan="7" class="text-center" style="font-size: 18px;">
-                                <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
-                            </th>
-                        </tr>
-                    {% endif%}
-                    {% if detail.day or detail.tooth or detail.faces.count > 0 or detail.code %}
-                      {% include "register/monthly_detail/benefit/details.html" with counter=forloop.counter hide_edit=True %}
-                    {% endif %}
-                  {% endfor %}
-              {% empty %}
-              <tr>
-                <td colspan="7" class="text-center">No hay detalles de prestaciones</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-        {% endif %}
-      </table>
+      <div class="table-responsive">
+        <table class="table table-condensed">
+            {% if patient.social_work and patient.social_work.initial == 'APROSS'%}
+              <thead>
+                <tr>
+                  <th width="50">#</th>
+                  <th width="100">Dia</th>
+                  <th>Trabajo realizado</th>
+                  <th>C&oacute;digo de practica</th>
+                  <th>Elemento</th>
+                  <th>Caras/Tratadas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for benefit in patient.get_benefits %}
+                    {% for detail in benefit.get_details %}
+                      {% if forloop.first %}
+                          <tr class="info">
+                              <th colspan="8" class="text-center" style="font-size: 18px;">
+                                  <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
+                              </th>
+                          </tr>
+                      {% endif%}
+                      {% if detail.day or detail.work_done or detail.practic_code or detail.element or detail.faces.count > 0 %}
+                        {% include "register/monthly_detail/apross/details.html" with counter=forloop.counter hide_edit=True %}
+                      {% endif %}
+                    {% endfor %}
+                {% empty %}
+                <tr>
+                  <td colspan="9" class="text-center">No hay detalles de prestaciones</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          {% else %}
+              <thead>
+                <tr>
+                  <th width="50">#</th>
+                  <th width="100">Dia</th>
+                  <th>Diente N&deg;</th>
+                  <th>Cara</th>
+                  <th>Codigo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for benefit in patient.get_benefits %}
+                    {% for detail in benefit.get_details %}
+                      {% if forloop.first %}
+                          <tr class="info">
+                              <th colspan="7" class="text-center" style="font-size: 18px;">
+                                  <span class="label label-primary">{{benefit.month}} - {{benefit.year}}</span>
+                              </th>
+                          </tr>
+                      {% endif%}
+                      {% if detail.day or detail.tooth or detail.faces.count > 0 or detail.code %}
+                        {% include "register/monthly_detail/benefit/details.html" with counter=forloop.counter hide_edit=True %}
+                      {% endif %}
+                    {% endfor %}
+                {% empty %}
+                <tr>
+                  <td colspan="7" class="text-center">No hay detalles de prestaciones</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          {% endif %}
+        </table>
+      </div>
     </div>
   </div>
 </div>

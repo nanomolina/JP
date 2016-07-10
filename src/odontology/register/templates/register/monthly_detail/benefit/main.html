@@ -7,23 +7,25 @@
       <div class="panel panel-primary">
         <div class="panel-heading">Detalle de prestaciones <strong class="pull-right text-uppercase">{{bf.month}} - {{bf.year}}</strong></div>
         <div class="panel-body no-padding">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th width="100px">Dia</th>
-                <th>Diente N&deg;</th>
-                <th>Cara</th>
-                <th>Codigo</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for detail in bf.get_details %}
-                  {% include "register/monthly_detail/benefit/details.html" with counter=forloop.counter %}
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th width="100px">Dia</th>
+                  <th>Diente N&deg;</th>
+                  <th>Cara</th>
+                  <th>Codigo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for detail in bf.get_details %}
+                    {% include "register/monthly_detail/benefit/details.html" with counter=forloop.counter %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <hr>
@@ -33,20 +35,22 @@
       <div class="panel panel-primary">
         <div class="panel-heading">Detalles de Ficha</div>
         <div class="panel-body no-padding">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th width="150" class="text-center">C&oacute;digos de gest&iacute;on</th>
-                <th>Observaciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center" style="font-size: 15px;">{{bf.managment_code|default_if_none:"-"}}</td>
-                <td>{{bf.observations|default_if_none:'-'}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th width="150" class="text-center">C&oacute;digos de gest&iacute;on</th>
+                  <th>Observaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center" style="font-size: 15px;">{{bf.managment_code|default_if_none:"-"}}</td>
+                  <td>{{bf.observations|default_if_none:'-'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <hr>
