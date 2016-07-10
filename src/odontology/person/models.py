@@ -134,6 +134,7 @@ class Patient(models.Model):
     preferred_day = models.ManyToManyField(Day, blank=True)
     turn = models.IntegerField(choices=TURN, null=True, blank=True)
     companion = models.CharField(max_length=250, null=True, blank=True)
+    picture = models.ImageField(upload_to='photos/', default="photos/no-img.jpg")
 
     class Meta:
         verbose_name = "Paciente"
@@ -211,6 +212,19 @@ class Patient(models.Model):
 
     def total_balance_records(self):
         return self.total_debit_records() - self.total_having_records()
+
+    def has_picture(self):
+        return not self.picture.name == 'photos/no-img.jpg'
+
+    def get_picture(self):
+        if not self.has_picture():
+            if self.gender == 2:
+                picture = '/static/images/woman-min.jpg'
+            else:
+                picture = '/static/images/man-min.jpg'
+        else:
+            picture = self.picture.url
+        return picture
 
 
 COLORS = ((1, 'red'), (2, 'blue'))

@@ -172,6 +172,15 @@ class PatientForm(forms.ModelForm):
         }
 
 
+class ImageUploadForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = (
+            'picture', 
+        )
+    picture = forms.ImageField()
+
+
 class OdontogramForm(forms.ModelForm):
     class Meta:
         model = Odontogram

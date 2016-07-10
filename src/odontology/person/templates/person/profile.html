@@ -36,7 +36,26 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-3 col-lg-3" align="center">
-              <img alt="User Pic" class="img-circle img-responsive" src="{% if patient.gender == 2 %}{% static 'images/woman-min.jpg' %}{% else %}{% static 'images/man-min.jpg' %}{% endif %}">
+              <div id="form-picture" style="padding-bottom: 15px;">
+                {% include "register/patient_data/_form_picture.html" %}
+              </div>
+              <input type="file" id="file_upload"/>
+              <script type="text/javascript">
+                $(document).ready(function(){
+                  var $form = $('#form-picture form');
+                  var url = $form.attr('action');
+                  $("#file_upload").uploadify({
+                    'swf' : "{% static 'bower_components/uploadify/uploadify.swf' %}",
+                    'uploader' : url,
+                    'formData' : {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    'fileObjName': 'picture',
+                    'buttonText' : 'Subir foto',
+                    'onUploadSuccess' : function(file, data, response) {
+                      $('#form-picture').html(data);
+                    }
+                  });
+                });
+              </script>
             </div>
             <div class="col-md-9 col-lg-9">
               <form id="patient-info-form" method="POST" action="{% url 'person:edit_patient' id=patient.id %}" class="form-horizontal">
@@ -67,6 +86,8 @@
 
 {% block scripts %}
 {{block.super}}
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/uploadify/uploadify.css' %}">
+<script type="text/javascript" src="{% static 'bower_components/uploadify/jquery.uploadify.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/patient_info.js'%}"></script>
 {% if rec_added %}
 <script type="text/javascript">

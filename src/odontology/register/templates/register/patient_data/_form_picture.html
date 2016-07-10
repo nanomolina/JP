@@ -1,0 +1,5 @@
+{% load static %}
+<form action="{% url 'person:upload_picture' id=patient.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <img alt="User Pic" class="img-circle img-responsive" src="{{patient.get_picture}}" style="width: 200px; height: 200px;">
+ </form>
