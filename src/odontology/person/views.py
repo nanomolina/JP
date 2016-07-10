@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def patients(request):
     from person.function import get_position
-    dentist = Dentist.objects.get(user=request.user)
+    dentist = request.user.dentist
     if request.method == 'GET':
         patients = Patient.objects.filter(dentist=dentist, active=True).order_by('-id')
 
@@ -100,7 +100,11 @@ def patients(request):
 
 @login_required
 def profile_patient(request, id):
-    patient = get_object_or_404(Patient, id=id)
+    dentist = request.user.dentist
+    patient = get_object_or_404(
+        Patient, id=id,
+        dentist=dentist
+    )
     patient_info = PatientForm(instance=patient)
     rec_added = request.GET.get('add', None)
     img_upload_form = ImageUploadForm(instance=patient)
@@ -118,8 +122,11 @@ def profile_patient(request, id):
 
 @login_required
 def clinical_history(request, id):
-    dentist = Dentist.objects.get(user=request.user)
-    patient = get_object_or_404(Patient, id=id)
+    dentist = request.user.dentist
+    patient = get_object_or_404(
+        Patient, id=id,
+        dentist=dentist
+    )
     if request.method == 'GET':
         rform = RecordForm()
         return render_to_response(
@@ -135,8 +142,11 @@ def clinical_history(request, id):
 
 @login_required
 def social_work(request, id):
-    dentist = Dentist.objects.get(user=request.user)
-    patient = get_object_or_404(Patient, id=id)
+    dentist = request.user.dentist
+    patient = get_object_or_404(
+        Patient, id=id,
+        dentist=dentist
+    )
     if request.method == 'GET':
         if patient.social_work and patient.social_work.initial == 'APROSS':
             benefits = Apross.objects.filter(patient=patient).order_by('-real_date')
@@ -175,7 +185,11 @@ def social_work(request, id):
 
 @login_required
 def accounts(request, id):
-    patient = get_object_or_404(Patient, id=id)
+    dentist = request.user.dentist
+    patient = get_object_or_404(
+        Patient, id=id,
+        dentist=dentist
+    )
     if request.method == 'GET':
         aform = AccountingForm()
         return render_to_response(
@@ -191,7 +205,11 @@ def accounts(request, id):
 @login_required
 def odontogram(request, id):
     if request.method == 'GET':
-        patient = get_object_or_404(Patient, id=id)
+        dentist = request.user.dentist
+        patient = get_object_or_404(
+            Patient, id=id,
+            dentist=dentist
+        )
         odontogram_form = OdontogramForm(instance=patient.odontogram)
         return render_to_response(
             'person/odontogram.html',
@@ -207,7 +225,11 @@ def odontogram(request, id):
 @login_required
 def edit_patient(request, id):
     if request.method == 'POST':
-        patient = get_object_or_404(Patient, id=id)
+        dentist = request.user.dentist
+        patient = get_object_or_404(
+            Patient, id=id,
+            dentist=dentist
+        )
         patient_form = PatientForm(request.POST, instance=patient)
         if patient_form.is_valid():
             patient_form.save()
@@ -225,7 +247,11 @@ def upload_picture(request, id):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            patient = get_object_or_404(Patient, id=id)
+            dentist = request.user.dentist
+            patient = get_object_or_404(
+                Patient, id=id,
+                dentist=dentist
+            )
             patient.picture.delete()
             patient.picture = form.cleaned_data['picture']
             patient.save()
@@ -238,7 +264,11 @@ def upload_picture(request, id):
 @login_required
 def remove_patient(request, id):
     if request.method == 'POST':
-        patient = get_object_or_404(Patient, id=id)
+        dentist = request.user.dentist
+        patient = get_object_or_404(
+            Patient, id=id,
+            dentist=dentist
+        )
         patient.active = False
         patient.save()
         return redirect('person:patient_list')
@@ -246,7 +276,7 @@ def remove_patient(request, id):
 
 @login_required
 def settings(request):
-    dentist = Dentist.objects.get(user=request.user)
+    dentist = request.user.dentist
     if request.method == 'GET':
         user_change_form = UserChangeForm(instance=request.user)
         dentist_form = DentistForm(instance=dentist)
@@ -278,7 +308,7 @@ def settings_personal(request):
 @login_required
 def settings_dentist(request):
     if request.method == 'POST':
-        dentist = Dentist.objects.get(user=request.user)
+        dentist = request.user.dentist
         dentist_form = DentistForm(request.POST, instance=dentist)
         if dentist_form.is_valid():
             dentist_form.save()
