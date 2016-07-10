@@ -146,6 +146,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 LOGIN_URL = '/accounts/login/'
 
