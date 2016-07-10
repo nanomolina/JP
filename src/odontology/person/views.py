@@ -226,6 +226,7 @@ def upload_picture(request, id):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             patient = get_object_or_404(Patient, id=id)
+            patient.picture.delete()
             patient.picture = form.cleaned_data['picture']
             patient.save()
             return TemplateResponse(
