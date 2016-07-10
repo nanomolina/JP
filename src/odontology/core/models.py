@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class Day(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+
 class Bill(models.Model):
     user = models.ForeignKey(User)
     paid = models.BooleanField(default=False)

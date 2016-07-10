@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from core.models import Day
 
 
 MONTHS = (
@@ -87,10 +88,13 @@ class Dentist(models.Model):
         return "%s" % (self.user.get_full_name())
 
 
-GENDER = (
-    (1, 'Masculino'),(2, 'Femenino')
-)
 class Patient(models.Model):
+    GENDER = (
+        (1, 'Masculino'),(2, 'Femenino')
+    )
+    TURN = (
+        (1, 'Mañana'), (2, 'Tarde')
+    )
     code = models.CharField(max_length=250, null=True, blank=True)
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
@@ -126,6 +130,10 @@ class Patient(models.Model):
     gender = models.IntegerField(choices=GENDER, default=1)
     derivation = models.CharField(max_length=250, null=True, blank=True)
     alias = models.CharField(max_length=250, null=True, blank=True)
+    occupation = models.CharField(max_length=250, null=True, blank=True)
+    preferred_day = models.ManyToManyField(Day, blank=True)
+    turn = models.IntegerField(choices=TURN, null=True, blank=True)
+    companion = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
         verbose_name = "Paciente"
