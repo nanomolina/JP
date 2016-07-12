@@ -423,7 +423,7 @@ def accounts_registers_data(request):
             )
         elif balance_type == '2': #Negative
             records = records.filter(
-                havings__gte=F('debit')
+                havings__gt=F('debit')
             )
         else:
             pass
