@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, PasswordForm, ImageUploadForm
+from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, ImageUploadForm, PatientSelectForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
@@ -378,10 +378,12 @@ def registers(request):
 @login_required
 def accounts_registers(request):
     if request.method == 'GET':
+        patient_select = PatientSelectForm(request.user.dentist.id)
         return render_to_response(
             'person/registers/account.html',
             {
                 'template': 'register',
+                'patient_select': patient_select,
             },
             RequestContext(request)
         )
@@ -392,10 +394,13 @@ def accounts_registers_data(request):
     if request.method == 'GET':
         from register.models import Record
         from datetime import datetime
-        from django.db.models import Sum
+        from django.db.models import Sum, F
 
         date_from = request.GET.get('date_from', None)
         date_to = request.GET.get('date_to', None)
+        balance_type = request.GET.get('balance', '0')
+        patient_list = request.GET.getlist('patient', [])
+
         date_from = datetime.strptime(
             date_from,
             '%d/%m/%Y %H:%M'
@@ -411,6 +416,23 @@ def accounts_registers_data(request):
             date__lte=date_to,
             to_account=True,
         ).order_by('-date')
+
+        if balance_type == '1': #Positive
+            records = records.filter(
+                debit__gte=F('havings')
+            )
+        elif balance_type == '2': #Negative
+            records = records.filter(
+                havings__gt=F('debit')
+            )
+        else:
+            pass
+
+        if len(patient_list) > 0:
+            records = records.filter(
+                patient__id__in=patient_list,
+            )
+
         total_debit_records = records.aggregate(total=Sum('debit'))['total']
         total_having_records = records.aggregate(total=Sum('havings'))['total']
         if total_debit_records is not None and total_having_records is not None:
@@ -425,6 +447,7 @@ def accounts_registers_data(request):
                 'total_debit_records': total_debit_records,
                 'total_having_records': total_having_records,
                 'total_balance': total_balance,
+                'balance_type': balance_type,
             },
             RequestContext(request)
         )
