@@ -141,7 +141,7 @@ class Patient(models.Model):
         verbose_name_plural = "Pacientes"
 
     def __unicode__(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return "%s %s" % (self.last_name, self.first_name)
 
     @property
     def domicile(self):
