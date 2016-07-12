@@ -176,7 +176,7 @@ class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = (
-            'picture', 
+            'picture',
         )
     picture = forms.ImageField()
 
@@ -255,28 +255,19 @@ class DentistForm(forms.ModelForm):
         }
 
 
-class PasswordForm(forms.Form):
-    old_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
+class PatientSelectForm(forms.Form):
+    def __init__(self, dentist_id, *args, **kwargs):
+        super(PatientSelectForm, self).__init__(*args, **kwargs)
+        patients = Patient.objects.filter(
+            dentist__id=dentist_id
         )
-    )
-    new_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
+        self.fields['patient'] = forms.MultipleChoiceField(
+            widget=forms.SelectMultiple(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '10',
+                }
+            ),
+            choices=[(p.id, str(p)) for p in patients]
         )
-    )
-    confirm_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
