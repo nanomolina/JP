@@ -13,32 +13,37 @@
         <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Cuenta Corriente General</h1>
 
         <div class="row">
-          <form id="period-form" action="{% url 'person:accounts_registers_data' %}" method="GET">
-              <div class='col-md-1'>
-                <h4>Desde:</h4>
-              </div>
+          <form id="period-form" action="{% url 'person:accounts_registers_data' %}" method="GET" class="form">
               <div class='col-md-3'>
                   <div class="form-group">
                       <div class='input-group date' id='date-from'>
-                          <input type='text' name="date_from" class="form-control" />
+                          <input type='text' name="date_from" class="form-control" placeholder="Desde"/>
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
                       </div>
                   </div>
-              </div>
-              <div class='col-md-1'>
-                <h4>Hasta:</h4>
               </div>
               <div class='col-md-3'>
                   <div class="form-group">
                       <div class='input-group date' id='date-to'>
-                          <input type='text' name="date_to" class="form-control" />
+                          <input type='text' name="date_to" class="form-control" placeholder="Hasta"/>
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
                       </div>
                   </div>
+              </div>
+              <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                  <button id="balance-positive" type="button" class="btn btn-default" onclick="javascript: filterBalance(1)">Positivo</button>
+                  <button id="balance-negative" type="button" class="btn btn-default" onclick="javascript: filterBalance(2)">Negativo</button>
+                  <button id="balance-all" type="button" class="btn btn-default active" onclick="javascript: filterBalance(0)">Todos</button>
+                  <input id="balance-type" type="hidden" name="balance" value="0">
+                </div>
+              </div>
+              <div class="col-md-3">
+                {{patient_select.patient}}
               </div>
           </form>
         </div>
@@ -102,6 +107,9 @@
           $('#date-from').data("DateTimePicker").maxDate(e.date);
           getListAccounts();
       });
+      $('#id_patient').on('change', function(){
+        getListAccounts();
+      });
       getListAccounts();
   });
 
@@ -116,6 +124,27 @@
         $('#tbody-account').html(data);
       }
     })
+  }
+
+  function filterBalance(type) {
+    $('#balance-type').val(type);
+    $('#balance-all').removeClass('active');
+    $('#balance-positive').removeClass('active');
+    $('#balance-negative').removeClass('active');
+    switch (type) {
+      case 0:
+        $('#balance-all').addClass('active');
+        break;
+      case 1:
+        $('#balance-positive').addClass('active');
+        break;
+      case 2:
+        $('#balance-negative').addClass('active');
+        break;
+      default:
+
+    }
+    getListAccounts();
   }
 </script>
 {%endblock%}
