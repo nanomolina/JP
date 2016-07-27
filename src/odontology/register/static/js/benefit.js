@@ -46,18 +46,44 @@ $(function () {
 
     $('#select-benefit').change(function () {
         $('.benefits').hide();
-        var id = $( "#select-benefit option:selected" ).val();
+        var $selected = $( "#select-benefit option:selected" );
+        var id = $selected.val();
+        var text = $selected.text();
         $('#benefit-'+id).show();
         $('#edit_bf').data('bf-id', id);
         edit_url_pdf(id);
+        edit_print_modal(text);
     }).change();
 
 });
+
+function print_benefit(){
+  $('#button-print').button('loading');
+  var url = $('#form-print').attr('action');
+  url += '?' + $('#form-print').serialize();
+  $.ajax({
+    type: 'GET',
+    url: url,
+    success: function(data) {
+      $('#block-to-print').html(data);
+      $('#button-print').button('reset');
+      $('#modal-print').modal('hide');
+      document.title = $('#pdf-title').text();
+      setTimeout(function(){
+        window.print();
+      }, 500);
+    }
+  })
+}
 
 function edit_url_pdf(id) {
     var url_split = $('#form-print').attr('action').split('/');
     url_split[5] = id;
     $('#form-print').attr('action', url_split.join('/'));
+}
+
+function edit_print_modal(text){
+    $('#modal-print .record-name').html(text);
 }
 
 function edit_benefit() {

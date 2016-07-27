@@ -1,240 +1,221 @@
 {% load staticfiles register_extras %}
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="pdf de prestaciones">
-  <meta name="author" content="Nano Molina">
-  <title>{{benefit.year}} - {{benefit.get_month_display|stringformat:"02d"}} - {{patient.last_name}} {{patient.first_name}}</title>
-  <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/cerulean/bootstrap.min.css'  %}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <style>
+<div id="pdf-title" class="hide">{{benefit.year}} - {{benefit.get_month_display|stringformat:"02d"}} - {{patient.last_name}} {{patient.first_name}}</div>
+<style>
   @media print {
     .no-print {
       display: none !important;
     }
   }
+  #block-to-print {
+    font-size: 10px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
   .text-muted {
       color: rgb(85, 85, 85);
   }
-  </style>
-</head>
-<body style=" font-size: 10px;">
-  <div class="container">
-      <a href="{% url 'person:social_work' id=patient.id %}" type="button" class="btn btn-primary btn-lg no-print" style="position: absolute;z-index: 1;left:0;">
-        <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Volver
-      </a>
-      <table class="table table-bordered text-muted">
-        <tbody>
-          <tr>
-              <td width="33%">
-                <div class="col-md-6">
-                  <img src="{% static 'images/fopc.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="200" style="position: absolute;top: 0;right: 86px;">
-                </div>
-                <div class="col-md-6" style="margin-bottom: 5px;">
-                  <strong>REGISTRO DE PRESTACIONES</strong>
-                </div>
-              </td>
-              <td width="33%">
-                <p>Entidad Primaria...................</p>
-                <p>..............................................</p>
-                <p>Codigo ................/.................</p>
-              </td>
-              <td width="33%">
-                <p>Obra Social</p>
-                <p><strong>{{patient.social_work|default_if_none:'Ninguna'}}</strong></p>
-                <p>......../......../......../......../........</p>
-              </td>
-          </tr>
-        </tbody>
-      </table>
+</style>
+<a href="{% url 'person:social_work' id=patient.id %}" type="button" class="btn btn-primary btn-lg no-print" style="position: absolute;z-index: 1;left:0;">
+  <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Volver
+</a>
+<table class="table table-bordered text-muted">
+  <tbody>
+    <tr>
+        <td width="33%">
+          <div class="col-md-6">
+            <img src="{% static 'images/fopc.jpg' %}" class="img-responsive" alt="APROSS" width="100" height="200" style="position: absolute;top: 0;right: 86px;">
+          </div>
+          <div class="col-md-6" style="margin-bottom: 5px;">
+            <strong>REGISTRO DE PRESTACIONES</strong>
+          </div>
+        </td>
+        <td width="33%">
+          <p>Entidad Primaria...................</p>
+          <p>..............................................</p>
+          <p>Codigo ................/.................</p>
+        </td>
+        <td width="33%">
+          <p>Obra Social</p>
+          <p><strong>{{patient.social_work|default_if_none:'Ninguna'}}</strong></p>
+          <p>......../......../......../......../........</p>
+        </td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="col-sm-12 table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
-        <tbody>
-          <tr>
-            <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
-            <td colspan="2">Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
-            <td class="text-center" rowspan="2"><strong style="font-size: 14px;position:relative;top:13px;">{{benefit.month}} de {{benefit.year}}</strong></td>
-          </tr>
-          <tr>
-            <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist.user.last_name}} {{patient.dentist.user.first_name}}</td>
-            <td style="padding: 0;">
-              <table class="table table-condensed" style="margin-bottom: 0;">
-                <thead>
-                  <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td style="padding: 0;">
-              <table class="table table-condensed" style="margin-bottom: 0;">
-                <thead>
-                  <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<table class="col-sm-12 table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
+  <tbody>
+    <tr>
+      <td width="60%">PACIENTE: &nbsp;&nbsp; {{patient.get_full_name}}</td>
+      <td colspan="2">Nro de afiliado: &nbsp;&nbsp; {% if patient.social_work %}{{patient.subsidiary_number}}{% endif %}</td>
+      <td class="text-center" rowspan="2"><strong style="font-size: 14px;position:relative;top:13px;">{{benefit.month}} de {{benefit.year}}</strong></td>
+    </tr>
+    <tr>
+      <td width="60%" style="padding-top: 11px">ODONTOLOGO: &nbsp;&nbsp; {{patient.dentist.user.last_name}} {{patient.dentist.user.first_name}}</td>
+      <td style="padding: 0;">
+        <table class="table table-condensed" style="margin-bottom: 0;">
+          <thead>
+            <tr><td colspan="2" class="text-center" style="padding: 0;">Circulo</td></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2" class="text-center" style="padding: 0;">{{patient.dentist.circle}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="padding: 0;">
+        <table class="table table-condensed" style="margin-bottom: 0;">
+          <thead>
+            <tr><td colspan="3" class="text-center" style="padding: 0;">N° de matricula</td></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3" class="text-center" style="padding: 0;">{{patient.dentist.register_number}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="table table-bordered table-condensed text-muted" style="margin-bottom:4px;">
-        <thead>
-          <tr>
-            <td></td>
-            <td style="width: 80px;">Dia</td>
-            <td style="width: 80px;">Diente N&deg;</td>
-            <td style="width: 80px;">Cara</td>
-            <td style="width: 160px;">Codigo</td>
-            <td>Conformidad Paciente</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for detail in benefit.get_details %}
-          <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{detail.day|default_if_none:''}}</td>
-            <td>{{detail.tooth|default_if_none:''}}</td>
-            <td>
-              {% for face in detail.faces.all %}
-                {{face.initial}}{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </td>
-            <td>{{detail.code|default_if_none:''}}</td>
-            <td></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+<table class="table table-bordered table-condensed text-muted" style="margin-bottom:4px;">
+  <thead>
+    <tr>
+      <td></td>
+      <td style="width: 80px;">Dia</td>
+      <td style="width: 80px;">Diente N&deg;</td>
+      <td style="width: 80px;">Cara</td>
+      <td style="width: 160px;">Codigo</td>
+      <td>Conformidad Paciente</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for detail in benefit.get_details %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{detail.day|default_if_none:''}}</td>
+      <td>{{detail.tooth|default_if_none:''}}</td>
+      <td>
+        {% for face in detail.faces.all %}
+          {{face.initial}}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{detail.code|default_if_none:''}}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-      <table class="table table-bordered table-condensed text-muted" style="margin-bottom: 4px; width: 0%;">
-        <tbody>
-          <tr>
-            <td style="min-width: 100px;">Código de gestíon</td>
-            <td class="text-center" style="min-width: 100px;">{{benefit.managment_code|default_if_none:"---"}}</td>
-          </tr>
-        </tbody>
-      </table>
+<table class="table table-bordered table-condensed text-muted" style="margin-bottom: 4px; width: 0%;">
+  <tbody>
+    <tr>
+      <td style="min-width: 100px;">Código de gestíon</td>
+      <td class="text-center" style="min-width: 100px;">{{benefit.managment_code|default_if_none:"---"}}</td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="table table-condensed text-muted" style="margin-bottom: 0">
-        <tbody>
-          <tr>
-            <td colspan="2" style="border-top: 0;">
-              Domicilio de realizacion de la prestacion: &nbsp;<u>{{patient.dentist.carrying_home|default_if_none:"-"}}</u>
-            </td>
-            <td style="border-top: 0;border-bottom: 1px dotted black; width: 115px; padding-top: 35px;"></td>
-          </tr>
-          <tr>
-            <td colspan="3" style="border-top: 0;" class="text-right"><small>Firma y sello del profesional</small></td>
-          </tr>
-        </tbody>
-      </table>
+<table class="table table-condensed text-muted" style="margin-bottom: 0">
+  <tbody>
+    <tr>
+      <td colspan="2" style="border-top: 0;">
+        Domicilio de realizacion de la prestacion: &nbsp;<u>{{patient.dentist.carrying_home|default_if_none:"-"}}</u>
+      </td>
+      <td style="border-top: 0;border-bottom: 1px dotted black; width: 115px; padding-top: 35px;"></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="border-top: 0;" class="text-right"><small>Firma y sello del profesional</small></td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="table table-condensed text-muted" style="margin-bottom: 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
-        <tbody>
-          <style>
-            .row-info {
-                border-top: 0;
-                padding-top: 0;
-                padding-bottom: 2px;
-                padding-right: 5px;
-            }
-            .row-top {
-                border-top: 0;
-                padding-bottom: 2px;
-                padding-right: 5px;
-                padding-top: 2px;
-            }
-            .data-pat {
-              padding-left: 10px;
-            }
-          </style>
-          <tr>
-            <td class="row-top">Titular: <span class="data-pat">{{patient.incumbent|default:'---'}}</span></td>
-            <td class="row-top">Grupo familiar: <span class="data-pat">{{patient.family_group|default:'---'}}</span></td>
-            <td class="row-top">Parentesco: <span class="data-pat">{{patient.relationship|default:'---'}}</span></td>
-          </tr>
-          <tr>
-            <td class="row-info">Domicilio: <span class="data-pat">{{patient.domicile|default:'---'}}</span></td>
-            <td class="row-info">Localidad: <span class="data-pat">{{patient.full_locality|default:'---'}}</span></td>
-            <td class="row-info">Fechas de nacimiento: <span class="data-pat">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span></td>
-          </tr>
-          <tr>
-            <td class="row-info">Lugar de trabajo del titular: <span class="data-pat">{{patient.Workplace_holder|default:'---'}}</span></td>
-            <td class="row-info">Sexo: <span class="data-pat">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span></td>
-            <td class="row-info">Jerarquia: <span class="data-pat">{{patient.hierarchy|default:'---'}}</span></td>
-          </tr>
-        </tbody>
-      </table>
+<table class="table table-condensed text-muted" style="margin-bottom: 40px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+  <tbody>
+    <style>
+      .row-info {
+          border-top: 0;
+          padding-top: 0;
+          padding-bottom: 2px;
+          padding-right: 5px;
+      }
+      .row-top {
+          border-top: 0;
+          padding-bottom: 2px;
+          padding-right: 5px;
+          padding-top: 2px;
+      }
+      .data-pat {
+        padding-left: 10px;
+      }
+    </style>
+    <tr>
+      <td class="row-top">Titular: <span class="data-pat">{{patient.incumbent|default:'---'}}</span></td>
+      <td class="row-top">Grupo familiar: <span class="data-pat">{{patient.family_group|default:'---'}}</span></td>
+      <td class="row-top">Parentesco: <span class="data-pat">{{patient.relationship|default:'---'}}</span></td>
+    </tr>
+    <tr>
+      <td class="row-info">Domicilio: <span class="data-pat">{{patient.domicile|default:'---'}}</span></td>
+      <td class="row-info">Localidad: <span class="data-pat">{{patient.full_locality|default:'---'}}</span></td>
+      <td class="row-info">Fechas de nacimiento: <span class="data-pat">{{patient.birth_date|date:"SHORT_DATE_FORMAT"|default:'---'}}</span></td>
+    </tr>
+    <tr>
+      <td class="row-info">Lugar de trabajo del titular: <span class="data-pat">{{patient.Workplace_holder|default:'---'}}</span></td>
+      <td class="row-info">Sexo: <span class="data-pat">{% if patient.gender == 1%}Masculino{% elif patient.gender == 2%}Femenino{% else %}---{%endif%}</span></td>
+      <td class="row-info">Jerarquia: <span class="data-pat">{{patient.hierarchy|default:'---'}}</span></td>
+    </tr>
+  </tbody>
+</table>
 
-      {% with patient.id|get_radiography_form:benefit.id as radiography_form %}
-      <table class="table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
-        <tbody>
-          <tr>
-            <td style="padding: 0;">
-              <table class="table">
-                <tbody>
-                  <tr><td>Cantidad de Dientes:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_count|default_if_none:'---'}}</td></tr>
-                </tbody>
-              </table>
-              <table class="table">
-                <tbody>
-                  <tr><td>Cantidad de Rx. adjuntas:</td></tr>
-                  <tr><td class="text-center" style="font-size: 15px;">{{radiography_form.instance.rx_amount|default_if_none:"---"}}</td></tr>
-                </tbody>
-              </table>
-            </td>
-            <td>{% include 'register/odontogram/plot.html' %}</td>
-          </tr>
-          <tr>
-            <td>Observaciones:</td>
-            <td>{{benefit.observations|default:'---'}}</td>
-          </tr>
-        </tbody>
-      </table>
+{% with patient.id|get_radiography_form:benefit.id as radiography_form %}
+<table class="table table-bordered table-condensed text-muted" style="margin-bottom: 10px;">
+  <tbody>
+    <tr>
+      <td style="padding: 0;">
+        <table class="table">
+          <tbody>
+            <tr><td>Cantidad de Dientes:</td></tr>
+            <tr><td class="text-center" style="font-size: 15px;">{{patient.odontogram.teeth_count|default_if_none:'---'}}</td></tr>
+          </tbody>
+        </table>
+        <table class="table">
+          <tbody>
+            <tr><td>Cantidad de Rx. adjuntas:</td></tr>
+            <tr><td class="text-center" style="font-size: 15px;">{{radiography_form.instance.rx_amount|default_if_none:"---"}}</td></tr>
+          </tbody>
+        </table>
+      </td>
+      <td>{% include 'register/odontogram/plot.html' %}</td>
+    </tr>
+    <tr>
+      <td>Observaciones:</td>
+      <td>{{benefit.observations|default:'---'}}</td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="table table-bordered text-muted">
-        <tbody>
-          <tr>
-              <td width="33%" height="100px"></td>
-              <td width="33%" height="100px"></td>
-              <td width="33%" height="100px" ></td>
-          </tr>
-          <tr>
-              <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_1|default:'---'}}</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_1_display|default:'---'}}</p>
-              </td>
-              <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_2|default:'---'}}</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_2_display|default:'---'}}</p>
-              </td>
-              <td width="33%" style="padding:0;">
-                <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_3|default:'---'}}</p>
-                <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_3_display|default:'---'}}</p>
-              </td>
-          </tr>
-        </body>
-      </table>
-      {% endwith %}
-  </div>
-  <script type="text/javascript">
-    function print_page(){
-        window.print();
-    }
-    print();
-  </script>
-</body>
-</html>
+<table class="table table-bordered text-muted">
+  <tbody>
+    <tr>
+        <td width="33%" height="100px"></td>
+        <td width="33%" height="100px"></td>
+        <td width="33%" height="100px" ></td>
+    </tr>
+    <tr>
+        <td width="33%" style="padding:0;">
+          <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_1|default:'---'}}</p>
+          <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_1_display|default:'---'}}</p>
+        </td>
+        <td width="33%" style="padding:0;">
+          <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_2|default:'---'}}</p>
+          <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_2_display|default:'---'}}</p>
+        </td>
+        <td width="33%" style="padding:0;">
+          <p style="margin-bottom:0; padding-left: 5px;">numero de pieza: {{radiography_form.instance.part_number_3|default:'---'}}</p>
+          <p style="margin-bottom:0; padding-left: 5px;">finalidad: {{radiography_form.instance.get_finality_3_display|default:'---'}}</p>
+        </td>
+    </tr>
+  </body>
+</table>
+{% endwith %}

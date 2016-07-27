@@ -28,118 +28,56 @@
   </li>
 {% endblock %}
 
-{% block extra_right_navs %}
-  <li>
-    <a type="button" data-toggle="modal" data-target="#modal-print">
-      <i class="fa fa-print"></i></i> Imprimir Ficha
-    </a>
-  </li>
-{% endblock %}
-
 {% block content %}
 {{ block.super }}
-
-{% if patient.social_work and patient.social_work.initial == 'APROSS' %}
-  {% include "register/monthly_detail/apross/_add.html" %}
-{% else %}
-  {% include "register/monthly_detail/benefit/_add.html" %}
-{% endif %}
-<div class="modal fade" id="modal-edit-benefit" tabindex="-1" role="dialog" aria-labelledby="modal-Label">
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="modal-Label">Editar Ficha Mensual</h4>
-        </div>
-        <div class="loading text-center">
-            <img src="{% static 'images/ring-alt.svg' %}" style="padding-top: 30px; padding-bottom: 30px;"></img>
-        </div>
-        <form id="benefit-edit-form" class="form-horizontal" role="form" method="POST" action="{% url 'register:edit_benefit' patient_id=patient.id %}">
-            <div class="modal-body"></div>
-            <div class="modal-footer"></div>
-        </form>
-      </div>
-    </div>
-</div>
-
-<div id="modal-print" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Imprimir Ficha</h4>
-        </div>
-        <div class="modal-body">
-          <form id="form-print" action="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
-            <div class="radio radio-primary">
-              <input name="type" type="radio" value="1" id="radio-print-1">
-              <label for="radio-print-1">Odontograma completo</label>
-            </div>
-            <div class="radio radio-primary">
-              <input name="type" type="radio" value="2" checked="" id="radio-print-2">
-              <label for="radio-print-2">Odontograma mensual</label>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrra</button>
-          <button onclick="javascript: print_benefit();" class="btn btn-primary"
-                  type="button" id="button-print" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Cargando">
-              <i class="fa fa-print"></i></i> Imprimir
-          </button>
-          <script type="text/javascript">
-            function print_benefit(){
-              $('#button-print').button('loading');
-              var url = $('#form-print').attr('action');
-              url += '?' + $('#form-print').serialize();
-              location.href = url;
-            }
-          </script>
-        </div>
-    </div>
-  </div>
-</div>
-
-<div class="row padding-top">
-
-  <div class="col-md-12">
-      <h1 class="page-header">
-        <i class="fa fa-building" aria-hidden="true"></i> Facturación Obra Social - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
-        {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
-      </h1>
-      <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
-        <div class="panel-body no-padding">
-          <ul class="nav nav-tabs">
-            <li role="presentation" id="tab-detail" class="active"><a href="#detail">Ficha Mensual</a></li>
-            <li role="presentation" id="tab-total-detail"><a href="#total-detail">Historial de Fichas</a></li>
-            <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
-          </ul>
-          <div id="myTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
-              {% include "register/monthly_detail/tab_detail.html" %}
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
-              {% include "register/monthly_detail/tab_total_details.html" with patient=patient %}
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
-              <script type="text/javascript">
-                URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
-                CSRF = "{{ csrf_token }}";
-                {% if odontogram_form.instance.month and odontogram_form.instance.year %}
-                DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
-                {% else %}
-                DATE_OD = "";
-                {% endif %}
-              </script>
-              {% include "register/odontogram/tab_odontogram.html" %}
+  {% if patient.social_work and patient.social_work.initial == 'APROSS' %}
+    {% include "register/monthly_detail/apross/_add.html" %}
+  {% else %}
+    {% include "register/monthly_detail/benefit/_add.html" %}
+  {% endif %}
+  {% include "register/monthly_detail/_modal_edit.html" %}
+  {% include "register/monthly_detail/_modal_print.html" %}
+  <div class="row padding-top hidden-print">
+    <div class="col-md-12">
+        <h1 class="page-header">
+          <i class="fa fa-building" aria-hidden="true"></i> Obra Social - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
+          {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
+        </h1>
+        <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
+          <div class="panel-body no-padding">
+            <ul class="nav nav-tabs">
+              <li role="presentation" id="tab-detail" class="active"><a href="#detail">Ficha Mensual</a></li>
+              <li role="presentation" id="tab-total-detail"><a href="#total-detail">Historial de Fichas</a></li>
+              <li role="presentation" id="tab-odontogram"><a href="#odontogram">Odontograma</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="detail" aria-labelledby="details-tab">
+                {% include "register/monthly_detail/tab_detail.html" %}
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="total-detail" aria-labelledby="total-details-tab">
+                {% include "register/monthly_detail/tab_total_details.html" with patient=patient %}
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="odontogram" aria-labelledby="ondontogram-tab">
+                <script type="text/javascript">
+                  URL_EDIT_ODONT = "{% url 'register:edit_odontogram' patient_id=patient.id %}";
+                  CSRF = "{{ csrf_token }}";
+                  {% if odontogram_form.instance.month and odontogram_form.instance.year %}
+                  DATE_OD = "{{odontogram_form.instance.month}} - {{odontogram_form.instance.year}}";
+                  {% else %}
+                  DATE_OD = "";
+                  {% endif %}
+                </script>
+                {% include "register/odontogram/tab_odontogram.html" %}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
   </div>
+{% endblock %}
 
-
-</div>
+{% block extra_content %}
+<div id="block-to-print" class="visible-print-block"></div>
 {% endblock %}
 
 {% block scripts %}

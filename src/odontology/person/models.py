@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from core.models import Day
 
 
 MONTHS = (
@@ -74,14 +75,26 @@ class Dentist(models.Model):
     def number_of_patients(self):
         return Patient.objects.filter(dentist=self).count()
 
+    @property
+    def has_pending_invoices(self):
+        from core.models import Bill
+        return Bill.objects.filter(user=self.user, paid=False).exists()
+
+    def get_bills(self):
+        from core.models import Bill
+        return Bill.objects.filter(user=self.user)
+
     def __unicode__(self):
         return "%s" % (self.user.get_full_name())
 
 
-GENDER = (
-    (1, 'Masculino'),(2, 'Femenino')
-)
 class Patient(models.Model):
+    GENDER = (
+        (1, 'Masculino'),(2, 'Femenino')
+    )
+    TURN = (
+        (1, 'Mañana'), (2, 'Tarde')
+    )
     code = models.CharField(max_length=250, null=True, blank=True)
     dentist = models.ForeignKey(Dentist, null=True, blank=True) #sacar el null
     clinic_history = models.OneToOneField(Clinic_history, null=True, blank=True)
@@ -117,13 +130,18 @@ class Patient(models.Model):
     gender = models.IntegerField(choices=GENDER, default=1)
     derivation = models.CharField(max_length=250, null=True, blank=True)
     alias = models.CharField(max_length=250, null=True, blank=True)
+    occupation = models.CharField(max_length=250, null=True, blank=True)
+    preferred_day = models.ManyToManyField(Day, blank=True)
+    turn = models.IntegerField(choices=TURN, null=True, blank=True)
+    companion = models.CharField(max_length=250, null=True, blank=True)
+    picture = models.ImageField(upload_to='photos/', default="photos/no-img.jpg")
 
     class Meta:
         verbose_name = "Paciente"
         verbose_name_plural = "Pacientes"
 
     def __unicode__(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return "%s %s" % (self.last_name, self.first_name)
 
     @property
     def domicile(self):
@@ -194,6 +212,19 @@ class Patient(models.Model):
 
     def total_balance_records(self):
         return self.total_debit_records() - self.total_having_records()
+
+    def has_picture(self):
+        return not self.picture.name == 'photos/no-img.jpg'
+
+    def get_picture(self):
+        if not self.has_picture():
+            if self.gender == 2:
+                picture = '/static/images/woman-min.jpg'
+            else:
+                picture = '/static/images/man-min.jpg'
+        else:
+            picture = self.picture.url
+        return picture
 
 
 COLORS = ((1, 'red'), (2, 'blue'))

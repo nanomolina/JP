@@ -2,12 +2,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from person.models import Patient, Dentist, Odontogram, SocialWork
+from core.models import Day
 
 
 class PatientForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PatientForm, self).__init__(*args, **kwargs)
         self.fields['social_work'].queryset = SocialWork.objects.order_by('initial')
+        self.fields['preferred_day'].queryset = Day.objects.all()
 
     class Meta:
         model = Patient
@@ -16,7 +18,8 @@ class PatientForm(forms.ModelForm):
             'incumbent', 'family_group', 'relationship', 'birth_date', 'street',
             'number', 'floor', 'apartment', 'suburb', 'locality', 'tel', 'cel_phone',
             'Workplace_holder', 'hierarchy', 'email', 'gender', 'derivation',
-            'neighborhood', 'dni', 'alias',
+            'neighborhood', 'dni', 'alias', 'occupation', 'preferred_day', 'turn',
+            'companion',
         )
         widgets = {
             'first_name': forms.TextInput(
@@ -146,7 +149,36 @@ class PatientForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
+            'occupation': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'preferred_day': forms.SelectMultiple(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'turn': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            'companion': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
         }
+
+
+class ImageUploadForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = (
+            'picture',
+        )
+    picture = forms.ImageField()
 
 
 class OdontogramForm(forms.ModelForm):
@@ -223,28 +255,19 @@ class DentistForm(forms.ModelForm):
         }
 
 
-class PasswordForm(forms.Form):
-    old_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
+class PatientSelectForm(forms.Form):
+    def __init__(self, dentist_id, *args, **kwargs):
+        super(PatientSelectForm, self).__init__(*args, **kwargs)
+        patients = Patient.objects.filter(
+            dentist__id=dentist_id
         )
-    )
-    new_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
+        self.fields['patient'] = forms.MultipleChoiceField(
+            widget=forms.SelectMultiple(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '10',
+                }
+            ),
+            choices=[(p.id, str(p)) for p in patients]
         )
-    )
-    confirm_password = forms.CharField(
-        max_length=32,
-        widget=forms.PasswordInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )

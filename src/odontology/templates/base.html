@@ -113,8 +113,11 @@
     {% endblock %}
   </div>
 
-  <footer>
-    <div class="container-fluid">
+  {% block extra_content %}
+  {% endblock %}
+
+  <footer class="hidden-print">
+    <div class="container">
       <small class="pull-right">Copyright&copy;BrotherhoodMolina</small>
     </div>
   </footer>

@@ -1,52 +1,32 @@
-<div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
-    <div class="col-md-6 no-padding">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-benefit">
-          <i class="fa fa-plus-square-o"></i> Nueva Ficha Mensual
-        </button>
-    {% if last_benefit %}
-        <button id="edit_bf" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-benefit" data-bf-id="{{last_benefit.id}}" data-csrf="{{ csrf_token }}" onclick="javascript:edit_benefit()">
-          <i class="fa fa-pencil-square-o"></i> Editar Ficha Mensual
-        </button>
-    </div>
-    <div class="col-md-3 col-md-offset-3 no-padding">
-        <select id="select-benefit" class="selectpicker show-tick form-control">
-          {% for bf in benefits %}
-          <option value="{{bf.id}}" {% if bf == last_benefit %}selected="selected"{% endif %}>
-            {{bf.month}} - {{bf.year}}
-          </option>
-          {% endfor %}
-        </select>
-    </div>
-    {% else %}
-    </div>
-    {% endif %}
-</div>
+{% include "register/monthly_detail/tab_detail_header.html" %}
 
 {% if last_benefit %}
   {% for bf in benefits %}
   <div id="benefit-{{bf.id}}" class="benefits" style="{% if not bf == last_benefit %}display: none;{% endif %}">
     <div class="col-md-12">
       <div class="panel panel-primary">
-        <div class="panel-heading">Prestaciones Facturadas<strong class="pull-right">{{bf.month}} - {{bf.year}}</strong></div>
+        <div class="panel-heading">Detalle de prestaciones <strong class="pull-right text-uppercase">{{bf.month}} - {{bf.year}}</strong></div>
         <div class="panel-body no-padding">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th width="100px">Dia</th>
-                <th>Trabajo realizado</th>
-                <th>Código de practica</th>
-                <th>Elemento</th>
-                <th>Caras/Tratadas</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for detail in bf.get_details %}
-                  {% include "register/monthly_detail/apross/details.html" with counter=forloop.counter patient=bf.patient %}
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th width="100px">Dia</th>
+                  <th>Trabajo realizado</th>
+                  <th>C&oacute;digo de practica</th>
+                  <th>Elemento</th>
+                  <th>Caras/Tratadas</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for detail in bf.get_details %}
+                    {% include "register/monthly_detail/apross/details.html" with counter=forloop.counter patient=bf.patient %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <hr>
@@ -57,25 +37,27 @@
       <div class="panel panel-primary">
         <div class="panel-heading">Validación de Prestaciones</div>
         <div class="panel-body no-padding">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <th width="250">Códigos de gestión</th>
-                <th style="width: 2%">1</th>
-                <td width="250">{{bf.managment_code1|default_if_none:"-"}}</td>
-                <th style="width: 2%">2</th>
-                <td width="250">{{bf.managment_code2|default_if_none:"-"}}</td>
-                <th style="width: 2%">3</th>
-                <td width="250">{{bf.managment_code3|default_if_none:"-"}}</td>
-                <th style="width: 2%">4</th>
-                <td width="250">{{bf.managment_code4|default_if_none:"-"}}</td>
-              </tr>
-              <tr>
-                <th width="250">Observaciones</th>
-                <td colspan="8">{{bf.observations|default_if_none:'-'}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th width="250">Códigos de gestión</th>
+                  <th style="width: 2%">1</th>
+                  <td width="250">{{bf.managment_code1|default_if_none:"-"}}</td>
+                  <th style="width: 2%">2</th>
+                  <td width="250">{{bf.managment_code2|default_if_none:"-"}}</td>
+                  <th style="width: 2%">3</th>
+                  <td width="250">{{bf.managment_code3|default_if_none:"-"}}</td>
+                  <th style="width: 2%">4</th>
+                  <td width="250">{{bf.managment_code4|default_if_none:"-"}}</td>
+                </tr>
+                <tr>
+                  <th width="250">Observaciones</th>
+                  <td colspan="8">{{bf.observations|default_if_none:'-'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <hr>
