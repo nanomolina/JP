@@ -28,18 +28,18 @@
 
 {% include "register/clinic_record/_add.html" %}
 {% include "register/clinic_record/_edit.html" %}
-{% include "register/_delete.html" with title="Borrar prestaci&oacute;n" %}
+{% include "register/_delete.html" with title="Borrar prestación" %}
 
 <div class="row padding-top">
   <div class="col-md-12">
       <h1 class="page-header">
-        <i class="fa fa-folder-open"></i> Historia Cl&iacute;nica - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
+        <i class="fa fa-folder-open"></i> Ficha Clínica - {{patient.last_name|upper}} {{patient.first_name|title}}{% if patient.subsidiary_number %} - {{patient.subsidiary_number}}{% endif %}
         {% if patient.birth_date %}<small class="pull-right" style="padding-top:25px; font-size: 45%;">{{patient.birth_date|calculate_age}} Años</small>{% endif %}
       </h1>
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
         <div class="panel-body no-padding">
           <ul class="nav nav-tabs">
-            <li role="presentation" id="tab-clinic-rec" class="active"><a href="#clinic-rec">Ficha Odontol&oacute;gica</a></li>
+            <li role="presentation" id="tab-clinic-rec" class="active"><a href="#clinic-rec">Ficha Odontológica</a></li>
             <!--<li role="presentation" id="tab-info"><a href="#info">Datos Filiatorios</a></li>-->
           </ul>
           <div id="myTabContent" class="tab-content">

@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Configuraci&oacute;n - {{ request.user.get_full_name }}{% endblock %}
+{% block title %}Configuración - {{ request.user.get_full_name }}{% endblock %}
 
 {% block content %}
 {{ block.super }}
 
 <div class="row padding-top">
   <div class="col-md-12">
-      <h1 class="page-header"><i class="fa fa-cogs"></i> Configuraci&oacute;n</h1>
+      <h1 class="page-header"><i class="fa fa-cogs"></i> Configuración</h1>
   </div>
   <div class="col-md-6">
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
-        <div class="panel-heading">Informaci&oacute;n Personal</div>
+        <div class="panel-heading">Información Personal</div>
         <div class="panel-body">
           <form id="my-personal-settings" action="{% url 'person:settings_personal' %}" method="POST" class="form-horizontal" role="form">
               {% include "person/settings/_form_personal.html" %}
@@ -30,7 +30,7 @@
   </div>
   <div class="col-md-6">
       <div class="panel panel-primary" style="box-shadow: 0 4px 12px rgba(60,55,75,.16);">
-        <div class="panel-heading">Informaci&oacute;n del odontologo</div>
+        <div class="panel-heading">Información del odontólogo</div>
         <div class="panel-body">
           <form id="dentist-settings" action="{% url 'person:settings_dentist' %}" method="POST" class="form-horizontal" role="form">
               {% include "person/settings/_form_dentist.html" %}
