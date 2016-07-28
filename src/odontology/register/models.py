@@ -37,6 +37,7 @@ class Apross(models.Model):
     managment_code4 = models.CharField(max_length=15, null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True) #no se usa
     observations = models.TextField(null=True, blank=True)
+    printed = models.BooleanField(default=False)
 
     date_created = models.DateField(auto_now_add=True)
     real_date = models.DateField(null=True)
@@ -89,6 +90,7 @@ class Benefit(models.Model):
     managment_code = models.CharField(max_length=15, null=True, blank=True)
     rx_amount = models.IntegerField(null=True, blank=True) #no se usa
     observations = models.TextField(null=True, blank=True)
+    printed = models.BooleanField(default=False)
 
     date_created = models.DateField(auto_now_add=True)
     real_date = models.DateField(null=True)

@@ -6,7 +6,7 @@
             <h4 class="modal-title">Imprimir Ficha</h4>
         </div>
         <div class="modal-body">
-          <form id="form-print" action="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}">
+          <form id="form-print" action="{% if last_benefit %}{% url 'register:benefit_to_pdf' patient_id=patient.id bf_id=last_benefit.id %}{% else %}#to_pdf{% endif %}" data-id="{{last_benefit.id}}">
             <strong class="record-name text-uppercase"></strong>
             <div class="radio radio-primary">
               <input name="type" type="radio" value="1" id="radio-print-1">
@@ -15,6 +15,11 @@
             <div class="radio radio-primary">
               <input name="type" type="radio" value="2" checked="" id="radio-print-2">
               <label for="radio-print-2">Odontograma mensual</label>
+            </div>
+            <hr>
+            <div class="checkbox checkbox-success">
+              <input name="printed" type="checkbox" checked="" id="check-printed">
+              <label for="check-printed">Marcar como impreso</label>
             </div>
           </form>
         </div>

@@ -159,13 +159,18 @@ def edit_benefit_detail(request, patient_id, detail_id):
 def benefit_to_pdf(request, patient_id, bf_id):
     from django.template.response import TemplateResponse
     patient = get_object_or_404(Patient, id=patient_id)
+    od_type = request.GET.get('type', '1')
+    mark_printed = request.GET.get('printed', 'off')
+
     if patient.social_work and patient.social_work.initial == 'APROSS':
         benefit = get_object_or_404(Apross, id=bf_id)
         template = 'register/monthly_detail/apross/pdf.html'
     else:
         benefit = get_object_or_404(Benefit, id=bf_id)
         template = 'register/monthly_detail/benefit/pdf.html'
-    od_type = request.GET.get('type', '1')
+
+    benefit.printed = (mark_printed == 'on')
+    benefit.save()
     return TemplateResponse(
         request, template,
         {

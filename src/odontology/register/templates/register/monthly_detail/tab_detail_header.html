@@ -28,6 +28,15 @@
         <button class="btn btn-default pull-right space-right pull-left-mobile" type="button" data-toggle="modal" data-target="#modal-print" >
           <i class="fa fa-print"></i></i> Imprimir
         </button>
+
+        <i id="info-mark-printed" class="fa fa-info-circle fa-2x pull-right {% if last_benefit.printed %}text-success{% else %}text-muted{% endif %}"
+           aria-hidden="true" style="padding-right: 20px;padding-top: 6px;}"
+           data-toggle="tooltip" data-placement="left" title="{% if last_benefit.printed %}Ya fue impreso{% else %}No fue impreso{% endif %}"></i>
+        <script type="text/javascript">
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+          })
+        </script>
     </div>
     {% else %}
     </div>

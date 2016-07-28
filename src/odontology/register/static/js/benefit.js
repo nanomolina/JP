@@ -49,10 +49,12 @@ $(function () {
         var $selected = $( "#select-benefit option:selected" );
         var id = $selected.val();
         var text = $selected.text();
-        $('#benefit-'+id).show();
+        var $benefit = $('#benefit-'+id);
+        $benefit.show();
+        mark_printed($benefit.data('printed'));
         $('#edit_bf').data('bf-id', id);
         edit_url_pdf(id);
-        edit_print_modal(text);
+        edit_print_modal(text, id);
     }).change();
 
 });
@@ -68,6 +70,9 @@ function print_benefit(){
       $('#block-to-print').html(data);
       $('#button-print').button('reset');
       $('#modal-print').modal('hide');
+      var printed = $('#check-printed').is(':checked');
+      $('#benefit-'+$('#form-print').data('id')).data('printed', printed);
+      mark_printed(printed);
       document.title = $('#pdf-title').text();
       setTimeout(function(){
         window.print();
@@ -82,8 +87,9 @@ function edit_url_pdf(id) {
     $('#form-print').attr('action', url_split.join('/'));
 }
 
-function edit_print_modal(text){
+function edit_print_modal(text, id){
     $('#modal-print .record-name').html(text);
+    $('#form-print').data('id', id);
 }
 
 function edit_benefit() {
@@ -106,6 +112,20 @@ function edit_benefit() {
     );
 }
 
+function mark_printed(printed){
+  var $mark_printed = $('#info-mark-printed');
+  var new_title;
+  if (printed) {
+    $mark_printed.removeClass('text-muted').addClass('text-success');
+    new_title = 'Ya fue impreso';
+  } else {
+    $mark_printed.removeClass('text-success').addClass('text-muted');
+    new_title = 'No fue impreso';
+  }
+  $mark_printed.tooltip('hide')
+          .attr('data-original-title', new_title)
+          .tooltip('fixTitle')
+}
 // --- END BENEFIT ---
 
 

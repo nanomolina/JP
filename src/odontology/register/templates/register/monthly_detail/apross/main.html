@@ -2,7 +2,7 @@
 
 {% if last_benefit %}
   {% for bf in benefits %}
-  <div id="benefit-{{bf.id}}" class="benefits" style="{% if not bf == last_benefit %}display: none;{% endif %}">
+  <div id="benefit-{{bf.id}}" class="benefits" style="{% if not bf == last_benefit %}display: none;{% endif %}" data-printed="{% if bf.printed %}true{% else %}false{% endif %}">
     <div class="col-md-12">
       <div class="panel panel-primary">
         <div class="panel-heading">Detalle de prestaciones <strong class="pull-right text-uppercase">{{bf.month}} - {{bf.year}}</strong></div>
