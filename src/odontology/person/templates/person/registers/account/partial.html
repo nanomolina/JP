@@ -10,10 +10,10 @@
 {{ block.super }}
 <div class="row padding-top">
     <div class="col-md-12">
-        <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Cuenta Corriente General</h1>
+        <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Parciales Cuenta Corriente</h1>
 
         <div class="row">
-          <form id="period-form" action="{% url 'person:accounts_registers_data' %}" method="GET" class="form">
+          <form id="period-form" action="{% url 'person:partial_accounts_registers_data' %}" method="GET" class="form">
               <div class='col-md-3'>
                   <div class="form-group">
                       <div class='input-group date' id='date-from'>
@@ -50,8 +50,8 @@
 
         <div class="row">
             <div class="col-md-12">
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
+              <div class="panel">
+                  <div class="panel-heading Green">
                     Cuentas de pacientes
                   </div>
                   <div class="panel-body no-padding">
@@ -73,7 +73,7 @@
                             </tr>
                           </thead>
                           <tbody id="tbody-account">
-                            {% include "person/registers/list.html" %}
+                            {% include "person/registers/account/list_partial.html" %}
                           </tbody>
                         </table>
                     </div>

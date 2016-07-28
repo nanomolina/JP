@@ -45,3 +45,25 @@ footer {
         overflow: visible;
     }
 }
+
+.Green {
+  background-color: #4CAF50;
+  color: white;
+}
+.Green-letter {
+  color: #4CAF50;
+}
+.Green-resume td {
+  background-color: #A5D6A7;
+}
+
+.Teal {
+  background-color: #009688;
+  color: white;
+}
+.Teal-letter {
+  color: #009688;
+}
+.Teal-resume td{
+  background-color: #80CBC4;
+}

@@ -1,0 +1,26 @@
+{% load static %}
+{% for patient in data_patients %}
+<tr>
+  <td><span class="label Teal">{{forloop.counter}}</span></td>
+  <td>{{patient.name}}</td>
+  <td>$ {{patient.debit}}</td>
+  <td>$ {{patient.havings}}</td>
+  <td style="{% if patient.balance < 0 %}color:crimson;{%endif%}">$ {{patient.balance}}</td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="5" class="text-center">No hay resultados.</td>
+</tr>
+{% endfor %}
+{% if data_patients %}
+<tr id="account-total" class="Teal-resume">
+  <td colspan="2">Total</td>
+  <td class="debit">$ {{total_general_debit|default_if_none:'-'}}</td>
+  <td class="havings">$ {{total_general_havings|default_if_none:'-'}}</td>
+  <td class="balance" {% if total_general_balance < 0 %}style="color:crimson;"{%endif%}>$ {{total_general_balance|default_if_none:'-'}}</td>
+  <td></td>
+</tr>
+{% endif %}
+<tr id="loading" class="hide">
+  <td colspan="5" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
+</tr>

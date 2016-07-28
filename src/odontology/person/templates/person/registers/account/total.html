@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Cuenta Corriente General{% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+    <div class="col-md-12">
+        <h1 class="page-header"><i class="fa fa-usd"></i>&nbsp;&nbsp;Totales Cuenta Corriente</h1>
+
+        <div class="row" style="margin-bottom: 15px;">
+          <form id="period-form" action="{% url 'person:total_accounts_registers_data' %}" method="GET" class="form">
+              <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                  <button id="balance-positive" type="button" class="btn btn-default" onclick="javascript: filterBalance(1)">Positivo</button>
+                  <button id="balance-negative" type="button" class="btn btn-default" onclick="javascript: filterBalance(2)">Negativo</button>
+                  <button id="balance-all" type="button" class="btn btn-default active" onclick="javascript: filterBalance(0)">Todos</button>
+                  <input id="balance-type" type="hidden" name="balance" value="0">
+                </div>
+              </div>
+              <div class="col-md-3">
+                {{patient_select.patient}}
+              </div>
+          </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="panel">
+                  <div class="panel-heading Teal">
+                    Cuentas de pacientes
+                  </div>
+                  <div class="panel-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Debe</th>
+                              <th>Haber</th>
+                              <th>Saldo</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody-account">
+                            {% include "person/registers/account/list_total.html" %}
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $(function () {
+      $('#id_patient').on('change', function(){
+        getListAccounts();
+      });
+      getListAccounts();
+  });
+
+  function getListAccounts() {
+    $('#tbody-account tr').not('#loading').remove();
+    $('#loading').removeClass('hide');
+    $.ajax({
+      type: 'GET',
+      url: $('#period-form').attr('action'),
+      data: $('#period-form').serialize(),
+      success: function(data) {
+        $('#tbody-account').html(data);
+      }
+    })
+  }
+
+  function filterBalance(type) {
+    $('#balance-type').val(type);
+    $('#balance-all').removeClass('active');
+    $('#balance-positive').removeClass('active');
+    $('#balance-negative').removeClass('active');
+    switch (type) {
+      case 0:
+        $('#balance-all').addClass('active');
+        break;
+      case 1:
+        $('#balance-positive').addClass('active');
+        break;
+      case 2:
+        $('#balance-negative').addClass('active');
+        break;
+      default:
+
+    }
+    getListAccounts();
+  }
+</script>
+{%endblock%}

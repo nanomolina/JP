@@ -1,7 +1,7 @@
 {% load static %}
 {% for record in records %}
 <tr>
-  <td><span class="label label-primary">{{forloop.counter}}</span></td>
+  <td><span class="label Green">{{forloop.counter}}</span></td>
   <td>{{record.patient.get_full_name}}</td>
   <td>{{record.date|date:'l'}}</td>
   <td>{{record.date|date:'SHORT_DATE_FORMAT'}}</td>
@@ -23,7 +23,7 @@
 </tr>
 {% endfor %}
 {% if records %}
-<tr id="account-total" class="info">
+<tr id="account-total" class="Green-resume">
   <td colspan="8">Total</td>
   <td class="debit">$ {{total_debit_records|default_if_none:'-'}}</td>
   <td class="havings">$ {{total_having_records|default_if_none:'-'}}</td>

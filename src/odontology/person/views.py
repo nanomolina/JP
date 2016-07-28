@@ -376,11 +376,11 @@ def registers(request):
 
 
 @login_required
-def accounts_registers(request):
+def partial_accounts_registers(request):
     if request.method == 'GET':
         patient_select = PatientSelectForm(request.user.dentist.id)
         return render_to_response(
-            'person/registers/account.html',
+            'person/registers/account/partial.html',
             {
                 'template': 'register',
                 'patient_select': patient_select,
@@ -390,7 +390,7 @@ def accounts_registers(request):
 
 
 @login_required
-def accounts_registers_data(request):
+def partial_accounts_registers_data(request):
     if request.method == 'GET':
         from register.models import Record
         from datetime import datetime
@@ -440,7 +440,7 @@ def accounts_registers_data(request):
         else:
             total_balance = None
         return render_to_response(
-            'person/registers/list.html',
+            'person/registers/account/list_partial.html',
             {
                 'template': 'register',
                 'records': records,
@@ -448,6 +448,114 @@ def accounts_registers_data(request):
                 'total_having_records': total_having_records,
                 'total_balance': total_balance,
                 'balance_type': balance_type,
+            },
+            RequestContext(request)
+        )
+
+
+@login_required
+def total_accounts_registers(request):
+    if request.method == 'GET':
+        patient_select = PatientSelectForm(request.user.dentist.id)
+        return render_to_response(
+            'person/registers/account/total.html',
+            {
+                'template': 'register',
+                'patient_select': patient_select,
+            },
+            RequestContext(request)
+        )
+
+
+@login_required
+def total_accounts_registers_data(request):
+    if request.method == 'GET':
+        from register.models import Record
+        from datetime import datetime
+        from django.db.models import Sum, F
+
+        balance_type = request.GET.get('balance', '0')
+        patient_list = request.GET.getlist('patient', [])
+
+        # records = Record.objects.filter(
+        #     patient__dentist=request.user.dentist,
+        #     to_account=True,
+        # ).order_by('-date')
+        #
+        # if balance_type == '1': #Positive
+        #     records = records.filter(
+        #         debit__gte=F('havings')
+        #     )
+        # elif balance_type == '2': #Negative
+        #     records = records.filter(
+        #         havings__gt=F('debit')
+        #     )
+        # else:
+        #     pass
+        #
+        # if len(patient_list) > 0:
+        #     records = records.filter(
+        #         patient__id__in=patient_list,
+        #     )
+        #
+        # data_patients = records.values(
+        #     'patient__last_name', 'patient__first_name'
+        # ).distinct().annotate(
+        #     total_debit=Sum('debit'), total_havings=Sum('havings'),
+        #     total_balance=Sum(F('debit')-F('havings'))
+        # )
+
+        if len(patient_list) > 0:
+            patients = Patient.objects.filter(
+                dentist=request.user.dentist, active=True,
+                id__in=patient_list
+            )
+        else:
+            patients = Patient.objects.filter(
+                dentist=request.user.dentist, active=True,
+            )
+        patients = patients.order_by('last_name')
+        data_patients = []
+        list_debit = []
+        list_havings = []
+        list_balance = []
+        flag_add = True
+        for patient in patients:
+            data = {
+                'name': patient.get_full_name(),
+                'debit': patient.total_debit_records(),
+                'havings': patient.total_having_records(),
+            }
+            from decimal import Decimal
+            try:
+                data['balance'] = data['debit'] - data['havings']
+            except TypeError:
+                data['balance'] = Decimal(0)
+            if data['debit'] is None:
+                data['debit'] = Decimal(0)
+            if data['havings'] is None:
+                data['havings'] = Decimal(0)
+            if balance_type == '1': #Positive
+                flag_add = data['balance'] > 0
+            elif balance_type == '2': #Negative
+                flag_add = data['balance'] < 0
+            if flag_add:
+                list_debit.append(data['debit'])
+                list_havings.append(data['havings'])
+                list_balance.append(data['balance'])
+                data_patients.append(data)
+        total_general_debit = sum(list_debit)
+        total_general_havings = sum(list_havings)
+        total_general_balance = sum(list_balance)
+        return render_to_response(
+            'person/registers/account/list_total.html',
+            {
+                'template': 'register',
+                'data_patients': data_patients,
+                'balance_type': balance_type,
+                'total_general_debit': total_general_debit,
+                'total_general_havings': total_general_havings,
+                'total_general_balance': total_general_balance,
             },
             RequestContext(request)
         )

@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^settings/dentist/$', views.settings_dentist, name='settings_dentist'),
     url(r'^reset_password/$', views.reset_password, name='reset_password'),
     url(r'^registers/$', views.registers, name='registers'),
-    url(r'^registers/accounts/$', views.accounts_registers, name='accounts_registers'),
-    url(r'^registers/accounts/data/$', views.accounts_registers_data, name='accounts_registers_data'),
+    url(r'^registers/accounts/partial/$', views.partial_accounts_registers, name='partial_accounts_registers'),
+    url(r'^registers/accounts/partial/data/$', views.partial_accounts_registers_data, name='partial_accounts_registers_data'),
+    url(r'^registers/accounts/total/$', views.total_accounts_registers, name='total_accounts_registers'),
+    url(r'^registers/accounts/total/data/$', views.total_accounts_registers_data, name='total_accounts_registers_data'),
 ]
