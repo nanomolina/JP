@@ -17,7 +17,7 @@
             <ul class="list-group text-center">
               {% for bill in request.user.dentist.get_bills %}
                 <a class="list-group-item {% if not bill.paid %}list-group-item-danger{% endif %}"
-                   href="{{bill.url_file}}" target="_blank">
+                   href="{{bill.linode_file.url}}" target="_blank">
                   <i class="fa {% if bill.paid %}fa-check-circle-o{% else %}fa-times-circle-o{% endif %} fa-3x pull-left {% if bill.paid %}text-success{% endif %}" aria-hidden="true"></i>
                   <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
                   <strong>{{bill.text}}</strong>

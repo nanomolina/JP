@@ -6,5 +6,5 @@ class DayAdmin(admin.ModelAdmin):
 admin.site.register(Day, DayAdmin)
 
 class BillAdmin(admin.ModelAdmin):
-    fields = ('user', 'paid', 'url_file', 'text')
+    fields = ('user', 'paid', 'linode_file', 'text')
 admin.site.register(Bill, BillAdmin)
