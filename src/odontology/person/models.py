@@ -232,6 +232,9 @@ WORK_TYPES = (
     (1, 'Extraccion'), (2, 'Endodoncia'), (3, 'Restauracion'),
     (4, 'Restauracion filtrada'), (5, 'Caries'), (6, 'Corona')
 )
+TOOTH_STATUS = (
+    (1, 'Rojo'), (2, 'Amarillo'), (3, 'Verde')
+)
 POS_X1 = tuple([(x , x*25) for x in range(8)])
 POS_X_2 = tuple([(x+8 , 210+x*25) for x in range(8)])
 POS_X = POS_X1 + POS_X_2
@@ -245,6 +248,7 @@ class Tooth(models.Model):
     work_type = models.SmallIntegerField(choices=WORK_TYPES, null=True, blank=True)
     position_x = models.SmallIntegerField(null=True, blank=True)
     position_y = models.SmallIntegerField(null=True, blank=True)
+    status = models.SmallIntegerField(choices=TOOTH_STATUS, default=1)
 
     def __unicode__(self):
         return "%s" % str(self.number)

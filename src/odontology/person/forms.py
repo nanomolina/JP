@@ -271,3 +271,28 @@ class PatientSelectForm(forms.Form):
             ),
             choices=[(p.id, str(p)) for p in patients]
         )
+
+
+class TeethSelectForm(forms.Form):
+    def __init__(self, patient, *args, **kwargs):
+        from person.models import TOOTH_STATUS
+        super(TeethSelectForm, self).__init__(*args, **kwargs)
+        teeth = patient.odontogram.get_teeth()
+        self.fields['teeth'] = forms.MultipleChoiceField(
+            widget=forms.SelectMultiple(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '10',
+                }
+            ),
+            choices=[(tooth.id, str(number)) for tooth in teeth]
+        )
+        self.fields['tooth_status'] = forms.ChoiceField(
+            widget=forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                }
+            ),
+            choices=[status for status in TOOTH_STATUS]
+        )

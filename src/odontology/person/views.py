@@ -211,11 +211,13 @@ def odontogram(request, id):
             dentist=dentist
         )
         odontogram_form = OdontogramForm(instance=patient.odontogram)
+        teeth_form = TeethSelectForm(patient)
         return render_to_response(
             'person/odontogram.html',
             {
                 'patient': patient,
                 'odontogram_form': odontogram_form,
+                'teeth_form': teeth_form,
                 'work_types': WORK_TYPES,
             },
             RequestContext(request)
