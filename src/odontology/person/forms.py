@@ -284,6 +284,7 @@ class TeethSelectForm(forms.Form):
                     'class': 'selectpicker form-control',
                     'data-live-search': 'true',
                     'data-size': '10',
+                    'id': 'teeth_selected'
                 }
             ),
             choices=[(tooth.id, str(tooth.number)) for tooth in teeth]

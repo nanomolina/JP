@@ -33,6 +33,17 @@
           </div>
         </td>
       </tr>
+      <tr class="edit-odont hide">
+        <td width="200">Estados:</td>
+        <td>
+          <div class="col-xs-6">
+            {{teeth_form.teeth}}
+          </div>
+          <div class="col-xs-6">
+            {{teeth_form.tooth_status}}
+          </div>
+        </td>
+      </tr>
       <tr>
         <td width="200" style="vertical-align: inherit;">
           <table class="table table-bordered">
@@ -66,19 +77,11 @@
         </td>
         <td>
           <div id="odontogram-plot">
-              {% include "register/odontogram/plot.html" %}
+              {% include "register/odontogram/plot.html" with no_print=True %}
           </div>
-        </td>
-      </tr>
-      <tr class="edit-odont hide">
-        <td width="200">Estados:</td>
-        <td>
-          <div class="col-xs-6">
-            {{teeth_form.teeth}}
-          </div>
-          <div class="col-xs-6">
-            {{teeth_form.tooth_status}}
-          </div>
+          <a id="legends-odont" href="#" type="button" data-toggle="popover" data-trigger="focus" title="Leyenda">
+            <i class="fa fa-question-circle fa-2x" aria-hidden="true"></i>
+          </a>
         </td>
       </tr>
       <tr>

@@ -233,7 +233,8 @@ WORK_TYPES = (
     (4, 'Restauracion filtrada'), (5, 'Caries'), (6, 'Corona')
 )
 TOOTH_STATUS = (
-    (1, 'Rojo'), (2, 'Amarillo'), (3, 'Verde')
+    # (1, ''), (2, Verde), (3, Amarillo), (4, Rojo)
+    (1, 'Ninguno'), (2, 'Realizado - Facturado'), (3, 'Realizado - No Facturado'), (4, 'No Realizado - Facturado')
 )
 POS_X1 = tuple([(x , x*25) for x in range(8)])
 POS_X_2 = tuple([(x+8 , 210+x*25) for x in range(8)])
@@ -256,6 +257,8 @@ class Tooth(models.Model):
     def get_sectors(self):
         return Sector.objects.filter(tooth=self)
 
+    def has_status(self):
+        return self.status in [2, 3, 4]
 
 LOCATIONS = (
     (1, 'C'), (2, 'T'), (3, 'B'), (4, 'R'), (5, 'L')
