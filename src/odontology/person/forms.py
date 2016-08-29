@@ -286,7 +286,7 @@ class TeethSelectForm(forms.Form):
                     'data-size': '10',
                 }
             ),
-            choices=[(tooth.id, str(number)) for tooth in teeth]
+            choices=[(tooth.id, str(tooth.number)) for tooth in teeth]
         )
         self.fields['tooth_status'] = forms.ChoiceField(
             widget=forms.Select(

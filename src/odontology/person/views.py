@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, ImageUploadForm, PatientSelectForm
+from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, ImageUploadForm, PatientSelectForm, TeethSelectForm
 from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
 from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
