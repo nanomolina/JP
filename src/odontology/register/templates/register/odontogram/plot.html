@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <div id="svgselect" class="center-block" style="width: 620px; height: 240px; margin-top: 15px;">
-    <svg version="1.1" height="225px" width="610px">
+    <svg version="1.1" height="231px" width="610px">
         <g transform="scale(1.5)" id="gmain">
           {% with benefit.get_elements as elements_monthly %}
             {% for tooth in patient.odontogram.get_teeth %}
@@ -31,7 +31,12 @@
                   class="{% if sector.color %}sector-colored{% endif %}">
                 </polygon>
                 {% endfor %}
-                <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
+                <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">
+                  {{tooth.get_number_display}}
+                </text>
+                {% if no_print and tooth.has_status %}
+                <circle cx="11" cy="27.5" r="5.8" fill="none" stroke="{% if tooth.status == 2 %}#4CAF50{% elif tooth.status == 3 %}#FFEB3B{% elif tooth.status == 4 %}#F44336{% endif %}"></circle>
+                {% endif %}
                 {% if tooth.work_type == 1 %}
                   <line x1="0" x2="20" y1="0" y2="20" stroke-width="1.5" opacity="1"
                   stroke="{% if tooth.color == 1 %}rgba(255, 0, 0, 0.63){% elif tooth.color == 2 %}rgba(0, 0, 255, 0.63){% else %}white{% endif %}"/>

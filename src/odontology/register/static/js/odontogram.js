@@ -25,6 +25,8 @@ $(function() {
         DATA_ODONT['teeth_number'] = $('#id_teeth_number').val();
         DATA_ODONT['date_odontogram'] = $('#id_date_odontogram').val();
         DATA_ODONT['observations'] = $('#id_odont_observations').val();
+        DATA_ODONT['teeth_selected'] = $('#teeth_selected').val();
+        DATA_ODONT['id_tooth_status'] = $('#id_tooth_status').val();
         $.ajax({
           type: "POST",
           url: URL_EDIT_ODONT,
@@ -57,4 +59,14 @@ $(function() {
         locale: 'es',
     });
     $('#id_date_odontogram').val(DATE_OD);
+
+    var content = '<ul style="list-style:none;padding-left:0;">';
+    content +=      '<li><i class="fa fa-circle-o" aria-hidden="true" style="padding-right: 5px;color: #4CAF50;"></i>Realizado - Facturado</li>';
+    content +=      '<li><i class="fa fa-circle-o" aria-hidden="true" style="padding-right: 5px;color: #FFEB3B;"></i>Realizado - No Facturado</li>';
+    content +=      '<li><i class="fa fa-circle-o" aria-hidden="true" style="padding-right: 5px;color: #F44336;"></i>No Realizado - Facturado</li>';
+    content +=    '</ul>';
+    $('#legends-odont').popover({
+        html: true,
+        content: content,
+    });
 });

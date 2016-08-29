@@ -275,10 +275,19 @@ def edit_odontogram(request, patient_id):
                 odontogram.save()
         else:
             return JsonResponse({'status': 'ERROR'})
+
+        teeth_selected = request.POST.getlist('teeth_selected[]')
+        status = request.POST.get('id_tooth_status');
+        if len(teeth_selected) > 0:
+            for tooth_id in teeth_selected:
+                tooth = Tooth.objects.get(id=tooth_id, odontogram=patient.odontogram)
+                tooth.status = status
+                tooth.save()
+
         from django.template.response import TemplateResponse
         return TemplateResponse(
             request, 'register/odontogram/plot.html',
-            {'patient': patient}
+            {'patient': patient, 'no_print': True}
         )
 
 
