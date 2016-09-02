@@ -11,11 +11,10 @@ admin.site.register(Bill, BillAdmin)
 
 class TariffInline(admin.TabularInline):
     model = Tariff
-    raw_id_fields = ('ASD', )
     extra = 1
 
 class ChapterAdmin(admin.ModelAdmin):
     inlines = [
         TariffInline,
     ]
-    admin.site.register(Chapter, ChapterAdmin)
+admin.site.register(Chapter, ChapterAdmin)

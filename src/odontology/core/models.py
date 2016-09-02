@@ -25,7 +25,7 @@ class Bill(models.Model):
 class Chapter(models.Model):
     name = models.CharField(max_length=250)
     number = models.PositiveSmallIntegerField()
-    date =  models.DateField(null=True, blank=True)
+    date =  models.DateField('Periodo', null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
@@ -58,6 +58,9 @@ class Tariff(models.Model):
     total_tariff = models.DecimalField(
         'Total arancel', max_digits=12, decimal_places=2, default=0
     )
+
+    is_new_code = models.BooleanField(default=False)
+    negotiable = models.BooleanField(default=False)
 
     def get_code(self):
         code =  "%02i" % self.chapter.number
