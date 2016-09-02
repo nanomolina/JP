@@ -20,3 +20,51 @@ class Bill(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.user, self.text)
+
+
+class Chapter(models.Model):
+    name = models.CharField(max_length=250)
+    number = models.PositiveSmallIntegerField()
+    date =  models.DateField(null=True, blank=True)
+
+    date_created = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        return "Chapter %s - %s" % (self.number, self.name.upper())
+
+
+class Tariff(models.Model):
+    chapter = models.ForeignKey(Chapter)
+    index = models.PositiveSmallIntegerField(null=True, blank=True)
+    sub_index = models.PositiveSmallIntegerField(null=True, blank=True)
+    name = models.CharField(blank=True, max_length=250)
+
+    variable_cost = models.DecimalField(
+        'Costo variable', max_digits=12, decimal_places=2, default=0
+    )
+    fixed_cost = models.DecimalField(
+        'Costo fijo', max_digits=12, decimal_places=2, default=0
+    )
+    workshop_cost = models.DecimalField(
+        'Costo taller', max_digits=12, decimal_places=2, default=0
+    )
+    total_cost = models.DecimalField(
+        'Costo total', max_digits=12, decimal_places=2, default=0
+    )
+    fees = models.DecimalField(
+        'Honorarios', max_digits=12, decimal_places=2, default=0
+    )
+    total_tariff = models.DecimalField(
+        'Total arancel', max_digits=12, decimal_places=2, default=0
+    )
+
+    def get_code(self):
+        code =  "%02i" % self.chapter.number
+        if self.index:
+            code += ".%02i" % self.index
+            if self.sub_index:
+                code += ".%02i" % self.sub_index
+        else:
+            code = ''
+        return code
