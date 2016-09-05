@@ -5,7 +5,7 @@ class TariffForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(TariffForm, self).__init__(*args, **kwargs)
         chapter = Chapter.objects.all().order_by('number')
-
+        chapter_name = lambda num, name: 'Capitulo ' + str(num) + ' - ' + name.capitalize()
         self.fields['chapter'] = forms.ChoiceField(
             widget=forms.Select(
                 attrs={
@@ -14,5 +14,5 @@ class TariffForm(forms.Form):
                     'data-size': '10',
                 }
             ),
-            choices=[(c.id, 'Capitulo ' + str(c.number)) for c in chapter],
+            choices=[(c.id, chapter_name(c.number, c.name)) for c in chapter],
         )
