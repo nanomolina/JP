@@ -60,6 +60,9 @@
               <li id="register" class="loader {% if template == 'register'%}active{% endif %}">
                 <a  href="{% url 'person:registers' %}"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;&nbsp;Registros</a>
               </li>
+              <li id="tariff" class="loader {% if template == 'tariff'%}active{% endif %}">
+                <a  href="{% url 'core:tariff' %}"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Aranceles</a>
+              </li>
             </ul>
 
             <form class="navbar-form navbar-left" role="search" action="{% url 'person:patient_list' %}">

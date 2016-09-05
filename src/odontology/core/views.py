@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import mercadopago
 from person.models import Dentist
+from django.template.response import TemplateResponse
 
 
 def principal(request):
@@ -73,6 +74,29 @@ def mp(request):
         RequestContext(request)
     )
 
+
+@login_required
+def tariff(request):
+    from core.forms import TariffForm
+    from core.models import Tariff
+    tariff_form = TariffForm()
+    if request.is_ajax():
+        chapter = request.GET.get('chapter', 1)
+        tariffs = Tariff.objects.filter(chapter__number=chapter).order_by(
+            'chapter__number', 'index', 'sub_index'
+        )
+        return TemplateResponse(
+            request, 'core/_list_tariff.html',
+            {'tariffs': tariffs},
+        )
+    tariffs = Tariff.objects.filter(chapter__number=1).order_by(
+        'chapter__number', 'index', 'sub_index'
+    )
+    return render_to_response(
+        'core/tariff.html',
+        {'tariff_form': tariff_form, 'tariffs': tariffs},
+        RequestContext(request)
+    )
 
 def error404(request):
      template = loader.get_template('404.html')

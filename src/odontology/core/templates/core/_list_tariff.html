@@ -1,0 +1,21 @@
+{% load static %}
+
+{% for tariff in tariffs %}
+<tr>
+  <td>{{tariff.get_code}}</td>
+  <td>{{tariff.name}}</td>
+  <td>{{tariff.variable_cost}}</td>
+  <td>{{tariff.fixed_cost}}</td>
+  <td>{{tariff.workshop_cost}}</td>
+  <td>{{tariff.total_cost}}</td>
+  <td>{{tariff.fees}}</td>
+  <td>{{tariff.total_tariff}}</td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="8" class="text-center">No hay resultados.</td>
+</tr>
+{% endfor %}
+<tr id="loading" class="hide">
+  <td colspan="8" class="text-center"><img src="{% static 'images/ring-alt.svg' %}"></img></td>
+</tr>

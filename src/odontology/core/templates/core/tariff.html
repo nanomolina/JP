@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Aranceles{% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+    <div class="col-md-12">
+        <h1 class="page-header"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Aranceles</h1>
+
+        <div class="row" style="margin-bottom: 15px;">
+          <form id="tariff-form" action="." method="GET" class="form">
+              <div class="col-md-3">
+                {{tariff_form.chapter}}
+              </div>
+          </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="panel">
+                  <div class="panel-heading Deep-orange-400">
+                    Lista de Aranceles
+                  </div>
+                  <div class="panel-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Código</th>
+                              <th>Tratamiento</th>
+                              <th>Costo variable</th>
+                              <th>Costo fijo</th>
+                              <th>Costo de taller</th>
+                              <th>Costo total</th>
+                              <th>Honorarios</th>
+                              <th>Total aranceles</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody-tariff">
+                            {% include "core/_list_tariff.html" %}
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#id_chapter").on("change", function (e) {
+      getListTariff();
+    });
+  });
+
+  function getListTariff() {
+    $('#tbody-tariff tr').not('#loading').remove();
+    $('#loading').removeClass('hide');
+    $.ajax({
+      type: 'GET',
+      url: $('#tariff-form').attr('action'),
+      data: $('#tariff-form').serialize(),
+      success: function(data) {
+        $('#tbody-tariff').html(data);
+      }
+    })
+  }
+</script>
+{%endblock%}
