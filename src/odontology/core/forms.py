@@ -4,7 +4,7 @@ from core.models import Chapter, Tariff
 class TariffForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(TariffForm, self).__init__(*args, **kwargs)
-        chapter = Chapter.objects.all()
+        chapter = Chapter.objects.all().order_by('number')
 
         self.fields['chapter'] = forms.ChoiceField(
             widget=forms.Select(
