@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from person.models import Patient
+from core.models import Tariff
 
 
 class Fopc(models.Model):
@@ -177,6 +178,7 @@ class Record(models.Model):
     assistance = models.SmallIntegerField(choices=ASSISTANCE, default=1)
     observations = models.TextField(null=True, blank=True)
     code = models.CharField(max_length=15, null=True, blank=True)
+    tariff = models.ForeignKey(Tariff, null=True, blank=True)
     to_account = models.BooleanField(default=True)
     to_social_work = models.BooleanField(default=True)
 

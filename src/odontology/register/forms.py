@@ -1,6 +1,7 @@
 from django import forms
 from register.models import (Apross, DetailApross,
     Faces, Benefit, DetailBenefit, Radiography, Record)
+from core.models import Tariff
 
 class AprossForm(forms.ModelForm):
     class Meta:
@@ -207,12 +208,16 @@ class RadiographyForm(forms.ModelForm):
 
 
 class RecordForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RecordForm, self).__init__(*args, **kwargs)
+        self.fields['tariff'].queryset = Tariff.objects.all()
+
     class Meta:
         model = Record
         fields = (
             'date', 'treatment', 'faces', 'tooth', 'period_so',
             'state', 'assistance', 'observations', 'code',
-            'to_account', 'to_social_work',
+            'to_account', 'to_social_work', 'tariff'
         )
         widgets = {
             'date': forms.DateTimeInput(
@@ -264,8 +269,16 @@ class RecordForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
+            'tariff': forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
             'to_account': forms.CheckboxInput(),
-            'to_social_work': forms.CheckboxInput()
+            'to_social_work': forms.CheckboxInput(),
+
         }
 
 

@@ -62,6 +62,9 @@ class Tariff(models.Model):
     is_new_code = models.BooleanField(default=False)
     negotiable = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return "%s" % (self.get_code())
+
     def get_code(self):
         code =  "%02i" % self.chapter.number
         if self.index:
