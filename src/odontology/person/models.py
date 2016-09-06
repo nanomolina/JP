@@ -26,6 +26,9 @@ class Odontogram(models.Model):
     def get_teeth(self):
         return Tooth.objects.filter(odontogram=self)
 
+    def get_teeth_ordered(self):
+        return Tooth.objects.filter(odontogram=self).order_by('number')
+
     def period(self):
         if self.month is not None and self.year is not None:
             result = str(self.month) + ' - ' + str(self.year)

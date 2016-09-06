@@ -277,7 +277,7 @@ class TeethSelectForm(forms.Form):
     def __init__(self, patient, *args, **kwargs):
         from person.models import TOOTH_STATUS
         super(TeethSelectForm, self).__init__(*args, **kwargs)
-        teeth = patient.odontogram.get_teeth()
+        teeth = patient.odontogram.get_teeth_ordered()
         self.fields['teeth'] = forms.MultipleChoiceField(
             widget=forms.SelectMultiple(
                 attrs={
