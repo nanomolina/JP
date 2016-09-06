@@ -237,6 +237,29 @@ class Record(models.Model):
                 new_detail.save()
 
 
+class CurrentAccount(models.Model):
+    patient = models.ForeignKey(Patient)
+    date = models.DateTimeField(null=True, blank=True)
+    observations = models.TextField(null=True, blank=True)
+    record = models.ForeignKey(Record, null=True, blank=True)
+    debit = models.DecimalField(
+        max_digits=7, decimal_places=0, default=0,
+    )
+    havings = models.DecimalField(
+        max_digits=7, decimal_places=0, default=0,
+    )
+
+    date_created = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        return "%s" % (self.patient)
+
+    @property
+    def balance(self):
+        return self.debit - self.havings
+
+
 # DATABASE SIGNALS
 from django.db.models.signals import post_save
 from django.dispatch import receiver
