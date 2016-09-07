@@ -35,31 +35,143 @@
 
 {% block content %}
 {{ block.super }}
-    <div id="home-content">
-      <div class="col-lg-12">
-        <div class="row page-header">
-          <div class="col-md-8">
-            <h1>
-                ¡Bienvenido! Dr. {{ request.user.get_full_name }}.
-            </h1>
-          </div>
-          {% if not has_connection %}
-          <div class="col-md-4">
-            <a href="{% url 'socialaccount_connections' %}" class="btn btn-block btn-social btn-md btn-signin btn-google-plus">
-              <i class="fa fa-google-plus"></i>
-              Conectar con Google
+
+<div class="jumbotron" style="background-color: #E8EAF6;">
+  <div class="container">
+    <div class="row page-header">
+      <h1 class="display-3" style="color: #317eac;">¡Bienvenido! Dr. {{ request.user.get_full_name }}.</h1>
+    </div>
+    <h4 class="text-muted">This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</h4>
+    <p>
+      {% if not has_connection %}
+      <div class="col-md-4 no-padding">
+        <a href="{% url 'socialaccount_connections' %}" class="btn btn-block btn-social btn-md btn-signin btn-google-plus">
+          <i class="fa fa-google-plus"></i>
+          Conectar con Google
+        </a>
+      </div>
+      {% endif %}
+    </p>
+  </div>
+</div>
+
+<div id="home-content">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-user-plus fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Agregar Paciente</div>
+                      </div>
+                  </div>
+              </div>
             </a>
           </div>
-          {% endif %}
-        </div>
-        <div class="row">
-          <p>
-            <h3 class="text-center">Cumpleaños de este Mes.</h3>
-          </p>
-        </div>
-        <div class="row">
-          {% include "core/event_list.html" %}
-        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-info-circle fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Datos Filiatorios</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-folder-open fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Nueva Ficha Clínica</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-building fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Datos de Obra Social</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-usd fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Nueva Facturación</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-th fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Ver Odontograma</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-birthday-cake fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div style="font-size: 22px;">Cumpleaños mensuales</div>
+                      </div>
+                  </div>
+              </div>
+            </a>
+          </div>
       </div>
     </div>
+
+  </div>
+</div>
 {% endblock %}
