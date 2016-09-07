@@ -1,7 +1,8 @@
 from django.contrib import admin
-from register.models import Apross, DetailApross, Faces, Benefit, DetailBenefit, Radiography, Record
+from register.models import (Apross, DetailApross, Faces, Benefit,
+    DetailBenefit, Radiography, Record, CurrentAccount)
 
-
+# ==== ACTIONS ====
 def apross_create_radiography(modeladmin, request, queryset):
     for bf in queryset:
         Radiography(apross=bf).save()
@@ -12,7 +13,17 @@ def benefit_create_radiography(modeladmin, request, queryset):
         Radiography(benefit=bf).save()
 benefit_create_radiography.short_description = "Crear radiografia"
 
+def record_to_account(modeladmin, request, queryset):
+    for r in queryset:
+        if r.to_account:
+            CurrentAccount(
+                patient=r.patient, date=r.date,
+                record=r, debit=r.debit, havings=r.havings,
+            ).save()
+record_to_account.short_description = "Migrar datos de registro a cuenta."
 
+
+# ==== CLASES ====
 class DetailAprossInline(admin.TabularInline):
     model = DetailApross
     extra = 0
@@ -63,7 +74,6 @@ class RadiographyAdmin(admin.ModelAdmin):
     )
 admin.site.register(Radiography, RadiographyAdmin)
 
-
 class RecordAdmin(admin.ModelAdmin):
     fields = (
         'patient', 'date', 'treatment', 'faces', 'tooth', 'period_so',
@@ -71,4 +81,9 @@ class RecordAdmin(admin.ModelAdmin):
         'to_account', 'to_social_work',
     )
     list_filter = ('patient__dentist', 'date', 'state', 'assistance')
+    actions = [record_to_account]
 admin.site.register(Record, RecordAdmin)
+
+class CurrentAccountAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(CurrentAccount, CurrentAccountAdmin)
