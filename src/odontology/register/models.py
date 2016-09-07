@@ -240,7 +240,6 @@ class Record(models.Model):
 class CurrentAccount(models.Model):
     patient = models.ForeignKey(Patient)
     date = models.DateTimeField(null=True, blank=True)
-    observations = models.TextField(null=True, blank=True)
     record = models.ForeignKey(Record, null=True, blank=True)
     debit = models.DecimalField(
         max_digits=7, decimal_places=0, default=0,
