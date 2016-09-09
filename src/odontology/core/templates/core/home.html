@@ -9,28 +9,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript">
-  // $(function(){
-  //   toastr.options = {
-  //     "closeButton": true,
-  //     "debug": false,
-  //     "newestOnTop": false,
-  //     "progressBar": false,
-  //     "positionClass": "toast-bottom-center",
-  //     "preventDuplicates": true,
-  //     "onclick": null,
-  //     "showDuration": "300",
-  //     "hideDuration": "1000",
-  //     "timeOut": "4000",
-  //     "extendedTimeOut": "1000",
-  //     "showEasing": "swing",
-  //     "hideEasing": "linear",
-  //     "showMethod": "fadeIn",
-  //     "hideMethod": "fadeOut"
-  //   }
-  //   toastr.warning('<a href="{% url "core:mp" %}" target="_blank">Ver factura de este mes.</a>', 'FACTURA DE MAYO');
-  // });
-</script>
+  <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -58,6 +37,11 @@
 <div id="home-content">
   <div class="col-lg-12">
     <div class="row">
+      <div class="col-md-12" style="margin-bottom: 40px;">
+        {{patient_select_form.patient}}
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-3 col-md-6">
           <div class="panel">
             <a href="{% url 'person:total_accounts_registers' %}" class="loader">
@@ -76,7 +60,7 @@
       </div>
       <div class="col-lg-3 col-md-6">
           <div class="panel">
-            <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+            <a class="patient-dependence" data-href="/persons/patient/profile/">
               <div class="panel-heading">
                   <div class="row">
                       <div class="col-xs-3">

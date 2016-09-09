@@ -9,7 +9,7 @@ from django.http import HttpResponse
 import mercadopago
 from person.models import Dentist
 from django.template.response import TemplateResponse
-
+from core.forms import PatientSelectForm
 
 def principal(request):
     if request.method == 'GET':
@@ -29,11 +29,15 @@ def home(request):
         dentist.save()
     patients_birthday = dentist.get_patients_birthdays(datetime.now().month)
     has_connection = SocialAccount.objects.filter(user=request.user).exists()
+    patient_select_form = PatientSelectForm(dentist.id)
     return render_to_response(
         'core/home.html',
-        {'template': 'home',
-         'list_patients_birthday': patients_birthday,
-         'has_connection': has_connection},
+        {
+            'template': 'home',
+            'list_patients_birthday': patients_birthday,
+            'has_connection': has_connection,
+            'patient_select_form': patient_select_form,
+        },
         RequestContext(request)
     )
 
