@@ -98,9 +98,32 @@ def tariff(request):
     )
     return render_to_response(
         'core/tariff.html',
-        {'tariff_form': tariff_form, 'tariffs': tariffs},
+        {
+            'template': 'tariff',
+            'tariff_form': tariff_form,
+            'tariffs': tariffs
+        },
         RequestContext(request)
     )
+
+
+@login_required
+def birthdays(request):
+    from person.models import Patient, Dentist
+    from datetime import datetime
+
+    patients_birthday = request.user.dentist.get_patients_birthdays(
+        datetime.now().month
+    )
+    return render_to_response(
+        'core/birthdays.html',
+        {
+            'template': '',
+            'list_patients_birthday': patients_birthday,
+        },
+        RequestContext(request)
+    )
+
 
 def error404(request):
      template = loader.get_template('404.html')

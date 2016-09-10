@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}home - {{ request.user.get_full_name }}{% endblock %}
+
+{% block links %}
+  {% load staticfiles %}
+  <link href="{% static 'css/home.css' %}" rel="stylesheet">
+  <link href="{% static 'css/event_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="row padding-top">
+  <div class="col-md-12">
+    <h1 class="page-header">
+      <i class="fa fa-birthday-cake"></i> Cumpleaños de este Mes
+    </h1>
+    <div class="row">
+      {% include "core/event_list.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

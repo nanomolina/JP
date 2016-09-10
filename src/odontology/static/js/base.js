@@ -1,12 +1,16 @@
 $(document).ready(function(){
   $('.loader').on('click', function(){
-    $("#fakeLoader").fakeLoader({
-        timeToHide: 10000000,
-        bgColor:"#3498db",
-        spinner:"spinner4"
-    });
+    start_fake_loader();
   });
 });
+
+function start_fake_loader() {
+  $("#fakeLoader").fakeLoader({
+      timeToHide: 10000000,
+      bgColor:"#3498db",
+      spinner:"spinner4"
+  });
+}
 
 $(function(){
   toastr.options = {

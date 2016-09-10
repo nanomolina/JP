@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from django import forms
 from core.models import Chapter, Tariff
 from person.models import Patient
@@ -29,15 +26,17 @@ class PatientSelectForm(forms.Form):
         patients = Patient.objects.filter(
             dentist__id=dentist_id
         )
-        p_info = lambda name, id: name.capitalize() + ' - ' + id
+        p_info = lambda name, id: name.upper() + ' - ' + id if id else name.upper()
+        choices = [('', '---------')]
+        for p in patients:
+            choices.append((p.id, p_info(p.get_full_name(), p.subsidiary_number)))
         self.fields['patient'] = forms.ChoiceField(
-            empty_value='No hay selección.',
             widget=forms.Select(
                 attrs={
                     'class': 'selectpicker form-control',
                     'data-live-search': 'true',
-                    'data-size': '5',
+                    'data-size': '8',
                 }
             ),
-            choices=[(p.id, p_info(p.get_full_name(), p.subsidiary_number)) for p in patients]
+            choices=choices
         )
