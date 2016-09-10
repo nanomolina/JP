@@ -8,6 +8,11 @@
     text-align: center;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
     /*background-color: #e3e3e3;*/
     /*background-color: rgba(227, 227, 227, 0.34);*/
@@ -19,12 +24,21 @@ body {
     background-size: cover;
     height: 100%;
     font-family: 'Lato', sans-serif;
+    margin-bottom: 40px;
 }
 
 footer {
-	width: 100%;
-	position: relative;
-	bottom: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #EEEEEE;
+}
+
+#copyright {
+  color: #757575;
+  margin: 10px 0;
 }
 
 .no-padding {
