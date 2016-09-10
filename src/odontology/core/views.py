@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import mercadopago
 from person.models import Dentist
+from person.forms import PatientForm
 from django.template.response import TemplateResponse
 from core.forms import PatientSelectForm
 
@@ -22,21 +23,20 @@ def principal(request):
 @login_required
 def home(request):
     from person.models import Patient, Dentist
-    from datetime import datetime
     from allauth.socialaccount.models import SocialAccount
     dentist, is_new = Dentist.objects.get_or_create(user=request.user)
     if is_new:
         dentist.save()
-    patients_birthday = dentist.get_patients_birthdays(datetime.now().month)
     has_connection = SocialAccount.objects.filter(user=request.user).exists()
     patient_select_form = PatientSelectForm(dentist.id)
+    form = PatientForm()
     return render_to_response(
         'core/home.html',
         {
             'template': 'home',
-            'list_patients_birthday': patients_birthday,
             'has_connection': has_connection,
             'patient_select_form': patient_select_form,
+            'patient_form': form,
         },
         RequestContext(request)
     )

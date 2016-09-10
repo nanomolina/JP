@@ -9,10 +9,13 @@
 
 {% block scripts %}
   <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/_add_patient.js'%}"></script>
 {% endblock %}
 
 {% block content %}
 {{ block.super }}
+
+{% include "person/patients/_add.html" %}
 
 <div class="jumbotron" style="background-color: #E8EAF6;">
   <div class="container">
@@ -42,8 +45,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-            <div class="panel">
-              <a href="{% url 'person:total_accounts_registers' %}" class="loader">
+            <div class="panel" style="cursor: pointer;">
+              <a type="button" data-toggle="modal" data-target="#modal-patient" >
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -58,7 +61,7 @@
             </div>
         </div>
         <div class="col-md-12">
-          <div class="panel">
+          <div class="panel" style="cursor: pointer;">
             <a href="{% url 'core:birthdays' %}" class="loader">
               <div class="panel-heading">
                 <div class="row">
