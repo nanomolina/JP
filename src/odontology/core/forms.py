@@ -1,5 +1,7 @@
 from django import forms
 from core.models import Chapter, Tariff
+from person.models import Patient
+
 
 class TariffForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -15,4 +17,26 @@ class TariffForm(forms.Form):
                 }
             ),
             choices=[(c.id, chapter_name(c.number, c.name)) for c in chapter],
+        )
+
+
+class PatientSelectForm(forms.Form):
+    def __init__(self, dentist_id, *args, **kwargs):
+        super(PatientSelectForm, self).__init__(*args, **kwargs)
+        patients = Patient.objects.filter(
+            dentist__id=dentist_id
+        )
+        p_info = lambda name, id: name.upper() + ' - ' + id if id else name.upper()
+        choices = [('', '---------')]
+        for p in patients:
+            choices.append((p.id, p_info(p.get_full_name(), p.subsidiary_number)))
+        self.fields['patient'] = forms.ChoiceField(
+            widget=forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            choices=choices
         )
