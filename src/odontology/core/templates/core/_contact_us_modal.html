@@ -1,0 +1,57 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-contact-us" tabindex="-1" role="dialog" aria-labelledby="modal-contact-us-Label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-contact-us-Label">Envianos tu comentario</h4>
+      </div>
+      <form id="contact-us-form" method="POST" action="{% url 'core:contact_us' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group last_name-group">
+                  <label class="control-label" for="msg-subject">Asunto:</label>
+                  <input id="msg-subject" class="form-control" name="subject" required maxlength="100">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group first_name-group">
+                  <label class="control-label" for="msg-content">Mensaje:</label>
+                  <textarea id="msg-content" class="form-control" rows="3" name="content" required></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" id="btn-save-contact-us" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Enviando">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('#btn-save-contact-us').on('click', function(event) {
+      $('#btn-save-contact-us').button('loading')
+      var data_form = $('#contact-us-form').serialize();
+      var url = $('#contact-us-form').attr('action');
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: data_form,
+        success: function(data) {
+          $('#btn-save-contact-us').button('reset');
+          toastr.success('Comentario enviado.', 'LISTO');
+          $('#modal-contact-us').modal('hide');
+          $('#contact-us-form').trigger('reset');
+        }
+      });
+  });
+</script>

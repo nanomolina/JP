@@ -1,0 +1,17 @@
+{% block subject %}DentalSoft - Mensaje de {{username}} {% endblock %}
+{% block html %}
+  <p>Este es un mensaje de <b>{{full_name}}<b></p>
+  <p>
+    <ul>
+      <li><b>Datos del usuario:</b></li>
+      <li>Nombre de usuario: {{username}}</li>
+      <li>Email: {{email}}</li>
+      <li>Fecha: {{date}}</li>
+    </ul>
+  </p>
+  <br><hr>
+  <p><b>Asunto</b></p>
+  <p>{{subject}}</p>
+  <p><b>Mensaje</b></p>
+  <p>{{content}}</p>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Bill, Day, Chapter, Tariff
+from core.models import Bill, Day, Chapter, Tariff, Message
 
 class DayAdmin(admin.ModelAdmin):
     pass
@@ -18,3 +18,7 @@ class ChapterAdmin(admin.ModelAdmin):
         TariffInline,
     ]
 admin.site.register(Chapter, ChapterAdmin)
+
+class MessageAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Message, MessageAdmin)
