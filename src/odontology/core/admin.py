@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Bill, Day, Chapter, Tariff, Message
+from core.models import Bill, Day, AnualFees, Chapter, Tariff, Message
 
 class DayAdmin(admin.ModelAdmin):
     pass
@@ -8,6 +8,10 @@ admin.site.register(Day, DayAdmin)
 class BillAdmin(admin.ModelAdmin):
     fields = ('user', 'paid', 'linode_file', 'text')
 admin.site.register(Bill, BillAdmin)
+
+class AnualFeesAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(AnualFees, AnualFeesAdmin)
 
 class TariffInline(admin.TabularInline):
     model = Tariff

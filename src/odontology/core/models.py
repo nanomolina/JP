@@ -22,10 +22,19 @@ class Bill(models.Model):
         return "%s - %s" % (self.user, self.text)
 
 
+class AnualFees(models.Model):
+    name = models.CharField(max_length=250)
+    last_active = models.BooleanField(default=True)
+    date_created = models.DateField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+
 class Chapter(models.Model):
+    anual_fees = models.ForeignKey(AnualFees, null=True)
     name = models.CharField(max_length=250)
     number = models.PositiveSmallIntegerField()
-    date =  models.DateField('Periodo', null=True, blank=True)
 
     date_created = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
