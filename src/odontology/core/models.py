@@ -80,7 +80,7 @@ class Message(models.Model):
     user = models.ForeignKey(User)
     subject = models.CharField(max_length=100)
     content = models.TextField()
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return "%s - %s" % (self.user, self.subject)

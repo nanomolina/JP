@@ -128,11 +128,27 @@ def birthdays(request):
 @login_required
 def contact_us(request):
     from core.models import Message
+    from templated_email import send_templated_mail
+    from django.conf import settings
 
     if request.method == 'POST':
         subject = request.POST.get('subject')
         content = request.POST.get('content')
-        Message(user=request.user, subject=subject, content=content).save()
+        msg = Message(user=request.user, subject=subject, content=content)
+        msg.save()
+        send_templated_mail(
+                template_name='message',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['nanomolinacav@gmail.com'],
+                context={
+                    'username': msg.user.username,
+                    'full_name': msg.user.get_full_name(),
+                    'subject': msg.subject,
+                    'content': msg.content,
+                    'email': msg.user.email,
+                    'date': msg.date_created,
+                },
+        )
         return HttpResponse(status=200)
 
 
