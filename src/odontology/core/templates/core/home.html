@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load core_extras %}
 
 {% block title %}home - {{ request.user.get_full_name }}{% endblock %}
 
@@ -20,7 +21,14 @@
 <div class="jumbotron" style="background-color: #E8EAF6;">
   <div class="container">
     <div class="row page-header">
-      <h1 class="display-3" style="color: #317eac;">¡Bienvenido! Dr. {{ request.user.get_full_name }}.</h1>
+      <h1 class="display-3" style="color: #317eac;">
+        {% if request.user|get_gender == 'female'%}
+          ¡Bienvenida! Dra.
+        {% else%}
+          ¡Bienvenido! Dr.
+        {% endif %}
+        &nbsp;{{ request.user.get_full_name }}.
+      </h1>
     </div>
     <h4 class="text-muted">Con este software usted podrá llevar un registro detallado de sus pacientes. Estamos contínuamente trabajando para mejorar este servicio.</h4>
     <p>

@@ -8,3 +8,11 @@ def get_avatar_url(user):
     else:
         avatar = None
     return avatar
+
+@register.filter(name='get_gender')
+def get_gender(user):
+    if user.socialaccount_set.exists():
+        gender = user.socialaccount_set.first().extra_data.get('gender')
+    else:
+        gender = None
+    return gender
