@@ -116,26 +116,20 @@
     {% endblock %}
   </div>
 
+
   {% block extra_content %}
   {% endblock %}
 
-  <!--<footer class="hidden-print">
-    <div class="container" style="margin-top: 25px;">
-    	<div class="row">
-    		<legend></legend>
-            <p>© Copyright 2016. DentalSoftCba. All Rights Reserved. <span class="pull-right"><a href="#">Contactanos</a></span></p>
-    	</div>
-    </div>
-  </footer>-->
-
+  {% include "core/_contact_us_modal.html" %}
+  {% if user.is_authenticated %}
   <footer class="footer">
     <div class="container">
       <p id="copyright">© Copyright 2016. DentalSoftCba. All Rights Reserved.
-        <span class="pull-right"><a id="contact-us" href="#">Contactanos</a></span>
+        <span class="pull-right"><a id="contact-us" data-toggle="modal" data-target="#modal-contact-us" href="#">Contactanos</a></span>
       </p>
     </div>
   </footer>
-
+  {% endif %}
 
   <script type="text/javascript" src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/base.js'%}"></script>

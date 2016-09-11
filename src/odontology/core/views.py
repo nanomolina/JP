@@ -125,6 +125,18 @@ def birthdays(request):
     )
 
 
+@login_required
+def contact_us(request):
+    from core.models import Message
+
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        content = request.POST.get('content')
+        Message(user=request.user, subject=subject, content=content).save()
+        return HttpResponse(status=200)
+
+
+
 def error404(request):
      template = loader.get_template('404.html')
      context = Context({'message': 'All: %s' % request,})
