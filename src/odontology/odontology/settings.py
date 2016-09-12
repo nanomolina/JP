@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'core',
     'person',
     'register',
+    'landing',
 ]
 
 SITE_ID = 1
@@ -113,7 +114,7 @@ USE_TZ = True
 # Redirectors
 LOGIN_URL = '/accounts/login/'
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/core/home/'
 
 # Social
 SOCIALACCOUNT_PROVIDERS = \
