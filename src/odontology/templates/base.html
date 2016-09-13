@@ -32,6 +32,8 @@
 </head>
 
 <body>
+  {% block navbar %}{% endblock %}
+
   <div class="container">
     {% block content %}
     {% if user.is_authenticated %}
