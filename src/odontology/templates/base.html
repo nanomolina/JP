@@ -32,12 +32,14 @@
 </head>
 
 <body>
+  {% block navbar %}{% endblock %}
+
   <div class="container">
     {% block content %}
     {% if user.is_authenticated %}
       <div id="fakeLoader"></div>
       <!--Fixed inverse navbar-->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
@@ -45,7 +47,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'core:home' %}" style="font-family: 'Lobster';">DENTALSOFT</a>
+            <a class="navbar-brand page-scroll" href="/">DENTALSOFT</a>
           </div>
 
           <div class="collapse navbar-collapse">

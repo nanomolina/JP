@@ -7,6 +7,15 @@
 
 <div class="row padding-top">
   <div class="col-md-12">
+      <h1 class="page-header"><i class="fa fa-user" aria-hidden="true"></i> Mi cuenta</h1>
+  </div>
+  <div class="col-md-6">
+    <a class="btn btn-warning" href="{% url 'account_change_password' %}">
+      <i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña
+    </a>
+  </div>
+
+  <div class="col-md-12">
       <h1 class="page-header"><i class="fa fa-cogs"></i> Configuración</h1>
   </div>
   <div class="col-md-6">
@@ -46,15 +55,6 @@
           </div>
         </div>
       </div>
-  </div>
-
-  <div class="col-md-12">
-      <h1 class="page-header"><i class="fa fa-user" aria-hidden="true"></i> Mi cuenta</h1>
-  </div>
-  <div class="col-md-6">
-    <a class="btn btn-warning" href="{% url 'account_change_password' %}">
-      <i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña
-    </a>
   </div>
 </div>
 
