@@ -52,6 +52,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_COOKIE_SECURE = True
+
 ROOT_URLCONF = 'odontology.urls'
 
 TEMPLATES = [
