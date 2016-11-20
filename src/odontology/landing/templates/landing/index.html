@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistema de gestion odontologica para llevar registros de pacientes, historial
+    clinico, prestaciones, modificaciones, trabajos realizacion.">
+    <meta name="keywords" content="Odontologia, sistema odontologico, registro odontologico, registro de prestaciones, pacientes,
+    odontologo, dientes, diente, caries, arreglo, jpdorrego, juan pablo dorrego, belgrano 134, cordoba, cordoba odontologia, argentina">
+    <meta name="author" content="Nano Molina">
+
+    <title>Dentalsoft - Córdoba - Argentina</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'css/font-awesome-4.6.1/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="{% static 'css/creative.css' %}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">DENTALSOFT</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">Acerca de</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Servicio</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Galería</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contacto</a>
+                    </li>
+                    <li>
+                      {% if request.user.is_authenticated %}
+                        <a class="page-scroll" href="{% url 'core:home' %}">
+                            Ir al sistema
+                        </a>
+                      {% else %}
+                        <a class="page-scroll" href="{% url 'account_login' %}">
+                          Iniciar sesión
+                        </a>
+                      {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">LO MÁS VALIOSO.. TU TIEMPO.</h1>
+                <hr>
+                <p>Experimentá la manera más simple de gestionar tu consultorio odontológico!</p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Conocenos un poco más...</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Tenemos lo que necesitas!</h2>
+                    <hr class="light">
+                    <p class="text-faded">Usar DentalSoft incrementará tu tiempo de consultorio disponible para atender pacientes, ya que se reducirá notoriamente aquel destinado para la gestión de información (datos filiatorios, historia clínica, odontograma, pagos, etc). No esperes más! Hacé vos tu propia prueba y contanos!</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Empecemos!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">A su servicio</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="{% static 'img/service/register.svg' %}" class="img-responsive center-block" width="150" alt="" />
+                        <h3>Registro</h3>
+                        <p class="text-muted">Todos los registros con la informacion de sus pacientes.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="{% static 'img/service/email.svg' %}" class="img-responsive center-block" width="150" alt="" />
+                        <h3>Ahorro</h3>
+                        <p class="text-muted">No más papeleo ni perdida de tiempo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="{% static 'img/service/cloud-computing.svg' %}" class="img-responsive center-block" width="150" alt="" />
+                        <h3>Seguridad</h3>
+                        <p class="text-muted">Todos sus datos seguros en la nube.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <img src="{% static 'img/service/keywords.svg' %}" class="img-responsive center-block" width="150" alt="" />
+                        <h3>Confiabilidad</h3>
+                        <p class="text-muted">Usted es el único con accesos a sus datos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds1.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds1.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+
+                                </div>
+                                <div class="project-name">
+                                    Inicio
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds2.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds2.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                                <div class="project-name">
+                                    Mis Pacientes
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds3.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds3.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                                <div class="project-name">
+                                    Datos Filiatorios
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds4.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds4.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                                <div class="project-name">
+                                    Obra Social
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds5.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds5.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                                <div class="project-name">
+                                  Odontograma
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="{% static 'img/portfolio/fullsize/ds6.png' %}" class="portfolio-box">
+                        <img src="{% static 'img/portfolio/thumbnails/rsz_ds6.png' %}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                </div>
+                                <div class="project-name">
+                                    Aranceles
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>Empieza la prueba ahora!</h2>
+                <a href="{% url 'account_login' %}" class="btn btn-default btn-xl sr-button">Comenzar Prueba</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Vamos a estar en contacto !</h2>
+                    <hr class="primary">
+                    <p>¿Necesitas ayuda para conocer el sistema? ¡envianos un correo electrónico y nos pondremos en contigo tan pronto como sea posible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-4 text-center">
+                    <img src="{% static 'img/service/email2.svg' %}" class="img-responsive center-block" width="80" alt="" />
+                    <p><a href="mailto:notifications.dentalsoft@gmail.com">notifications.dentalsoft@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="{% static 'js/creative.min.js' %}"></script>
+
+</body>
+
+</html>

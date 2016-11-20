@@ -169,7 +169,7 @@ class Patient(models.Model):
             else:
                 result = self.suburb
         else:
-            result = None
+            result = '---'
         return result
 
     def get_full_name(self):

@@ -23,7 +23,8 @@ handler404 = views.error404
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('core.urls', namespace='core')),
+    url(r'^', include('landing.urls', namespace='landing')),
+    url(r'^core/', include('core.urls', namespace='core')),
     url(r'^persons/', include('person.urls', namespace='person')),
     url(r'^register/', include('register.urls', namespace='register')),
     url(r'^accounts/', include('allauth.urls')),

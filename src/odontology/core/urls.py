@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^version/$', views.version, name='version'),
     url(r'^mp/$', views.mp, name='mp'),
     url(r'^tariff/$', views.tariff, name='tariff'),
+    url(r'^birthdays/$', views.birthdays, name='birthdays'),
+    url(r'^contact_us/$', views.contact_us, name='contact_us'),
 ]
