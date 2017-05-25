@@ -67,6 +67,7 @@ class DetailApross(models.Model):
     day = models.IntegerField(null=True, blank=True)
     work_done = models.CharField(max_length=250, null=True, blank=True)
     practic_code = models.CharField(max_length=15, null=True, blank=True)
+    practic_code2 = models.ForeignKey(Tariff)
     element = models.IntegerField(choices=ELEMENTS, null=True, blank=True)
     date_created = models.DateField(null=True, blank=True)
     faces = models.ManyToManyField(Faces, blank=True)

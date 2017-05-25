@@ -1,7 +1,7 @@
 from django import forms
 from register.models import (Apross, DetailApross,
     Faces, Benefit, DetailBenefit, Radiography, Record)
-from core.models import Tariff
+from core.models import Chapter, Tariff
 
 class AprossForm(forms.ModelForm):
     class Meta:
@@ -49,6 +49,17 @@ class detailAprossForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(detailAprossForm, self).__init__(*args, **kwargs)
         self.fields['faces'].queryset = Faces.objects.all()
+        tariffs = Tariff.objects.all().order_by('chapter__number','index','sub_index')
+        self.fields['practic_code'] = forms.ChoiceField(
+            widget=forms.Select(
+                attrs={
+                    'class': 'selectpicker form-control',
+                    'data-live-search': 'true',
+                    'data-size': '8',
+                }
+            ),
+            choices=[(t.id, t.get_code()) for t in tariffs],
+        )
 
     class Meta:
         model = DetailApross
@@ -63,11 +74,6 @@ class detailAprossForm(forms.ModelForm):
                 }
             ),
             'work_done': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-            'practic_code': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
