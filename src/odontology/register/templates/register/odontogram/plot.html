@@ -19,6 +19,18 @@
                 {% endfor %}
                 <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
             </g>
+            {% elif od_type == '3' %}
+            <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
+            data-tooth-id={{tooth.id}} data-work-type="None" data-color="white">
+                {% for sector in tooth.get_sectors %}
+                <polygon points="{{sector.get_points_display}}" id="{{sector.get_location_display}}" opacity="1"
+                  fill="white"
+                  stroke="#555555" stroke-width="0.5"
+                  class="">
+                </polygon>
+                {% endfor %}
+                <text x="6" y="30" stroke="#555555" fill="#555555" stroke-width="0.1" style="font-size: 6pt;font-weight:normal">{{tooth.get_number_display}}</text>
+            </g>
             {% else %}
             <g id="P{{tooth.get_number_display}}" class="tooth" transform="translate({{tooth.position_x}}, {{tooth.position_y}})"
             data-tooth-id={{tooth.id}} data-work-type={{tooth.work_type}} data-color="{{tooth.get_color_display|default_if_none:'white'}}">
