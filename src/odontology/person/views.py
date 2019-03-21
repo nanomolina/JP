@@ -402,6 +402,7 @@ def partial_accounts_registers_data(request):
         date_to = request.GET.get('date_to', None)
         balance_type = request.GET.get('balance', '0')
         patient_list = request.GET.getlist('patient', [])
+        code = request.GET.get('code', None)
 
         date_from = datetime.strptime(
             date_from,
@@ -429,6 +430,11 @@ def partial_accounts_registers_data(request):
             )
         else:
             pass
+
+        if code is not None:
+            records = records.filter(
+                code__icontains=code,
+            )
 
         if len(patient_list) > 0:
             records = records.filter(
