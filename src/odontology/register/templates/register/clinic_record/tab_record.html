@@ -33,8 +33,10 @@
        return(false);
   }
   $(function() {
-    var code = getQueryVariable('code')
-    $('#code').val(code);
+    var code = getQueryVariable('code');
+    if (code != false) {
+      $('#code').val(code);
+    }
   })
 </script>
 
