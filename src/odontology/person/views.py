@@ -1,16 +1,23 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate
-from django.http import JsonResponse
-from django.template import RequestContext
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.template.response import TemplateResponse
-from person.models import Patient, Dentist, Odontogram, Tooth, Sector, LOCATIONS, WORK_TYPES
-from person.forms import PatientForm, OdontogramForm, UserChangeForm, DentistForm, ImageUploadForm, PatientSelectForm, TeethSelectForm
-from register.models import Apross, Benefit, ELEMENTS, MILK_TEETH
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
+
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.template import RequestContext
+from django.template.response import TemplateResponse
+
+from person.forms import (DentistForm, ImageUploadForm, OdontogramForm,
+                          PatientForm, PatientSelectForm, TeethSelectForm,
+                          UserChangeForm)
+from person.models import (LOCATIONS, WORK_TYPES, Dentist, Odontogram, Patient,
+                           Sector, Tooth)
+from register.forms import (AccountingForm, AprossForm, BenefitForm,
+                            RadiographyForm, RecordForm, detailAprossForm,
+                            detailBenefitForm)
+from register.models import ELEMENTS, MILK_TEETH, Apross, Benefit
 
 
 @login_required
@@ -86,11 +93,10 @@ def patients(request):
                 new_patient.odontogram = odontogram
                 new_patient.code = 'P%04d' % (dentist.number_of_patients + 1)
                 new_patient.save()
-                return JsonResponse(
-                    {'status': 'OK',
-                     'url': reverse('person:profile_patient', kwargs={'id': new_patient.id})
-                    }
-                )
+                return JsonResponse({
+                    'status': 'OK',
+                    'url': reverse('person:profile_patient', kwargs={'id': new_patient.id})
+                })
             else:
                 return JsonResponse({'status': 'ERROR', 'errors': form.errors})
         else:
@@ -128,6 +134,14 @@ def clinical_history(request, id):
         dentist=dentist
     )
     if request.method == 'GET':
+        records = patient.get_records()
+
+        # filters
+        code = request.GET.get('code', None)
+        if code:
+            records = records.filter(code__icontains=code)
+
+        # form create
         rform = RecordForm()
         return render_to_response(
             'person/clinical_history.html',
@@ -135,6 +149,7 @@ def clinical_history(request, id):
                 'dentist': dentist,
                 'patient': patient,
                 'rform': rform,
+                'records': records,
             },
             RequestContext(request)
         )
