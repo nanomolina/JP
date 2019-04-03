@@ -1,13 +1,18 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.http import JsonResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.template import RequestContext
-from person.models import Patient, Dentist, Sector, Tooth
-from person.forms import PatientForm, OdontogramForm
-from register.models import Apross, DetailApross, Benefit, DetailBenefit, Radiography, Record
-from register.forms import AprossForm, detailAprossForm, BenefitForm, detailBenefitForm, RadiographyForm, RecordForm, AccountingForm
 from datetime import date as Date
+
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.template import RequestContext
+
+from person.forms import OdontogramForm, PatientForm
+from person.models import Dentist, Patient, Sector, Tooth
+from register.forms import (AccountingForm, AprossForm, BenefitForm,
+                            RadiographyForm, RecordForm, detailAprossForm,
+                            detailBenefitForm)
+from register.models import (Apross, Benefit, DetailApross, DetailBenefit,
+                             Radiography, Record)
 
 
 @login_required

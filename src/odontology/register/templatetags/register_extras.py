@@ -1,8 +1,12 @@
-from django.shortcuts import get_object_or_404
 from django import template
+from django.shortcuts import get_object_or_404
+
 from person.models import Patient
-from register.models import Apross, Benefit, DetailApross, DetailBenefit, Radiography, Record
-from register.forms import detailAprossForm, detailBenefitForm, RadiographyForm, AccountingForm
+from register.forms import (AccountingForm, RadiographyForm, detailAprossForm,
+                            detailBenefitForm)
+from register.models import (Apross, Benefit, DetailApross, DetailBenefit,
+                             Radiography, Record)
+
 register = template.Library()
 
 @register.filter(name='detail_form_instance')

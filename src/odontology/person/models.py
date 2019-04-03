@@ -3,10 +3,10 @@
 
 from __future__ import unicode_literals
 
-from django.db import models
 from django.contrib.auth.models import User
-from core.models import Day
+from django.db import models
 
+from core.models import Day
 
 MONTHS = (
     ('enero', 1), ('febrero', 2), ('marzo', 3), ('abril', 4), ('mayo', 5),

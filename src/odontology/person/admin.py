@@ -1,5 +1,7 @@
 from django.contrib import admin
-from person.models import Dentist, Patient, SocialWork, Odontogram, Tooth
+
+from person.models import Dentist, Odontogram, Patient, SocialWork, Tooth
+
 
 class DentistAdmin(admin.ModelAdmin):
     fields = ('user', 'circle', 'register_number', 'carrying_home')

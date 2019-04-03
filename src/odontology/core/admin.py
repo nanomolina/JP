@@ -1,5 +1,7 @@
 from django.contrib import admin
-from core.models import Bill, Day, AnualFees, Chapter, Tariff, Message
+
+from core.models import AnualFees, Bill, Chapter, Day, Message, Tariff
+
 
 class DayAdmin(admin.ModelAdmin):
     pass

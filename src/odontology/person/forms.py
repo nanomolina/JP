@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from person.models import Patient, Dentist, Odontogram, SocialWork
+
 from core.models import Day
+from person.models import Dentist, Odontogram, Patient, SocialWork
 
 
 class PatientForm(forms.ModelForm):

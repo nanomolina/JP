@@ -1,7 +1,9 @@
 from django import forms
-from register.models import (Apross, DetailApross,
-    Faces, Benefit, DetailBenefit, Radiography, Record)
+
 from core.models import Tariff
+from register.models import (Apross, Benefit, DetailApross, DetailBenefit,
+                             Faces, Radiography, Record)
+
 
 class AprossForm(forms.ModelForm):
     class Meta:

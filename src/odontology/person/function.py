@@ -1,5 +1,6 @@
 from person.models import POS_X, POS_Y
 
+
 def get_position(number):
     number = str(number)
     first = number[0]

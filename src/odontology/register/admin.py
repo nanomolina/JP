@@ -1,6 +1,8 @@
 from django.contrib import admin
-from register.models import (Apross, DetailApross, Faces, Benefit,
-    DetailBenefit, Radiography, Record, CurrentAccount)
+
+from register.models import (Apross, Benefit, CurrentAccount, DetailApross,
+                             DetailBenefit, Faces, Radiography, Record)
+
 
 # ==== ACTIONS ====
 def apross_create_radiography(modeladmin, request, queryset):
