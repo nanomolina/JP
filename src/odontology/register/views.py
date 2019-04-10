@@ -341,10 +341,14 @@ def new_record(request, patient_id):
             form.save_m2m()
             if record.to_social_work:
                 record.create_social_work()
-            return TemplateResponse(
+            template = TemplateResponse(
                 request, 'register/clinic_record/list.html',
-                {'patient': patient}
+                {
+                    'patient': patient,
+                    'records': patient.record_set.all(),
+                }
             )
+            return template
         else:
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
 
@@ -363,12 +367,18 @@ def edit_record(request, record_id):
         form = RecordForm(request.POST, instance=record)
         if form.is_valid():
             form.save()
-            return TemplateResponse(
+            patient = record.patient
+            template = TemplateResponse(
                 request, 'register/clinic_record/list.html',
-                {'patient': record.patient}
+                {
+                    'patient': patient,
+                    'records': patient.record_set.all(),
+                }
             )
+            return template
         else:
             return JsonResponse({'status': 'ERROR', 'errors': form.errors})
+
 
 @login_required
 def remove_record(request, record_id):
