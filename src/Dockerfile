@@ -3,7 +3,7 @@ MAINTAINER Pdental ltda
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apk add build-base python-dev py-pip jpeg-dev zlib-dev
+RUN apk add build-base python-dev py-pip jpeg-dev zlib-dev postgresql-dev musl-dev bash
 
 COPY ./odontology/requirements.txt ./docker_app/requirements.txt
 RUN pip install --upgrade pip

@@ -13,7 +13,7 @@ pexpect==4.0.1
 pickleshare==0.6
 Pillow==3.3.0
 pisa==3.0.33
-# psycopg2==2.6.1
+psycopg2
 ptyprocess==0.5.1
 python-openid==2.2.5
 requests==2.10.0

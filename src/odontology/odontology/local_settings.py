@@ -21,8 +21,11 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -37,13 +40,11 @@ REST_FRAMEWORK = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_F')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
 STATICFILES_DIRS = [
-    "static",
+    os.path.join(BASE_DIR, "static"),
 ]
 
 EMAIL_USE_TLS = True
