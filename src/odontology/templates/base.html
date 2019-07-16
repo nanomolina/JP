@@ -29,7 +29,7 @@
   <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-  <p style="width:63px;display:block;text-align:center;" id="dw-thawteseal"><script type="text/javascript" src="https://donweb.com/js/trustedSeal/?commonName=pdental.com.ar"></script></p>
+  <script type="text/javascript"> var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/"); document.write(unescape("<script src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript' %3E%3C/script%3E")); </script>
 </head>
 
 <body>
@@ -133,6 +133,8 @@
     </div>
   </footer>
   {% endif %}
+
+  <script language="JavaScript" type="text/javascript">  TrustLogo("https://micuenta.donweb.com/img/sectigo_positive_sm.png", "CL1", "none"); </script> <a href="https://donweb.com/es-ar/certificados-ssl" id="comodoTL" title="Certificados SSL Argentina">Certificados SSL Argentina</a>
 
   <script type="text/javascript" src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/base.js'%}"></script>
